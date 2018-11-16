@@ -133,3 +133,4 @@ gradlew
 gradlew.bat
 gradle
 # End of https://www.gitignore.io/api/java,gradle,intellij
+**/Main.java
