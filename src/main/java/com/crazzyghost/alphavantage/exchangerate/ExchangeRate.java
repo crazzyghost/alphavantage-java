@@ -22,7 +22,7 @@ public class ExchangeRate implements Fetcher {
     private Config config;
     private ExchangeRateRequest request;
     private ExchangeRateRequest.Builder builder;
-    private Fetcher.SuccessCallback successCallback;
+    private Fetcher.SuccessCallback<ExchangeRateResponse> successCallback;
     private Fetcher.FailureCallback failureCallback;
 
     public ExchangeRate(Config config){
@@ -45,7 +45,7 @@ public class ExchangeRate implements Fetcher {
      * @param callback successful fetch handler
      * @return current instance of {@link ExchangeRateResponse}
      */
-    public ExchangeRate onSuccess(SuccessCallback callback){
+    public ExchangeRate onSuccess(SuccessCallback<ExchangeRateResponse> callback){
         this.successCallback = callback;
         return this;
     }

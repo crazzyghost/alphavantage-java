@@ -28,7 +28,7 @@ public class TimeSeries{
     private TimeSeriesRequest request;
     private TimeSeriesRequest.Builder builder;
     private boolean adjusted = false;
-    private Fetcher.SuccessCallback successCallback;
+    private Fetcher.SuccessCallback<TimeSeriesResponse> successCallback;
     private Fetcher.FailureCallback failureCallback;
 
     public TimeSeries(Config config){
@@ -145,7 +145,7 @@ public class TimeSeries{
         }
 
 
-        public T onSuccess(SuccessCallback callback) {
+        public T onSuccess(SuccessCallback<TimeSeriesResponse> callback) {
             TimeSeries.this.successCallback = callback;
             return (T)this;
         }

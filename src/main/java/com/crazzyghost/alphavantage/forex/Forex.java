@@ -29,7 +29,7 @@ public class Forex{
     private Config config;
     private ForexRequest request;
     private ForexRequest.Builder builder;
-    private Fetcher.SuccessCallback successCallback;
+    private Fetcher.SuccessCallback<ForexResponse> successCallback;
     private Fetcher.FailureCallback failureCallback;
 
 
@@ -100,7 +100,7 @@ public class Forex{
                     if(forexResponse.getErrorMessage() != null) {
                         if(failureCallback != null)
                             failureCallback.onFailure(new AlphaVantageException(forexResponse.getErrorMessage()));
-                        System.err.println("Error Fetching Response.");
+                        System.err.println(forexResponse.getErrorMessage());
                         return;
                     }
                     if(successCallback != null){
@@ -143,7 +143,7 @@ public class Forex{
         }
 
 
-        public T onSuccess(SuccessCallback callback) {
+        public T onSuccess(SuccessCallback<ForexResponse> callback) {
             Forex.this.successCallback = callback;
             return (T)this;
         }

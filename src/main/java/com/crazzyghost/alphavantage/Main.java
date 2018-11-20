@@ -1,8 +1,13 @@
 package com.crazzyghost.alphavantage;
 
 
+import com.crazzyghost.alphavantage.exchangerate.ExchangeRateResponse;
+import com.crazzyghost.alphavantage.forex.response.ForexResponse;
+import com.crazzyghost.alphavantage.forex.response.ForexUnit;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Interval;
+
+import java.util.List;
 
 public class Main {
 
@@ -19,16 +24,34 @@ public class Main {
         AlphaVantage.init(config);
 
 
+//        AlphaVantage.api()
+//                .timeSeries()
+//                .intraday()
+//                .onFailure(System.out::println)
+//                .interval(Interval.ONE_MIN)
+//                .onSuccess(System.out::println)
+//                .forSymbol("MSFT")
+//                .fetch();
+
+//        AlphaVantage.api()
+//                .forex()
+//                .daily()
+//                .fromSymbol("USD")
+//                .toSymbol("GHS")
+//                .onSuccess(response -> handleSucess(response.getForexUnits()))
+//                .fetch();
         AlphaVantage.api()
-                .timeSeries()
-                .monthly()
-                .onFailure(System.out::println)
-                .adjusted()
-                .onSuccess(System.out::println)
-                .forSymbol("AAPL")
+                .exchangeRate()
+                .fromCurrency("USD")
+                .toCurrency("GHS")
+                .onSuccess(response -> handleSucess(response))
                 .fetch();
+
 
     }
 
+    static void handleSucess(ExchangeRateResponse e){
+        System.out.println(e);
+    }
 
 }
