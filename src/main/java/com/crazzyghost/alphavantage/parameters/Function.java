@@ -10,12 +10,17 @@ public enum Function {
     TIME_SERIES_WEEKLY_ADJUSTED,
     TIME_SERIES_MONTHLY,
     TIME_SERIES_MONTHLY_ADJUSTED,
-    //Forex (FX) Functions
+    //Exchange Rate
     CURRENCY_EXCHANGE_RATE,
+    //Forex (FX) Functions
     FX_INTRADAY,
     FX_DAILY,
     FX_WEEKLY,
     FX_MONTHLY,
+    //Digital Currency Functions
+    DIGITAL_CURRENCY_DAILY,
+    DIGITAL_CURRENCY_WEEKLY,
+    DIGITAL_CURRENCY_MONTHLY,
 
 
 }

@@ -1,5 +1,6 @@
 package com.crazzyghost.alphavantage;
 
+import com.crazzyghost.alphavantage.cryptocurrency.Crypto;
 import com.crazzyghost.alphavantage.exchangerate.ExchangeRate;
 import com.crazzyghost.alphavantage.forex.Forex;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
@@ -11,6 +12,7 @@ public class AlphaVantage {
     private TimeSeries timeSeries;
     private Forex forex;
     private ExchangeRate exchangeRate;
+    private Crypto crypto;
 
     private AlphaVantage(Config config){
          this.config = config;
@@ -47,5 +49,14 @@ public class AlphaVantage {
             exchangeRate = new ExchangeRate(config);
         }
         return exchangeRate;
+    }
+
+
+    public Crypto crypto(){
+        if(crypto == null){
+            crypto = new Crypto(config);
+        }
+
+        return crypto;
     }
 }
