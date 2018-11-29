@@ -31,7 +31,7 @@ public class ForexUnit {
         }
 
         public Builder high(double high){
-            this.high = open;
+            this.high = high;
             return this;
         }
         public Builder low(double low){
@@ -40,7 +40,7 @@ public class ForexUnit {
         }
 
         public Builder close(double close){
-            this.close = low;
+            this.close = close;
             return this;
         }
 
