@@ -1,12 +1,8 @@
 package com.crazzyghost.alphavantage.timeseries.response;
 
-import com.crazzyghost.alphavantage.AlphaVantageException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +44,6 @@ public class TimeSeriesResponse {
 
     public static class Parser {
 
-        private final DateTimeFormatter DATE_WITH_FULL_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         private boolean adjusted;
 
@@ -74,7 +69,6 @@ public class TimeSeriesResponse {
 
             MetaData metaData;
             if(md.get("4. Interval") == null){
-
                 metaData = new MetaData(
                         md.get("1. Information"),
                         md.get("2. Symbol"),
@@ -100,18 +94,11 @@ public class TimeSeriesResponse {
             for (Map.Entry<String, Map<String, String>> e : stockData.entrySet()) {
 
 
-                String date = e.getKey();
-                if(date.length() == 10){
-                    date = date + " 00:00:00";
-                }else if(date.length() == 16){
-                    date = date + ":00";
-                }
-                LocalDateTime d =  LocalDateTime.parse(date, DATE_WITH_FULL_TIME_FORMAT);
 
 
                 Map<String, String> m = e.getValue();
                 StockUnit.Builder stockUnit = StockUnit.builder();
-                stockUnit.time(d);
+                stockUnit.time(e.getKey());
                 stockUnit.open(Double.parseDouble(m.get("1. open")));
                 stockUnit.high(Double.parseDouble(m.get("2. high")));
                 stockUnit.low(Double.parseDouble(m.get("3. low")));

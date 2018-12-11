@@ -28,10 +28,15 @@ public class Crypto implements Fetcher {
     private CryptoRequest.Builder builder;
     private Fetcher.SuccessCallback<CryptoResponse> successCallback;
     private Fetcher.FailureCallback failureCallback;
+    private OkHttpClient client;
 
     public Crypto(Config config){
         this.config = config;
         this.request = null;
+        client = new OkHttpClient.Builder()
+                .connectTimeout(config.getTimeOut(), TimeUnit.SECONDS)
+                .build();
+
     }
 
     public DailyRequestHelper daily(){

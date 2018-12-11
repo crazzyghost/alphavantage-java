@@ -12,7 +12,7 @@ public class StockUnit {
     private long volume;
     private double dividendAmount;
     private double splitCoefficient;
-    private LocalDateTime dateTime;
+    private String dateTime;
 
 
     private StockUnit(Builder builder) {
@@ -41,7 +41,7 @@ public class StockUnit {
         long volume;
         double dividendAmount;
         double splitCoefficient;
-        LocalDateTime dateTime;
+        String dateTime;
 
         public Builder open(double open){
             this.open = open;
@@ -81,7 +81,7 @@ public class StockUnit {
             return this;
         }
 
-        public Builder time(LocalDateTime dateTime){
+        public Builder time(String dateTime){
             this.dateTime = dateTime;
             return this;
         }

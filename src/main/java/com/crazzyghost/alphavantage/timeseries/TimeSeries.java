@@ -30,10 +30,15 @@ public class TimeSeries{
     private boolean adjusted = false;
     private Fetcher.SuccessCallback<TimeSeriesResponse> successCallback;
     private Fetcher.FailureCallback failureCallback;
+    private OkHttpClient client;
 
     public TimeSeries(Config config){
         this.config = config;
         request = null;
+        client = new OkHttpClient.Builder()
+                .connectTimeout(config.getTimeOut(), TimeUnit.SECONDS)
+                .build();
+
     }
 
 
@@ -66,10 +71,6 @@ public class TimeSeries{
         }
         //build the api request parameters object finally
         this.request = this.builder.build();
-        //okhttp
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(config.getTimeOut(), TimeUnit.SECONDS)
-                .build();
 
         Request request = new Request.Builder()
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())

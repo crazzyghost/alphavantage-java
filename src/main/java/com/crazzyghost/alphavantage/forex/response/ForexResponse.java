@@ -86,8 +86,11 @@ public class ForexResponse {
 
             List<ForexUnit> forexUnits =  new ArrayList<>();
 
-            for (Map<String,String> m: stockData.values()) {
+            for (Map.Entry<String,Map<String,String>> e: stockData.entrySet()) {
+
                 ForexUnit.Builder stockUnit = ForexUnit.builder();
+                Map<String, String> m = e.getValue();
+                stockUnit.date(e.getKey());
                 stockUnit.open(Double.parseDouble(m.get("1. open")));
                 stockUnit.high(Double.parseDouble(m.get("2. high")));
                 stockUnit.low(Double.parseDouble(m.get("3. low")));
