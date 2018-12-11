@@ -1,5 +1,7 @@
 package com.crazzyghost.alphavantage.timeseries.response;
 
+import java.time.LocalDateTime;
+
 public class StockUnit {
 
     private double open;
@@ -10,6 +12,8 @@ public class StockUnit {
     private long volume;
     private double dividendAmount;
     private double splitCoefficient;
+    private LocalDateTime dateTime;
+
 
     private StockUnit(Builder builder) {
         this.open = builder.open;
@@ -20,6 +24,7 @@ public class StockUnit {
         this.volume = builder.volume;
         this.dividendAmount = builder.dividendAmount;
         this.splitCoefficient = builder.splitCoefficient;
+        this.dateTime = builder.dateTime;
     }
 
     public static Builder builder(){
@@ -36,6 +41,7 @@ public class StockUnit {
         long volume;
         double dividendAmount;
         double splitCoefficient;
+        LocalDateTime dateTime;
 
         public Builder open(double open){
             this.open = open;
@@ -72,6 +78,11 @@ public class StockUnit {
 
         public Builder splitCoefficient(double splitCoefficient){
             this.splitCoefficient = splitCoefficient;
+            return this;
+        }
+
+        public Builder time(LocalDateTime dateTime){
+            this.dateTime = dateTime;
             return this;
         }
 
@@ -115,7 +126,7 @@ public class StockUnit {
 
     @Override
     public String toString() {
-        return "StockUnit{" +
+        return "\n" + "StockUnit{" +
                 "open=" + open +
                 ", high=" + high +
                 ", low=" + low +
@@ -124,6 +135,7 @@ public class StockUnit {
                 ", volume=" + volume +
                 ", dividendAmount=" + dividendAmount +
                 ", splitCoefficient=" + splitCoefficient +
+                ", date=" + dateTime +
                 '}';
     }
 }

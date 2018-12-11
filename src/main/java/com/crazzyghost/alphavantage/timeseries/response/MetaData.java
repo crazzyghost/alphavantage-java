@@ -6,16 +6,27 @@ public class MetaData {
     private String symbol;
     private String lastRefreshed;
     private String timeZone;
+    private String interval;
+    private String outputSize;
 
-    public MetaData(String information, String symbol, String lastRefreshed, String timeZone) {
+    public MetaData(String information, String symbol, String lastRefreshed, String interval, String outputSize, String timeZone) {
         this.information = information;
         this.symbol = symbol;
         this.lastRefreshed = lastRefreshed;
+        this.interval = interval;
+        this.outputSize = outputSize;
+        this.timeZone = timeZone;
+    }
+    public MetaData(String information, String symbol, String lastRefreshed, String outputSize, String timeZone) {
+        this.information = information;
+        this.symbol = symbol;
+        this.lastRefreshed = lastRefreshed;
+        this.outputSize = outputSize;
         this.timeZone = timeZone;
     }
 
     public static MetaData empty(){
-        return new MetaData("","","","");
+        return new MetaData("","","","", "", "");
     }
     public String getInformation() {
         return information;
@@ -40,6 +51,8 @@ public class MetaData {
                 ", symbol='" + symbol + '\'' +
                 ", lastRefreshed='" + lastRefreshed + '\'' +
                 ", timeZone='" + timeZone + '\'' +
+                ", interval='" + interval + '\'' +
+                ", outputSize='" + outputSize + '\'' +
                 '}';
     }
 }

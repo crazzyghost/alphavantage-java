@@ -2,11 +2,16 @@ package com.crazzyghost.alphavantage.timeseries.response;
 
 import com.crazzyghost.alphavantage.AlphaVantageException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class TimeSeriesResponse {
+
 
     private MetaData metaData;
     private List<StockUnit> stockUnits;
@@ -43,6 +48,8 @@ public class TimeSeriesResponse {
 
     public static class Parser {
 
+        private final DateTimeFormatter DATE_WITH_FULL_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         private boolean adjusted;
 
         Parser(boolean adjusted){
@@ -65,32 +72,63 @@ public class TimeSeriesResponse {
                 return new TimeSeriesResponse((String)stringObjectMap.get(keys.get(0)));
             }
 
-            MetaData metaData = new MetaData(
-                    md.get("1. Information"),
-                    md.get("2. Symbol"),
-                    md.get("3. Last Refreshed"),
-                    md.get("4. Time Zone")
-            );
+            MetaData metaData;
+            if(md.get("4. Interval") == null){
+
+                metaData = new MetaData(
+                        md.get("1. Information"),
+                        md.get("2. Symbol"),
+                        md.get("3. Last Refreshed"),
+                        md.get("4. Output Size"),
+                        md.get("5. Time Zone")
+                );
+            }else{
+
+                metaData = new MetaData(
+                        md.get("1. Information"),
+                        md.get("2. Symbol"),
+                        md.get("3. Last Refreshed"),
+                        md.get("4. Interval"),
+                        md.get("5. Output Size"),
+                        md.get("6. Time Zone")
+                );
+            }
 
             List<StockUnit> stockUnits =  new ArrayList<>();
 
-            for (Map<String,String> m: stockData.values()) {
+
+            for (Map.Entry<String, Map<String, String>> e : stockData.entrySet()) {
+
+
+                String date = e.getKey();
+                if(date.length() == 10){
+                    date = date + " 00:00:00";
+                }else if(date.length() == 16){
+                    date = date + ":00";
+                }
+                LocalDateTime d =  LocalDateTime.parse(date, DATE_WITH_FULL_TIME_FORMAT);
+
+
+                Map<String, String> m = e.getValue();
                 StockUnit.Builder stockUnit = StockUnit.builder();
+                stockUnit.time(d);
                 stockUnit.open(Double.parseDouble(m.get("1. open")));
                 stockUnit.high(Double.parseDouble(m.get("2. high")));
                 stockUnit.low(Double.parseDouble(m.get("3. low")));
                 stockUnit.close(Double.parseDouble(m.get("4. close")));
-                if(!adjusted){
+                if (!adjusted) {
                     stockUnit.volume(Long.parseLong(m.get("5. volume")));
-                }else{
+                } else {
                     stockUnit.adjustedClose(Double.parseDouble(m.get("5. adjusted close")));
                     stockUnit.volume(Long.parseLong(m.get("6. volume")));
                     stockUnit.dividendAmount(Double.parseDouble(m.get("7. dividend amount")));
-                    if(m.get("8. split coefficient") != null)
+                    if (m.get("8. split coefficient") != null)
                         stockUnit.splitCoefficient(Double.parseDouble(m.get("8. split coefficient")));
                 }
                 stockUnits.add(stockUnit.build());
+
             }
+
             return  new TimeSeriesResponse(metaData, stockUnits);
         }
     }
@@ -100,7 +138,7 @@ public class TimeSeriesResponse {
     public String toString() {
         return "ForexResponse{" +
                 "metaData=" + metaData +
-                ", forexUnits=" + stockUnits.size() +
+                ", forexUnits=" + stockUnits +
                 ", errorMessage='" + errorMessage + '\'' +
                 '}';
     }
