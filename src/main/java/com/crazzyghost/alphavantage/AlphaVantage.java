@@ -14,17 +14,17 @@ public class AlphaVantage {
     private ExchangeRate exchangeRate;
     private Crypto crypto;
 
-    private AlphaVantage(Config config){
-         this.config = config;
+    private AlphaVantage(){
+
     }
 
-    public static void init(Config config){
-        INSTANCE = new AlphaVantage(config);
+    public void init(Config config){
+        this.config = config;
     }
 
     public static AlphaVantage api(){
         if(INSTANCE == null){
-            throw new AlphaVantageException("Call AlphaVantage.init");
+            INSTANCE = new AlphaVantage();
         }
         return INSTANCE;
     }
@@ -56,7 +56,6 @@ public class AlphaVantage {
         if(crypto == null){
             crypto = new Crypto(config);
         }
-
         return crypto;
     }
 }
