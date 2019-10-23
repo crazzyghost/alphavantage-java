@@ -1,6 +1,7 @@
 import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
+import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 import com.crazzyghost.alphavantage.timeseries.response.TimeSeriesResponse;
 import org.junit.AfterClass;
@@ -20,8 +21,10 @@ public class TestTimeSeries {
     @BeforeClass
     public static void setUp(){
 
+        final String API_KEY = System.getenv("ALPHAVANTAGE_API_KEY");
+
         Config config = Config.builder()
-                .key("M77PQNYAVBG0MB5N")
+                .key(API_KEY)
                 .timeOut(10)
                 .build();
 
@@ -149,7 +152,7 @@ public class TestTimeSeries {
         AlphaVantage.api()
                 .timeSeries()
                 .intraday()
-                .forSymbol("GOOGLRR")
+                .forSymbol("MSFT")
                 .onFailure(failureCallback)
                 .onSuccess(successCallback)
                 .fetch();
@@ -157,4 +160,30 @@ public class TestTimeSeries {
         lock.await(10, TimeUnit.SECONDS);
         assertNotNull(response.get());
     }
+
+    @Test
+    public void timeSeriesMonthly() throws InterruptedException {
+
+        AtomicReference<TimeSeriesResponse> response = new AtomicReference<>();
+
+        Fetcher.FailureCallback failureCallback = (e) -> lock.countDown();
+
+        Fetcher.SuccessCallback<TimeSeriesResponse> successCallback = (e) -> {
+            lock.countDown();
+            response.set(e);
+        };
+
+        AlphaVantage.api()
+                .timeSeries()
+                .monthly()
+                .dataType(DataType.JSON)
+                .forSymbol("MSFT")
+                .onFailure(failureCallback)
+                .onSuccess(successCallback)
+                .fetch();
+
+        lock.await(10, TimeUnit.SECONDS);
+        assertNotNull(response.get());
+    }
+
 }
