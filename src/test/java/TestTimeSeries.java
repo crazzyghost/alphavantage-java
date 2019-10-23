@@ -133,4 +133,28 @@ public class TestTimeSeries {
         lock.await(10, TimeUnit.SECONDS);
         assertNotNull(response.get());
     }
+
+    @Test
+    public void timeSeriesIntraday() throws InterruptedException {
+
+        AtomicReference<TimeSeriesResponse> response = new AtomicReference<>();
+
+        Fetcher.FailureCallback failureCallback = (e) -> lock.countDown();
+
+        Fetcher.SuccessCallback<TimeSeriesResponse> successCallback = (e) -> {
+            lock.countDown();
+            response.set(e);
+        };
+
+        AlphaVantage.api()
+                .timeSeries()
+                .intraday()
+                .forSymbol("GOOGLRR")
+                .onFailure(failureCallback)
+                .onSuccess(successCallback)
+                .fetch();
+
+        lock.await(10, TimeUnit.SECONDS);
+        assertNotNull(response.get());
+    }
 }
