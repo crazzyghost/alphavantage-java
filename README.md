@@ -83,4 +83,15 @@ AlphaVantage.api()
             .toCurrency("GHS")
             .onSuccess(response -> handleSucess(response))
             .fetch();
+
+//fetch exchange rate from US Dollar to Ghanaian Cedi
+AlphaVantage.api()
+            .crypto()
+            .daily()
+            .symbol("BTC")
+            .market("CNY")
+            .onSuccess(response -> handleSucess(response))
+            .fetch();
+
 ```
+---
