@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master.svg?style=svg)](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master)
 # alphavantage-java
 ## Fluent java wrapper for the [AlphaVantage API](https://www.alphavantage.co/)
 ---
