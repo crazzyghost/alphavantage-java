@@ -1,5 +1,5 @@
 # alphavantage-java
-## Fluent android/java wrapper for the [AlphaVantage API](https://www.alphavantage.co/)
+## Fluent java wrapper for the [AlphaVantage API](https://www.alphavantage.co/)
 ---
 
 To have access to the API, start by initializing  `AlphaVantage` singleton with a `Config` instance. Get an API Key from [here.](https://www.alphavantage.co/support/#api-key)
@@ -34,6 +34,12 @@ Access Exchange rates
 ```java
 AlphaVantage.api()
             .exchangeRates() 
+            ...
+```
+Access Crypto Currencies
+```java
+AlphaVantage.api()
+            .crypto()
             ...
 ```
 
