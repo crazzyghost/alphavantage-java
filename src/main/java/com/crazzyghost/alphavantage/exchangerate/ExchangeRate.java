@@ -1,21 +1,22 @@
 package com.crazzyghost.alphavantage.exchangerate;
 
-import com.crazzyghost.alphavantage.AlphaVantageException;
-import com.crazzyghost.alphavantage.Fetcher;
-import com.crazzyghost.alphavantage.Config;
-import com.crazzyghost.alphavantage.UrlExtractor;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import com.crazzyghost.alphavantage.AlphaVantageException;
+import com.crazzyghost.alphavantage.Config;
+import com.crazzyghost.alphavantage.Fetcher;
+import com.crazzyghost.alphavantage.UrlExtractor;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
+
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ExchangeRate implements Fetcher {
 
