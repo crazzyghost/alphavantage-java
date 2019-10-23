@@ -76,23 +76,23 @@ public class TimeSeries{
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
                 .build();
 
-        System.out.println(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey());
+        System.out.println(Config.BASE_URL + UrlExtractor.extract(this.request) + "***");
 
         //make the call
-        System.out.println("Fetching Response ...");
+//        System.out.println("Fetching Response ...");
         client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 //respond to callback on failure
-                System.out.println("Failed Fetching Response ... " + e.getClass().getCanonicalName());
+//                System.out.println("Failed Fetching Response ... " + e.getClass().getCanonicalName());
                 if(failureCallback != null){
-                    failureCallback.onFailure(new AlphaVantageException());
+                    failureCallback.onFailure(new AlphaVantageException(e.getMessage()));
                 }
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                System.out.println("Received Response.");
+
                 if(response.isSuccessful()){
 
                     Moshi moshi = new Moshi.Builder().build();
@@ -108,13 +108,11 @@ public class TimeSeries{
                     }
                     if(successCallback != null)
                         successCallback.onSuccess(stockResponse);
-                    System.out.println("Success Fetching Response!");
                 }else{
 
                     if(failureCallback != null){
                         failureCallback.onFailure(new AlphaVantageException());
                     }
-                    System.err.println("Error Fetching Response.");
                 }
             }
         });
