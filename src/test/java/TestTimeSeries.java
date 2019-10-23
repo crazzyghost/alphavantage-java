@@ -113,31 +113,6 @@ public class TestTimeSeries {
     }
 
     @Test
-    public void timeSeriesWeeklyAdjusted() throws InterruptedException {
-
-        AtomicReference<TimeSeriesResponse> response = new AtomicReference<>();
-
-        Fetcher.FailureCallback failureCallback = (e) -> lock.countDown();
-
-        Fetcher.SuccessCallback<TimeSeriesResponse> successCallback = (e) -> {
-            lock.countDown();
-            response.set(e);
-        };
-
-        AlphaVantage.api()
-                .timeSeries()
-                .weekly()
-                .adjusted()
-                .forSymbol("GOOGL")
-                .onFailure(failureCallback)
-                .onSuccess(successCallback)
-                .fetch();
-
-        lock.await(10, TimeUnit.SECONDS);
-        assertNotNull(response.get());
-    }
-
-    @Test
     public void timeSeriesIntraday() throws InterruptedException {
 
         AtomicReference<TimeSeriesResponse> response = new AtomicReference<>();
