@@ -78,15 +78,13 @@ public class ExchangeRate implements Fetcher {
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
                 .build();
 
-        System.out.println(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey());
+        System.out.println(Config.BASE_URL + UrlExtractor.extract(this.request) + "***");
 
         //make the call
-        System.out.println("Fetching Response ...");
         client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 //respond to callback on failure
-                System.out.println("Failed Fetching Response ... " + e.getClass().getCanonicalName());
                 if(failureCallback != null){
                     failureCallback.onFailure(new AlphaVantageException());
                 }
@@ -94,7 +92,6 @@ public class ExchangeRate implements Fetcher {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                System.out.println("Received Response.");
                 if(response.isSuccessful()){
 
                     Moshi moshi = new Moshi.Builder().build();
@@ -110,13 +107,11 @@ public class ExchangeRate implements Fetcher {
                     }
                     if(successCallback != null)
                         successCallback.onSuccess(exchangeResponse);
-                    System.out.println("Success Fetching Response!");
                 }else{
 
                     if(failureCallback != null){
                         failureCallback.onFailure(new AlphaVantageException());
                     }
-                    System.err.println("Error Fetching Response.");
                 }
             }
         });

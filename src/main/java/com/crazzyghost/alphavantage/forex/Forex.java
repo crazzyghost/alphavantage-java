@@ -75,13 +75,10 @@ public class Forex{
         System.out.println(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey());
 
         //make the call
-        System.out.println("Fetching Response ...");
         client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 //respond to callback on failure
-                System.out.println("Failed Fetching Response ... " + e.getClass().getCanonicalName());
-//
                 if(failureCallback != null){
                     failureCallback.onFailure(new AlphaVantageException());
                 }
@@ -89,7 +86,6 @@ public class Forex{
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                System.out.println("Received Response.");
                 if(response.isSuccessful()){
 
                     Moshi moshi = new Moshi.Builder().build();
@@ -100,19 +96,16 @@ public class Forex{
                     if(forexResponse.getErrorMessage() != null) {
                         if(failureCallback != null)
                             failureCallback.onFailure(new AlphaVantageException(forexResponse.getErrorMessage()));
-                        System.err.println(forexResponse.getErrorMessage());
                         return;
                     }
                     if(successCallback != null){
                         successCallback.onSuccess(forexResponse);
-                        System.out.println("Success Fetching Response!");
                     }
                 }else{
 
                     if(failureCallback != null){
                         failureCallback.onFailure(new AlphaVantageException());
                     }
-                    System.err.println("Error Fetching Response");
                 }
             }
         });
