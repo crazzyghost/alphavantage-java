@@ -84,7 +84,7 @@ AlphaVantage.api()
             .onSuccess(response -> handleSucess(response))
             .fetch();
 
-//fetch exchange rate from US Dollar to Ghanaian Cedi
+//fetch digital currency from US Dollar to Ghanaian Cedi
 AlphaVantage.api()
             .crypto()
             .daily()
