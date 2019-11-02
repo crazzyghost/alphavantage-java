@@ -1,52 +1,68 @@
-[![CircleCI](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master.svg?style=svg)](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master)
-# alphavantage-java
-## Fluent java wrapper for the [AlphaVantage API](https://www.alphavantage.co/)
----
+<!-- [![CircleCI](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master.svg?style=svg)](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master) -->
 
-To have access to the API, start by initializing  `AlphaVantage` singleton with a `Config` instance. Get an API Key from [here.](https://www.alphavantage.co/support/#api-key)
+I created this wrapper to make accessing the [AlphaVantage API](https://www.alphavantage.co/) with Java fairly simple and fun. The library currently supports Timeseries, Currency Exchange, Forex and Crypto Currency data. Support for Technical Indicators will be released soon. Make sure to get an [API key](https://www.alphavantage.co/support/#api-key) from Alphavantage's website befor continuing. 
+
+To use the library:
+1. `config`ure the wrapper
+2. Select a `category`
+3. Set the `parameters` for the selected category
+4. Add `response callbacks`
+5. `fetch` results
+
+## 1. `Config`ure the wrapper
+Access to the API is through the AlphaVantage Singleton which is accessed using the `static` `.api()` method call on the class. To begin accessing the API, initialize the singleton with a `Config` instance.
 
 ```java
-//create config instance with a timeout of 10s and an API Key
-Config config = Config.builder()
-                    .timeOut(10)
-                    .key("demo")
-                    .build();
-    
-AlphaVantage.api().init(config);
+Config cfg = Config.builder()
+                .key("#&ALPHA10100DEMOKEY")
+                .timeout(10)
+                .build();
 ```
+The config object is then used to initialize the instance. You will use this object to set your api key as well as set the timeout of the http requests.
 
-
-The authenticated wrapper can now be accessed by calling `Alphavantage.api()`
-
-Access TimeSeries Data
 ```java
+AlphaVantage.api().init(cfg);
+```
+That's it! We're good to go.
 
+## 2. Select a `category`
+The available API categories to select from are Stock Time Series, Forex, Crypto Currency, and Exchange rate data. Each of these map to a method call in the instantiated wrapper.
+
+| Category          | Method            | 
+| -------------     |:------------------| 
+| Stock Time Series | `.timeSeries()`   | 
+| Forex Rates       | `.forex()`        | 
+| Exchange Rates    | `.exchangeRate()` | 
+| Crypto Currencies | `.crypto()`       | 
+
+```java
+//select stock time series category
 AlphaVantage.api()
             .timeSeries() 
             ...
 ```
-Access Forex rates
+
+## 3. Set the `parameters` for the selected category
+
+To set the api request parameters, call the appopriate parameter method. For instance for the `function` parameter
+function you call `daily()` for the `TIMESERIES_DAILY` function, `intraday()` for the `TIMESERIES_INTRADAY` function and so on.
+
 ```java
+//set stock time series function to intraday
 AlphaVantage.api()
-            .forex() 
-            ...
-```
-Access Exchange rates 
-```java
-AlphaVantage.api()
-            .exchangeRates() 
-            ...
-```
-Access Crypto Currencies
-```java
-AlphaVantage.api()
-            .crypto()
+            .timeSeries()
+            .intraday()
             ...
 ```
 
-To handle responses add the `onSuccess()` or `onFailure()` callbacks.  
+## 4. Add `response callbacks`
+
+To handle responses add the `onSuccess()` or `onFailure()` callbacks.  Each category has its response. For instance the `TimeSeries` category has the `TimeSeriesResponse`.
 
 ```java
+public void handleResponse(TimeSeriesResponse response){/*do something with response*/ }
+public void handleError(AlphaVantageException error){/*handle error*/ }
+
 AlphaVantage.api()
             .timeSeries()
             ...
@@ -55,9 +71,12 @@ AlphaVantage.api()
             ...
 ```
 
-Examples
+## 5.  `fetch` results
+When you are okay with setting the parameters call the `fetch()` method. Simple
+
+## Examples
 ```java
-//fetch Stock Time Series (Intraday) for microsoft
+//fetch Intraday Stock Time Series for microsoft
 AlphaVantage.api()
             .timeSeries()
             .intraday()
@@ -95,4 +114,3 @@ AlphaVantage.api()
             .fetch();
 
 ```
----
