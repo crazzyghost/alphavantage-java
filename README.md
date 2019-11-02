@@ -35,6 +35,7 @@ The available API categories to select from are Stock Time Series, Forex, Crypto
 | Exchange Rates    | `.exchangeRate()` | 
 | Crypto Currencies | `.crypto()`       | 
 
+Eg.
 ```java
 //select stock time series category
 AlphaVantage.api()
@@ -114,3 +115,5 @@ AlphaVantage.api()
             .fetch();
 
 ```
+
+Happy coding!
