@@ -49,7 +49,7 @@ public class StockUnit {
         }
 
         public Builder high(double high){
-            this.high = open;
+            this.high = high;
             return this;
         }
         public Builder low(double low){
@@ -58,7 +58,7 @@ public class StockUnit {
         }
 
         public Builder close(double close){
-            this.close = low;
+            this.close = close;
             return this;
         }
         public Builder adjustedClose(double close){
