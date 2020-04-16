@@ -63,27 +63,27 @@ public class CryptoUnit {
             return this;
         }
 
-        public Builder openUSD(double open){
-            this.openUSD = open;
+        public Builder openUSD(double openUSD){
+            this.openUSD = openUSD;
             return this;
         }
 
-        public Builder highUSD(double high){
-            this.highUSD = high;
+        public Builder highUSD(double highUSD){
+            this.highUSD = highUSD;
             return this;
         }
-        public Builder lowUSD(double low){
-            this.lowUSD = low;
+        public Builder lowUSD(double lowUSD){
+            this.lowUSD = lowUSD;
             return this;
         }
 
-        public Builder closeUSD(double close){
-            this.closeUSD = close;
+        public Builder closeUSD(double closeUSD){
+            this.closeUSD = closeUSD;
             return this;
         }
 
         public Builder marketCap(double marketCap){
-            this.closeUSD = marketCap;
+            this.marketCap = marketCap;
             return this;
         }
 
@@ -91,8 +91,6 @@ public class CryptoUnit {
             this.volume = volume;
             return this;
         }
-
-
 
         public CryptoUnit build(){
             return new CryptoUnit(this);

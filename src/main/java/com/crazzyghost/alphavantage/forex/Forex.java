@@ -193,7 +193,6 @@ public class Forex{
         WeeklyRequestHelper(){
             super();
             this.builder = WeeklyRequest.builder();
-            System.out.println(this.builder);
         }
     }
 

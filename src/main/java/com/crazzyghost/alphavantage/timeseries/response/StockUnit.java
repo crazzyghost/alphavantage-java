@@ -1,6 +1,5 @@
 package com.crazzyghost.alphavantage.timeseries.response;
 
-import java.time.LocalDateTime;
 
 public class StockUnit {
 
