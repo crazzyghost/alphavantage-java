@@ -16,6 +16,18 @@ public class ExchangeRateRequest {
         this.to_currency = builder.toCurrency;
     }
 
+    public Function getFunction(){
+        return this.function;
+    }
+
+    public String getFromCurrency(){
+        return this.from_currency;
+    }
+
+    public String getToCurrency(){
+        return this.to_currency;
+    }
+
     public static Builder builder(){
         return  new Builder();
     }

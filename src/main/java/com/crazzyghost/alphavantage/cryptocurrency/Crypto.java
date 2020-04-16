@@ -6,7 +6,6 @@ import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.cryptocurrency.input.CryptoRequest;
 import com.crazzyghost.alphavantage.cryptocurrency.output.CryptoResponse;
-import com.crazzyghost.alphavantage.exchangerate.ExchangeRateResponse;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
