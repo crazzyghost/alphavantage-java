@@ -98,5 +98,61 @@ public class CryptoUnit {
 
     }
 
+    public double getOpen() {
+        return open;
+    }
 
+    public double getClose() {
+        return close;
+    }
+
+    public double getHigh() {
+        return high;
+    }
+
+    public double getLow() {
+        return low;
+    }
+
+    public double getOpenUSD() {
+        return openUSD;
+    }
+
+    public double getCloseUSD() {
+        return closeUSD;
+    }
+
+    public double getHighUSD() {
+        return highUSD;
+    }
+
+    public double getLowUSD() {
+        return lowUSD;
+    }
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public double getMarketCap() {
+        return marketCap;
+    }
+
+    @Override
+    public String toString() {
+        return "\n" + "CryptoUnit {" +
+            "close=" + close + 
+            ", closeUSD=" + closeUSD + 
+            ", high=" + high + 
+            ", highUSD=" + highUSD + 
+            ", low=" + low + 
+            ", lowUSD=" + lowUSD + 
+            ", marketCap=" + marketCap + 
+            ", open=" + open + 
+            ", openUSD=" + openUSD + 
+            ", volume=" + volume + 
+        "}";
+    }
+
+    
 }

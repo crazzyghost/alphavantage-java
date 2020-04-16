@@ -58,6 +58,8 @@ public class ForexUnit {
 
     }
 
+    
+
     @Override
     public String toString() {
         return "\n" + "ForexUnit{" +
@@ -68,4 +70,25 @@ public class ForexUnit {
                 ", date=" + date +
                 '}';
     }
+
+    public double getOpen() {
+        return open;
+    }
+
+    public double getHigh() {
+        return high;
+    }
+
+    public double getLow() {
+        return low;
+    }
+
+    public double getClose() {
+        return close;
+    }
+
+    public String getDate() {
+        return date;
+    }
+    
 }
