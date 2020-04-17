@@ -1,0 +1,27 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.0.1] - 17-04-2020
+### Added
+- CHANGELOG to keep track of releases
+### Fixed
+- Incorrect mapping of time series data ([ajt001])
+- Getters for Crypto and Forex Units
+### Changed
+- Rename crypto subpackages
+
+## [1.0.0] - 23-10-2019
+### Added
+- Support for Time Series Data
+- Support for Forex Data
+- Support for Crypto Currencies
+- Support for Exchange Rates 
+- Tests for Time Series
+- README 
+
+[1.0.1]: https://github.com/crazzyghost/alphavantage-java/compare/v1.0.0...v1.0.0
+[1.0.0]: https://github.com/crazzyghost/alphavantage-java/releases/tag/v1.0.0
+[ajt001]: https://github.com/ajt001
