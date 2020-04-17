@@ -22,6 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tests for Time Series
 - README 
 
-[1.0.1]: https://github.com/crazzyghost/alphavantage-java/compare/v1.0.0...v1.0.0
-[1.0.0]: https://github.com/crazzyghost/alphavantage-java/releases/tag/v1.0.0
+[1.0.1]: https://github.com/crazzyghost/alphavantage-java/releases/tag/v1.0.1
+[1.0.0]: https://github.com/crazzyghost/alphavantage-java/tree/9d1cbca8a48899398513494ae6717bec0fa93cfb
 [ajt001]: https://github.com/ajt001
