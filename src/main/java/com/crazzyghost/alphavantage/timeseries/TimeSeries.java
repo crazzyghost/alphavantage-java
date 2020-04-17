@@ -76,7 +76,7 @@ public class TimeSeries{
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
                 .build();
 
-        System.out.println(Config.BASE_URL + UrlExtractor.extract(this.request) + "***");
+    //    System.out.println(Config.BASE_URL + UrlExtractor.extract(this.request) + "***");
 
         //make the call
 //        System.out.println("Fetching Response ...");
