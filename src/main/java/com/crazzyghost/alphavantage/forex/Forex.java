@@ -22,7 +22,7 @@ import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class Forex{
+public class Forex implements Fetcher{
 
     
 
@@ -59,26 +59,22 @@ public class Forex{
     }
 
 
-    private void fetch(){
+    @Override
+    public void fetch(){
 
-        //make sure the key is set
         if(config.getKey() == null){
             throw new AlphaVantageException("Config not set");
         }
-        //build the api request parameters object finally
+
         this.request = this.builder.build();
-        //okhttp
+
         Request request = new Request.Builder()
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
                 .build();
 
-        System.out.println(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey());
-
-        //make the call
         client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //respond to callback on failure
                 if(failureCallback != null){
                     failureCallback.onFailure(new AlphaVantageException());
                 }

@@ -54,29 +54,20 @@ public class Crypto implements Fetcher {
     @Override
     public void fetch() {
 
-        //make sure the key is set
         if(config.getKey() == null){
             throw new AlphaVantageException("Config not set");
         }
-        //build the api request parameters object finally
+        
         this.request = this.builder.build();
         String market = request.getMarket();
-        //okhttp
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(config.getTimeOut(), TimeUnit.SECONDS)
-                .build();
 
         Request request = new Request.Builder()
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
                 .build();
 
-        System.out.println(Config.BASE_URL + UrlExtractor.extract(this.request) + "***");
-
-        //make the call
         client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //respond to callback on failure
                 if(failureCallback != null){
                     failureCallback.onFailure(new AlphaVantageException());
                 }
@@ -94,7 +85,6 @@ public class Crypto implements Fetcher {
                         if(failureCallback != null){
                             failureCallback.onFailure(new AlphaVantageException(cryptoResponse.getErrorMessage()));
                         }
-                        System.err.println(cryptoResponse.getErrorMessage());
                         return;
                     }
                     if(successCallback != null)
