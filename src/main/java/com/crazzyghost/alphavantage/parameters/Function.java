@@ -1,7 +1,6 @@
 package com.crazzyghost.alphavantage.parameters;
 
 public enum Function {
-
     //Stock Time Series Functions
     TIME_SERIES_INTRADAY,
     TIME_SERIES_DAILY,
@@ -75,7 +74,4 @@ public enum Function {
     HT_DCPERIOD,
     HT_DCPHASE,
     HT_PHASOR
-
-
-
 }
