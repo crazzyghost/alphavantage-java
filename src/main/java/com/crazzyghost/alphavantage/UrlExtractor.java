@@ -9,7 +9,7 @@ public class UrlExtractor{
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        Class cls = object.getClass();
+        Class<?> cls = object.getClass();
         while(cls != null){
             Field[] fields = cls.getDeclaredFields();
             for(Field field : fields){
