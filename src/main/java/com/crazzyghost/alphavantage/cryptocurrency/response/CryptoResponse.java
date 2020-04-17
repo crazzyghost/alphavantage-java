@@ -1,4 +1,4 @@
-package com.crazzyghost.alphavantage.cryptocurrency.output;
+package com.crazzyghost.alphavantage.cryptocurrency.response;
 
 import java.util.ArrayList;
 import java.util.List;

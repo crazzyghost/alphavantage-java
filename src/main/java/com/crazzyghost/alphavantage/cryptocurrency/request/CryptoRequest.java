@@ -1,4 +1,4 @@
-package com.crazzyghost.alphavantage.cryptocurrency.input;
+package com.crazzyghost.alphavantage.cryptocurrency.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
