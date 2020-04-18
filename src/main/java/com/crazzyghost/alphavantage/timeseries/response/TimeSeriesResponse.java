@@ -51,7 +51,6 @@ public class TimeSeriesResponse {
 
         TimeSeriesResponse parse(Map<String, Object> stringObjectMap) {
 
-            //get the keys
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 
             Map<String, String> md;
@@ -91,9 +90,6 @@ public class TimeSeriesResponse {
 
             for (Map.Entry<String, Map<String, String>> e : stockData.entrySet()) {
 
-
-
-
                 Map<String, String> m = e.getValue();
                 StockUnit.Builder stockUnit = StockUnit.builder();
                 stockUnit.time(e.getKey());
@@ -121,9 +117,9 @@ public class TimeSeriesResponse {
 
     @Override
     public String toString() {
-        return "ForexResponse{" +
+        return "TimeSeriesResponse{" +
                 "metaData=" + metaData +
-                ", forexUnits=" + stockUnits +
+                ", stockUnits=" + stockUnits +
                 ", errorMessage='" + errorMessage + '\'' +
                 '}';
     }

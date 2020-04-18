@@ -44,10 +44,8 @@ public class CryptoResponse {
 
     public static class Parser {
 
-
         CryptoResponse parse(Map<String, Object> stringObjectMap, String market) {
 
-            //get the keys
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 
             Map<String, String> md;
@@ -76,19 +74,19 @@ public class CryptoResponse {
 
             for (Map<String,String> m: stockData.values()) {
 
-                CryptoUnit.Builder unit = CryptoUnit.builder();
-                unit.open(Double.parseDouble(m.get("1a. open (" + market + ")" )));
-                unit.high(Double.parseDouble(m.get("2a. high (" + market + ")" )));
-                unit.low(Double.parseDouble(m.get("3a. low (" + market + ")" )));
-                unit.close(Double.parseDouble(m.get("4a. close (" + market + ")")));
-                unit.openUSD(Double.parseDouble(m.get("1b. open (USD)")));
-                unit.highUSD(Double.parseDouble(m.get("2b. high (USD)")));
-                unit.lowUSD(Double.parseDouble(m.get("3b. low (USD)")));
-                unit.closeUSD(Double.parseDouble(m.get("4b. close (USD)")));
-                unit.volume(Double.parseDouble(m.get("5. volume")));
-                unit.marketCap(Double.parseDouble(m.get("6. market cap (" + market + ")")));
+                CryptoUnit.Builder cryptoUnit = CryptoUnit.builder();
+                cryptoUnit.open(Double.parseDouble(m.get("1a. open (" + market + ")" )));
+                cryptoUnit.high(Double.parseDouble(m.get("2a. high (" + market + ")" )));
+                cryptoUnit.low(Double.parseDouble(m.get("3a. low (" + market + ")" )));
+                cryptoUnit.close(Double.parseDouble(m.get("4a. close (" + market + ")")));
+                cryptoUnit.openUSD(Double.parseDouble(m.get("1b. open (USD)")));
+                cryptoUnit.highUSD(Double.parseDouble(m.get("2b. high (USD)")));
+                cryptoUnit.lowUSD(Double.parseDouble(m.get("3b. low (USD)")));
+                cryptoUnit.closeUSD(Double.parseDouble(m.get("4b. close (USD)")));
+                cryptoUnit.volume(Double.parseDouble(m.get("5. volume")));
+                cryptoUnit.marketCap(Double.parseDouble(m.get("6. market cap (" + market + ")")));
 
-                cryptoUnits.add(unit.build());
+                cryptoUnits.add(cryptoUnit.build());
             }
             return  new CryptoResponse(metaData, cryptoUnits);
         }

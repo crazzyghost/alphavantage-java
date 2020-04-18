@@ -54,10 +54,8 @@ public class ForexResponse {
 
     public static class Parser {
 
-
         ForexResponse parse(Map<String, Object> stringObjectMap) {
 
-            //get the keys
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 
             Map<String, String> md;
@@ -86,14 +84,14 @@ public class ForexResponse {
 
             for (Map.Entry<String,Map<String,String>> e: stockData.entrySet()) {
 
-                ForexUnit.Builder stockUnit = ForexUnit.builder();
+                ForexUnit.Builder forexUnit = ForexUnit.builder();
                 Map<String, String> m = e.getValue();
-                stockUnit.date(e.getKey());
-                stockUnit.open(Double.parseDouble(m.get("1. open")));
-                stockUnit.high(Double.parseDouble(m.get("2. high")));
-                stockUnit.low(Double.parseDouble(m.get("3. low")));
-                stockUnit.close(Double.parseDouble(m.get("4. close")));
-                forexUnits.add(stockUnit.build());
+                forexUnit.date(e.getKey());
+                forexUnit.open(Double.parseDouble(m.get("1. open")));
+                forexUnit.high(Double.parseDouble(m.get("2. high")));
+                forexUnit.low(Double.parseDouble(m.get("3. low")));
+                forexUnit.close(Double.parseDouble(m.get("4. close")));
+                forexUnits.add(forexUnit.build());
             }
             return  new ForexResponse(metaData, forexUnits);
         }
