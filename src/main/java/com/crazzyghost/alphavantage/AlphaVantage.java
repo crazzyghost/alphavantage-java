@@ -3,6 +3,7 @@ package com.crazzyghost.alphavantage;
 import com.crazzyghost.alphavantage.cryptocurrency.Crypto;
 import com.crazzyghost.alphavantage.exchangerate.ExchangeRate;
 import com.crazzyghost.alphavantage.forex.Forex;
+import com.crazzyghost.alphavantage.indicator.Indicator;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
 
 public class AlphaVantage {
@@ -13,6 +14,7 @@ public class AlphaVantage {
     private Forex forex;
     private ExchangeRate exchangeRate;
     private Crypto crypto;
+    private Indicator indicator;
 
     private AlphaVantage(){
 
@@ -57,5 +59,12 @@ public class AlphaVantage {
             crypto = new Crypto(config);
         }
         return crypto;
+    }
+
+    public Indicator indicator(){
+        if(indicator == null){
+            indicator = new Indicator(config);
+        }
+        return indicator;
     }
 }
