@@ -4,6 +4,7 @@ import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
 
+
 public abstract class IndicatorRequest {
 
     protected Function function;
@@ -11,14 +12,14 @@ public abstract class IndicatorRequest {
     protected Interval interval;
     protected DataType dataType;
 
-    protected IndicatorRequest(Builder builder){
+    protected IndicatorRequest(Builder<?> builder){
         this.function = builder.function;
         this.symbol = builder.symbol;
         this.interval = builder.interval;
         this.dataType = builder.dataType == null ? DataType.JSON : builder.dataType;
     }
 
-    public abstract static class Builder<T extends Builder>{
+    public abstract static class Builder<T extends Builder<?>>{
         
         public Function function;
         public String symbol;
