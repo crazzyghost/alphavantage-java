@@ -15,16 +15,11 @@ public class UrlExtractor{
             for(Field field : fields){
                 field.setAccessible(true);
                 try {
-
                     if (field.get(object) != null){
-                        stringBuilder.append(field.getName())
+                        stringBuilder.append(field.getName().toLowerCase())
                                 .append("=");
-                        if(field.getType().isEnum()){
-                            String value = (field.get(object)).toString();
-                            stringBuilder.append(value).append("&");
-                        }else{
-                            stringBuilder.append((String)field.get(object)).append("&");
-                        }
+                        String value = (field.get(object)).toString();
+                        stringBuilder.append(value).append("&");
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
