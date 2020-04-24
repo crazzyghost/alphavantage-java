@@ -29,16 +29,16 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 public class Indicator{
 
     private IndicatorRequest.Builder<?> builder;
-    private Fetcher.SuccessCallback successCallback;
+    private Fetcher.SuccessCallback<?> successCallback;
     private Fetcher.FailureCallback failureCallback;
-    private Config config;
-    private OkHttpClient client;
+    private final Config config;
+    private final OkHttpClient client;
     private IndicatorRequest request;
 
-    public Indicator(Config config) {
+    public Indicator(final Config config) {
         this.config = config;
         request = null;
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(Level.BASIC);
         client = new OkHttpClient.Builder()
                 .connectTimeout(config.getTimeOut(), TimeUnit.SECONDS)
@@ -55,54 +55,57 @@ public class Indicator{
 
         this.request = this.builder.build();
 
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
                 .build();
 
         client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(final Call call, final IOException e) {
                 if(failureCallback != null){
                     failureCallback.onFailure(new AlphaVantageException());
                 }
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(final Call call, final Response response) throws IOException {
                 if(!response.isSuccessful()){
                     if(failureCallback != null){
                         failureCallback.onFailure(new AlphaVantageException());
                     }
                 } else {
-                    Moshi moshi = new Moshi.Builder().build();
-                    Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
-                    JsonAdapter<Map<String,Object>> adapter = moshi.adapter(type);
+                    final Moshi moshi = new Moshi.Builder().build();
+                    final Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
+                    final JsonAdapter<Map<String,Object>> adapter = moshi.adapter(type);
                     parseIndicatorResponse(adapter.fromJson(response.body().string()));
                 }
             }
         });
     }
 
-    private void parseIndicatorResponse(Map<String, Object> data){
-        PeriodicSeriesResponse response;
-
+    private void parseIndicatorResponse(final Map<String, Object> data){
+        
         switch(builder.function){
             case SMA:
             case EMA:
-                response = PeriodicSeriesResponse.of(data, builder.function.name());
+            case WMA:
+            case DEMA:
+            case TEMA:
+            case TRIMA:
+            case KAMA:
+            case T3:
+                PeriodicSeriesResponse response = PeriodicSeriesResponse.of(data, builder.function.name());
                 if(response.getErrorMessage() != null) {
                 if(failureCallback != null)
                     failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
                 }
                 if(successCallback != null){
-                    successCallback.onSuccess(response);
+                    ((Fetcher.SuccessCallback<PeriodicSeriesResponse>)successCallback).onSuccess(response);
                 }
                 break;
             default:
                 break;        
         }
-        // ForexResponse forexResponse = ForexResponse.of();
-
         
     }
 
@@ -115,10 +118,33 @@ public class Indicator{
         return new PeriodicalSeriesRequestProxy(Function.EMA);
     }
 
+    public PeriodicalSeriesRequestProxy wma(){
+        return new PeriodicalSeriesRequestProxy(Function.WMA);
+    }
+
+    public PeriodicalSeriesRequestProxy dema(){
+        return new PeriodicalSeriesRequestProxy(Function.DEMA);
+    }
+
+    public PeriodicalSeriesRequestProxy tema(){
+        return new PeriodicalSeriesRequestProxy(Function.TEMA);
+    }
+
+    public PeriodicalSeriesRequestProxy trima(){
+        return new PeriodicalSeriesRequestProxy(Function.TRIMA);
+    }
+
+    public PeriodicalSeriesRequestProxy kama(){
+        return new PeriodicalSeriesRequestProxy(Function.KAMA);
+    }
+
+    public PeriodicalSeriesRequestProxy t3(){
+        return new PeriodicalSeriesRequestProxy(Function.T3);
+    }
+
     public SimpleIndicatorRequestProxy<?> vwap(){
         return new SimpleIndicatorRequestProxy<>(Function.VWAP);
     }
-    
 
     public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
         protected IndicatorRequest.Builder<?> builder;
@@ -127,32 +153,32 @@ public class Indicator{
 
         }
         
-        public SimpleIndicatorRequestProxy(Function function){
+        public SimpleIndicatorRequestProxy(final Function function){
             builder = new SimpleIndicatorRequest.Builder(); 
             builder = builder.function(function);   
         }
 
-        public T dataType(DataType dataType){
+        public T dataType(final DataType dataType){
             builder = builder.dataType(dataType);
             return (T)this;
         }
 
-        public T forSymbol(String symbol){
+        public T forSymbol(final String symbol){
             builder = builder.forSymbol(symbol);
             return (T)this;
         }
 
-        public T interval(Interval interval){
+        public T interval(final Interval interval){
             builder = builder.interval(interval);
             return (T)this;
         }
 
-        public T onSuccess(Fetcher.SuccessCallback<?> callback){
+        public T onSuccess(final Fetcher.SuccessCallback<?> callback){
             Indicator.this.successCallback =  callback;
             return (T)this;
         }
 
-        public T onFailure(Fetcher.FailureCallback callback){
+        public T onFailure(final Fetcher.FailureCallback callback){
             Indicator.this.failureCallback = callback;
             return (T)this;
         }
@@ -166,17 +192,17 @@ public class Indicator{
 
     public class PeriodicalSeriesRequestProxy extends SimpleIndicatorRequestProxy<PeriodicalSeriesRequestProxy>{
  
-        public PeriodicalSeriesRequestProxy(Function function){
+        public PeriodicalSeriesRequestProxy(final Function function){
             builder = new PeriodicSeriesRequest.Builder(); 
             builder = builder.function(function);   
         }
 
-        public PeriodicalSeriesRequestProxy timePeriod(int period){
+        public PeriodicalSeriesRequestProxy timePeriod(final int period){
             builder = ((PeriodicSeriesRequest.Builder)builder).timePeriod(period);
             return this;
         }
 
-        public PeriodicalSeriesRequestProxy seriesType(SeriesType series){
+        public PeriodicalSeriesRequestProxy seriesType(final SeriesType series){
             builder = ((PeriodicSeriesRequest.Builder)builder).seriesType(series);
             return this;
         }
