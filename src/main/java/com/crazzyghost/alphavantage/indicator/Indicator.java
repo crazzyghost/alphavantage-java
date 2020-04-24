@@ -10,6 +10,7 @@ import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.indicator.request.*;
+import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
@@ -94,13 +95,23 @@ public class Indicator{
             case TRIMA:
             case KAMA:
             case T3:
-                PeriodicSeriesResponse response = PeriodicSeriesResponse.of(data, builder.function.name());
-                if(response.getErrorMessage() != null) {
-                if(failureCallback != null)
-                    failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+                PeriodicSeriesResponse periodicSeriesResponse = PeriodicSeriesResponse.of(data, builder.function.name());
+                if(periodicSeriesResponse.getErrorMessage() != null) {
+                    if(failureCallback != null)
+                        failureCallback.onFailure(new AlphaVantageException(periodicSeriesResponse.getErrorMessage()));
                 }
                 if(successCallback != null){
-                    ((Fetcher.SuccessCallback<PeriodicSeriesResponse>)successCallback).onSuccess(response);
+                    ((Fetcher.SuccessCallback<PeriodicSeriesResponse>)successCallback).onSuccess(periodicSeriesResponse);
+                }
+                break;
+            case MAMA:
+                MAMAResponse mamaResponse = MAMAResponse.of(data, builder.function.name());
+                if(mamaResponse.getErrorMessage() != null) {
+                    if(failureCallback != null)
+                        failureCallback.onFailure(new AlphaVantageException(mamaResponse.getErrorMessage()));
+                }
+                if(successCallback != null){
+                    ((Fetcher.SuccessCallback<MAMAResponse>)successCallback).onSuccess(mamaResponse);
                 }
                 break;
             default:
@@ -136,6 +147,10 @@ public class Indicator{
 
     public PeriodicalSeriesRequestProxy kama(){
         return new PeriodicalSeriesRequestProxy(Function.KAMA);
+    }
+
+    public MAMARequestProxy mama(){
+        return new MAMARequestProxy();
     }
 
     public PeriodicalSeriesRequestProxy t3(){
@@ -206,6 +221,28 @@ public class Indicator{
             builder = ((PeriodicSeriesRequest.Builder)builder).seriesType(series);
             return this;
         }
+    }
 
+    public class MAMARequestProxy extends SimpleIndicatorRequestProxy<MAMARequestProxy>{
+ 
+        public MAMARequestProxy(){
+            builder = new MAMARequest.Builder(); 
+            builder = builder.function(Function.MAMA);   
+        }
+
+        public MAMARequestProxy fastlimit(final double fastLimit){
+            builder = ((MAMARequest.Builder)builder).fastLimit(fastLimit);
+            return this;
+        }
+
+        public MAMARequestProxy seriesType(final SeriesType series){
+            builder = ((MAMARequest.Builder)builder).seriesType(series);
+            return this;
+        }
+
+        public MAMARequestProxy slowlimit(final double slowLimit){
+            builder = ((MAMARequest.Builder)builder).slowLimit(slowLimit);
+            return this;
+        }
     }
 }
