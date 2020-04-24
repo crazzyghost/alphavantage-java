@@ -15,7 +15,7 @@ public abstract class IndicatorRequest {
     protected IndicatorRequest(Builder<?> builder){
         this.function = builder.function;
         this.symbol = builder.symbol;
-        this.interval = builder.interval;
+        this.interval = builder.interval == null ? Interval.DAILY: builder.interval;
         this.dataType = builder.dataType == null ? DataType.JSON : builder.dataType;
     }
 
