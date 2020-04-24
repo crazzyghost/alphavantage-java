@@ -1,11 +1,11 @@
 package com.crazzyghost.alphavantage.indicator.request;
 
 
-public class PeriodicalRequest extends IndicatorRequest{
+public class PeriodicRequest extends IndicatorRequest{
 
     private int time_period;
 
-    private PeriodicalRequest(Builder builder){
+    private PeriodicRequest(Builder builder){
         super(builder);
         this.time_period = builder.timePeriod;
     }
@@ -21,7 +21,7 @@ public class PeriodicalRequest extends IndicatorRequest{
 
         @Override
         public IndicatorRequest build() {
-            return new PeriodicalRequest(this);
+            return new PeriodicRequest(this);
         }
 
     }

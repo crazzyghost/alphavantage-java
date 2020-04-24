@@ -4,12 +4,12 @@ import com.crazzyghost.alphavantage.indicator.request.IndicatorRequest;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
 
-public class PeriodicalSeriesRequest extends IndicatorRequest{
+public class PeriodicSeriesRequest extends IndicatorRequest{
 
     private SeriesType series_type;
     private int time_period;
 
-    private PeriodicalSeriesRequest(Builder builder){
+    private PeriodicSeriesRequest(Builder builder){
         super(builder);
         this.time_period = builder.timePeriod;
         this.series_type = builder.seriesType;
@@ -32,7 +32,7 @@ public class PeriodicalSeriesRequest extends IndicatorRequest{
 
         @Override
         public IndicatorRequest build() {
-            return new PeriodicalSeriesRequest(this);
+            return new PeriodicSeriesRequest(this);
         }
 
     }
