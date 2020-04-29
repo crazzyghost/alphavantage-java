@@ -10,12 +10,14 @@ import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.indicator.request.*;
+import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
+import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -85,6 +87,7 @@ public class Indicator{
         });
     }
 
+    @SuppressWarnings("unchecked")
     private void parsePeriodicSeriesResponse(final Map<String, Object> data){
 
         PeriodicSeriesResponse periodicSeriesResponse = PeriodicSeriesResponse.of(data, builder.function.name());
@@ -98,6 +101,7 @@ public class Indicator{
 
     }
 
+    @SuppressWarnings("unchecked")
     private void parseMAMAResponse(final Map<String, Object> data) {
         MAMAResponse mamaResponse = MAMAResponse.of(data, builder.function.name());
         if(mamaResponse.getErrorMessage() != null) {
@@ -109,6 +113,7 @@ public class Indicator{
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void parseMACDResponse(final Map<String, Object> data) {
         MACDResponse macdResponse = MACDResponse.of(data, builder.function.name());
         if(macdResponse.getErrorMessage() != null) {
@@ -117,6 +122,18 @@ public class Indicator{
         }
         if(successCallback != null){
             ((Fetcher.SuccessCallback<MACDResponse>)successCallback).onSuccess(macdResponse);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void parseMACDEXTResponse(final Map<String, Object> data) {
+        MACDEXTResponse macdExtResponse = MACDEXTResponse.of(data, builder.function.name());
+        if(macdExtResponse.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(macdExtResponse.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<MACDEXTResponse>)successCallback).onSuccess(macdExtResponse);
         }
     }
 
@@ -138,6 +155,9 @@ public class Indicator{
                 break;
             case MACD:
                 parseMACDResponse(data);
+                break;
+            case MACDEXT:
+                parseMACDEXTResponse(data);
                 break;
             default:
                 break;        
@@ -188,6 +208,10 @@ public class Indicator{
 
     public MACDRequestProxy macd(){
         return new MACDRequestProxy();
+    }
+
+    public MACDEXTRequestProxy macdext(){
+        return new MACDEXTRequestProxy();
     }
 
     public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
@@ -299,6 +323,49 @@ public class Indicator{
 
         public MACDRequestProxy seriesType(final SeriesType series){
             builder = ((MACDRequest.Builder)builder).seriesType(series);
+            return this;
+        }
+    }
+
+    public class MACDEXTRequestProxy extends SimpleIndicatorRequestProxy<MACDEXTRequestProxy>{
+ 
+        public MACDEXTRequestProxy(){
+            builder = new MACDEXTRequest.Builder(); 
+            builder = builder.function(Function.MACDEXT);   
+        }
+
+        public MACDEXTRequestProxy fastPeriod(final int fastLimit){
+            builder = ((MACDEXTRequest.Builder)builder).fastPeriod(fastLimit);
+            return this;
+        }
+
+        public MACDEXTRequestProxy slowPeriod(final int slowPeriod){
+            builder = ((MACDEXTRequest.Builder)builder).slowPeriod(slowPeriod);
+            return this;
+        }
+
+        public MACDEXTRequestProxy signalPeriod(final int signalPeriod){
+            builder = ((MACDEXTRequest.Builder)builder).signalPeriod(signalPeriod);
+            return this;
+        }
+
+        public MACDEXTRequestProxy fastMaType(final MAType type){
+            builder = ((MACDEXTRequest.Builder)builder).fastMaType(type);
+            return this;
+        }
+
+        public MACDEXTRequestProxy slowMaType(final MAType type){
+            builder = ((MACDEXTRequest.Builder)builder).slowMaType(type);
+            return this;
+        }
+
+        public MACDEXTRequestProxy signalMaType(final MAType type){
+            builder = ((MACDEXTRequest.Builder)builder).signalMaType(type);
+            return this;
+        }
+
+        public MACDEXTRequestProxy seriesType(final SeriesType series){
+            builder = ((MACDEXTRequest.Builder)builder).seriesType(series);
             return this;
         }
     }

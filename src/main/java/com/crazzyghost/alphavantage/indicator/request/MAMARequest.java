@@ -10,8 +10,8 @@ public class MAMARequest extends IndicatorRequest {
 
     private MAMARequest(Builder builder) {
         super(builder);
-        this.fastLimit = builder.fastLimit == 0.0? 0.1 : builder.fastLimit;
-        this.slowLimit = builder.slowLimit == 0.0? 0.1 : builder.slowLimit;
+        this.fastLimit = builder.fastLimit == 0.0 ? 0.1 : builder.fastLimit;
+        this.slowLimit = builder.slowLimit == 0.0 ? 0.1 : builder.slowLimit;
         this.series_type = builder.seriesType;
     }
 
