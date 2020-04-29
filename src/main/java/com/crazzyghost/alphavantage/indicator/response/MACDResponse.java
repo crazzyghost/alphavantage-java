@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MAMAResponse {
+public class MACDResponse {
+
     private MetaData metaData;
-    private List<MAMAIndicatorUnit> indicatorUnits;
+    private List<MACDIndicatorUnit> indicatorUnits;
     private String errorMessage;
 
-    private MAMAResponse(List<MAMAIndicatorUnit> indicatorUnits, MetaData metaData){
+    private MACDResponse(List<MACDIndicatorUnit> indicatorUnits, MetaData metaData){
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private MAMAResponse(String errorMessage){
+    private MACDResponse(String errorMessage){
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -29,11 +30,11 @@ public class MAMAResponse {
         this.errorMessage = errorMessage;
     }
 
-    public List<MAMAIndicatorUnit> getIndicatorUnits() {
+    public List<MACDIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
 
-    public void setIndicatorUnits(List<MAMAIndicatorUnit> indicatorUnits) {
+    public void setIndicatorUnits(List<MACDIndicatorUnit> indicatorUnits) {
         this.indicatorUnits = indicatorUnits;
     }
 
@@ -42,14 +43,14 @@ public class MAMAResponse {
         return metaData;
     }
     
-    public static MAMAResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
+    public static MACDResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
         Parser parser = new Parser();
         return parser.parse(stringObjectMap, indicatorKey);
     }
 
     public static class Parser {
 
-        MAMAResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        MACDResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 
@@ -61,7 +62,7 @@ public class MAMAResponse {
                 indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
 
             }catch (ClassCastException e){
-                return new MAMAResponse((String)stringObjectMap.get(keys.get(0)));
+                return new MACDResponse((String)stringObjectMap.get(keys.get(0)));
             }
 
             
@@ -70,31 +71,33 @@ public class MAMAResponse {
                 String.valueOf(md.get("2: Indicator")),
                 String.valueOf(md.get("3: Last Refreshed")),
                 String.valueOf(md.get("4: Interval")),
-                Double.valueOf(String.valueOf(md.get("5.1: Fast Limit"))),
-                Double.valueOf(String.valueOf(md.get("5.2: Slow Limit"))),
+                Double.valueOf(String.valueOf(md.get("5.1: Fast Period"))),
+                Double.valueOf(String.valueOf(md.get("5.2: Slow Period"))),
+                Double.valueOf(String.valueOf(md.get("5.3: Slow Period"))),
                 String.valueOf(md.get("6: Series Type")),
                 String.valueOf(md.get("7: Time Zone"))            
             );
 
-            List<MAMAIndicatorUnit> indicatorUnits =  new ArrayList<>();
+            List<MACDIndicatorUnit> indicatorUnits =  new ArrayList<>();
 
             for (Map.Entry<String,Map<String,String>> e: indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();     
-                MAMAIndicatorUnit indicatorUnit = new MAMAIndicatorUnit(
+                MACDIndicatorUnit indicatorUnit = new MACDIndicatorUnit(
                     e.getKey(),
-                    Double.parseDouble(m.get("FAMA")),
-                    Double.parseDouble(m.get("MAMA"))
+                    Double.parseDouble(m.get("MACD_Hist")),
+                    Double.parseDouble(m.get("MACD_Signal")),
+                    Double.parseDouble(m.get("MACD"))
                 );
                 indicatorUnits.add(indicatorUnit);
             }
-            return new MAMAResponse(indicatorUnits, metaData);
+            return new MACDResponse(indicatorUnits, metaData);
         }
     }
 
 
     @Override
     public String toString() {
-        return "MAMAResponse{" +
+        return "MACDResponse{" +
                 "metaData=" + metaData +
                 ",indicatorUnits=" + indicatorUnits.size() +
                 ", errorMessage='" + errorMessage + '\'' +
@@ -107,8 +110,9 @@ public class MAMAResponse {
         private String indicator;
         private String lastRefreshed;
         private String interval;
-        private double fastLimit;
-        private double slowLimit;
+        private double fastPeriod;
+        private double slowPeriod;
+        private double signalPeriod;
         private String timeZone;
         private String seriesType;
         
@@ -117,23 +121,25 @@ public class MAMAResponse {
             String indicator, 
             String lastRefreshed, 
             String interval, 
-            double fastLimit,
-            double slowLimit, 
+            double fastPeriod,
+            double slowPeriod,
+            double signalPeriod, 
             String seriesType,
-            String timeZone
+            String timeZone 
         ) {
             this.symbol = symbol;
             this.indicator = indicator;
             this.lastRefreshed = lastRefreshed;
             this.interval = interval;
-            this.fastLimit = fastLimit;
-            this.slowLimit = slowLimit;
-            this.timeZone = timeZone;
+            this.fastPeriod = fastPeriod;
+            this.slowPeriod = slowPeriod;
+            this.signalPeriod = signalPeriod;
             this.seriesType = seriesType;
+            this.timeZone = timeZone;
         }
         
         public MetaData(){
-            this("", "", "", "", 0.1, 0.1, "", "");
+            this("", "", "", "", 12, 26, 9, "", "");
         }
 
         
@@ -161,23 +167,26 @@ public class MAMAResponse {
             return seriesType;
         }
 
-        public double getFastLimit() {
-            return fastLimit;
+        public double getFastPeriod() {
+            return fastPeriod;
         }
 
-        public double getSlowLimit() {
-            return slowLimit;
+        public double getSlowPeriod() {
+            return slowPeriod;
+        }
+
+        public double getSignalPeriod() {
+            return signalPeriod;
         }
 
         @Override
         public String toString() {
-            return "MetaData {fastLimit=" + fastLimit + ", indicator=" + indicator + ", interval=" + interval
-                    + ", lastRefreshed=" + lastRefreshed + ", seriesType=" + seriesType + ", slowLimit=" + slowLimit
+            return "MetaData {fastPeriod=" + fastPeriod + ", indicator=" + indicator + ", interval=" + interval
+                    + ", lastRefreshed=" + lastRefreshed + ", seriesType=" + seriesType + ", slowPeriod=" + slowPeriod
                     + ", symbol=" + symbol + ", timeZone=" + timeZone + "}";
         }
 
         
         
     }
-
 }

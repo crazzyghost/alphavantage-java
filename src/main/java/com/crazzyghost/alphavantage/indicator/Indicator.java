@@ -108,6 +108,17 @@ public class Indicator{
         }
     }
 
+    private void parseMACDResponse(final Map<String, Object> data) {
+        MACDResponse macdResponse = MACDResponse.of(data, builder.function.name());
+        if(macdResponse.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(macdResponse.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<MAMAResponse>)successCallback).onSuccess(macdResponse);
+        }
+    }
+
     private void parseIndicatorResponse(final Map<String, Object> data){
         
         switch(builder.function){
@@ -123,6 +134,9 @@ public class Indicator{
                 break;
             case MAMA:
                 parseMAMAResponse(data);
+                break;
+            case MACD:
+                parseMACDResponse(data);
                 break;
             default:
                 break;        
@@ -169,6 +183,10 @@ public class Indicator{
 
     public SimpleIndicatorRequestProxy<?> vwap(){
         return new SimpleIndicatorRequestProxy<>(Function.VWAP);
+    }
+
+    public MACDRequestProxy macd(){
+        return new MACDRequestProxy();
     }
 
     public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
@@ -240,7 +258,7 @@ public class Indicator{
             builder = builder.function(Function.MAMA);   
         }
 
-        public MAMARequestProxy fastlimit(final double fastLimit){
+        public MAMARequestProxy fastLimit(final double fastLimit){
             builder = ((MAMARequest.Builder)builder).fastLimit(fastLimit);
             return this;
         }
@@ -250,8 +268,36 @@ public class Indicator{
             return this;
         }
 
-        public MAMARequestProxy slowlimit(final double slowLimit){
+        public MAMARequestProxy slowLimit(final double slowLimit){
             builder = ((MAMARequest.Builder)builder).slowLimit(slowLimit);
+            return this;
+        }
+    }
+
+    public class MACDRequestProxy extends SimpleIndicatorRequestProxy<MACDRequestProxy>{
+ 
+        public MACDRequestProxy(){
+            builder = new MACDRequest.Builder(); 
+            builder = builder.function(Function.MACD);   
+        }
+
+        public MACDRequestProxy fastPeriod(final int fastLimit){
+            builder = ((MACDRequest.Builder)builder).fastPeriod(fastLimit);
+            return this;
+        }
+
+        public MACDRequestProxy slowPeriod(final int slowPeriod){
+            builder = ((MACDRequest.Builder)builder).slowPeriod(slowPeriod);
+            return this;
+        }
+
+        public MACDRequestProxy signalPeriod(final int signalPeriod){
+            builder = ((MACDRequest.Builder)builder).signalPeriod(signalPeriod);
+            return this;
+        }
+
+        public MACDRequestProxy seriesType(final SeriesType series){
+            builder = ((MACDRequest.Builder)builder).seriesType(series);
             return this;
         }
     }
