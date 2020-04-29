@@ -1,6 +1,6 @@
 [![CircleCI](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master.svg?style=shield)](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master)
 
-I created this wrapper to make accessing the [AlphaVantage API](https://www.alphavantage.co/) with Java fairly simple and fun. The library currently supports Timeseries, Currency Exchange, Forex and Crypto Currency data. Support for Technical Indicators will be released soon. Make sure to get an [API key](https://www.alphavantage.co/support/#api-key) from Alphavantage's website befor continuing. 
+I created this wrapper to make accessing the [AlphaVantage API](https://www.alphavantage.co/) with Java fairly simple and fun. The library currently supports Timeseries, Currency Exchange, Forex, Crypto Currency data and Technical Indicators. Make sure to get an [API key](https://www.alphavantage.co/support/#api-key) from Alphavantage's website befor continuing. 
 
 To use the library:
 1. `config`ure the wrapper
@@ -34,6 +34,7 @@ The available API categories to select from are Stock Time Series, Forex, Crypto
 | Forex Rates       | `.forex()`        | 
 | Exchange Rates    | `.exchangeRate()` | 
 | Crypto Currencies | `.crypto()`       | 
+| Technical Indicators | `.indicator()` |
 
 Eg.
 ```java
@@ -111,6 +112,17 @@ AlphaVantage.api()
             .daily()
             .symbol("BTC")
             .market("CNY")
+            .onSuccess(response -> handleSucess(response))
+            .fetch();
+
+//fetch Simple Moving Average Technical Indicator for IBM
+AlphaVantage.api()
+            .indicator()
+            .sma()
+            .forSymbol("IBM")
+            .interval(Interval.THIRTY_MIN)
+            .seriesType(SeriesType.HIGH)
+            .timePeriod(200)
             .onSuccess(response -> handleSucess(response))
             .fetch();
 

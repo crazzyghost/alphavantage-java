@@ -84,6 +84,30 @@ public class Indicator{
         });
     }
 
+    private void parsePeriodicSeriesResponse(final Map<String, Object> data){
+
+        PeriodicSeriesResponse periodicSeriesResponse = PeriodicSeriesResponse.of(data, builder.function.name());
+        if(periodicSeriesResponse.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(periodicSeriesResponse.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<PeriodicSeriesResponse>)successCallback).onSuccess(periodicSeriesResponse);
+        }
+
+    }
+
+    private void parseMAMAResponse(final Map<String, Object> data) {
+        MAMAResponse mamaResponse = MAMAResponse.of(data, builder.function.name());
+        if(mamaResponse.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(mamaResponse.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<MAMAResponse>)successCallback).onSuccess(mamaResponse);
+        }
+    }
+
     private void parseIndicatorResponse(final Map<String, Object> data){
         
         switch(builder.function){
@@ -95,24 +119,10 @@ public class Indicator{
             case TRIMA:
             case KAMA:
             case T3:
-                PeriodicSeriesResponse periodicSeriesResponse = PeriodicSeriesResponse.of(data, builder.function.name());
-                if(periodicSeriesResponse.getErrorMessage() != null) {
-                    if(failureCallback != null)
-                        failureCallback.onFailure(new AlphaVantageException(periodicSeriesResponse.getErrorMessage()));
-                }
-                if(successCallback != null){
-                    ((Fetcher.SuccessCallback<PeriodicSeriesResponse>)successCallback).onSuccess(periodicSeriesResponse);
-                }
+                parsePeriodicSeriesResponse(data);
                 break;
             case MAMA:
-                MAMAResponse mamaResponse = MAMAResponse.of(data, builder.function.name());
-                if(mamaResponse.getErrorMessage() != null) {
-                    if(failureCallback != null)
-                        failureCallback.onFailure(new AlphaVantageException(mamaResponse.getErrorMessage()));
-                }
-                if(successCallback != null){
-                    ((Fetcher.SuccessCallback<MAMAResponse>)successCallback).onSuccess(mamaResponse);
-                }
+                parseMAMAResponse(data);
                 break;
             default:
                 break;        
