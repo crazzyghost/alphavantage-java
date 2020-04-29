@@ -1,3 +1,5 @@
+package parameters;
+
 import static org.junit.Assert.assertEquals;
 
 import com.crazzyghost.alphavantage.parameters.MAType;

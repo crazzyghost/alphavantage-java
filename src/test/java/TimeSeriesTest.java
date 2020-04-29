@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 
-public class TestTimeSeries {
+public class TimeSeriesTest {
 
     private CountDownLatch lock = new CountDownLatch(1);
 

@@ -9,7 +9,7 @@ public enum Interval {
     THIRTY_MIN("30min"),
     SIXTY_MIN("60min"),
     DAILY("daily"),
-    WEEKY("weekly"),
+    WEEKLY("weekly"),
     MONTHLY("monthly");
 
     private String interval;
