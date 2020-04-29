@@ -43,14 +43,14 @@ public class MACDResponse {
         return metaData;
     }
     
-    public static MACDResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
+    public static MACDResponse of(Map<String, Object> stringObjectMap){
         Parser parser = new Parser();
-        return parser.parse(stringObjectMap, indicatorKey);
+        return parser.parse(stringObjectMap);
     }
 
     public static class Parser {
 
-        MACDResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        MACDResponse parse(Map<String, Object> stringObjectMap){
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 

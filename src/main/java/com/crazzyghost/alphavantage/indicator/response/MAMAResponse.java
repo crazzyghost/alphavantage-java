@@ -42,14 +42,14 @@ public class MAMAResponse {
         return metaData;
     }
     
-    public static MAMAResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
+    public static MAMAResponse of(Map<String, Object> stringObjectMap){
         Parser parser = new Parser();
-        return parser.parse(stringObjectMap, indicatorKey);
+        return parser.parse(stringObjectMap);
     }
 
     public static class Parser {
 
-        MAMAResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        MAMAResponse parse(Map<String, Object> stringObjectMap){
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 

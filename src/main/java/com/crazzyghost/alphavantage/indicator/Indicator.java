@@ -103,7 +103,7 @@ public class Indicator{
 
     @SuppressWarnings("unchecked")
     private void parseMAMAResponse(final Map<String, Object> data) {
-        MAMAResponse mamaResponse = MAMAResponse.of(data, builder.function.name());
+        MAMAResponse mamaResponse = MAMAResponse.of(data);
         if(mamaResponse.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(mamaResponse.getErrorMessage()));
@@ -115,7 +115,7 @@ public class Indicator{
 
     @SuppressWarnings("unchecked")
     private void parseMACDResponse(final Map<String, Object> data) {
-        MACDResponse macdResponse = MACDResponse.of(data, builder.function.name());
+        MACDResponse macdResponse = MACDResponse.of(data);
         if(macdResponse.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(macdResponse.getErrorMessage()));
@@ -127,7 +127,7 @@ public class Indicator{
 
     @SuppressWarnings("unchecked")
     private void parseMACDEXTResponse(final Map<String, Object> data) {
-        MACDEXTResponse macdExtResponse = MACDEXTResponse.of(data, builder.function.name());
+        MACDEXTResponse macdExtResponse = MACDEXTResponse.of(data);
         if(macdExtResponse.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(macdExtResponse.getErrorMessage()));

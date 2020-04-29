@@ -1,0 +1,66 @@
+package indicator;
+
+import static org.junit.Assert.assertEquals;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Paths;
+import java.util.Map;
+
+import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
+import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
+import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
+
+import org.junit.Test;
+
+import okio.BufferedSource;
+import okio.Okio;
+
+public class IndicatorTest {
+
+    private BufferedSource getJson(String filename) throws FileNotFoundException {
+        FileInputStream stream = new FileInputStream(Paths.get("src","test","java","indicator","data", filename + ".json").toFile());
+        return Okio.buffer(Okio.source(stream));
+    }
+
+    private JsonAdapter<Map<String,Object>> getJsonAdapter() {
+        final Moshi moshi = new Moshi.Builder().build();
+        final Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
+        return moshi.adapter(type);
+    }
+
+    @Test
+    public void testPeriodicSeriesResponse() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        PeriodicSeriesResponse response = PeriodicSeriesResponse.of(adapter.fromJson(getJson("sma")), "SMA");
+        assertEquals(response.getIndicatorUnits().size(), 10);
+    }
+
+    @Test
+    public void testMAMAResponse() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        MAMAResponse response = MAMAResponse.of(adapter.fromJson(getJson("mama")));
+        assertEquals(response.getIndicatorUnits().size(), 10);
+    }
+
+    @Test
+    public void testMACDResponse() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        MACDResponse response = MACDResponse.of(adapter.fromJson(getJson("macd")));
+        assertEquals(response.getIndicatorUnits().size(), 10);
+    }
+
+    @Test
+    public void testMACDEXTResponse() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        MACDEXTResponse response = MACDEXTResponse.of(adapter.fromJson(getJson("macdext")));
+        assertEquals(response.getIndicatorUnits().size(), 10);
+    }
+
+}

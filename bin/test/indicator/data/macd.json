@@ -1,0 +1,65 @@
+{
+    "Meta Data": {
+        "1: Symbol": "GOOGL",
+        "2: Indicator": "Moving Average Convergence/Divergence (MACD)",
+        "3: Last Refreshed": "2020-04-29",
+        "4: Interval": "monthly",
+        "5.1: Fast Period": 12,
+        "5.2: Slow Period": 26,
+        "5.3: Signal Period": 9,
+        "6: Series Type": "close",
+        "7: Time Zone": "US/Eastern"
+    },
+    "Technical Analysis: MACD": {
+        "2020-04-29": {
+            "MACD_Signal": "75.7378",
+            "MACD": "76.7618",
+            "MACD_Hist": "1.0241"
+        },
+        "2020-03-31": {
+            "MACD_Signal": "75.4817",
+            "MACD": "74.6750",
+            "MACD_Hist": "-0.8067"
+        },
+        "2020-02-28": {
+            "MACD_Signal": "75.6834",
+            "MACD": "89.2760",
+            "MACD_Hist": "13.5926"
+        },
+        "2020-01-31": {
+            "MACD_Signal": "72.2853",
+            "MACD": "88.5613",
+            "MACD_Hist": "16.2760"
+        },
+        "2019-12-31": {
+            "MACD_Signal": "68.2163",
+            "MACD": "76.8378",
+            "MACD_Hist": "8.6215"
+        },
+        "2019-11-29": {
+            "MACD_Signal": "66.0609",
+            "MACD": "70.2655",
+            "MACD_Hist": "4.2046"
+        },
+        "2019-10-31": {
+            "MACD_Signal": "65.0097",
+            "MACD": "64.4490",
+            "MACD_Hist": "-0.5607"
+        },
+        "2019-09-30": {
+            "MACD_Signal": "65.1499",
+            "MACD": "60.6990",
+            "MACD_Hist": "-4.4509"
+        },
+        "2019-08-30": {
+            "MACD_Signal": "66.2626",
+            "MACD": "58.8642",
+            "MACD_Hist": "-7.3984"
+        },
+        "2019-07-31": {
+            "MACD_Signal": "68.1122",
+            "MACD": "58.7827",
+            "MACD_Hist": "-9.3295"
+        }
+    }
+}

@@ -43,15 +43,15 @@ public class MACDEXTResponse {
         return metaData;
     }
     
-    public static MACDEXTResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
+    public static MACDEXTResponse of(Map<String, Object> stringObjectMap){
         Parser parser = new Parser();
-        return parser.parse(stringObjectMap, indicatorKey);
+        return parser.parse(stringObjectMap);
     }
 
     public static class Parser {
 
         @SuppressWarnings("unchecked")
-        MACDEXTResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        MACDEXTResponse parse(Map<String, Object> stringObjectMap){
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 
