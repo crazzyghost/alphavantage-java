@@ -10,6 +10,7 @@ import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.indicator.request.*;
+import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
@@ -115,7 +116,7 @@ public class Indicator{
                 failureCallback.onFailure(new AlphaVantageException(macdResponse.getErrorMessage()));
         }
         if(successCallback != null){
-            ((Fetcher.SuccessCallback<MAMAResponse>)successCallback).onSuccess(macdResponse);
+            ((Fetcher.SuccessCallback<MACDResponse>)successCallback).onSuccess(macdResponse);
         }
     }
 

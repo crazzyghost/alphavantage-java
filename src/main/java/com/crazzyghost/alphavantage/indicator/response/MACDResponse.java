@@ -73,7 +73,7 @@ public class MACDResponse {
                 String.valueOf(md.get("4: Interval")),
                 Double.valueOf(String.valueOf(md.get("5.1: Fast Period"))),
                 Double.valueOf(String.valueOf(md.get("5.2: Slow Period"))),
-                Double.valueOf(String.valueOf(md.get("5.3: Slow Period"))),
+                Double.valueOf(String.valueOf(md.get("5.3: Signal Period"))),
                 String.valueOf(md.get("6: Series Type")),
                 String.valueOf(md.get("7: Time Zone"))            
             );
@@ -182,11 +182,12 @@ public class MACDResponse {
         @Override
         public String toString() {
             return "MetaData {fastPeriod=" + fastPeriod + ", indicator=" + indicator + ", interval=" + interval
-                    + ", lastRefreshed=" + lastRefreshed + ", seriesType=" + seriesType + ", slowPeriod=" + slowPeriod
-                    + ", symbol=" + symbol + ", timeZone=" + timeZone + "}";
+                    + ", lastRefreshed=" + lastRefreshed + ", seriesType=" + seriesType + ", signalPeriod="
+                    + signalPeriod + ", slowPeriod=" + slowPeriod + ", symbol=" + symbol + ", timeZone=" + timeZone
+                    + "}";
         }
 
-        
+            
         
     }
 }

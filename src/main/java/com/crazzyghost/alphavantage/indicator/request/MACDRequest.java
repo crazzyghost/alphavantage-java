@@ -12,9 +12,9 @@ public class MACDRequest extends IndicatorRequest{
 
     private MACDRequest(Builder builder) {
         super(builder);
-        this.fastPeriod = builder.fastPeriod;
-        this.slowPeriod = builder.slowPeriod;
-        this.signalPeriod = builder.signalPeriod;
+        this.fastPeriod = builder.fastPeriod == 0 ? 12: builder.fastPeriod;
+        this.slowPeriod = builder.slowPeriod == 0 ? 26: builder.slowPeriod;
+        this.signalPeriod = builder.signalPeriod == 0 ? 9: builder.signalPeriod;
         this.series_type = builder.seriesType;
     }
 
