@@ -13,6 +13,7 @@ import com.crazzyghost.alphavantage.indicator.request.*;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.PeriodicResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
 import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
@@ -200,6 +201,18 @@ public class Indicator{
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private void parsePeriodicResponse(final Map<String, Object> data){
+       PeriodicResponse response = PeriodicResponse.of(data, builder.function.name());
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<PeriodicResponse>)successCallback).onSuccess(response);
+        }
+    }
+
     private void parseIndicatorResponse(final Map<String, Object> data){
         
         switch(builder.function){
@@ -211,12 +224,15 @@ public class Indicator{
             case TRIMA:
             case KAMA:
             case T3:
+            case MOM:
+            case CMO:
                 parsePeriodicSeriesResponse(data);
                 break;
             case MAMA:
                 parseMAMAResponse(data);
                 break;
             case VWAP:
+            case BOP:
                 parseSimpleIndicatorResponse(data);
                 break;
             case MACD:
@@ -237,6 +253,9 @@ public class Indicator{
             case APO:
             case PPO: 
                 parsePriceOscillatorResponse(data);
+                break;
+            case CCI:
+                parsePeriodicResponse(data);
                 break;
             default:
                 break;        
@@ -329,6 +348,22 @@ public class Indicator{
         return new PriceOscillatorRequestProxy(Function.PPO);
     }
     
+    public PeriodicSeriesRequestProxy mom(){
+        return new PeriodicSeriesRequestProxy(Function.MOM);
+    }
+
+    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> bop(){
+        return new SimpleIndicatorRequestProxy<>(Function.BOP);
+    }
+
+    public PeriodicRequestProxy cci(){
+        return new PeriodicRequestProxy(Function.CCI);
+    }
+
+    public PeriodicSeriesRequestProxy cmo(){
+        return new PeriodicSeriesRequestProxy(Function.CMO);
+    }
+
     @SuppressWarnings("unchecked")
     public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
         protected IndicatorRequest.Builder<?> builder;
