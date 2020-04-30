@@ -4,19 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PeriodicSeriesResponse {
-
+public class STOCHResponse {
     private MetaData metaData;
-    private List<SimpleIndicatorUnit> indicatorUnits;
+    private List<STOCHIndicatorUnit> indicatorUnits;
     private String errorMessage;
 
-    private PeriodicSeriesResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData){
+    private STOCHResponse(List<STOCHIndicatorUnit> indicatorUnits, MetaData metaData){
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private PeriodicSeriesResponse(String errorMessage){
+    private STOCHResponse(String errorMessage){
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -30,11 +29,11 @@ public class PeriodicSeriesResponse {
         this.errorMessage = errorMessage;
     }
 
-    public List<SimpleIndicatorUnit> getIndicatorUnits() {
+    public List<STOCHIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
 
-    public void setForexUnits(List<SimpleIndicatorUnit> indicatorUnits) {
+    public void setIndicatorUnits(List<STOCHIndicatorUnit> indicatorUnits) {
         this.indicatorUnits = indicatorUnits;
     }
 
@@ -43,26 +42,26 @@ public class PeriodicSeriesResponse {
         return metaData;
     }
     
-    public static PeriodicSeriesResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
+    public static STOCHResponse of(Map<String, Object> stringObjectMap){
         Parser parser = new Parser();
-        return parser.parse(stringObjectMap, indicatorKey);
+        return parser.parse(stringObjectMap);
     }
 
     public static class Parser {
 
         @SuppressWarnings("unchecked")
-        PeriodicSeriesResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        STOCHResponse parse(Map<String, Object> stringObjectMap){
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-
             Map<String, Object> md;
             Map<String, Map<String, String>> indicatorData;
 
             try{
                 md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
                 indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
+
             }catch (ClassCastException e){
-                return new PeriodicSeriesResponse((String)stringObjectMap.get(keys.get(0)));
+                return new STOCHResponse((String)stringObjectMap.get(keys.get(0)));
             }
 
             MetaData metaData = new MetaData(
@@ -70,30 +69,33 @@ public class PeriodicSeriesResponse {
                 String.valueOf(md.get("2: Indicator")),
                 String.valueOf(md.get("3: Last Refreshed")),
                 String.valueOf(md.get("4: Interval")),
-                String.valueOf(md.get("7: Time Zone")),
-                String.valueOf(md.get("6: Series Type")),
-                (int)Double.parseDouble(String.valueOf(md.get("5: Time Period")))
+                Double.valueOf(String.valueOf(md.get("5.1: FastK Period"))),
+                Double.valueOf(String.valueOf(md.get("5.2: SlowK Period"))),
+                Double.valueOf(String.valueOf(md.get("5.3: SlowK MA Type"))),
+                Double.valueOf(String.valueOf(md.get("5.4: SlowD Period"))),
+                Double.valueOf(String.valueOf(md.get("5.5: SlowD MA Type"))),
+                String.valueOf(md.get("6: Time Zone"))            
             );
 
-            List<SimpleIndicatorUnit> indicatorUnits =  new ArrayList<>();
+            List<STOCHIndicatorUnit> indicatorUnits =  new ArrayList<>();
 
             for (Map.Entry<String,Map<String,String>> e: indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();     
-                SimpleIndicatorUnit indicatorUnit = new SimpleIndicatorUnit(
+                STOCHIndicatorUnit indicatorUnit = new STOCHIndicatorUnit(
                     e.getKey(),
-                    Double.parseDouble(m.get(indicatorKey)),
-                    indicatorKey
+                    Double.parseDouble(m.get("SlowK")),
+                    Double.parseDouble(m.get("SlowD"))
                 );
                 indicatorUnits.add(indicatorUnit);
             }
-            return new PeriodicSeriesResponse(indicatorUnits, metaData);
+            return new STOCHResponse(indicatorUnits, metaData);
         }
     }
 
 
     @Override
     public String toString() {
-        return "PeriodicSeriesResponse{" +
+        return "STOCHResponse{" +
                 "metaData=" + metaData +
                 ",indicatorUnits=" + indicatorUnits.size() +
                 ", errorMessage='" + errorMessage + '\'' +
@@ -106,30 +108,39 @@ public class PeriodicSeriesResponse {
         private String indicator;
         private String lastRefreshed;
         private String interval;
+        private double fastKPeriod;
+        private double slowKPeriod;
+        private double slowKMaType;
+        private double slowDPeriod;
+        private double slowDMaType;
         private String timeZone;
-        private String seriesType;
-        private int timePeriod;
-
-        public MetaData(){
-            this("", "", "", "", "", "", 0);
-        }
-
+        
         public MetaData(
             String symbol, 
             String indicator, 
             String lastRefreshed, 
             String interval, 
-            String timeZone,
-            String seriesType, 
-            int timePeriod
+            double fastKPeriod,
+            double slowKPeriod,
+            double slowKMaType,
+            double slowDPeriod,
+            double slowDMaType,        
+            String timeZone 
         ) {
             this.symbol = symbol;
             this.indicator = indicator;
             this.lastRefreshed = lastRefreshed;
             this.interval = interval;
+            this.fastKPeriod = fastKPeriod;
+            this.slowKPeriod = slowKPeriod;
+            this.slowKMaType = slowKMaType;
+            this.slowDPeriod = slowDPeriod;
+            this.slowDMaType = slowDMaType;
             this.timeZone = timeZone;
-            this.seriesType = seriesType;
-            this.timePeriod = timePeriod;
+        }
+        
+        public MetaData(){
+            this("", "", "", "", 5, 3, 0, 3, 0, "");
         }
 
         public String getSymbol() {
@@ -147,36 +158,38 @@ public class PeriodicSeriesResponse {
         public String getInterval() {
             return interval;
         }
+ 
+        public double getFastKPeriod() {
+            return fastKPeriod;
+        }
+
+        public double getSlowKPeriod() {
+            return slowKPeriod;
+        }
+
+        public double getSlowKMaType() {
+            return slowKMaType;
+        }
+
+        public double getSlowDPeriod() {
+            return slowDPeriod;
+        }
+
+        public double getSlowDMaType() {
+            return slowDMaType;
+        }
 
         public String getTimeZone() {
             return timeZone;
         }
 
-        public String getSeriesType() {
-            return seriesType;
-        }
-
-        public int getTimePeriod() {
-            return timePeriod;
-        }
-
         @Override
         public String toString() {
-            return "MetaData {indicator=" + indicator +     
-                ", interval=" + interval + 
-                ", lastRefreshed=" + lastRefreshed + 
-                ", seriesType=" + seriesType + 
-                ", symbol=" + symbol + 
-                ", timePeriod=" + timePeriod + 
-                ", timeZone=" + timeZone +
-                 "}";
+            return "MetaData {fastKPeriod=" + fastKPeriod + ", indicator=" + indicator + ", interval=" + interval
+                    + ", lastRefreshed=" + lastRefreshed + ", slowDMaType=" + slowDMaType + ", slowDPeriod="
+                    + slowDPeriod + ", slowKMaType=" + slowKMaType + ", slowKPeriod=" + slowKPeriod + ", symbol="
+                    + symbol + ", timeZone=" + timeZone + "}";
         }
 
-        
     }
-
-
 }
-
-
-

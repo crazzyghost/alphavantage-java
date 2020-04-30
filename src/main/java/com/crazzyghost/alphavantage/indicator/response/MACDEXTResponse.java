@@ -54,7 +54,6 @@ public class MACDEXTResponse {
         MACDEXTResponse parse(Map<String, Object> stringObjectMap){
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-
             Map<String, Object> md;
             Map<String, Map<String, String>> indicatorData;
 
@@ -66,7 +65,6 @@ public class MACDEXTResponse {
                 return new MACDEXTResponse((String)stringObjectMap.get(keys.get(0)));
             }
 
-            
             MetaData metaData = new MetaData(
                 String.valueOf(md.get("1: Symbol")),
                 String.valueOf(md.get("2: Indicator")),

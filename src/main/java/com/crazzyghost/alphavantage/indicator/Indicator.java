@@ -14,6 +14,9 @@ import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
+import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
+import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
+import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
@@ -89,51 +92,85 @@ public class Indicator{
 
     @SuppressWarnings("unchecked")
     private void parsePeriodicSeriesResponse(final Map<String, Object> data){
-
-        PeriodicSeriesResponse periodicSeriesResponse = PeriodicSeriesResponse.of(data, builder.function.name());
-        if(periodicSeriesResponse.getErrorMessage() != null) {
+       PeriodicSeriesResponse response = PeriodicSeriesResponse.of(data, builder.function.name());
+        if(response.getErrorMessage() != null) {
             if(failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(periodicSeriesResponse.getErrorMessage()));
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
         if(successCallback != null){
-            ((Fetcher.SuccessCallback<PeriodicSeriesResponse>)successCallback).onSuccess(periodicSeriesResponse);
+            ((Fetcher.SuccessCallback<PeriodicSeriesResponse>)successCallback).onSuccess(response);
         }
-
     }
 
     @SuppressWarnings("unchecked")
     private void parseMAMAResponse(final Map<String, Object> data) {
-        MAMAResponse mamaResponse = MAMAResponse.of(data);
-        if(mamaResponse.getErrorMessage() != null) {
+        MAMAResponse response = MAMAResponse.of(data);
+        if(response.getErrorMessage() != null) {
             if(failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(mamaResponse.getErrorMessage()));
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
         if(successCallback != null){
-            ((Fetcher.SuccessCallback<MAMAResponse>)successCallback).onSuccess(mamaResponse);
+            ((Fetcher.SuccessCallback<MAMAResponse>)successCallback).onSuccess(response);
         }
     }
 
     @SuppressWarnings("unchecked")
     private void parseMACDResponse(final Map<String, Object> data) {
-        MACDResponse macdResponse = MACDResponse.of(data);
-        if(macdResponse.getErrorMessage() != null) {
+        MACDResponse response = MACDResponse.of(data);
+        if(response.getErrorMessage() != null) {
             if(failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(macdResponse.getErrorMessage()));
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
         if(successCallback != null){
-            ((Fetcher.SuccessCallback<MACDResponse>)successCallback).onSuccess(macdResponse);
+            ((Fetcher.SuccessCallback<MACDResponse>)successCallback).onSuccess(response);
         }
     }
 
     @SuppressWarnings("unchecked")
     private void parseMACDEXTResponse(final Map<String, Object> data) {
-        MACDEXTResponse macdExtResponse = MACDEXTResponse.of(data);
-        if(macdExtResponse.getErrorMessage() != null) {
+        MACDEXTResponse response = MACDEXTResponse.of(data);
+        if(response.getErrorMessage() != null) {
             if(failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(macdExtResponse.getErrorMessage()));
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
         if(successCallback != null){
-            ((Fetcher.SuccessCallback<MACDEXTResponse>)successCallback).onSuccess(macdExtResponse);
+            ((Fetcher.SuccessCallback<MACDEXTResponse>)successCallback).onSuccess(response);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void parseSTOCHResponse(final Map<String, Object> data) {
+        STOCHResponse response = STOCHResponse.of(data);
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<STOCHResponse>)successCallback).onSuccess(response);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void parseSTOCHFResponse(final Map<String, Object> data) {
+        STOCHFResponse response = STOCHFResponse.of(data);
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<STOCHFResponse>)successCallback).onSuccess(response);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void parseSTOCHRSIResponse(final Map<String, Object> data) {
+        STOCHRSIResponse response = STOCHRSIResponse.of(data);
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<STOCHRSIResponse>)successCallback).onSuccess(response);
         }
     }
 
@@ -159,6 +196,15 @@ public class Indicator{
             case MACDEXT:
                 parseMACDEXTResponse(data);
                 break;
+            case STOCH:
+                parseSTOCHResponse(data);
+                break;
+            case STOCHF:
+                parseSTOCHFResponse(data);
+                break;
+            case STOCHRSI:
+                parseSTOCHRSIResponse(data);
+                break;
             default:
                 break;        
         }
@@ -166,40 +212,40 @@ public class Indicator{
     }
 
 
-    public PeriodicalSeriesRequestProxy sma(){
-        return new PeriodicalSeriesRequestProxy(Function.SMA);
+    public PeriodicSeriesRequestProxy sma(){
+        return new PeriodicSeriesRequestProxy(Function.SMA);
     }
 
-    public PeriodicalSeriesRequestProxy ema(){
-        return new PeriodicalSeriesRequestProxy(Function.EMA);
+    public PeriodicSeriesRequestProxy ema(){
+        return new PeriodicSeriesRequestProxy(Function.EMA);
     }
 
-    public PeriodicalSeriesRequestProxy wma(){
-        return new PeriodicalSeriesRequestProxy(Function.WMA);
+    public PeriodicSeriesRequestProxy wma(){
+        return new PeriodicSeriesRequestProxy(Function.WMA);
     }
 
-    public PeriodicalSeriesRequestProxy dema(){
-        return new PeriodicalSeriesRequestProxy(Function.DEMA);
+    public PeriodicSeriesRequestProxy dema(){
+        return new PeriodicSeriesRequestProxy(Function.DEMA);
     }
 
-    public PeriodicalSeriesRequestProxy tema(){
-        return new PeriodicalSeriesRequestProxy(Function.TEMA);
+    public PeriodicSeriesRequestProxy tema(){
+        return new PeriodicSeriesRequestProxy(Function.TEMA);
     }
 
-    public PeriodicalSeriesRequestProxy trima(){
-        return new PeriodicalSeriesRequestProxy(Function.TRIMA);
+    public PeriodicSeriesRequestProxy trima(){
+        return new PeriodicSeriesRequestProxy(Function.TRIMA);
     }
 
-    public PeriodicalSeriesRequestProxy kama(){
-        return new PeriodicalSeriesRequestProxy(Function.KAMA);
+    public PeriodicSeriesRequestProxy kama(){
+        return new PeriodicSeriesRequestProxy(Function.KAMA);
     }
 
     public MAMARequestProxy mama(){
         return new MAMARequestProxy();
     }
 
-    public PeriodicalSeriesRequestProxy t3(){
-        return new PeriodicalSeriesRequestProxy(Function.T3);
+    public PeriodicSeriesRequestProxy t3(){
+        return new PeriodicSeriesRequestProxy(Function.T3);
     }
 
     public SimpleIndicatorRequestProxy<?> vwap(){
@@ -214,6 +260,23 @@ public class Indicator{
         return new MACDEXTRequestProxy();
     }
 
+    public STOCHRequestProxy stoch(){
+        return new STOCHRequestProxy();
+    }
+
+    public STOCHFRequestProxy stochf(){
+        return new STOCHFRequestProxy();
+    }
+
+    public PeriodicSeriesRequestProxy rsi(){
+        return new PeriodicSeriesRequestProxy(Function.RSI);
+    }
+
+    public STOCHRSIRequestProxy stochrsi(){
+        return new STOCHRSIRequestProxy();
+    }
+    
+    @SuppressWarnings("unchecked")
     public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
         protected IndicatorRequest.Builder<?> builder;
         
@@ -258,19 +321,19 @@ public class Indicator{
 
     }
 
-    public class PeriodicalSeriesRequestProxy extends SimpleIndicatorRequestProxy<PeriodicalSeriesRequestProxy>{
+    public class PeriodicSeriesRequestProxy extends SimpleIndicatorRequestProxy<PeriodicSeriesRequestProxy>{
  
-        public PeriodicalSeriesRequestProxy(final Function function){
+        public PeriodicSeriesRequestProxy(final Function function){
             builder = new PeriodicSeriesRequest.Builder(); 
             builder = builder.function(function);   
         }
 
-        public PeriodicalSeriesRequestProxy timePeriod(final int period){
+        public PeriodicSeriesRequestProxy timePeriod(final int period){
             builder = ((PeriodicSeriesRequest.Builder)builder).timePeriod(period);
             return this;
         }
 
-        public PeriodicalSeriesRequestProxy seriesType(final SeriesType series){
+        public PeriodicSeriesRequestProxy seriesType(final SeriesType series){
             builder = ((PeriodicSeriesRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -334,18 +397,18 @@ public class Indicator{
             builder = builder.function(Function.MACDEXT);   
         }
 
-        public MACDEXTRequestProxy fastPeriod(final int fastLimit){
-            builder = ((MACDEXTRequest.Builder)builder).fastPeriod(fastLimit);
+        public MACDEXTRequestProxy fastPeriod(final int period){
+            builder = ((MACDEXTRequest.Builder)builder).fastPeriod(period);
             return this;
         }
 
-        public MACDEXTRequestProxy slowPeriod(final int slowPeriod){
-            builder = ((MACDEXTRequest.Builder)builder).slowPeriod(slowPeriod);
+        public MACDEXTRequestProxy slowPeriod(final int period){
+            builder = ((MACDEXTRequest.Builder)builder).slowPeriod(period);
             return this;
         }
 
-        public MACDEXTRequestProxy signalPeriod(final int signalPeriod){
-            builder = ((MACDEXTRequest.Builder)builder).signalPeriod(signalPeriod);
+        public MACDEXTRequestProxy signalPeriod(final int period){
+            builder = ((MACDEXTRequest.Builder)builder).signalPeriod(period);
             return this;
         }
 
@@ -369,4 +432,95 @@ public class Indicator{
             return this;
         }
     }
+
+    public class STOCHRequestProxy extends SimpleIndicatorRequestProxy<STOCHRequestProxy>{
+ 
+        public STOCHRequestProxy(){
+            builder = new STOCHRequest.Builder(); 
+            builder = builder.function(Function.STOCH);   
+        }
+
+        public STOCHRequestProxy fastKPeriod(final int period){
+            builder = ((STOCHRequest.Builder)builder).fastKPeriod(period);
+            return this;
+        }
+
+        public STOCHRequestProxy slowKPeriod(final int period){
+            builder = ((STOCHRequest.Builder)builder).slowKPeriod(period);
+            return this;
+        }
+ 
+        public STOCHRequestProxy slowDPeriod(final int period){
+            builder = ((STOCHRequest.Builder)builder).slowDPeriod(period);
+            return this;
+        }
+
+        public STOCHRequestProxy slowKMaType(final MAType type){
+            builder = ((STOCHRequest.Builder)builder).slowKMaType(type);
+            return this;
+        }
+
+        public STOCHRequestProxy slowDMaType(final MAType type){
+            builder = ((STOCHRequest.Builder)builder).slowDMaType(type);
+            return this;
+        }
+    }
+
+    public class STOCHFRequestProxy extends SimpleIndicatorRequestProxy<STOCHRequestProxy>{
+ 
+        public STOCHFRequestProxy(){
+            builder = new STOCHFRequest.Builder(); 
+            builder = builder.function(Function.STOCHF);   
+        }
+
+        public STOCHFRequestProxy fastKPeriod(final int period){
+            builder = ((STOCHFRequest.Builder)builder).fastKPeriod(period);
+            return this;
+        }
+
+        public STOCHFRequestProxy fastDPeriod(final int period){
+            builder = ((STOCHFRequest.Builder)builder).fastDPeriod(period);
+            return this;
+        }
+ 
+        public STOCHFRequestProxy fastDMaType(final MAType type){
+            builder = ((STOCHFRequest.Builder)builder).fastDMaType(type);
+            return this;
+        }
+    }
+
+    public class STOCHRSIRequestProxy extends SimpleIndicatorRequestProxy<STOCHRequestProxy>{
+ 
+        public STOCHRSIRequestProxy(){
+            builder = new STOCHRSIRequest.Builder(); 
+            builder = builder.function(Function.STOCHRSI);   
+        }
+
+        public STOCHRSIRequestProxy fastKPeriod(final int period){
+            builder = ((STOCHRSIRequest.Builder)builder).fastKPeriod(period);
+            return this;
+        }
+
+        public STOCHRSIRequestProxy fastDPeriod(final int period){
+            builder = ((STOCHRSIRequest.Builder)builder).fastDPeriod(period);
+            return this;
+        }
+ 
+        public STOCHRSIRequestProxy fastDMaType(final MAType type){
+            builder = ((STOCHRSIRequest.Builder)builder).fastDMaType(type);
+            return this;
+        }
+
+        public STOCHRSIRequestProxy timePeriod(final int period){
+            builder = ((STOCHRSIRequest.Builder)builder).timePeriod(period);
+            return this;
+        }
+
+        public STOCHRSIRequestProxy seriesType(final SeriesType series){
+            builder = ((STOCHRSIRequest.Builder)builder).seriesType(series);
+            return this;
+        }
+    }
+
+
 }
