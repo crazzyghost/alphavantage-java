@@ -1,0 +1,21 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Percentage Price Oscillator (PPO)",
+        "3: Last Refreshed": "2020-04-29",
+        "4: Interval": "daily",
+        "5.1: Fast Period": 10,
+        "5.2: Slow Period": 26,
+        "5.3: MA Type": 1,
+        "6: Series Type": "close",
+        "7: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: PPO": {
+        "2020-04-29": {
+            "PPO": "2.7345"
+        },
+        "2020-04-28": {
+            "PPO": "2.3014"
+        }
+    }
+}

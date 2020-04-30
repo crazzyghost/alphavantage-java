@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PeriodicSeriesResponse {
+public class PeriodicResponse {
 
     private MetaData metaData;
     private List<SimpleIndicatorUnit> indicatorUnits;
     private String errorMessage;
 
-    private PeriodicSeriesResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData){
+    private PeriodicResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData){
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private PeriodicSeriesResponse(String errorMessage){
+    private PeriodicResponse(String errorMessage){
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -34,15 +34,16 @@ public class PeriodicSeriesResponse {
         return indicatorUnits;
     }
 
-    public void setInidcatorUnits(List<SimpleIndicatorUnit> indicatorUnits) {
+    public void setIndicatorUnits(List<SimpleIndicatorUnit> indicatorUnits) {
         this.indicatorUnits = indicatorUnits;
     }
+
     
     public MetaData getMetaData() {
         return metaData;
     }
     
-    public static PeriodicSeriesResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
+    public static PeriodicResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
         Parser parser = new Parser();
         return parser.parse(stringObjectMap, indicatorKey);
     }
@@ -50,7 +51,7 @@ public class PeriodicSeriesResponse {
     public static class Parser {
 
         @SuppressWarnings("unchecked")
-        PeriodicSeriesResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        PeriodicResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 
@@ -61,7 +62,7 @@ public class PeriodicSeriesResponse {
                 md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
                 indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
             }catch (ClassCastException e){
-                return new PeriodicSeriesResponse((String)stringObjectMap.get(keys.get(0)));
+                return new PeriodicResponse((String)stringObjectMap.get(keys.get(0)));
             }
 
             MetaData metaData = new MetaData(
@@ -69,9 +70,8 @@ public class PeriodicSeriesResponse {
                 String.valueOf(md.get("2: Indicator")),
                 String.valueOf(md.get("3: Last Refreshed")),
                 String.valueOf(md.get("4: Interval")),
-                String.valueOf(md.get("7: Time Zone")),
-                String.valueOf(md.get("6: Series Type")),
-                (int)Double.parseDouble(String.valueOf(md.get("5: Time Period")))
+                (int)Double.parseDouble(String.valueOf(md.get("5: Time Period"))),
+                String.valueOf(md.get("6: Time Zone"))
             );
 
             List<SimpleIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -85,7 +85,7 @@ public class PeriodicSeriesResponse {
                 );
                 indicatorUnits.add(indicatorUnit);
             }
-            return new PeriodicSeriesResponse(indicatorUnits, metaData);
+            return new PeriodicResponse(indicatorUnits, metaData);
         }
     }
 
@@ -105,12 +105,11 @@ public class PeriodicSeriesResponse {
         private String indicator;
         private String lastRefreshed;
         private String interval;
-        private String timeZone;
-        private String seriesType;
         private int timePeriod;
-
+        private String timeZone;
+        
         public MetaData(){
-            this("", "", "", "", "", "", 0);
+            this("", "", "", "", 0, "");
         }
 
         public MetaData(
@@ -118,17 +117,15 @@ public class PeriodicSeriesResponse {
             String indicator, 
             String lastRefreshed, 
             String interval, 
-            String timeZone,
-            String seriesType, 
-            int timePeriod
+            int timePeriod,
+            String timeZone
         ) {
             this.symbol = symbol;
             this.indicator = indicator;
             this.lastRefreshed = lastRefreshed;
             this.interval = interval;
-            this.timeZone = timeZone;
-            this.seriesType = seriesType;
             this.timePeriod = timePeriod;
+            this.timeZone = timeZone;
         }
 
         public String getSymbol() {
@@ -151,10 +148,6 @@ public class PeriodicSeriesResponse {
             return timeZone;
         }
 
-        public String getSeriesType() {
-            return seriesType;
-        }
-
         public int getTimePeriod() {
             return timePeriod;
         }
@@ -164,16 +157,13 @@ public class PeriodicSeriesResponse {
             return "MetaData {indicator=" + indicator +     
                 ", interval=" + interval + 
                 ", lastRefreshed=" + lastRefreshed + 
-                ", seriesType=" + seriesType + 
                 ", symbol=" + symbol + 
                 ", timePeriod=" + timePeriod + 
                 ", timeZone=" + timeZone +
                  "}";
         }
-
         
     }
-
 
 }
 

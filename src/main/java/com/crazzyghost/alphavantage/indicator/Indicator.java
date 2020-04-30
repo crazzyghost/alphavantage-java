@@ -14,6 +14,7 @@ import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
+import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
@@ -174,6 +175,18 @@ public class Indicator{
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private void parsePriceOscillatorResponse(final Map<String, Object> data) {
+        PriceOscillatorResponse response = PriceOscillatorResponse.of(data, builder.function.name());
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<PriceOscillatorResponse>)successCallback).onSuccess(response);
+        }
+    }
+
     private void parseIndicatorResponse(final Map<String, Object> data){
         
         switch(builder.function){
@@ -204,6 +217,10 @@ public class Indicator{
                 break;
             case STOCHRSI:
                 parseSTOCHRSIResponse(data);
+                break;
+            case APO:
+            case PPO: 
+                parsePriceOscillatorResponse(data);
                 break;
             default:
                 break;        
@@ -275,6 +292,26 @@ public class Indicator{
     public STOCHRSIRequestProxy stochrsi(){
         return new STOCHRSIRequestProxy();
     }
+
+    public PeriodicRequestProxy willr(){
+        return new PeriodicRequestProxy(Function.WILLR);
+    }
+    
+    public PeriodicRequestProxy adx(){
+        return new PeriodicRequestProxy(Function.ADX);
+    }
+
+    public PeriodicRequestProxy adxr(){
+        return new PeriodicRequestProxy(Function.ADXR);
+    }
+
+    public PriceOscillatorRequestProxy apo(){
+        return new PriceOscillatorRequestProxy(Function.APO);
+    }
+
+    public PriceOscillatorRequestProxy ppo(){
+        return new PriceOscillatorRequestProxy(Function.PPO);
+    }
     
     @SuppressWarnings("unchecked")
     public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
@@ -335,6 +372,32 @@ public class Indicator{
 
         public PeriodicSeriesRequestProxy seriesType(final SeriesType series){
             builder = ((PeriodicSeriesRequest.Builder)builder).seriesType(series);
+            return this;
+        }
+    }
+
+    public class PeriodicRequestProxy extends SimpleIndicatorRequestProxy<PeriodicRequestProxy>{
+ 
+        public PeriodicRequestProxy(final Function function){
+            builder = new PeriodicSeriesRequest.Builder(); 
+            builder = builder.function(function);   
+        }
+
+        public PeriodicRequestProxy timePeriod(final int period){
+            builder = ((PeriodicRequest.Builder)builder).timePeriod(period);
+            return this;
+        }
+    }
+
+    public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy>{
+ 
+        public SeriesRequestProxy(final Function function){
+            builder = new PeriodicSeriesRequest.Builder(); 
+            builder = builder.function(function);   
+        }
+
+        public SeriesRequestProxy seriesType(final SeriesType series){
+            builder = ((SeriesRequest.Builder)builder).seriesType(series);
             return this;
         }
     }
@@ -466,7 +529,7 @@ public class Indicator{
         }
     }
 
-    public class STOCHFRequestProxy extends SimpleIndicatorRequestProxy<STOCHRequestProxy>{
+    public class STOCHFRequestProxy extends SimpleIndicatorRequestProxy<STOCHFRequestProxy>{
  
         public STOCHFRequestProxy(){
             builder = new STOCHFRequest.Builder(); 
@@ -489,7 +552,7 @@ public class Indicator{
         }
     }
 
-    public class STOCHRSIRequestProxy extends SimpleIndicatorRequestProxy<STOCHRequestProxy>{
+    public class STOCHRSIRequestProxy extends SimpleIndicatorRequestProxy<STOCHRSIRequestProxy>{
  
         public STOCHRSIRequestProxy(){
             builder = new STOCHRSIRequest.Builder(); 
@@ -522,5 +585,32 @@ public class Indicator{
         }
     }
 
+    public class PriceOscillatorRequestProxy extends SimpleIndicatorRequestProxy<PriceOscillatorRequestProxy>{
+ 
+        public PriceOscillatorRequestProxy(final Function function){
+            builder = new PriceOscillatorRequest.Builder(); 
+            builder = builder.function(function);   
+        }
 
+        public PriceOscillatorRequestProxy fastPeriod(final double period){
+            builder = ((PriceOscillatorRequest.Builder)builder).fastPeriod(period);
+            return this;
+        }
+
+        public  PriceOscillatorRequestProxy slowPeriod(final double period){
+            builder = ((PriceOscillatorRequest.Builder)builder).slowPeriod(period);
+            return this;
+        }
+
+        public  PriceOscillatorRequestProxy seriesType(final SeriesType series){
+            builder = ((PriceOscillatorRequest.Builder)builder).seriesType(series);
+            return this;
+        }
+
+        public  PriceOscillatorRequestProxy maType(final MAType type){
+            builder = ((PriceOscillatorRequest.Builder)builder).maType(type);
+            return this;
+        }
+
+    }
 }
