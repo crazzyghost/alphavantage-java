@@ -4,60 +4,77 @@
 #
 version: 2.1
 orbs:
-    codecov: codecov/codecov@1.0.2
-workflows:
-    jobs:
-        build:
-            docker:
-            # specify the version you desire here
-            - image: circleci/openjdk:8-jdk
+  codecov: codecov/codecov@1.0.2
+jobs:
+  build:
+    docker:
+    # specify the version you desire here
+    - image: circleci/openjdk:8-jdk
 
-            # Specify service dependencies here if necessary
-            # CircleCI maintains a library of pre-built images
-            # documented at https://circleci.com/docs/2.0/circleci-images/
-            # - image: circleci/postgres:9.4
+    # Specify service dependencies here if necessary
+    # CircleCI maintains a library of pre-built images
+    # documented at https://circleci.com/docs/2.0/circleci-images/
+    # - image: circleci/postgres:9.4
 
-            working_directory: ~/repo
+    working_directory: ~/repo
 
-            environment:
-            # Customize the JVM maximum heap limit
-            JVM_OPTS: -Xmx3200m
-            TERM: dumb
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
 
-            steps:
-            - checkout
+    steps:
+    - checkout
 
-            # Download and cache dependencies
-            - restore_cache:
-                keys:
-                - v1-dependencies-{{ checksum "build.gradle" }}
-                # fallback to using the latest cache if no exact match is found
-                - v1-dependencies-
+    # Download and cache dependencies
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "build.gradle" }}
+        # fallback to using the latest cache if no exact match is found
+        - v1-dependencies-
 
-            - run:
-                name: install-gradle-dependencies
-                command: gradle dependencies
+    - run:
+        name: install-gradle-dependencies
+        command: gradle dependencies
 
-            - save_cache:
-                paths:
-                - ~/.gradle
-                key: v1-dependencies-{{ checksum "build.gradle" }}
+    - save_cache:
+        paths:
+        - ~/.gradle
+        key: v1-dependencies-{{ checksum "build.gradle" }}
 
-            # run tests!
-            - run:
-                name: test
-                command: gradle test
-            
-            - run:
-                name: Save test results
-                command: |
-                    mkdir -p ~/test-results/junit/
-                    find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/junit/ \;
-                when: always
-            - store_test_results:
-                path: ~/test-results
-            - store_artifacts:
-                path: ~/test-results/junit 
-
-            - codecov/upload:
-                file: {{ test-results }}
+    # run tests!
+    - run:
+        name: test
+        command: gradle test
+    - run:
+      name: Save test results
+      command: |
+        mkdir -p ~/test-results/junit/
+        find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/junit/ \;
+      when: always
+    - store_test_results:
+        path: ~/test-results
+    - store_artifacts:
+        path: ~/test-results/junit 
+    - codecov/upload:
+      file: {{ ~/test-results }}        
+#  deploy:
+#    docker:
+#      - image: buildpack-deps:trusty
+#    steps:
+#      - checkout
+#      - run:
+#          name: Deploy Master to Gith
+#
+#
+#workflows:
+#  version: 2
+#  build-deploy:
+#    jobs:
+#    - build
+#    - deploy:
+#        requires:
+#        - build
+#        filters:
+#          branches:
+#            only: master
