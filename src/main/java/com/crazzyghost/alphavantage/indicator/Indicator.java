@@ -10,6 +10,7 @@ import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.indicator.request.*;
+import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
@@ -213,6 +214,18 @@ public class Indicator{
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private void parseAROONResponse(final Map<String, Object> data){
+       AROONResponse response = AROONResponse.of(data, builder.function.name());
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<AROONResponse>)successCallback).onSuccess(response);
+        }
+    }
+
     private void parseIndicatorResponse(final Map<String, Object> data){
         
         switch(builder.function){
@@ -226,6 +239,8 @@ public class Indicator{
             case T3:
             case MOM:
             case CMO:
+            case ROC:
+            case ROCR:
                 parsePeriodicSeriesResponse(data);
                 break;
             case MAMA:
@@ -255,7 +270,11 @@ public class Indicator{
                 parsePriceOscillatorResponse(data);
                 break;
             case CCI:
+            case AROONOSC:
                 parsePeriodicResponse(data);
+                break;
+            case AROON:
+                parseAROONResponse(data);
                 break;
             default:
                 break;        
@@ -364,6 +383,22 @@ public class Indicator{
         return new PeriodicSeriesRequestProxy(Function.CMO);
     }
 
+    public PeriodicSeriesRequestProxy roc(){
+        return new PeriodicSeriesRequestProxy(Function.ROC);
+    }
+
+    public PeriodicSeriesRequestProxy rocr(){
+        return new PeriodicSeriesRequestProxy(Function.ROCR);
+    }
+
+    public PeriodicRequestProxy aroon(){
+        return new PeriodicRequestProxy(Function.AROON);
+    }
+
+    public PeriodicRequestProxy aroonosc(){
+        return new PeriodicRequestProxy(Function.AROONOSC);
+    }
+
     @SuppressWarnings("unchecked")
     public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
         protected IndicatorRequest.Builder<?> builder;
@@ -430,7 +465,7 @@ public class Indicator{
     public class PeriodicRequestProxy extends SimpleIndicatorRequestProxy<PeriodicRequestProxy>{
  
         public PeriodicRequestProxy(final Function function){
-            builder = new PeriodicSeriesRequest.Builder(); 
+            builder = new PeriodicRequest.Builder(); 
             builder = builder.function(function);   
         }
 
@@ -443,7 +478,7 @@ public class Indicator{
     public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy>{
  
         public SeriesRequestProxy(final Function function){
-            builder = new PeriodicSeriesRequest.Builder(); 
+            builder = new SeriesRequest.Builder(); 
             builder = builder.function(function);   
         }
 

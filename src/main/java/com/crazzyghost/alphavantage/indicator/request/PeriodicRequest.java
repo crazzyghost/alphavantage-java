@@ -7,7 +7,7 @@ public class PeriodicRequest extends IndicatorRequest{
 
     private PeriodicRequest(Builder builder){
         super(builder);
-        this.time_period = builder.timePeriod;
+        this.time_period = builder.timePeriod == 0 ? 60: builder.timePeriod;
     }
 
     public static class Builder extends IndicatorRequest.Builder<Builder>{
