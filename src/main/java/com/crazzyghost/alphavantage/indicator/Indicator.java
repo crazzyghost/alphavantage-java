@@ -18,6 +18,7 @@ import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
+import com.crazzyghost.alphavantage.indicator.response.SimpleIndicatorResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
@@ -116,6 +117,18 @@ public class Indicator{
     }
 
     @SuppressWarnings("unchecked")
+    private void parseSimpleIndicatorResponse(final Map<String, Object> data){
+       SimpleIndicatorResponse response = SimpleIndicatorResponse.of(data, builder.function.name());
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<SimpleIndicatorResponse>)successCallback).onSuccess(response);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     private void parseMACDResponse(final Map<String, Object> data) {
         MACDResponse response = MACDResponse.of(data);
         if(response.getErrorMessage() != null) {
@@ -203,6 +216,9 @@ public class Indicator{
             case MAMA:
                 parseMAMAResponse(data);
                 break;
+            case VWAP:
+                parseSimpleIndicatorResponse(data);
+                break;
             case MACD:
                 parseMACDResponse(data);
                 break;
@@ -265,7 +281,7 @@ public class Indicator{
         return new PeriodicSeriesRequestProxy(Function.T3);
     }
 
-    public SimpleIndicatorRequestProxy<?> vwap(){
+    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> vwap(){
         return new SimpleIndicatorRequestProxy<>(Function.VWAP);
     }
 
