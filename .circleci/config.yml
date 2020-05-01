@@ -37,6 +37,9 @@ jobs:
     
     - store_test_results:
         path: ~/test-results
+    
+    - codecov/upload:
+      file: {{ test-results }}
 
 workflows:
  test-coverage:
