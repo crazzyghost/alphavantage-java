@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  codecov: codecov/codecov@1.0.2
+  codecov: codecov/codecov@1.0.5
 jobs:
   build:
     docker:
@@ -49,7 +49,7 @@ jobs:
         path: ~/test-results/junit    
     
     - codecov/upload:
-      file: {{ ~/test-results }}
+        file: {{ ~/test-results }}
 
 workflows:
  test-coverage:
