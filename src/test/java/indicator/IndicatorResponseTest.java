@@ -21,6 +21,7 @@ import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
+import com.crazzyghost.alphavantage.indicator.response.SeriesResponse;
 import com.crazzyghost.alphavantage.indicator.response.SimpleIndicatorResponse;
 import com.crazzyghost.alphavantage.indicator.response.ULTOSCResponse;
 import com.squareup.moshi.JsonAdapter;
@@ -338,6 +339,28 @@ public class IndicatorResponseTest {
         assertEquals(response.getMetaData().getTimePeriod3(), 0);
         assertEquals(response.getMetaData().getTimeZone(), "");  
     }
+
+    @Test
+    public void testSeriesResponse() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        SeriesResponse response = SeriesResponse.of(adapter.fromJson(getJson("ht")), "HT_TRENDLINE");
+        assertEquals(response.getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testSeriesResponseError() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        SeriesResponse response = SeriesResponse.of(adapter.fromJson(errorMessage), "HT_TRENDLINE");
+        assertEquals(response.getIndicatorUnits().size(), 0);
+        assertNotNull(response.getErrorMessage());
+        assertEquals(response.getMetaData().getIndicator(),"");
+        assertEquals(response.getMetaData().getInterval(),"");
+        assertEquals(response.getMetaData().getLastRefreshed(),"");
+        assertEquals(response.getMetaData().getSeriesType(),"");
+        assertEquals(response.getMetaData().getSymbol(),"");
+        assertEquals(response.getMetaData().getTimeZone(), "");
+    }
+
 
  
 }

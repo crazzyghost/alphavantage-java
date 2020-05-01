@@ -15,7 +15,7 @@ public class UrlExtractor{
             for(Field field : fields){
                 field.setAccessible(true);
                 try {
-                    if (field.get(object) != null){
+                    if (!field.isSynthetic() && field.get(object) != null){
                         stringBuilder.append(field.getName().toLowerCase())
                                 .append("=");
                         String value = (field.get(object)).toString();
