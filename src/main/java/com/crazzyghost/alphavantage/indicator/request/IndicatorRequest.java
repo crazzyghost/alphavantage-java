@@ -15,16 +15,16 @@ public abstract class IndicatorRequest {
     protected IndicatorRequest(Builder<?> builder){
         this.function = builder.function;
         this.symbol = builder.symbol;
-        this.interval = builder.interval == null ? Interval.DAILY: builder.interval;
-        this.dataType = builder.dataType == null ? DataType.JSON : builder.dataType;
+        this.interval = builder.interval;
+        this.dataType = builder.dataType;
     }
 
     public abstract static class Builder<T extends Builder<?>>{
         
         public Function function;
         public String symbol;
-        public Interval interval;
-        public DataType dataType;
+        public Interval interval = Interval.SIXTY_MIN;
+        public DataType dataType = DataType.JSON;
 
         public T function(Function function){
             this.function = function;

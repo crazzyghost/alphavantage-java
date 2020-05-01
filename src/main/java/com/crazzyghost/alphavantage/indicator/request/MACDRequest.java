@@ -1,5 +1,6 @@
 package com.crazzyghost.alphavantage.indicator.request;
 
+import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
 public class MACDRequest extends IndicatorRequest{
@@ -12,18 +13,22 @@ public class MACDRequest extends IndicatorRequest{
 
     private MACDRequest(Builder builder) {
         super(builder);
-        this.fastPeriod = builder.fastPeriod == 0 ? 12: builder.fastPeriod;
-        this.slowPeriod = builder.slowPeriod == 0 ? 26: builder.slowPeriod;
-        this.signalPeriod = builder.signalPeriod == 0 ? 9: builder.signalPeriod;
+        this.fastPeriod = builder.fastPeriod;
+        this.slowPeriod = builder.slowPeriod;
+        this.signalPeriod = builder.signalPeriod;
         this.series_type = builder.seriesType;
     }
 
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public int fastPeriod;
-        public int slowPeriod;
-        public int signalPeriod;
+        public int fastPeriod = 12;
+        public int slowPeriod = 26;
+        public int signalPeriod = 9;
         public SeriesType seriesType;
+
+        public Builder() {
+            this.function(Function.MACD);
+        }
 
         public Builder fastPeriod(int fastPeriod){
             this.fastPeriod = fastPeriod;

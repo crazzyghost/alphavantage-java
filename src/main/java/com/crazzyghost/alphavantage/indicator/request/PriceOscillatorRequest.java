@@ -12,18 +12,18 @@ public class PriceOscillatorRequest extends IndicatorRequest {
 
     private PriceOscillatorRequest(Builder builder) {
         super(builder);
-        this.fastPeriod = builder.fastPeriod == 0.0 ? 0.1 : builder.fastPeriod;
-        this.slowPeriod = builder.slowPeriod == 0.0 ? 0.1 : builder.slowPeriod;
-        this.maType = builder.maType == null ? MAType.SMA : builder.maType;
+        this.fastPeriod = builder.fastPeriod;
+        this.slowPeriod = builder.slowPeriod;
+        this.maType = builder.maType;
         this.series_type = builder.seriesType;
     }
 
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public double fastPeriod;
-        public double slowPeriod;
+        public double fastPeriod = 0.1;
+        public double slowPeriod = 0.1;
+        public MAType maType = MAType.SMA;
         public SeriesType seriesType;
-        public MAType maType;
 
         public Builder fastPeriod(double fastPeriod){
             this.fastPeriod = fastPeriod;

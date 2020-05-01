@@ -1,5 +1,6 @@
 package com.crazzyghost.alphavantage.indicator.request;
 
+import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
@@ -15,24 +16,28 @@ public class MACDEXTRequest extends IndicatorRequest{
 
     private MACDEXTRequest(Builder builder) {
         super(builder);
-        this.fastPeriod = builder.fastPeriod == 0 ? 12: builder.fastPeriod;
-        this.slowPeriod = builder.slowPeriod == 0 ? 26: builder.slowPeriod;
-        this.signalPeriod = builder.signalPeriod == 0 ? 9: builder.signalPeriod;
-        this.fastMaType = builder.fastMaType == null ? MAType.SMA: builder.fastMaType;
-        this.slowMaType = builder.slowMaType == null ? MAType.SMA: builder.slowMaType;
-        this.signalMaType = builder.signalMaType == null ? MAType.SMA: builder.signalMaType;
+        this.fastPeriod = builder.fastPeriod;
+        this.slowPeriod = builder.slowPeriod;
+        this.signalPeriod = builder.signalPeriod;
+        this.fastMaType = builder.fastMaType;
+        this.slowMaType = builder.slowMaType;
+        this.signalMaType = builder.signalMaType;
         this.series_type = builder.seriesType;
     }
 
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public int fastPeriod;
-        public int slowPeriod;
-        public int signalPeriod;
-        private MAType fastMaType;
-        private MAType slowMaType;
-        private MAType signalMaType;    
+        public int fastPeriod = 12;
+        public int slowPeriod = 26;
+        public int signalPeriod = 9;
+        private MAType fastMaType = MAType.SMA;
+        private MAType slowMaType = MAType.SMA;
+        private MAType signalMaType = MAType.SMA;    
         public SeriesType seriesType;
+
+        public Builder(){
+            this.function(Function.MACDEXT);
+        }
 
         public Builder fastPeriod(int fastPeriod){
             this.fastPeriod = fastPeriod;

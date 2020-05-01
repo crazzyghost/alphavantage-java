@@ -1,5 +1,6 @@
 package com.crazzyghost.alphavantage.indicator.request;
 
+import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
@@ -13,21 +14,24 @@ public class STOCHRSIRequest extends IndicatorRequest {
 
     protected STOCHRSIRequest(Builder builder) {
         super(builder);
-        this.fastKPeriod = builder.fastKPeriod == 0 ? 5 : builder.fastKPeriod;
-        this.fastDPeriod = builder.fastDPeriod == 0 ? 3 : builder.fastDPeriod;
-        this.fastDMaType = builder.fastDMaType == null ? MAType.SMA : builder.fastDMaType;
+        this.fastKPeriod = builder.fastKPeriod;
+        this.fastDPeriod = builder.fastDPeriod;
+        this.fastDMaType = builder.fastDMaType;
         this.time_period = builder.timePeriod;
         this.series_type = builder.seriesType;
     }
     
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
+        public int fastKPeriod = 5;
+        public int fastDPeriod = 3;
+        public MAType fastDMaType = MAType.SMA;
         public int timePeriod;
         public SeriesType seriesType;
-        public int fastKPeriod;
-        public int fastDPeriod;
-        public MAType fastDMaType;
         
+        public Builder(){
+            this.function(Function.STOCHRSI);
+        }
     
         public Builder fastKPeriod(int fastKPeriod){
             this.fastKPeriod = fastKPeriod;

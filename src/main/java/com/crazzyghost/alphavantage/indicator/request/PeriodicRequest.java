@@ -7,12 +7,12 @@ public class PeriodicRequest extends IndicatorRequest{
 
     private PeriodicRequest(Builder builder){
         super(builder);
-        this.time_period = builder.timePeriod == 0 ? 60: builder.timePeriod;
+        this.time_period = builder.timePeriod;
     }
 
     public static class Builder extends IndicatorRequest.Builder<Builder>{
 
-        public int timePeriod;
+        public int timePeriod = 60;
 
         public Builder timePeriod(int timePeriod){
             this.timePeriod = timePeriod;

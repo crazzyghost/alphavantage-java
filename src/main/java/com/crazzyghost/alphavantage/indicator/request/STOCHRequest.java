@@ -1,5 +1,6 @@
 package com.crazzyghost.alphavantage.indicator.request;
 
+import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.MAType;
 
 public class STOCHRequest extends IndicatorRequest {
@@ -12,20 +13,24 @@ public class STOCHRequest extends IndicatorRequest {
 
     protected STOCHRequest(Builder builder) {
         super(builder);
-        this.fastKPeriod = builder.fastKPeriod == 0 ? 5 : builder.fastKPeriod;
-        this.slowKPeriod = builder.slowKPeriod == 0 ? 3 : builder.slowKPeriod;
-        this.slowDPeriod = builder.slowDPeriod == 0 ? 3 : builder.slowDPeriod;
-        this.slowDMaType = builder.slowDMaType == null ? MAType.SMA : builder.slowDMaType;
-        this.slowKMaType = builder.slowKMaType == null ? MAType.SMA : builder.slowKMaType;
+        this.fastKPeriod = builder.fastKPeriod;
+        this.slowKPeriod = builder.slowKPeriod;
+        this.slowDPeriod = builder.slowDPeriod;
+        this.slowDMaType = builder.slowDMaType;
+        this.slowKMaType = builder.slowKMaType;
     }
     
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public int fastKPeriod;
-        public int slowKPeriod;
-        public int slowDPeriod;
-        public MAType slowKMaType;
-        public MAType slowDMaType;
+        public int fastKPeriod = 5;
+        public int slowKPeriod = 3;
+        public int slowDPeriod = 3;
+        public MAType slowKMaType = MAType.SMA;
+        public MAType slowDMaType = MAType.SMA;
+
+        public Builder() {
+            this.function(Function.STOCH);
+        }
 
         public Builder fastKPeriod(int fastKPeriod){
             this.fastKPeriod = fastKPeriod;
