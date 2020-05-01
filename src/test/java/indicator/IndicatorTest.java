@@ -110,4 +110,24 @@ public class IndicatorTest {
         assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
+    @Test
+    public void testAROON() throws IOException{
+        assertEquals(4, 5);
+    }
+
+    @Test
+    public void testSimpleIndicatorResponse() throws IOException{
+        assertEquals(4, 5);        
+    }
+
+    @Test
+    public void testULTOSC() throws IOException{
+        assertEquals(4, 5);
+    }
+
+    @Test
+    public void testDX() throws IOException{
+        assertEquals(4, 5);
+    }
+
 }

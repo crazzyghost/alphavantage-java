@@ -21,6 +21,7 @@ import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
 import com.crazzyghost.alphavantage.indicator.response.SimpleIndicatorResponse;
+import com.crazzyghost.alphavantage.indicator.response.ULTOSCResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
@@ -226,6 +227,18 @@ public class Indicator{
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private void parseULTOSCResponse(final Map<String, Object> data){
+       ULTOSCResponse response = ULTOSCResponse.of(data, builder.function.name());
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<ULTOSCResponse>)successCallback).onSuccess(response);
+        }
+    }
+
     private void parseIndicatorResponse(final Map<String, Object> data){
         
         switch(builder.function){
@@ -241,6 +254,7 @@ public class Indicator{
             case CMO:
             case ROC:
             case ROCR:
+            case TRIX:
                 parsePeriodicSeriesResponse(data);
                 break;
             case MAMA:
@@ -271,10 +285,19 @@ public class Indicator{
                 break;
             case CCI:
             case AROONOSC:
+            case MFI:
+            case DX:
+            case MINUS_DI:
+            case PLUS_DI:
+            case MINUS_DM:
+            case PLUS_DM:
                 parsePeriodicResponse(data);
                 break;
             case AROON:
                 parseAROONResponse(data);
+                break;
+            case ULTOSC:
+                parseULTOSCResponse(data);
                 break;
             default:
                 break;        
@@ -397,6 +420,38 @@ public class Indicator{
 
     public PeriodicRequestProxy aroonosc(){
         return new PeriodicRequestProxy(Function.AROONOSC);
+    }
+
+    public PeriodicRequestProxy mfi(){
+        return new PeriodicRequestProxy(Function.MFI);
+    }
+
+    public PeriodicSeriesRequestProxy trix(){
+        return new PeriodicSeriesRequestProxy(Function.TRIX);
+    }
+
+    public ULTOSCRequestProxy ultosc(){
+        return new ULTOSCRequestProxy();
+    }
+
+    public PeriodicRequestProxy dx(){
+        return new PeriodicRequestProxy(Function.DX);
+    }
+
+    public PeriodicRequestProxy minusdi(){
+        return new PeriodicRequestProxy(Function.MINUS_DI);
+    }
+
+    public PeriodicRequestProxy plusdi(){
+        return new PeriodicRequestProxy(Function.PLUS_DI);
+    }
+
+    public PeriodicRequestProxy minusdm(){
+        return new PeriodicRequestProxy(Function.MINUS_DM);
+    }
+
+    public PeriodicRequestProxy plusdm(){
+        return new PeriodicRequestProxy(Function.PLUS_DM);
     }
 
     @SuppressWarnings("unchecked")
@@ -697,6 +752,28 @@ public class Indicator{
             builder = ((PriceOscillatorRequest.Builder)builder).maType(type);
             return this;
         }
+    }
 
+    public class ULTOSCRequestProxy extends SimpleIndicatorRequestProxy<ULTOSCRequestProxy> {
+        
+        public ULTOSCRequestProxy(){
+            builder = new ULTOSCRequest.Builder(); 
+            builder = builder.function(Function.ULTOSC);   
+        }
+
+        public ULTOSCRequestProxy timePeriod1(final int period){
+            builder = ((ULTOSCRequest.Builder)builder).timePeriod1(period);
+            return this;
+        }
+
+        public ULTOSCRequestProxy timePeriod2(final int period){
+            builder = ((ULTOSCRequest.Builder)builder).timePeriod2(period);
+            return this;
+        }
+        
+        public ULTOSCRequestProxy timePeriod3(final int period){
+            builder = ((ULTOSCRequest.Builder)builder).timePeriod3(period);
+            return this;
+        }
     }
 }
