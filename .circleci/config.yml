@@ -13,58 +13,53 @@ jobs:
       TERM: dumb
 
     steps:
-    - checkout
+      - checkout
 
-    - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "build.gradle" }}
-        # fallback to using the latest cache if no exact match is found
-        # - v1-dependencies-
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "build.gradle" }}
+          # fallback to using the latest cache if no exact match is found
+          # - v1-dependencies-
 
-    - run:
-        name: install-gradle-dependencies
-        command: gradle dependencies
+      - run:
+          name: install-gradle-dependencies
+          command: gradle dependencies
 
-    - save_cache:
-        paths:
-        - ~/.gradle
-        key: v1-dependencies-{{ checksum "build.gradle" }}
+      - save_cache:
+          paths:
+          - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}
 
-    # run tests!
-    - run:
-        name: Run tests
-        command: gradle test
-    - run:
-        name: Run Code Coverage
-        command: gradle jacocoTestReport
+      # run tests!
+      - run:
+          name: Run tests
+          command: gradle test
+      - run:
+          name: Run Code Coverage
+          command: gradle jacocoTestReport
 
-    - run:
-        name: Save test results
-        command: |
-          mkdir -p ~/test-results/junit/
-          find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/junit/ \;
-        when: always
-    - run:
-        name: Save coverage report
-        command: |
-            find . -type f -regex ".*/build/reports/.*xml" -exec cp {} ~/test-results/junit/ \;
-        when: always
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - run:
+          name: Save coverage report
+          command: |
+              find . -type f -regex ".*/build/reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
 
-    - store_test_results:
-        path: ~/test-results
-    
-    - store_artifacts:
-        path: ~/test-results/junit    
-    
-  codecov:
-    steps:
-    - codecov/upload:
-        file: ~/test-results/junit/jacocoTestReport.xml
+      - store_test_results:
+          path: ~/test-results
+      
+      - store_artifacts:
+          path: ~/test-results/junit    
+      
+      - codecov/upload:
+          file: ~/test-results/junit/*.xml
 
 workflows:
-  workflow:
-    jobs:
-      - build
-      - codecov
-          requires:
-            - build
+ workflow:
+   jobs:
+   - build
