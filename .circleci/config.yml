@@ -66,5 +66,5 @@ workflows:
    jobs:
    - build
    - codecov
-    requires:
-      - build
+      requires:
+        - build
