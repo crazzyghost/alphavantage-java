@@ -1,12 +1,12 @@
 package com.crazzyghost.alphavantage.indicator.response;
 
-public class STOCHRSIndicatorUnit {
+public class STOCHRSIIndicatorUnit {
 
     private String date;
     private double fastKValue;
     private double fastDValue;
 
-    public STOCHRSIndicatorUnit(String date, double fastK, double fastD) {
+    public STOCHRSIIndicatorUnit(String date, double fastK, double fastD) {
         this.date = date;
         this.fastKValue = fastK;
         this.fastDValue = fastD;
@@ -16,11 +16,11 @@ public class STOCHRSIndicatorUnit {
         return date;
     }
 
-    public double getSlowKValue() {
+    public double getFastKValue() {
         return fastKValue;
     }
 
-    public double getSlowDValue() {
+    public double getFastDValue() {
         return fastDValue;
     }
 

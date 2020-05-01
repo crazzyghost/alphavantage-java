@@ -7,10 +7,10 @@ import java.util.Map;
 public class STOCHRSIResponse {
 
     private MetaData metaData;
-    private List<STOCHRSIndicatorUnit> indicatorUnits;
+    private List<STOCHRSIIndicatorUnit> indicatorUnits;
     private String errorMessage;
 
-    private STOCHRSIResponse(List<STOCHRSIndicatorUnit> indicatorUnits, MetaData metaData){
+    private STOCHRSIResponse(List<STOCHRSIIndicatorUnit> indicatorUnits, MetaData metaData){
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
@@ -30,11 +30,11 @@ public class STOCHRSIResponse {
         this.errorMessage = errorMessage;
     }
 
-    public List<STOCHRSIndicatorUnit> getIndicatorUnits() {
+    public List<STOCHRSIIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
 
-    public void setIndicatorUnits(List<STOCHRSIndicatorUnit> indicatorUnits) {
+    public void setIndicatorUnits(List<STOCHRSIIndicatorUnit> indicatorUnits) {
         this.indicatorUnits = indicatorUnits;
     }
 
@@ -77,11 +77,11 @@ public class STOCHRSIResponse {
                 String.valueOf(md.get("8: Time Zone"))            
             );
 
-            List<STOCHRSIndicatorUnit> indicatorUnits =  new ArrayList<>();
+            List<STOCHRSIIndicatorUnit> indicatorUnits =  new ArrayList<>();
 
             for (Map.Entry<String,Map<String,String>> e: indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();     
-                STOCHRSIndicatorUnit indicatorUnit = new STOCHRSIndicatorUnit(
+                STOCHRSIIndicatorUnit indicatorUnit = new STOCHRSIIndicatorUnit(
                     e.getKey(),
                     Double.parseDouble(m.get("FastK")),
                     Double.parseDouble(m.get("FastD"))

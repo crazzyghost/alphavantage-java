@@ -30,7 +30,7 @@ import org.junit.Test;
 import okio.BufferedSource;
 import okio.Okio;
 
-public class IndicatorTest {
+public class ResponseTest {
 
     private BufferedSource getJson(String filename) throws FileNotFoundException {
         FileInputStream stream = new FileInputStream(Paths.get("src","test","java","indicator","data", filename + ".json").toFile());

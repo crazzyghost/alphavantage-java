@@ -16,11 +16,11 @@ public class STOCHFIndicatorUnit {
         return date;
     }
 
-    public double getSlowKValue() {
+    public double getFastKValue() {
         return fastKValue;
     }
 
-    public double getSlowDValue() {
+    public double getFastDValue() {
         return fastDValue;
     }
 
