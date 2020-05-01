@@ -26,18 +26,9 @@ public class MACDResponse {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     public List<MACDIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
-
-    public void setIndicatorUnits(List<MACDIndicatorUnit> indicatorUnits) {
-        this.indicatorUnits = indicatorUnits;
-    }
-
     
     public MetaData getMetaData() {
         return metaData;

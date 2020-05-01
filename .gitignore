@@ -141,3 +141,4 @@ gradle
 .vscode
 **/Main.java
 bin/**
+*.sh

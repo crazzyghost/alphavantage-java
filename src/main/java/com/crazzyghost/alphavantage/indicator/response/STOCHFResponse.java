@@ -26,18 +26,9 @@ public class STOCHFResponse {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     public List<STOCHFIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
-
-    public void setIndicatorUnits(List<STOCHFIndicatorUnit> indicatorUnits) {
-        this.indicatorUnits = indicatorUnits;
-    }
-
     
     public MetaData getMetaData() {
         return metaData;

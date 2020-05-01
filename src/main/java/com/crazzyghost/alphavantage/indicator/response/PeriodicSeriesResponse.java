@@ -26,16 +26,8 @@ public class PeriodicSeriesResponse {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     public List<SimpleIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
-    }
-
-    public void setInidcatorUnits(List<SimpleIndicatorUnit> indicatorUnits) {
-        this.indicatorUnits = indicatorUnits;
     }
     
     public MetaData getMetaData() {

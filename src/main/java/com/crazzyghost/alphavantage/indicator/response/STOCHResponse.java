@@ -25,19 +25,10 @@ public class STOCHResponse {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     public List<STOCHIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
-
-    public void setIndicatorUnits(List<STOCHIndicatorUnit> indicatorUnits) {
-        this.indicatorUnits = indicatorUnits;
-    }
-
-    
+   
     public MetaData getMetaData() {
         return metaData;
     }

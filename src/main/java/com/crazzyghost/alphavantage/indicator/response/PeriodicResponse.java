@@ -26,16 +26,8 @@ public class PeriodicResponse {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     public List<SimpleIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
-    }
-
-    public void setIndicatorUnits(List<SimpleIndicatorUnit> indicatorUnits) {
-        this.indicatorUnits = indicatorUnits;
     }
 
     

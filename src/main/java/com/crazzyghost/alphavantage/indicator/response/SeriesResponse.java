@@ -26,18 +26,9 @@ public class SeriesResponse {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     public List<SimpleIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
-
-    public void setIndicatorUnits(List<SimpleIndicatorUnit> indicatorUnits) {
-        this.indicatorUnits = indicatorUnits;
-    }
-
     
     public MetaData getMetaData() {
         return metaData;

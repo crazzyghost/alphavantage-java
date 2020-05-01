@@ -45,12 +45,20 @@ public class IndicatorUnitTest {
 
     @Test 
     public void testSimpleIndicatorUnit(){
-        SimpleIndicatorUnit unit = new SimpleIndicatorUnit("2012-02-02", 4.5);
+        SimpleIndicatorUnit unit = new SimpleIndicatorUnit("2012-02-02", 4.5,"SMA");
         assertEquals(unit.getValue(), 4.5, 0.0);
         assertEquals(unit.getDate(), "2012-02-02");
         assertNotNull(unit.toString());
     }
     
+    @Test 
+    public void testSimpleIndicatorUnitWithNoIndicator(){
+        SimpleIndicatorUnit unit = new SimpleIndicatorUnit("2012-02-02", 4.5);
+        assertEquals(unit.getValue(), 4.5, 0.0);
+        assertEquals(unit.getDate(), "2012-02-02");
+        assertNotNull(unit.toString());
+    }
+
     @Test 
     public void testSTOCHIndicatorUnit(){
         STOCHIndicatorUnit unit = new STOCHIndicatorUnit("2012-02-02", 4.5, 4.0);

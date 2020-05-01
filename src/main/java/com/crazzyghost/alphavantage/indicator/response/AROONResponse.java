@@ -26,18 +26,9 @@ public class AROONResponse {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     public List<AROONIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
-
-    public void setIndicatorUnits(List<AROONIndicatorUnit> indicatorUnits) {
-        this.indicatorUnits = indicatorUnits;
-    }
-
     
     public MetaData getMetaData() {
         return metaData;

@@ -26,18 +26,9 @@ public class MACDEXTResponse {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     public List<MACDIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
-
-    public void setIndicatorUnits(List<MACDIndicatorUnit> indicatorUnits) {
-        this.indicatorUnits = indicatorUnits;
-    }
-
     
     public MetaData getMetaData() {
         return metaData;
@@ -190,23 +181,14 @@ public class MACDEXTResponse {
             return signalPeriod;
         }
 
-        /**
-         * @return the fastMaType
-         */
         public double getFastMaType() {
             return fastMaType;
         }
 
-        /**
-         * @return the slowMaType
-         */
         public double getSlowMaType() {
             return slowMaType;
         }
 
-        /**
-         * @return the signalMaType
-         */
         public double getSignalMaType() {
             return signalMaType;
         }
