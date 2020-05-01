@@ -19,6 +19,7 @@ import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
+import com.crazzyghost.alphavantage.indicator.response.ULTOSCResponse;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
@@ -125,12 +126,10 @@ public class IndicatorTest {
 
     @Test
     public void testULTOSC() throws IOException{
-        assertEquals(4, 5);
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        ULTOSCResponse response = ULTOSCResponse.of(adapter.fromJson(getJson("ultosc")), "ULTOSC");
+        assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
-    @Test
-    public void testDX() throws IOException{
-        assertEquals(4, 5);
-    }
 
 }

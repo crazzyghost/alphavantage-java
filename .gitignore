@@ -140,3 +140,4 @@ gradle
 .idea/
 .vscode
 **/Main.java
+bin/**

@@ -1,0 +1,20 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Ultimate Oscillator (ULTOSC)",
+        "3: Last Refreshed": "2020-04-30",
+        "4: Interval": "daily",
+        "5.1: Time Period 1": 8,
+        "5.2: Time Period 2": 14,
+        "5.3: Time Period 3": 28,
+        "6: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: ULTOSC": {
+        "2020-04-30": {
+            "ULTOSC": "57.1603"
+        },
+        "2020-04-29": {
+            "ULTOSC": "59.9617"
+        }
+    }
+}
