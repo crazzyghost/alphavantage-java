@@ -217,7 +217,7 @@ public class Indicator{
 
     @SuppressWarnings("unchecked")
     private void parseAROONResponse(final Map<String, Object> data){
-       AROONResponse response = AROONResponse.of(data, builder.function.name());
+       AROONResponse response = AROONResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));

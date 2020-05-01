@@ -43,15 +43,15 @@ public class AROONResponse {
         return metaData;
     }
     
-    public static AROONResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
+    public static AROONResponse of(Map<String, Object> stringObjectMap){
         Parser parser = new Parser();
-        return parser.parse(stringObjectMap, indicatorKey);
+        return parser.parse(stringObjectMap);
     }
 
     public static class Parser {
 
         @SuppressWarnings("unchecked")
-        AROONResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        AROONResponse parse(Map<String, Object> stringObjectMap){
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 

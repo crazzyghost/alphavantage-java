@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
@@ -112,7 +113,9 @@ public class IndicatorTest {
 
     @Test
     public void testAROON() throws IOException{
-        assertEquals(4, 5);
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        AROONResponse response = AROONResponse.of(adapter.fromJson(getJson("aroon")));
+        assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
     @Test
