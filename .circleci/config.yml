@@ -34,7 +34,10 @@ jobs:
     - run:
         name: test
         command: gradle test
-    
+    - run:
+        name: code-coverage
+        command: gradle jacocoTestReport
+
     - run:
         name: Save test results
         command: |
@@ -49,7 +52,7 @@ jobs:
         path: ~/test-results/junit    
     
     - codecov/upload:
-        file: ~/test-results/junit
+        file: ~/test-results/junit/jacocoTestReport.xml
 
 workflows:
  test-coverage:
