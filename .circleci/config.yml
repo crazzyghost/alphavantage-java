@@ -62,9 +62,9 @@ jobs:
         file: ~/test-results/junit/jacocoTestReport.xml
 
 workflows:
- workflow:
-   jobs:
-   - build
-   - codecov
-      requires:
-        - build
+  workflow:
+    jobs:
+      - build
+      - codecov
+          requires:
+            - build
