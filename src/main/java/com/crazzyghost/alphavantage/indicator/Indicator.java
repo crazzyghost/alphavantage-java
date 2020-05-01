@@ -3,7 +3,6 @@ package com.crazzyghost.alphavantage.indicator;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
@@ -32,30 +31,21 @@ import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 
 import okhttp3.Call;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.logging.HttpLoggingInterceptor.Level;
 
-public class Indicator{
+
+public class Indicator {
 
     private IndicatorRequest.Builder<?> builder;
     private Fetcher.SuccessCallback<?> successCallback;
     private Fetcher.FailureCallback failureCallback;
     private final Config config;
-    private final OkHttpClient client;
     private IndicatorRequest request;
 
     public Indicator(final Config config) {
         this.config = config;
-        request = null;
-        final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(Level.BASIC);
-        client = new OkHttpClient.Builder()
-                .connectTimeout(config.getTimeOut(), TimeUnit.SECONDS)
-                .addInterceptor(logging)
-                .build();
+        this.request = null;
     }
 
     
@@ -71,7 +61,7 @@ public class Indicator{
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
                 .build();
 
-        client.newCall(request).enqueue(new okhttp3.Callback() {
+        config.getOkHttpClient().newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(final Call call, final IOException e) {
                 if(failureCallback != null){
@@ -547,7 +537,6 @@ public class Indicator{
  
         public MAMARequestProxy(){
             builder = new MAMARequest.Builder(); 
-            builder = builder.function(Function.MAMA);   
         }
 
         public MAMARequestProxy fastLimit(final double fastLimit){
@@ -570,7 +559,6 @@ public class Indicator{
  
         public MACDRequestProxy(){
             builder = new MACDRequest.Builder(); 
-            builder = builder.function(Function.MACD);   
         }
 
         public MACDRequestProxy fastPeriod(final int fastLimit){
@@ -598,7 +586,6 @@ public class Indicator{
  
         public MACDEXTRequestProxy(){
             builder = new MACDEXTRequest.Builder(); 
-            builder = builder.function(Function.MACDEXT);   
         }
 
         public MACDEXTRequestProxy fastPeriod(final int period){
@@ -641,7 +628,6 @@ public class Indicator{
  
         public STOCHRequestProxy(){
             builder = new STOCHRequest.Builder(); 
-            builder = builder.function(Function.STOCH);   
         }
 
         public STOCHRequestProxy fastKPeriod(final int period){
@@ -674,7 +660,6 @@ public class Indicator{
  
         public STOCHFRequestProxy(){
             builder = new STOCHFRequest.Builder(); 
-            builder = builder.function(Function.STOCHF);   
         }
 
         public STOCHFRequestProxy fastKPeriod(final int period){
@@ -697,7 +682,6 @@ public class Indicator{
  
         public STOCHRSIRequestProxy(){
             builder = new STOCHRSIRequest.Builder(); 
-            builder = builder.function(Function.STOCHRSI);   
         }
 
         public STOCHRSIRequestProxy fastKPeriod(final int period){
@@ -758,7 +742,6 @@ public class Indicator{
         
         public ULTOSCRequestProxy(){
             builder = new ULTOSCRequest.Builder(); 
-            builder = builder.function(Function.ULTOSC);   
         }
 
         public ULTOSCRequestProxy timePeriod1(final int period){
