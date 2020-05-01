@@ -49,7 +49,7 @@ jobs:
         path: ~/test-results/junit    
     
     - codecov/upload:
-        file: ~/test-results
+        file: ~/test-results/junit
 
 workflows:
  test-coverage:

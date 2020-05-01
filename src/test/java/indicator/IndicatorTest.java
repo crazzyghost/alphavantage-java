@@ -19,6 +19,7 @@ import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
+import com.crazzyghost.alphavantage.indicator.response.SimpleIndicatorResponse;
 import com.crazzyghost.alphavantage.indicator.response.ULTOSCResponse;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -121,7 +122,9 @@ public class IndicatorTest {
 
     @Test
     public void testSimpleIndicatorResponse() throws IOException{
-        assertEquals(4, 5);        
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        SimpleIndicatorResponse response = SimpleIndicatorResponse.of(adapter.fromJson(getJson("vwap")), "VWAP");
+        assertEquals(response.getIndicatorUnits().size(), 2);    
     }
 
     @Test
