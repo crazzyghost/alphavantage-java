@@ -12,10 +12,16 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.Config;
+import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
+import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
+import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
+import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
+import com.crazzyghost.alphavantage.indicator.response.SimpleIndicatorResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Interval;
+import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
 import org.junit.Before;
@@ -51,6 +57,14 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("TRIMA")).respond(getJson("trima"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("KAMA")).respond(getJson("kama"));
         mockInterceptor.addRule().get(getMAMAUrl()).respond(getJson("mama"));
+        mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("VWAP")).respond(getJson("vwap"));
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("T3")).respond(getJson("t3"));
+        mockInterceptor.addRule().get(getMACDUrl()).respond(getJson("macd"));
+        mockInterceptor.addRule().get(getMACDEXTUrl()).respond(getJson("macdext"));
+        mockInterceptor.addRule().get(getSTOCHUrl()).respond(getJson("stoch"));
+        mockInterceptor.addRule().get(getSTOCHFUrl()).respond(getJson("stochf"));
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("RSI")).respond(getJson("rsi"));
+        // mockInterceptor.addRule().get(getSTOCHRSIUrl()).respond(getJson("stochrsi"));
     }
 
 
@@ -60,6 +74,30 @@ public class IndicatorTest {
 
     private String getMAMAUrl(){
         return Config.BASE_URL + "series_type=open&fastlimit=0.1&slowlimit=0.5&function=MAMA&symbol=IBM&interval=weekly&datatype=json&apikey=demo";
+    }
+
+    private String getSimpleIndicatorRequestUrl(String function){
+        return Config.BASE_URL + "function=" + function + "&symbol=IBM&interval=weekly&datatype=json&apikey=demo";
+    }
+
+    private String getMACDUrl(){
+        return Config.BASE_URL + "series_type=open&fastperiod=12&slowperiod=26&signalperiod=9&function=MACD&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+    }
+    
+    private String getMACDEXTUrl(){
+        return Config.BASE_URL + "series_type=open&fastperiod=12&slowperiod=26&signalperiod=9&fastmatype=8&slowmatype=0&signalmatype=0&function=MACDEXT&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+    }
+
+    private String getSTOCHUrl(){
+        return Config.BASE_URL + "fastkperiod=5&slowkperiod=3&slowdperiod=3&slowkmatype=0&slowdmatype=0&function=STOCH&symbol=IBM&interval=60min&datatype=json&apikey=demo";
+    }
+    
+    private String getSTOCHFUrl(){
+        return Config.BASE_URL + "fastkperiod=5&fastdperiod=3&fastdmatype=8&function=STOCHF&symbol=IBM&interval=60min&datatype=json&apikey=demo";
+    }
+
+    private String getSTOCHRSIUrl(){
+        return Config.BASE_URL + "time_period=60&series_type=open&fastkperiod=5&fastdperiod=3&fastdmatype=8&function=STOCHRSI&symbol=IBM&interval=60min&datatype=json&apikey=demo";
     }
 
     private InputStream getJson(String filename) throws FileNotFoundException {
@@ -260,4 +298,190 @@ public class IndicatorTest {
         lock.await();
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
+
+    @Test
+    public void testVWAP() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SimpleIndicatorResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .vwap()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((SimpleIndicatorResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+
+    }
+
+    @Test
+    public void testT3() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicSeriesResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .t3()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicSeriesResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testMACD() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<MACDResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .macd()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .fastPeriod(12)
+            .slowPeriod(26)
+            .signalPeriod(9)
+            .forSymbol("IBM")
+            .dataType(DataType.JSON)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((MACDResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testMACDEXT() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<MACDEXTResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .macdext()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .fastPeriod(12)
+            .slowPeriod(26)
+            .signalPeriod(9)
+            .slowMaType(MAType.SMA)
+            .fastMaType(MAType.MAMA)
+            .signalMaType(MAType.SMA)
+            .forSymbol("IBM")
+            .dataType(DataType.JSON)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((MACDEXTResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testSTOCH() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<STOCHResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .stoch()
+            .interval(Interval.SIXTY_MIN)
+            .fastKPeriod(5)
+            .slowKPeriod(3)
+            .slowDPeriod(3)
+            .slowKMaType(MAType.SMA)
+            .slowDMaType(MAType.SMA)
+            .forSymbol("IBM")
+            .dataType(DataType.JSON)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((STOCHResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testSTOCHF() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<STOCHFResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .stochf()
+            .interval(Interval.SIXTY_MIN)
+            .fastKPeriod(5)
+            .fastDPeriod(3)
+            .fastDMaType(MAType.MAMA)
+            .forSymbol("IBM")
+            .dataType(DataType.JSON)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((STOCHFResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testRSI() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicSeriesResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .rsi()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicSeriesResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
 }

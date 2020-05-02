@@ -1,4 +1,6 @@
 [![CircleCI](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master.svg?style=shield)](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master)
+<!-- [![codecov](https://codecov.io/gh/crazzyghost/alphavantage-java/branch/technical-indicators/graph/badge.svg)](https://codecov.io/gh/crazzyghost/alphavantage-java) -->
+
 
 I created this wrapper to make accessing the [AlphaVantage API](https://www.alphavantage.co/) with Java fairly simple and fun. The library currently supports Timeseries, Currency Exchange, Forex, Crypto Currency data and Technical Indicators. Make sure to get an [API key](https://www.alphavantage.co/support/#api-key) from Alphavantage's website befor continuing. 
 

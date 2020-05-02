@@ -240,6 +240,7 @@ public class Indicator {
             case TRIMA:
             case KAMA:
             case T3:
+            case RSI:
             case MOM:
             case CMO:
             case ROC:
