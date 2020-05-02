@@ -87,6 +87,12 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getPeriodicUrl("MFI")).respond(getJson("mfi"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("TRIX")).respond(getJson("trix"));
         mockInterceptor.addRule().get(getULTOSCUrl()).respond(getJson("ultosc"));
+        mockInterceptor.addRule().get(getPeriodicUrl("DX")).respond(getJson("dx"));
+        mockInterceptor.addRule().get(getPeriodicUrl("MINUS_DI")).respond(getJson("minusdi"));
+        mockInterceptor.addRule().get(getPeriodicUrl("PLUS_DI")).respond(getJson("plusdi"));
+        mockInterceptor.addRule().get(getPeriodicUrl("MINUS_DM")).respond(getJson("minusdm"));
+        mockInterceptor.addRule().get(getPeriodicUrl("PLUS_DM")).respond(getJson("plusdm"));
+
     }
 
 
@@ -936,6 +942,108 @@ public class IndicatorTest {
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
+    @Test
+    public void testDX() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .dx()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
     
+    @Test
+    public void testMINUSDI() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .minusdi()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
     
+    @Test
+    public void testPLUSDI() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .plusdi()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+    @Test
+    public void testMINUSDM() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .minusdm()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testPLUSDM() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .plusdm()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
 }

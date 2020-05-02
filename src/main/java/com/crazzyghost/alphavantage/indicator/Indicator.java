@@ -524,18 +524,18 @@ public class Indicator {
         }
     }
 
-    public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy>{
+    // public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy>{
  
-        public SeriesRequestProxy(final Function function){
-            builder = new SeriesRequest.Builder(); 
-            builder = builder.function(function);   
-        }
+    //     public SeriesRequestProxy(final Function function){
+    //         builder = new SeriesRequest.Builder(); 
+    //         builder = builder.function(function);   
+    //     }
 
-        public SeriesRequestProxy seriesType(final SeriesType series){
-            builder = ((SeriesRequest.Builder)builder).seriesType(series);
-            return this;
-        }
-    }
+    //     public SeriesRequestProxy seriesType(final SeriesType series){
+    //         builder = ((SeriesRequest.Builder)builder).seriesType(series);
+    //         return this;
+    //     }
+    // }
 
     public class MAMARequestProxy extends SimpleIndicatorRequestProxy<MAMARequestProxy>{
  
