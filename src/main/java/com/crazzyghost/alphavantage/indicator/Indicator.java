@@ -9,18 +9,7 @@ import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.indicator.request.*;
-import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
-import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
-import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
-import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
-import com.crazzyghost.alphavantage.indicator.response.PeriodicResponse;
-import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
-import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
-import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
-import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
-import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
-import com.crazzyghost.alphavantage.indicator.response.SimpleIndicatorResponse;
-import com.crazzyghost.alphavantage.indicator.response.ULTOSCResponse;
+import com.crazzyghost.alphavantage.indicator.response.*;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
@@ -47,8 +36,6 @@ public class Indicator {
         this.config = config;
         this.request = null;
     }
-
-    
 
     public void fetch(){
         if(config == null || config.getKey() == null){
@@ -453,12 +440,15 @@ public class Indicator {
         protected IndicatorRequest.Builder<?> builder;
         
         public SimpleIndicatorRequestProxy(){
-
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;
         }
         
         public SimpleIndicatorRequestProxy(final Function function){
             builder = new SimpleIndicatorRequest.Builder(); 
-            builder = builder.function(function);   
+            builder = builder.function(function); 
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;  
         }
 
         public T dataType(final DataType dataType){
@@ -497,7 +487,9 @@ public class Indicator {
  
         public PeriodicSeriesRequestProxy(final Function function){
             builder = new PeriodicSeriesRequest.Builder(); 
-            builder = builder.function(function);   
+            builder = builder.function(function);
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;   
         }
 
         public PeriodicSeriesRequestProxy timePeriod(final int period){
@@ -515,7 +507,9 @@ public class Indicator {
  
         public PeriodicRequestProxy(final Function function){
             builder = new PeriodicRequest.Builder(); 
-            builder = builder.function(function);   
+            builder = builder.function(function); 
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;  
         }
 
         public PeriodicRequestProxy timePeriod(final int period){
@@ -541,6 +535,8 @@ public class Indicator {
  
         public MAMARequestProxy(){
             builder = new MAMARequest.Builder(); 
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;
         }
 
         public MAMARequestProxy fastLimit(final double fastLimit){
@@ -563,6 +559,8 @@ public class Indicator {
  
         public MACDRequestProxy(){
             builder = new MACDRequest.Builder(); 
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;
         }
 
         public MACDRequestProxy fastPeriod(final int fastLimit){
@@ -589,7 +587,9 @@ public class Indicator {
     public class MACDEXTRequestProxy extends SimpleIndicatorRequestProxy<MACDEXTRequestProxy>{
  
         public MACDEXTRequestProxy(){
-            builder = new MACDEXTRequest.Builder(); 
+            builder = new MACDEXTRequest.Builder();
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null; 
         }
 
         public MACDEXTRequestProxy fastPeriod(final int period){
@@ -632,6 +632,8 @@ public class Indicator {
  
         public STOCHRequestProxy(){
             builder = new STOCHRequest.Builder(); 
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;
         }
 
         public STOCHRequestProxy fastKPeriod(final int period){
@@ -663,7 +665,9 @@ public class Indicator {
     public class STOCHFRequestProxy extends SimpleIndicatorRequestProxy<STOCHFRequestProxy>{
  
         public STOCHFRequestProxy(){
-            builder = new STOCHFRequest.Builder(); 
+            builder = new STOCHFRequest.Builder();
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null; 
         }
 
         public STOCHFRequestProxy fastKPeriod(final int period){
@@ -685,7 +689,9 @@ public class Indicator {
     public class STOCHRSIRequestProxy extends SimpleIndicatorRequestProxy<STOCHRSIRequestProxy>{
  
         public STOCHRSIRequestProxy(){
-            builder = new STOCHRSIRequest.Builder(); 
+            builder = new STOCHRSIRequest.Builder();
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null; 
         }
 
         public STOCHRSIRequestProxy fastKPeriod(final int period){
@@ -718,7 +724,9 @@ public class Indicator {
  
         public PriceOscillatorRequestProxy(final Function function){
             builder = new PriceOscillatorRequest.Builder(); 
-            builder = builder.function(function);   
+            builder = builder.function(function); 
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;  
         }
 
         public PriceOscillatorRequestProxy fastPeriod(final double period){
@@ -745,7 +753,9 @@ public class Indicator {
     public class ULTOSCRequestProxy extends SimpleIndicatorRequestProxy<ULTOSCRequestProxy> {
         
         public ULTOSCRequestProxy(){
-            builder = new ULTOSCRequest.Builder(); 
+            builder = new ULTOSCRequest.Builder();
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null; 
         }
 
         public ULTOSCRequestProxy timePeriod1(final int period){

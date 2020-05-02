@@ -2,6 +2,7 @@ package indicator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileInputStream;
@@ -70,6 +71,7 @@ public class IndicatorTest {
 
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA")).respond(getJson("sma"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","AAPL")).respond(errorMessage).code(400);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","MSFT")).delay(11000);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("EMA")).respond(getJson("ema"));
@@ -80,39 +82,50 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("KAMA")).respond(getJson("kama"));
         mockInterceptor.addRule().get(getMAMAUrl(null)).respond(getJson("mama"));
         mockInterceptor.addRule().get(getMAMAUrl("GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getMAMAUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("VWAP")).respond(getJson("vwap"));
+        mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("VWAP","GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("VWAP","GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("T3")).respond(getJson("t3"));
         mockInterceptor.addRule().get(getMACDUrl(null)).respond(getJson("macd"));
         mockInterceptor.addRule().get(getMACDUrl("GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getMACDUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getMACDEXTUrl(null)).respond(getJson("macdext"));
+        mockInterceptor.addRule().get(getMACDEXTUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getMACDEXTUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getSTOCHUrl(null)).respond(getJson("stoch"));
         mockInterceptor.addRule().get(getSTOCHUrl("GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getSTOCHUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getSTOCHFUrl(null)).respond(getJson("stochf"));
+        mockInterceptor.addRule().get(getSTOCHFUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getSTOCHFUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("RSI")).respond(getJson("rsi"));
         mockInterceptor.addRule().get(getSTOCHRSIUrl(null)).respond(getJson("stochrsi"));
+        mockInterceptor.addRule().get(getSTOCHRSIUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getSTOCHRSIUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicUrl("ADX")).respond(getJson("adx"));
         mockInterceptor.addRule().get(getPeriodicUrl("WILLR")).respond(getJson("willr"));
         mockInterceptor.addRule().get(getPeriodicUrl("ADXR")).respond(getJson("adxr"));
         mockInterceptor.addRule().get(getPriceOscillatorUrl("PPO")).respond(getJson("ppo"));
         mockInterceptor.addRule().get(getPriceOscillatorUrl("PPO","GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getPriceOscillatorUrl("PPO","GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPriceOscillatorUrl("APO")).respond(getJson("apo"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("MOM")).respond(getJson("mom"));
         mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("BOP")).respond(getJson("bop"));
         mockInterceptor.addRule().get(getPeriodicUrl("CCI")).respond(getJson("cci"));
+        mockInterceptor.addRule().get(getPeriodicUrl("CCI", "GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicUrl("CCI", "GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("CMO")).respond(getJson("cmo"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("ROC")).respond(getJson("roc"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("ROCR")).respond(getJson("rocr"));
         mockInterceptor.addRule().get(getPeriodicUrl("AROON")).respond(getJson("aroon"));
         mockInterceptor.addRule().get(getPeriodicUrl("AROON", "GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getPeriodicUrl("AROON", "GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicUrl("AROONOSC")).respond(getJson("aroonosc"));
         mockInterceptor.addRule().get(getPeriodicUrl("MFI")).respond(getJson("mfi"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("TRIX")).respond(getJson("trix"));
         mockInterceptor.addRule().get(getULTOSCUrl(null)).respond(getJson("ultosc"));
+        mockInterceptor.addRule().get(getULTOSCUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getULTOSCUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicUrl("DX")).respond(getJson("dx"));
         mockInterceptor.addRule().get(getPeriodicUrl("MINUS_DI")).respond(getJson("minusdi"));
@@ -196,8 +209,20 @@ public class IndicatorTest {
     }
 
     @Test(expected = AlphaVantageException.class)
-    public void testConfigKeyNotSet(){
+    public void testConfigNotSet(){
         new Indicator(null)
+            .sma()
+            .forSymbol("AAPL")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .dataType(DataType.JSON)
+            .fetch();
+    }
+    
+    @Test(expected = AlphaVantageException.class)
+    public void testConfigKeyNotSet(){
+        new Indicator(Config.builder().build())
             .sma()
             .forSymbol("AAPL")
             .interval(Interval.WEEKLY)
@@ -223,7 +248,6 @@ public class IndicatorTest {
                 lock.countDown();
                 ref.set(e);
             })
-            .onSuccess((e) -> lock.countDown())
             .dataType(DataType.JSON)
             .fetch();
         lock.await();
@@ -263,10 +287,9 @@ public class IndicatorTest {
             .interval(Interval.WEEKLY)
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
-            .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                    lock.countDown();
-                    ref.set(e);
+                lock.countDown();
+                ref.set(e);
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -278,7 +301,7 @@ public class IndicatorTest {
     @Test
     public void testSMAError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<PeriodicSeriesResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
         AlphaVantage.api()
             .indicator()
             .sma()
@@ -286,15 +309,33 @@ public class IndicatorTest {
             .interval(Interval.WEEKLY)
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((PeriodicSeriesResponse e) -> {
-                    lock.countDown();
-                    ref.set(e);
+            .onFailure((e) -> {
+                lock.countDown();
+                ref.set(e);
             })
             .dataType(DataType.JSON)
             .fetch();
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testSMAErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .sma()
+            .forSymbol("GOOGL")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .onFailure(null)
+            .onSuccess((e) -> lock.countDown())
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertNull(ref.get());
     }
 
 
@@ -310,7 +351,7 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .interval(Interval.WEEKLY)
             .seriesType(SeriesType.OPEN)
-            .timePeriod(60).onFailure((e) -> lock.countDown())
+            .timePeriod(60)
             .onSuccess((PeriodicSeriesResponse e) -> {
                 lock.countDown();
                 ref.set(e);
@@ -334,7 +375,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .interval(Interval.WEEKLY)
             .seriesType(SeriesType.OPEN)
-            .timePeriod(60).onFailure((e) -> lock.countDown())
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
                 lock.countDown();
                 ref.set(e);
@@ -458,7 +500,6 @@ public class IndicatorTest {
             .fastLimit(0.1)
             .slowLimit(0.5)
             .seriesType(SeriesType.OPEN)
-            .onFailure((e) -> lock.countDown())
             .onSuccess((MAMAResponse e) -> {
                 lock.countDown();
                 ref.set(e);
@@ -474,7 +515,7 @@ public class IndicatorTest {
     @Test
     public void testMAMAError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<MAMAResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
 
         AlphaVantage
             .api()
@@ -486,8 +527,7 @@ public class IndicatorTest {
             .fastLimit(0.1)
             .slowLimit(0.5)
             .seriesType(SeriesType.OPEN)
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((MAMAResponse e) -> {
+            .onFailure((e) -> {
                 lock.countDown();
                 ref.set(e);
             })
@@ -495,7 +535,30 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testMAMAErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .mama()
+            .forSymbol("GOOGL")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .fastLimit(0.1)
+            .slowLimit(0.5)
+            .onSuccess(e-> lock.countDown())
+            .seriesType(SeriesType.OPEN)
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
     }
 
 
@@ -510,7 +573,6 @@ public class IndicatorTest {
             .vwap()
             .forSymbol("IBM")
             .interval(Interval.WEEKLY)
-            .onFailure((e) -> lock.countDown())
             .onSuccess((SimpleIndicatorResponse e) -> {
                 lock.countDown();
                 ref.set(e);
@@ -528,7 +590,7 @@ public class IndicatorTest {
     @Test
     public void testVWAPError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<SimpleIndicatorResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
 
         AlphaVantage
             .api()
@@ -536,16 +598,37 @@ public class IndicatorTest {
             .vwap()
             .forSymbol("GOOGL")
             .interval(Interval.WEEKLY)
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((SimpleIndicatorResponse e) -> {
+            .onFailure((e) -> { 
                 lock.countDown();
                 ref.set(e);
-            })
+             })
             .dataType(DataType.JSON)
             .fetch();
 
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
+
+    }
+
+    @Test
+    public void testVWAPErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .vwap()
+            .forSymbol("GOOGL")
+            .interval(Interval.WEEKLY)
+            .onSuccess((e) -> { 
+                lock.countDown();
+             })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
 
     }
 
@@ -606,7 +689,7 @@ public class IndicatorTest {
     @Test
     public void testMACDError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<MACDResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
 
         AlphaVantage
             .api()
@@ -619,8 +702,7 @@ public class IndicatorTest {
             .signalPeriod(9)
             .forSymbol("GOOGL")
             .dataType(DataType.JSON)
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((MACDResponse e) -> {
+            .onFailure((e) -> {
                 lock.countDown();
                 ref.set(e);
             })
@@ -628,9 +710,32 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
     }
 
+    @Test
+    public void testMACDErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .macd()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .fastPeriod(12)
+            .slowPeriod(26)
+            .signalPeriod(9)
+            .forSymbol("GOOGL")
+            .dataType(DataType.JSON)
+            .onSuccess((e) -> lock.countDown())
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
+    }
 
     @Test
     public void testMACDEXT() throws InterruptedException {
@@ -667,7 +772,7 @@ public class IndicatorTest {
     @Test
     public void testMACDEXTError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<MACDEXTResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
 
         AlphaVantage
             .api()
@@ -683,8 +788,7 @@ public class IndicatorTest {
             .signalMaType(MAType.SMA)
             .forSymbol("GOOGL")
             .dataType(DataType.JSON)
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((MACDEXTResponse e) -> {
+            .onFailure((e) -> {
                 lock.countDown();
                 ref.set(e);
             })
@@ -692,7 +796,34 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testMACDEXTErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .macdext()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .fastPeriod(12)
+            .slowPeriod(26)
+            .signalPeriod(9)
+            .slowMaType(MAType.SMA)
+            .fastMaType(MAType.MAMA)
+            .signalMaType(MAType.SMA)
+            .forSymbol("GOOGL")
+            .dataType(DataType.JSON)
+            .onSuccess(e -> lock.countDown())
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
     }
 
 
@@ -729,7 +860,7 @@ public class IndicatorTest {
     @Test
     public void testSTOCHError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<STOCHResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
 
         AlphaVantage
             .api()
@@ -743,8 +874,7 @@ public class IndicatorTest {
             .slowDMaType(MAType.SMA)
             .forSymbol("GOOGL")
             .dataType(DataType.JSON)
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((STOCHResponse e) -> {
+            .onFailure((e) -> {
                 lock.countDown();
                 ref.set(e);
             })
@@ -752,8 +882,33 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
-        System.out.println(ref.get());
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
+    }
+
+
+    @Test
+    public void testSTOCHErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .stoch()
+            .interval(Interval.SIXTY_MIN)
+            .fastKPeriod(5)
+            .slowKPeriod(3)
+            .slowDPeriod(3)
+            .slowKMaType(MAType.SMA)
+            .slowDMaType(MAType.SMA)
+            .forSymbol("GOOGL")
+            .dataType(DataType.JSON)
+            .onSuccess(e->lock.countDown())
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
     }
 
 
@@ -788,7 +943,7 @@ public class IndicatorTest {
     @Test
     public void testSTOCHFError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<STOCHFResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
 
         AlphaVantage
             .api()
@@ -800,8 +955,7 @@ public class IndicatorTest {
             .fastDMaType(MAType.MAMA)
             .forSymbol("GOOGL")
             .dataType(DataType.JSON)
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((STOCHFResponse e) -> {
+            .onFailure((e) -> {
                 lock.countDown();
                 ref.set(e);
             })
@@ -809,9 +963,31 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
     }
 
+    @Test
+    public void testSTOCHFErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .stochf()
+            .interval(Interval.SIXTY_MIN)
+            .fastKPeriod(5)
+            .fastDPeriod(3)
+            .fastDMaType(MAType.MAMA)
+            .forSymbol("GOOGL")
+            .dataType(DataType.JSON)
+            .onSuccess(e->lock.countDown())
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
+    }
 
     @Test
     public void testRSI() throws InterruptedException {
@@ -866,7 +1042,7 @@ public class IndicatorTest {
     @Test
     public void testSTOCHRSIError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<STOCHRSIResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
 
         AlphaVantage
             .api()
@@ -879,8 +1055,7 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
             .forSymbol("GOOGL")
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((STOCHRSIResponse e) -> {
+            .onFailure(( e) -> {
                 lock.countDown();
                 ref.set(e);
             })
@@ -888,7 +1063,33 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testSTOCHRSIErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .stochrsi()
+            .interval(Interval.SIXTY_MIN)
+            .fastKPeriod(5)
+            .fastDPeriod(3)
+            .fastDMaType(MAType.MAMA)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .forSymbol("GOOGL")
+            .onSuccess((e) -> {
+                lock.countDown();
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
     }
 
     @Test
@@ -995,7 +1196,7 @@ public class IndicatorTest {
     @Test
     public void testPPOError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<PriceOscillatorResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
 
         AlphaVantage
             .api()
@@ -1007,8 +1208,7 @@ public class IndicatorTest {
             .fastPeriod(0.1)
             .slowPeriod(0.2)
             .forSymbol("GOOGL")
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((PriceOscillatorResponse e)-> {
+            .onFailure((e) -> {
                 lock.countDown();
                 ref.set(e);
             })
@@ -1016,7 +1216,30 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testPPOErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .ppo()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .maType(MAType.MAMA)
+            .fastPeriod(0.1)
+            .slowPeriod(0.2)
+            .forSymbol("GOOGL")
+            .onSuccess((e) -> lock.countDown())
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
     }
 
 
@@ -1125,7 +1348,7 @@ public class IndicatorTest {
     @Test
     public void testCCIError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
 
         AlphaVantage
             .api()
@@ -1134,8 +1357,7 @@ public class IndicatorTest {
             .interval(Interval.DAILY)
             .timePeriod(60)
             .forSymbol("GOOGL")
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((PeriodicResponse e)-> {
+            .onFailure((e) -> {
                 lock.countDown();
                 ref.set(e);
             })
@@ -1143,7 +1365,29 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testCCIErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .cci()
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .forSymbol("GOOGL")
+            .onSuccess((e) -> {
+                lock.countDown();
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
     }
 
     @Test
@@ -1237,22 +1481,40 @@ public class IndicatorTest {
     @Test
     public void testAROONError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<AROONResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
         AlphaVantage.api()
             .indicator()
             .aroon()
             .forSymbol("GOOGL")
             .interval(Interval.DAILY)
             .timePeriod(60)
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((AROONResponse e) -> {
+            .onFailure((e) -> {
                 lock.countDown();
                 ref.set(e);
             })
             .dataType(DataType.JSON)
             .fetch();
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testAROONErrorWithoutFallbackCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .aroon()
+            .forSymbol("GOOGL")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onSuccess((e) -> {
+                lock.countDown();
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertNull(ref.get());
     }
 
     @Test
@@ -1349,7 +1611,7 @@ public class IndicatorTest {
     @Test
     public void testULTOSCError() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<ULTOSCResponse> ref = new AtomicReference<>();
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
 
         AlphaVantage
             .api()
@@ -1360,8 +1622,7 @@ public class IndicatorTest {
             .timePeriod2(14)
             .timePeriod3(28)
             .forSymbol("GOOGL")
-            .onFailure((e) -> lock.countDown())
-            .onSuccess((ULTOSCResponse e)-> {
+            .onFailure((e) -> {
                 lock.countDown();
                 ref.set(e);
             })
@@ -1369,7 +1630,31 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
-        assertNotNull(ref.get().getErrorMessage());
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testULTOSCErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .ultosc()
+            .interval(Interval.SIXTY_MIN)
+            .timePeriod1(7)
+            .timePeriod2(14)
+            .timePeriod3(28)
+            .forSymbol("GOOGL")
+            .onSuccess((e) -> {
+                lock.countDown();
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
     }
 
     @Test
