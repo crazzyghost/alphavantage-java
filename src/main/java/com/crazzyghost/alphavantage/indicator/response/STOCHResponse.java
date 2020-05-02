@@ -42,19 +42,15 @@ public class STOCHResponse {
 
         @SuppressWarnings("unchecked")
         STOCHResponse parse(Map<String, Object> stringObjectMap){
-
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
             Map<String, Object> md;
             Map<String, Map<String, String>> indicatorData;
-
             try{
                 md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
                 indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-
             }catch (ClassCastException e){
                 return new STOCHResponse((String)stringObjectMap.get(keys.get(0)));
             }
-
             MetaData metaData = new MetaData(
                 String.valueOf(md.get("1: Symbol")),
                 String.valueOf(md.get("2: Indicator")),

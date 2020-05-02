@@ -51,7 +51,6 @@ public class STOCHRSIResponse {
             try{
                 md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
                 indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-
             }catch (ClassCastException e){
                 return new STOCHRSIResponse((String)stringObjectMap.get(keys.get(0)));
             }

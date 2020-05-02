@@ -51,7 +51,7 @@ public class Indicator {
     
 
     public void fetch(){
-        if(config.getKey() == null){
+        if(config == null || config.getKey() == null){
             throw new AlphaVantageException("Config not set");
         }
 
