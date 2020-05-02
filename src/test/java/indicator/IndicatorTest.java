@@ -71,6 +71,7 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA")).respond(getJson("sma"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","AAPL")).respond(errorMessage).code(400);
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","MSFT")).delay(11000);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("EMA")).respond(getJson("ema"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("WMA")).respond(getJson("wma"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("DEMA")).respond(getJson("dema"));
@@ -117,8 +118,7 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getPeriodicUrl("MINUS_DI")).respond(getJson("minusdi"));
         mockInterceptor.addRule().get(getPeriodicUrl("PLUS_DI")).respond(getJson("plusdi"));
         mockInterceptor.addRule().get(getPeriodicUrl("MINUS_DM")).respond(getJson("minusdm"));
-        mockInterceptor.addRule().get(getPeriodicUrl("PLUS_DM")).respond(getJson("plusdm"));
-   
+        mockInterceptor.addRule().get(getPeriodicUrl("PLUS_DM")).respond(getJson("plusdm"));   
     }
 
 
@@ -216,6 +216,28 @@ public class IndicatorTest {
             .indicator()
             .sma()
             .forSymbol("AAPL")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .onFailure((e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .onSuccess((e) -> lock.countDown())
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testResponseFailure() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .sma()
+            .forSymbol("MSFT")
             .interval(Interval.WEEKLY)
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
