@@ -10,6 +10,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -73,6 +77,8 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","AAPL")).respond(errorMessage).code(400);
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","AAPL")).respond(errorMessage).code(400);
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","MSFT")).delay(11000);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("SMA","MSFT")).delay(11000);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("EMA")).respond(getJson("ema"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("WMA")).respond(getJson("wma"));
@@ -254,6 +260,20 @@ public class IndicatorTest {
         assertNotNull(ref.get());
     }
 
+    @Test(timeout=2000)
+    public void testResponseUnsuccessfulWithoutFailureCallback() throws InterruptedException {
+        AlphaVantage.api()
+            .indicator()
+            .sma()
+            .forSymbol("AAPL")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .dataType(DataType.JSON)
+            .fetch();
+    }
+
+
     @Test
     public void testResponseFailure() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
@@ -274,6 +294,19 @@ public class IndicatorTest {
             .fetch();
         lock.await();
         assertNotNull(ref.get());
+    }
+
+    @Test(timeout = 11000)
+    public void testResponseFailureWithoutFailureCallback() throws InterruptedException {
+        AlphaVantage.api()
+            .indicator()
+            .sma()
+            .forSymbol("MSFT")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .dataType(DataType.JSON)
+            .fetch();
     }
 
     @Test
