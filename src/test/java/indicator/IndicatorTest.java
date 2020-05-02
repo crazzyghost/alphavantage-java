@@ -1,6 +1,7 @@
 package indicator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,6 +18,7 @@ import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
+import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
@@ -71,6 +73,10 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getPeriodicUrl("ADX")).respond(getJson("adx"));
         mockInterceptor.addRule().get(getPeriodicUrl("WILLR")).respond(getJson("willr"));
         mockInterceptor.addRule().get(getPeriodicUrl("ADXR")).respond(getJson("adxr"));
+        mockInterceptor.addRule().get(getPriceOscillatorUrl("PPO")).respond(getJson("ppo"));
+        mockInterceptor.addRule().get(getPriceOscillatorUrl("APO")).respond(getJson("apo"));
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("MOM")).respond(getJson("mom"));
+        mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("BOP")).respond(getJson("bop"));
         mockInterceptor.addRule().get(getULTOSCUrl()).respond(getJson("ultosc"));
     }
 
@@ -115,6 +121,10 @@ public class IndicatorTest {
         return Config.BASE_URL + "timeperiod1=7&timeperiod2=14&timeperiod3=28&function=ULTOSC&symbol=IBM&interval=60min&datatype=json&apikey=demo";
     }
 
+    private String getPriceOscillatorUrl(String function){
+        return Config.BASE_URL + "series_type=open&fastperiod=0.1&slowperiod=0.2&matype=8&function=" + function +"&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+    }
+
     private InputStream getJson(String filename) throws FileNotFoundException {
         FileInputStream stream = new FileInputStream(Paths.get("src", "test", "java", "indicator", "data", filename + ".json").toFile());
         return stream;
@@ -139,6 +149,7 @@ public class IndicatorTest {
             .dataType(DataType.JSON)
             .fetch();
         lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
@@ -311,6 +322,7 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
@@ -334,6 +346,7 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
 
     }
@@ -388,6 +401,7 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
@@ -419,6 +433,7 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
@@ -448,6 +463,7 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
@@ -475,6 +491,7 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
@@ -524,6 +541,7 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
@@ -548,6 +566,7 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
@@ -600,6 +619,113 @@ public class IndicatorTest {
     }
 
     @Test
+    public void testPPO() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PriceOscillatorResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .ppo()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .maType(MAType.MAMA)
+            .fastPeriod(0.1)
+            .slowPeriod(0.2)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PriceOscillatorResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testAPO() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PriceOscillatorResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .apo()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .maType(MAType.MAMA)
+            .fastPeriod(0.1)
+            .slowPeriod(0.2)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PriceOscillatorResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+
+    @Test
+    public void testMOM() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicSeriesResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .mom()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicSeriesResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testBOP() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SimpleIndicatorResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .bop()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((SimpleIndicatorResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+
+    }
+
+
+    @Test
     public void testULTOSC() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
         AtomicReference<ULTOSCResponse> ref = new AtomicReference<>();
@@ -622,6 +748,9 @@ public class IndicatorTest {
             .fetch();
 
         lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
+
+    
 }
