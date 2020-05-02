@@ -200,7 +200,6 @@ public class IndicatorRequestTest {
             .timePeriod(60)
             .forSymbol("IBM")
             .build();
-        System.out.println(UrlExtractor.extract(request));
         assertEquals(expected, UrlExtractor.extract(request) + "demo");
     }
 
@@ -216,7 +215,6 @@ public class IndicatorRequestTest {
             .timePeriod3(28)
             .forSymbol("IBM")
             .build();
-        System.out.println(UrlExtractor.extract(request));
         assertEquals(expected, UrlExtractor.extract(request) + "demo");
     }
 

@@ -274,6 +274,9 @@ public class Indicator {
             case PPO: 
                 parsePriceOscillatorResponse(data);
                 break;
+            case WILLR:
+            case ADX:
+            case ADXR:
             case CCI:
             case AROONOSC:
             case MFI:
