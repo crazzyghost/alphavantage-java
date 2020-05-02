@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.Config;
+import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
@@ -77,6 +78,14 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getPriceOscillatorUrl("APO")).respond(getJson("apo"));
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("MOM")).respond(getJson("mom"));
         mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("BOP")).respond(getJson("bop"));
+        mockInterceptor.addRule().get(getPeriodicUrl("CCI")).respond(getJson("cci"));
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("CMO")).respond(getJson("cmo"));
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("ROC")).respond(getJson("roc"));
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("ROCR")).respond(getJson("rocr"));
+        mockInterceptor.addRule().get(getPeriodicUrl("AROON")).respond(getJson("aroon"));
+        mockInterceptor.addRule().get(getPeriodicUrl("AROONOSC")).respond(getJson("aroonosc"));
+        mockInterceptor.addRule().get(getPeriodicUrl("MFI")).respond(getJson("mfi"));
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("TRIX")).respond(getJson("trix"));
         mockInterceptor.addRule().get(getULTOSCUrl()).respond(getJson("ultosc"));
     }
 
@@ -724,6 +733,181 @@ public class IndicatorTest {
 
     }
 
+    @Test
+    public void testCCI() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .cci()
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testCMO() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicSeriesResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .cmo()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicSeriesResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testROC() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicSeriesResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .roc()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicSeriesResponse e) -> {
+                    lock.countDown();
+                    ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testROCR() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicSeriesResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .rocr()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicSeriesResponse e) -> {
+                    lock.countDown();
+                    ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testAROON() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AROONResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .aroon()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((AROONResponse e) -> {
+                    lock.countDown();
+                    ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testAROONOSC() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .aroonosc()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e) -> {
+                    lock.countDown();
+                    ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testMFI() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .mfi()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testTRIX() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicSeriesResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .trix()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicSeriesResponse e) -> {
+                    lock.countDown();
+                    ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
 
     @Test
     public void testULTOSC() throws InterruptedException {
@@ -752,5 +936,6 @@ public class IndicatorTest {
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
+    
     
 }
