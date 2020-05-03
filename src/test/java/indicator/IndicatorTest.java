@@ -144,7 +144,10 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getSARUrl(null)).respond(getJson("sar"));
         mockInterceptor.addRule().get(getSARUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getSARUrl("GOOGL")).respond(errorMessage);
-        
+        mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("TRANGE")).respond(getJson("trange"));
+        mockInterceptor.addRule().get(getPeriodicUrl("ATR")).respond(getJson("atr"));
+        mockInterceptor.addRule().get(getPeriodicUrl("NATR")).respond(getJson("natr"));
+
     }
 
 
@@ -2008,6 +2011,73 @@ public class IndicatorTest {
 
         lock.await();
         assertNull(ref.get());
+    }
+
+    @Test
+    public void testTRANGE() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SimpleIndicatorResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .trange()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((SimpleIndicatorResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+
+    }
+
+    @Test
+    public void testATR() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .atr()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testNATR() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .natr()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
 

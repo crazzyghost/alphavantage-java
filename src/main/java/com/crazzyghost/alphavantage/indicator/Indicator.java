@@ -267,6 +267,7 @@ public class Indicator {
                 break;
             case VWAP:
             case BOP:
+            case TRANGE:
                 parseSimpleIndicatorResponse(data);
                 break;
             case MACD:
@@ -300,6 +301,8 @@ public class Indicator {
             case MINUS_DM:
             case PLUS_DM:
             case MIDPRICE:
+            case ATR:
+            case NATR:
                 parsePeriodicResponse(data);
                 break;
             case AROON:
@@ -483,6 +486,18 @@ public class Indicator {
 
     public SARRequestProxy sar(){
         return new SARRequestProxy();
+    }
+
+    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> trange(){
+        return new SimpleIndicatorRequestProxy<>(Function.TRANGE);
+    }
+
+    public PeriodicRequestProxy atr(){
+        return new PeriodicRequestProxy(Function.ATR);
+    }
+
+    public PeriodicRequestProxy natr(){
+        return new PeriodicRequestProxy(Function.NATR);
     }
 
     @SuppressWarnings("unchecked")

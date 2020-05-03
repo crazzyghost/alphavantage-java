@@ -1,0 +1,17 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "True Range (TRANGE)",
+        "3: Last Refreshed": "2020-05-01",
+        "4: Interval": "daily",
+        "5: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: TRANGE": {
+        "2020-05-01": {
+            "TRANGE": "4.1700"
+        },
+        "2020-04-30": {
+            "TRANGE": "3.4700"
+        }
+    }
+}
