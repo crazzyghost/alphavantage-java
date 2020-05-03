@@ -4,11 +4,9 @@ import com.crazzyghost.alphavantage.parameters.Function;
 
 public class ExchangeRateRequest {
 
-
     private Function function;
     private String from_currency;
     private String to_currency;
-
 
     private ExchangeRateRequest(Builder builder){
         this.function = builder.function;
@@ -16,26 +14,14 @@ public class ExchangeRateRequest {
         this.to_currency = builder.toCurrency;
     }
 
-    public Function getFunction(){
-        return this.function;
-    }
-
-    public String getFromCurrency(){
-        return this.from_currency;
-    }
-
-    public String getToCurrency(){
-        return this.to_currency;
-    }
-
     public static Builder builder(){
         return  new Builder();
     }
 
     public static class Builder{
-        Function function;
-        String fromCurrency;
-        String toCurrency;
+        private Function function;
+        private String fromCurrency;
+        private String toCurrency;
 
         public Builder(){
             this.function = Function.CURRENCY_EXCHANGE_RATE;

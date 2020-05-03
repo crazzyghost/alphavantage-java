@@ -1,5 +1,7 @@
 [![CircleCI](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master.svg?style=shield)](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master)
 [![codecov](https://codecov.io/gh/crazzyghost/alphavantage-java/branch/master/graph/badge.svg)](https://codecov.io/gh/crazzyghost/alphavantage-java)
+[![](https://jitpack.io/v/crazzyghost/alphavantage-java.svg)](https://jitpack.io/#crazzyghost/alphavantage-java)
+
 
 I created this wrapper to make accessing the [AlphaVantage API](https://www.alphavantage.co/) with Java fairly simple and fun. Make sure to get an [API key](https://www.alphavantage.co/support/#api-key) from Alphavantage's website before continuing. 
 
@@ -51,6 +53,7 @@ The available API categories to select from currently are: Stock Time Series, Fo
 | Crypto Currency Data      | `.crypto()`           | 
 | Technical Indicators      | `.indicator()`        |
 
+For example
 ```java
 //selecting stock time series category
 AlphaVantage.api()
@@ -104,7 +107,7 @@ AlphaVantage.api()
     .fetch();
 ...
 void handleSuccess(TimeSeriesResponse e){
-    plotGraph(e.getStockUnits(), e.getMetaData())
+    plotGraph(e.getStockUnits(), e.getMetaData());
 }
 
 ```
@@ -127,7 +130,7 @@ AlphaVantage.api()
     .exchangeRate()
     .fromCurrency("USD")
     .toCurrency("GHS")
-    .onSuccess((ExchangeRateResponse e) -> handleSucess(e))
+    .onSuccess((ExchangeRateResponse e) -> handleSuccess(e))
     .fetch();
 ```
 
@@ -138,7 +141,7 @@ AlphaVantage.api()
     .daily()
     .symbol("BTC")
     .market("CNY")
-    .onSuccess(response -> handleSucess(response.getCryptoUnits()))
+    .onSuccess(response -> handleSuccess(response.getCryptoUnits()))
     .fetch();
 ```
 #### Fetching Technical Indicator Data
@@ -150,6 +153,6 @@ AlphaVantage.api()
     .interval(Interval.THIRTY_MIN)
     .seriesType(SeriesType.HIGH)
     .timePeriod(200)
-    .onSuccess(e -> handleSucess(e))
+    .onSuccess(e -> handleSuccess(e))
     .fetch();
 ```

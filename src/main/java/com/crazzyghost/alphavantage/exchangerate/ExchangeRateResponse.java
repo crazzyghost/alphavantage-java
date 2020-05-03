@@ -10,9 +10,11 @@ public class ExchangeRateResponse {
     private String fromCurrencyName;
     private String toCurrencyCode;
     private String toCurrencyName;
-    private Double exchangeRate;
+    private double exchangeRate;
     private String lastRefreshed;
     private String timeZone;
+    private double bidPrice;
+    private double askPrice;
 
     private String errorMessage;
 
@@ -23,7 +25,10 @@ public class ExchangeRateResponse {
             String toCurrencyName,
             Double exchangeRate,
             String lastRefreshed,
-            String timeZone) {
+            String timeZone,
+            double bidPrice,
+            double askPrice
+    ) {
         this.fromCurrencyCode = fromCurrencyCode;
         this.fromCurrencyName = fromCurrencyName;
         this.toCurrencyCode = toCurrencyCode;
@@ -31,6 +36,8 @@ public class ExchangeRateResponse {
         this.exchangeRate = exchangeRate;
         this.lastRefreshed = lastRefreshed;
         this.timeZone = timeZone;
+        this.bidPrice = bidPrice;
+        this.askPrice = askPrice;
         this.errorMessage = null;
     }
 
@@ -49,21 +56,17 @@ public class ExchangeRateResponse {
 
     public static class Parser {
 
-
+        @SuppressWarnings("unchecked")
         ExchangeRateResponse parse(Map<String, Object> stringObjectMap) {
-
             //get the keys
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-
             Map<String, String> md;
-
             try{
                 md = (Map<String, String>) stringObjectMap.get(keys.get(0));
 
             }catch (ClassCastException e){
                 return new ExchangeRateResponse((String)stringObjectMap.get(keys.get(0)));
             }
-
 
             return new ExchangeRateResponse(
                     md.get("1. From_Currency Code"),
@@ -72,7 +75,9 @@ public class ExchangeRateResponse {
                     md.get("4. To_Currency Name"),
                     Double.parseDouble(md.get("5. Exchange Rate")),
                     md.get("6. Last Refreshed"),
-                    md.get("7. Time Zone")
+                    md.get("7. Time Zone"),
+                    Double.parseDouble(md.get("8. Bid Price")),
+                    Double.parseDouble(md.get("9. Ask Price"))
             );
 
         }
@@ -88,6 +93,8 @@ public class ExchangeRateResponse {
                 ", exchangeRate=" + exchangeRate +
                 ", lastRefreshed='" + lastRefreshed + '\'' +
                 ", timeZone='" + timeZone + '\'' +
+                ", bidPrice='" + bidPrice + '\'' +
+                ", askPrice='" + askPrice+ '\'' +
                 ", errorMessage='" + errorMessage + '\'' +
                 '}';
     }

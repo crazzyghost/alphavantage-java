@@ -3,7 +3,6 @@ package com.crazzyghost.alphavantage.exchangerate;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
@@ -14,7 +13,6 @@ import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 
 import okhttp3.Call;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -25,15 +23,11 @@ public class ExchangeRate implements Fetcher {
     private ExchangeRateRequest.Builder builder;
     private Fetcher.SuccessCallback<ExchangeRateResponse> successCallback;
     private Fetcher.FailureCallback failureCallback;
-    private OkHttpClient client;
 
     public ExchangeRate(Config config){
         this.config = config;
         this.request = null;
         this.builder = ExchangeRateRequest.builder();
-        client = new OkHttpClient.Builder()
-                .connectTimeout(config.getTimeOut(), TimeUnit.SECONDS)
-                .build();
     }
 
     public ExchangeRate toCurrency(String toCurrency){
@@ -67,7 +61,7 @@ public class ExchangeRate implements Fetcher {
     @Override
     public void fetch() {
 
-        if(config.getKey() == null){
+        if(config == null || config.getKey() == null){
             throw new AlphaVantageException("Config not set");
         }
         this.request = this.builder.build();
@@ -76,7 +70,7 @@ public class ExchangeRate implements Fetcher {
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
                 .build();
 
-        client.newCall(request).enqueue(new okhttp3.Callback() {
+        config.getOkHttpClient().newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if(failureCallback != null){
@@ -96,7 +90,6 @@ public class ExchangeRate implements Fetcher {
                         if(failureCallback != null){
                             failureCallback.onFailure(new AlphaVantageException(exchangeResponse.getErrorMessage()));
                         }
-                        return;
                     }
                     if(successCallback != null)
                         successCallback.onSuccess(exchangeResponse);
