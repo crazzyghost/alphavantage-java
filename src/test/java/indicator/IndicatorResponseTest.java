@@ -1,6 +1,7 @@
 package indicator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.FileInputStream;
@@ -13,6 +14,7 @@ import java.util.Map;
 import com.crazzyghost.alphavantage.indicator.response.ADOSCResponse;
 import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
 import com.crazzyghost.alphavantage.indicator.response.BBANDSResponse;
+import com.crazzyghost.alphavantage.indicator.response.HTPHASORResponse;
 import com.crazzyghost.alphavantage.indicator.response.HTSINEResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
@@ -440,12 +442,25 @@ public class IndicatorResponseTest {
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
         HTSINEResponse response = HTSINEResponse.of(adapter.fromJson(getJson("htsine")));
         assertEquals(response.getIndicatorUnits().size(), 2);
-        assertNotNull(response.getMetaData().getIndicator());
-        assertNotNull(response.getMetaData().getInterval());
-        assertNotNull(response.getMetaData().getLastRefreshed());
-        assertNotNull(response.getMetaData().getSymbol());
-        assertNotNull(response.getMetaData().getSeriesType());
-        assertNotNull(response.getMetaData().getTimeZone());
+        assertNotEquals(response.getMetaData().getIndicator(),"");
+        assertNotEquals(response.getMetaData().getInterval(),"");
+        assertNotEquals(response.getMetaData().getLastRefreshed(),"");
+        assertNotEquals(response.getMetaData().getSymbol(),"");
+        assertNotEquals(response.getMetaData().getSeriesType(),"");
+        assertNotEquals(response.getMetaData().getTimeZone(),"");
+    }
+
+    @Test
+    public void testHTPHASORResponse() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        HTPHASORResponse response = HTPHASORResponse.of(adapter.fromJson(getJson("htphasor")));
+        assertEquals(response.getIndicatorUnits().size(), 2);
+        assertNotEquals(response.getMetaData().getIndicator(),"");
+        assertNotEquals(response.getMetaData().getInterval(),"");
+        assertNotEquals(response.getMetaData().getLastRefreshed(),"");
+        assertNotEquals(response.getMetaData().getSymbol(),"");
+        assertNotEquals(response.getMetaData().getSeriesType(),"");
+        assertNotEquals(response.getMetaData().getTimeZone(),"");
     }
 
     

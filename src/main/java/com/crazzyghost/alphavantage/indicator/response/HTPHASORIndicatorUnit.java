@@ -15,11 +15,11 @@ public class HTPHASORIndicatorUnit {
         return date;
     }
 
-    public double getLeadSineValue() {
+    public double getPhaseValue() {
         return phaseValue;
     }
 
-    public double getSineValue() {
+    public double getQuadratureValue() {
         return quadratureValue;
     }
 

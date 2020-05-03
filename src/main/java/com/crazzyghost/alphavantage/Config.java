@@ -11,7 +11,7 @@ public class Config {
     private OkHttpClient httpClient;
     public static String BASE_URL = "https://www.alphavantage.co/query?";
 
-    public Config(Builder builder) {
+    private Config(Builder builder) {
         this.key = builder.key;
         this.timeOut = builder.timeOut;
         this.httpClient = builder.httpClient == null ? defaultClient(builder.timeOut): builder.httpClient;

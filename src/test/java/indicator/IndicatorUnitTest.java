@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import com.crazzyghost.alphavantage.indicator.response.AROONIndicatorUnit;
 import com.crazzyghost.alphavantage.indicator.response.BBANDSIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.HTPHASORIndicatorUnit;
 import com.crazzyghost.alphavantage.indicator.response.HTSINEIndicatorUnit;
 import com.crazzyghost.alphavantage.indicator.response.MACDIndicatorUnit;
 import com.crazzyghost.alphavantage.indicator.response.MAMAIndicatorUnit;
@@ -108,12 +109,12 @@ public class IndicatorUnitTest {
         assertNotNull(unit.toString());
     }
 
-    // @Test 
-    // public void testHTSINEIndicatorUnit(){
-    //     AROONIndicatorUnit unit = new AROONIndicatorUnit("2012-02-02", 4.5, 4.0);
-    //     assertEquals(unit.getAroonUpValue(), 4.5, 0.0);
-    //     assertEquals(unit.getAroonDownValue(), 4.0, 0.0);
-    //     assertEquals(unit.getDate(), "2012-02-02");
-    //     assertNotNull(unit.toString());
-    // }
+    @Test 
+    public void testHTPHASORIndicatorUnit(){
+        HTPHASORIndicatorUnit unit = new HTPHASORIndicatorUnit("2012-02-02", 4.5, 4.0);
+        assertEquals(unit.getPhaseValue(), 4.5, 0.0);
+        assertEquals(unit.getQuadratureValue(), 4.0, 0.0);
+        assertEquals(unit.getDate(), "2012-02-02");
+        assertNotNull(unit.toString());
+    }
 }

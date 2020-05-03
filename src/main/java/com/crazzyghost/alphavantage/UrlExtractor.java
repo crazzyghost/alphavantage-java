@@ -4,6 +4,10 @@ import java.lang.reflect.Field;
 
 
 public class UrlExtractor{
+
+    private UrlExtractor(){
+        
+    }
     
     public static String extract(Object object){
 
