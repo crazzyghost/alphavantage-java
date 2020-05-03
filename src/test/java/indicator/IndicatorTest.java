@@ -20,6 +20,7 @@ import com.crazzyghost.alphavantage.indicator.Indicator;
 import com.crazzyghost.alphavantage.indicator.response.ADOSCResponse;
 import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
 import com.crazzyghost.alphavantage.indicator.response.BBANDSResponse;
+import com.crazzyghost.alphavantage.indicator.response.HTSINEResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
@@ -30,6 +31,7 @@ import com.crazzyghost.alphavantage.indicator.response.SARResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
+import com.crazzyghost.alphavantage.indicator.response.SeriesResponse;
 import com.crazzyghost.alphavantage.indicator.response.SimpleIndicatorResponse;
 import com.crazzyghost.alphavantage.indicator.response.ULTOSCResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
@@ -153,6 +155,16 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getADOSCUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getADOSCUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("OBV")).respond(getJson("obv"));
+        mockInterceptor.addRule().get(getSeriesUrl("HT_TRENDLINE")).respond(getJson("httrendline"));
+        mockInterceptor.addRule().get(getSeriesUrl("HT_TRENDLINE", "GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getSeriesUrl("HT_TRENDLINE", "GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getSeriesUrl("HT_SINE")).respond(getJson("htsine"));
+        mockInterceptor.addRule().get(getSeriesUrl("HT_SINE", "GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getSeriesUrl("HT_SINE", "GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getSeriesUrl("HT_TRENDMODE")).respond(getJson("httrendmode"));
+        mockInterceptor.addRule().get(getSeriesUrl("HT_DCPERIOD")).respond(getJson("htdcperiod"));
+        mockInterceptor.addRule().get(getSeriesUrl("HT_DCPHASE")).respond(getJson("htdcphase"));
+
     }
 
 
@@ -179,6 +191,15 @@ public class IndicatorTest {
     private String getPeriodicUrl(String function, String symbol){
         return Config.BASE_URL + "time_period=60&function=" + function + "&symbol=" + symbol + "&interval=daily&datatype=json&apikey=demo";
     }
+
+    private String getSeriesUrl(String function){
+        return Config.BASE_URL + "series_type=open&function=" + function + "&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+    }
+ 
+    private String getSeriesUrl(String function, String symbol){
+        return Config.BASE_URL + "series_type=open&function=" + function + "&symbol=" + symbol + "&interval=daily&datatype=json&apikey=demo";
+    }
+
 
     private String getMAMAUrl(String symbol){
         String sym = symbol == null ? "IBM" : symbol;
@@ -2213,5 +2234,216 @@ public class IndicatorTest {
 
     }
 
+    @Test
+    public void testHTTRENDLINE() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SeriesResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .httrendline()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((SeriesResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testHTTRENDLINEError() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .httrendline()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("GOOGL")
+            .onFailure((e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testHTTRENDLINEErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .httrendline()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("GOOGL")
+            .onSuccess((e) -> {
+                lock.countDown();
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
+    }
+
+    @Test
+    public void testHTSINE() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<HTSINEResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .htsine()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((HTSINEResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testHTSINEError() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .htsine()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("GOOGL")
+            .onFailure((e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testHTSINEErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .htsine()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("GOOGL")
+            .onSuccess((e) -> {
+                lock.countDown();
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
+    }
+
+    @Test
+    public void testHTRENDMODE() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SeriesResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .httrendmode()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((SeriesResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testHTDCPERIOD() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SeriesResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .htdcperiod()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((SeriesResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testHTDCPHASE() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SeriesResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .htdcphase()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((SeriesResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
 
 }

@@ -256,6 +256,35 @@ public class Indicator {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private void parseSeriesResponse(final Map<String, Object> data){
+        String functionName = builder.function.name();
+        if(functionName.equals("HT_TRENDMODE")) functionName = "TRENDMODE";
+        if(functionName.equals("HT_DCPERIOD")) functionName = "DCPERIOD";
+        SeriesResponse response = SeriesResponse.of(data, functionName);
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<SeriesResponse>)successCallback).onSuccess(response);
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private void parseHTSINEResponse(final Map<String, Object> data){
+        HTSINEResponse response = HTSINEResponse.of(data);
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<HTSINEResponse>)successCallback).onSuccess(response);
+        }
+    }
+
+
     private void parseIndicatorResponse(final Map<String, Object> data){
         
         switch(builder.function){
@@ -335,6 +364,18 @@ public class Indicator {
                 break;
             case ADOSC: 
                 parseADOSCResponse(data);
+                break;
+            case HT_TRENDLINE:
+            case HT_TRENDMODE:
+            case HT_DCPERIOD:
+            case HT_DCPHASE:
+                parseSeriesResponse(data);
+                break;
+            case HT_SINE:
+                parseHTSINEResponse(data);
+                break;
+            case HT_PHASOR:
+                break;
             default:
                 break;        
         }
@@ -526,16 +567,36 @@ public class Indicator {
         return new ADOSCRequestProxy();
     }
 
-
     public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> obv(){
         return new SimpleIndicatorRequestProxy<>(Function.OBV);
     }
 
+    public SeriesRequestProxy httrendline(){
+        return new SeriesRequestProxy(Function.HT_TRENDLINE);
+    }
 
-    /**
-     * Serves as a bridge between {@link IndicatorRequest} and {@link Indicator} 
-     * @param <T> Any subtype of {@link SimpleIndicatorRequestProxy}
-     */
+    public SeriesRequestProxy htsine(){
+        return new SeriesRequestProxy(Function.HT_SINE);
+    }
+    
+    public SeriesRequestProxy httrendmode(){
+        return new SeriesRequestProxy(Function.HT_TRENDMODE);
+    }
+
+    public SeriesRequestProxy htdcphase(){
+        return new SeriesRequestProxy(Function.HT_DCPHASE);
+    }
+
+    public SeriesRequestProxy htdcperiod(){
+        return new SeriesRequestProxy(Function.HT_DCPERIOD);
+    }
+
+    public SeriesRequestProxy htphasor(){
+        return new SeriesRequestProxy(Function.HT_PHASOR);
+    }
+
+
+
     @SuppressWarnings("unchecked")
     public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
         protected IndicatorRequest.Builder<?> builder;
@@ -620,18 +681,18 @@ public class Indicator {
         }
     }
 
-    // public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy>{
+    public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy>{
  
-    //     public SeriesRequestProxy(final Function function){
-    //         builder = new SeriesRequest.Builder(); 
-    //         builder = builder.function(function);   
-    //     }
+        public SeriesRequestProxy(final Function function){
+            builder = new SeriesRequest.Builder(); 
+            builder = builder.function(function);   
+        }
 
-    //     public SeriesRequestProxy seriesType(final SeriesType series){
-    //         builder = ((SeriesRequest.Builder)builder).seriesType(series);
-    //         return this;
-    //     }
-    // }
+        public SeriesRequestProxy seriesType(final SeriesType series){
+            builder = ((SeriesRequest.Builder)builder).seriesType(series);
+            return this;
+        }
+    }
 
     public class MAMARequestProxy extends SimpleIndicatorRequestProxy<MAMARequestProxy>{
  

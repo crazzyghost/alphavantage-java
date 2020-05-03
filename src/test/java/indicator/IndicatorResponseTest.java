@@ -13,6 +13,7 @@ import java.util.Map;
 import com.crazzyghost.alphavantage.indicator.response.ADOSCResponse;
 import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
 import com.crazzyghost.alphavantage.indicator.response.BBANDSResponse;
+import com.crazzyghost.alphavantage.indicator.response.HTSINEResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
@@ -345,7 +346,7 @@ public class IndicatorResponseTest {
     @Test
     public void testSeriesResponse() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        SeriesResponse response = SeriesResponse.of(adapter.fromJson(getJson("ht")), "HT_TRENDLINE");
+        SeriesResponse response = SeriesResponse.of(adapter.fromJson(getJson("httrendline")), "HT_TRENDLINE");
         assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
@@ -432,6 +433,19 @@ public class IndicatorResponseTest {
         assertEquals(response.getMetaData().getFastKPeriod(), 0);
         assertEquals(response.getMetaData().getSlowKPeriod(), 0);
         assertEquals(response.getMetaData().getTimeZone(), "");
+    }
+
+    @Test
+    public void testHTSINEResponse() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        HTSINEResponse response = HTSINEResponse.of(adapter.fromJson(getJson("htsine")));
+        assertEquals(response.getIndicatorUnits().size(), 2);
+        assertNotNull(response.getMetaData().getIndicator());
+        assertNotNull(response.getMetaData().getInterval());
+        assertNotNull(response.getMetaData().getLastRefreshed());
+        assertNotNull(response.getMetaData().getSymbol());
+        assertNotNull(response.getMetaData().getSeriesType());
+        assertNotNull(response.getMetaData().getTimeZone());
     }
 
     
