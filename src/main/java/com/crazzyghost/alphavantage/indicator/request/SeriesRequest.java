@@ -13,7 +13,7 @@ public class SeriesRequest extends IndicatorRequest {
 
     public static class Builder extends IndicatorRequest.Builder<Builder>{
 
-        public SeriesType seriesType;
+        private SeriesType seriesType;
      
         public Builder seriesType(SeriesType seriesType){
             this.seriesType = seriesType;

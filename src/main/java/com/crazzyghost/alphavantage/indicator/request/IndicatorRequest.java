@@ -21,10 +21,10 @@ public abstract class IndicatorRequest {
 
     public abstract static class Builder<T extends Builder<?>>{
         
-        public Function function;
-        public String symbol;
-        public Interval interval = Interval.SIXTY_MIN;
-        public DataType dataType = DataType.JSON;
+        protected Function function;
+        protected String symbol;
+        protected Interval interval = Interval.SIXTY_MIN;
+        protected DataType dataType = DataType.JSON;
 
         public T function(Function function){
             this.function = function;

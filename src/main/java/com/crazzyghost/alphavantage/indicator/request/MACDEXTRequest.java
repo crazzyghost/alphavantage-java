@@ -27,13 +27,13 @@ public class MACDEXTRequest extends IndicatorRequest{
 
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public int fastPeriod = 12;
-        public int slowPeriod = 26;
-        public int signalPeriod = 9;
+        private int fastPeriod = 12;
+        private int slowPeriod = 26;
+        private int signalPeriod = 9;
         private MAType fastMaType = MAType.SMA;
         private MAType slowMaType = MAType.SMA;
         private MAType signalMaType = MAType.SMA;    
-        public SeriesType seriesType;
+        private SeriesType seriesType;
 
         public Builder(){
             this.function(Function.MACDEXT);

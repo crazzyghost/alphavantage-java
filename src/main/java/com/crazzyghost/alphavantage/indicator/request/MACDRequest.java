@@ -21,10 +21,10 @@ public class MACDRequest extends IndicatorRequest{
 
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public int fastPeriod = 12;
-        public int slowPeriod = 26;
-        public int signalPeriod = 9;
-        public SeriesType seriesType;
+        private int fastPeriod = 12;
+        private int slowPeriod = 26;
+        private int signalPeriod = 9;
+        private SeriesType seriesType;
 
         public Builder() {
             this.function(Function.MACD);

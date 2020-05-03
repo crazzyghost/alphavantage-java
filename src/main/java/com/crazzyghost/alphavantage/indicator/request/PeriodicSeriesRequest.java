@@ -17,8 +17,8 @@ public class PeriodicSeriesRequest extends IndicatorRequest{
 
     public static class Builder extends IndicatorRequest.Builder<Builder>{
 
-        public SeriesType seriesType;
-        public int timePeriod;
+        private SeriesType seriesType;
+        private int timePeriod;
 
         public Builder timePeriod(int timePeriod){
             this.timePeriod = timePeriod;

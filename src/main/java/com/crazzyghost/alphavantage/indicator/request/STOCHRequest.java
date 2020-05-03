@@ -22,11 +22,11 @@ public class STOCHRequest extends IndicatorRequest {
     
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public int fastKPeriod = 5;
-        public int slowKPeriod = 3;
-        public int slowDPeriod = 3;
-        public MAType slowKMaType = MAType.SMA;
-        public MAType slowDMaType = MAType.SMA;
+        private int fastKPeriod = 5;
+        private int slowKPeriod = 3;
+        private int slowDPeriod = 3;
+        private MAType slowKMaType = MAType.SMA;
+        private MAType slowDMaType = MAType.SMA;
 
         public Builder() {
             this.function(Function.STOCH);

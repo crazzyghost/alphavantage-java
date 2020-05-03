@@ -14,8 +14,8 @@ public class ADOSCRequest extends IndicatorRequest {
 
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public int fastPeriod = 3;
-        public int slowPeriod = 10;
+        private int fastPeriod = 3;
+        private int slowPeriod = 10;
 
         public Builder(){
             this.function(Function.ADOSC);

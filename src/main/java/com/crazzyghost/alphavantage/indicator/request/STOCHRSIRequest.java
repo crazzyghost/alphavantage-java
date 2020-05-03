@@ -23,11 +23,11 @@ public class STOCHRSIRequest extends IndicatorRequest {
     
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public int fastKPeriod = 5;
-        public int fastDPeriod = 3;
-        public MAType fastDMaType = MAType.SMA;
-        public int timePeriod;
-        public SeriesType seriesType;
+        private int fastKPeriod = 5;
+        private int fastDPeriod = 3;
+        private MAType fastDMaType = MAType.SMA;
+        private int timePeriod;
+        private SeriesType seriesType;
         
         public Builder(){
             this.function(Function.STOCHRSI);

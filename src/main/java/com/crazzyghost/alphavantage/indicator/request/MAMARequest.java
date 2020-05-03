@@ -18,9 +18,9 @@ public class MAMARequest extends IndicatorRequest {
 
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public double fastLimit = 0.1;
-        public double slowLimit = 0.1;
-        public SeriesType seriesType;
+        private double fastLimit = 0.1;
+        private double slowLimit = 0.1;
+        private SeriesType seriesType;
 
         public Builder() {
             this.function(Function.MAMA);
