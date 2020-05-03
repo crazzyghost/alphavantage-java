@@ -6,8 +6,8 @@ import com.crazzyghost.alphavantage.parameters.SeriesType;
 public class PriceOscillatorRequest extends IndicatorRequest {
 
     private SeriesType series_type;
-    private double fastPeriod;
-    private double slowPeriod;
+    private int fastPeriod;
+    private int slowPeriod;
     private MAType maType; 
 
     private PriceOscillatorRequest(Builder builder) {
@@ -20,17 +20,17 @@ public class PriceOscillatorRequest extends IndicatorRequest {
 
     public static class Builder extends IndicatorRequest.Builder<Builder> {
 
-        public double fastPeriod = 0.1;
-        public double slowPeriod = 0.1;
-        public MAType maType = MAType.SMA;
-        public SeriesType seriesType;
+        private int fastPeriod = 12;
+        private int slowPeriod = 26;
+        private MAType maType = MAType.SMA;
+        private SeriesType seriesType;
 
-        public Builder fastPeriod(double fastPeriod){
+        public Builder fastPeriod(int fastPeriod){
             this.fastPeriod = fastPeriod;
             return this;
         }
 
-        public Builder slowPeriod(double slowPeriod){
+        public Builder slowPeriod(int slowPeriod){
             this.slowPeriod = slowPeriod;
             return this;
         }

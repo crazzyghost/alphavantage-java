@@ -98,7 +98,10 @@ public class Indicator {
 
     @SuppressWarnings("unchecked")
     private void parseSimpleIndicatorResponse(final Map<String, Object> data){
-        SimpleIndicatorResponse response = SimpleIndicatorResponse.of(data, builder.function.name());
+        String functionName = builder.function.name();
+        if(functionName.equals("AD")) functionName = "Chaikin A/D";
+
+        SimpleIndicatorResponse response = SimpleIndicatorResponse.of(data, functionName);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -241,6 +244,17 @@ public class Indicator {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private void parseADOSCResponse(final Map<String, Object> data){
+        ADOSCResponse response = ADOSCResponse.of(data);
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<ADOSCResponse>)successCallback).onSuccess(response);
+        }
+    }
 
     private void parseIndicatorResponse(final Map<String, Object> data){
         
@@ -268,6 +282,8 @@ public class Indicator {
             case VWAP:
             case BOP:
             case TRANGE:
+            case AD:
+            case OBV:
                 parseSimpleIndicatorResponse(data);
                 break;
             case MACD:
@@ -317,6 +333,8 @@ public class Indicator {
             case SAR:
                 parseSARResponse(data);
                 break;
+            case ADOSC: 
+                parseADOSCResponse(data);
             default:
                 break;        
         }
@@ -500,6 +518,24 @@ public class Indicator {
         return new PeriodicRequestProxy(Function.NATR);
     }
 
+    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> ad(){
+        return new SimpleIndicatorRequestProxy<>(Function.AD);
+    }
+
+    public ADOSCRequestProxy adosc(){
+        return new ADOSCRequestProxy();
+    }
+
+
+    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> obv(){
+        return new SimpleIndicatorRequestProxy<>(Function.OBV);
+    }
+
+
+    /**
+     * Serves as a bridge between {@link IndicatorRequest} and {@link Indicator} 
+     * @param <T> Any subtype of {@link SimpleIndicatorRequestProxy}
+     */
     @SuppressWarnings("unchecked")
     public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
         protected IndicatorRequest.Builder<?> builder;
@@ -547,6 +583,7 @@ public class Indicator {
         }
 
     }
+
 
     public class PeriodicSeriesRequestProxy extends SimpleIndicatorRequestProxy<PeriodicSeriesRequestProxy>{
  
@@ -794,12 +831,12 @@ public class Indicator {
             Indicator.this.successCallback = null;  
         }
 
-        public PriceOscillatorRequestProxy fastPeriod(final double period){
+        public PriceOscillatorRequestProxy fastPeriod(final int period){
             builder = ((PriceOscillatorRequest.Builder)builder).fastPeriod(period);
             return this;
         }
 
-        public  PriceOscillatorRequestProxy slowPeriod(final double period){
+        public  PriceOscillatorRequestProxy slowPeriod(final int period){
             builder = ((PriceOscillatorRequest.Builder)builder).slowPeriod(period);
             return this;
         }
@@ -892,6 +929,26 @@ public class Indicator {
             return this;
         }
         
+    }
+
+    public class ADOSCRequestProxy extends SimpleIndicatorRequestProxy<ADOSCRequestProxy>{
+ 
+        public ADOSCRequestProxy(){
+            builder = new ADOSCRequest.Builder(); 
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;  
+        }
+
+        public ADOSCRequestProxy fastPeriod(final int period){
+            builder = ((ADOSCRequest.Builder)builder).fastPeriod(period);
+            return this;
+        }
+
+        public  ADOSCRequestProxy slowPeriod(final int period){
+            builder = ((ADOSCRequest.Builder)builder).slowPeriod(period);
+            return this;
+        }
+
     }
 
     

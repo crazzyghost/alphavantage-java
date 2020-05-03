@@ -3,6 +3,7 @@ package indicator;
 import static org.junit.Assert.assertEquals;
 
 import com.crazzyghost.alphavantage.UrlExtractor;
+import com.crazzyghost.alphavantage.indicator.request.ADOSCRequest;
 import com.crazzyghost.alphavantage.indicator.request.BBANDSRequest;
 import com.crazzyghost.alphavantage.indicator.request.IndicatorRequest;
 import com.crazzyghost.alphavantage.indicator.request.MACDEXTRequest;
@@ -112,7 +113,7 @@ public class IndicatorRequestTest {
 
     @Test
     public void testPriceOscillatorRequest(){
-        String expected = "series_type=open&fastperiod=0.1&slowperiod=0.2&matype=8&function=PPO&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "series_type=open&fastperiod=10&slowperiod=26&matype=8&function=PPO&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new PriceOscillatorRequest
             .Builder()
@@ -120,8 +121,8 @@ public class IndicatorRequestTest {
             .interval(Interval.DAILY)
             .seriesType(SeriesType.OPEN)
             .maType(MAType.MAMA)
-            .fastPeriod(0.1)
-            .slowPeriod(0.2)
+            .fastPeriod(10)
+            .slowPeriod(26)
             .forSymbol("IBM")
             .build();
         assertEquals(expected, UrlExtractor.extract(request) + "demo");
@@ -249,6 +250,20 @@ public class IndicatorRequestTest {
             .forSymbol("IBM")
             .build();
         System.out.println(UrlExtractor.extract(request));
+        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testADOSCRequest(){
+        String expected = "fastperiod=3&slowperiod=10&function=ADOSC&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        
+        IndicatorRequest request = new ADOSCRequest
+            .Builder()
+            .interval(Interval.DAILY)
+            .fastPeriod(3)
+            .slowPeriod(10)
+            .forSymbol("IBM")
+            .build();
         assertEquals(expected, UrlExtractor.extract(request) + "demo");
     }
 

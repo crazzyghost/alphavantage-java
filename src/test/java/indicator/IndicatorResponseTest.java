@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.indicator.response.ADOSCResponse;
 import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
 import com.crazzyghost.alphavantage.indicator.response.BBANDSResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
@@ -409,6 +410,28 @@ public class IndicatorResponseTest {
         assertEquals(response.getMetaData().getAcceleration(), 0.0, 0);
         assertEquals(response.getMetaData().getMaximum(), 0.0, 0);
         assertEquals(response.getMetaData().getTimeZone(), "");  
+    }
+
+    @Test
+    public void testADOSC() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        ADOSCResponse response = ADOSCResponse.of(adapter.fromJson(getJson("adosc")));
+        assertEquals(response.getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testADOSCError() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        ADOSCResponse response = ADOSCResponse.of(adapter.fromJson(errorMessage));
+        assertEquals(response.getIndicatorUnits().size(), 0);
+        assertNotNull(response.getErrorMessage());
+        assertEquals(response.getMetaData().getIndicator(),"");
+        assertEquals(response.getMetaData().getInterval(),"");
+        assertEquals(response.getMetaData().getLastRefreshed(),"");
+        assertEquals(response.getMetaData().getSymbol(),"");
+        assertEquals(response.getMetaData().getFastKPeriod(), 0);
+        assertEquals(response.getMetaData().getSlowKPeriod(), 0);
+        assertEquals(response.getMetaData().getTimeZone(), "");
     }
 
     

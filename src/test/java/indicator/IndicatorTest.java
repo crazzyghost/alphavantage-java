@@ -17,6 +17,7 @@ import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.indicator.Indicator;
+import com.crazzyghost.alphavantage.indicator.response.ADOSCResponse;
 import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
 import com.crazzyghost.alphavantage.indicator.response.BBANDSResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
@@ -147,7 +148,11 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("TRANGE")).respond(getJson("trange"));
         mockInterceptor.addRule().get(getPeriodicUrl("ATR")).respond(getJson("atr"));
         mockInterceptor.addRule().get(getPeriodicUrl("NATR")).respond(getJson("natr"));
-
+        mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("AD")).respond(getJson("ad"));
+        mockInterceptor.addRule().get(getADOSCUrl(null)).respond(getJson("adosc"));
+        mockInterceptor.addRule().get(getADOSCUrl("GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getADOSCUrl("GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getSimpleIndicatorRequestUrl("OBV")).respond(getJson("obv"));
     }
 
 
@@ -212,11 +217,11 @@ public class IndicatorTest {
     }
 
     private String getPriceOscillatorUrl(String function){
-        return Config.BASE_URL + "series_type=open&fastperiod=0.1&slowperiod=0.2&matype=8&function=" + function +"&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        return Config.BASE_URL + "series_type=open&fastperiod=10&slowperiod=26&matype=8&function=" + function +"&symbol=IBM&interval=daily&datatype=json&apikey=demo";
     }
 
     private String getPriceOscillatorUrl(String function, String symbol){
-        return Config.BASE_URL + "series_type=open&fastperiod=0.1&slowperiod=0.2&matype=8&function=" + function +"&symbol="+ symbol + "&interval=daily&datatype=json&apikey=demo";
+        return Config.BASE_URL + "series_type=open&fastperiod=10&slowperiod=26&matype=8&function=" + function +"&symbol="+ symbol + "&interval=daily&datatype=json&apikey=demo";
     }
 
     private String getBBANDSUrl(final String symbol){
@@ -227,6 +232,11 @@ public class IndicatorTest {
     private String getSARUrl(final String symbol){
         String sym = symbol == null ? "IBM" : symbol;
         return Config.BASE_URL + "acceleration=0.02&maximum=0.5&function=SAR&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";    
+    }
+
+    private String getADOSCUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "fastperiod=3&slowperiod=10&function=ADOSC&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";    
     }
 
 
@@ -1231,8 +1241,8 @@ public class IndicatorTest {
             .interval(Interval.DAILY)
             .seriesType(SeriesType.OPEN)
             .maType(MAType.MAMA)
-            .fastPeriod(0.1)
-            .slowPeriod(0.2)
+            .fastPeriod(10)
+            .slowPeriod(26)
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((PriceOscillatorResponse e)-> {
@@ -1259,8 +1269,8 @@ public class IndicatorTest {
             .interval(Interval.DAILY)
             .seriesType(SeriesType.OPEN)
             .maType(MAType.MAMA)
-            .fastPeriod(0.1)
-            .slowPeriod(0.2)
+            .fastPeriod(10)
+            .slowPeriod(26)
             .forSymbol("GOOGL")
             .onFailure((e) -> {
                 lock.countDown();
@@ -1285,8 +1295,8 @@ public class IndicatorTest {
             .interval(Interval.DAILY)
             .seriesType(SeriesType.OPEN)
             .maType(MAType.MAMA)
-            .fastPeriod(0.1)
-            .slowPeriod(0.2)
+            .fastPeriod(10)
+            .slowPeriod(26)
             .forSymbol("GOOGL")
             .onSuccess((e) -> lock.countDown())
             .dataType(DataType.JSON)
@@ -1309,8 +1319,8 @@ public class IndicatorTest {
             .interval(Interval.DAILY)
             .seriesType(SeriesType.OPEN)
             .maType(MAType.MAMA)
-            .fastPeriod(0.1)
-            .slowPeriod(0.2)
+            .fastPeriod(10)
+            .slowPeriod(26)
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((PriceOscillatorResponse e)-> {
@@ -2078,6 +2088,129 @@ public class IndicatorTest {
             .fetch();
         lock.await();
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testAD() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SimpleIndicatorResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .ad()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((SimpleIndicatorResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+
+    }
+
+    @Test
+    public void testADOSC() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<ADOSCResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .adosc()
+            .interval(Interval.DAILY)
+            .fastPeriod(3)
+            .slowPeriod(10)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((ADOSCResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testADOSCError() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .adosc()
+            .interval(Interval.DAILY)
+            .fastPeriod(3)
+            .slowPeriod(10)
+            .forSymbol("GOOGL")
+            .onFailure((e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testADOSCErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .adosc()
+            .interval(Interval.DAILY)
+            .fastPeriod(3)
+            .slowPeriod(10)
+            .forSymbol("GOOGL")
+            .onSuccess((e) -> {
+                lock.countDown();
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
+    }
+
+    @Test
+    public void testOBV() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SimpleIndicatorResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .obv()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((SimpleIndicatorResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+
     }
 
 
