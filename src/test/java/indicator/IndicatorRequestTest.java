@@ -3,6 +3,7 @@ package indicator;
 import static org.junit.Assert.assertEquals;
 
 import com.crazzyghost.alphavantage.UrlExtractor;
+import com.crazzyghost.alphavantage.indicator.request.BBANDSRequest;
 import com.crazzyghost.alphavantage.indicator.request.IndicatorRequest;
 import com.crazzyghost.alphavantage.indicator.request.MACDEXTRequest;
 import com.crazzyghost.alphavantage.indicator.request.MACDRequest;
@@ -218,5 +219,21 @@ public class IndicatorRequestTest {
         assertEquals(expected, UrlExtractor.extract(request) + "demo");
     }
 
+    @Test
+    public void testBBANDSRequest(){
+        String expected = "series_type=open&time_period=60&nbdevup=4&nbdevdn=4&matype=0&function=BBANDS&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        
+        IndicatorRequest request = new BBANDSRequest
+            .Builder()
+            .function(Function.BBANDS)
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .seriesType(SeriesType.OPEN)
+            .nbdevdn(4)
+            .nbdevup(4)
+            .forSymbol("IBM")
+            .build();
+        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+    }
 
 }

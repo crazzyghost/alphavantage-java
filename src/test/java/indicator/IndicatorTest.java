@@ -10,10 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -22,6 +18,7 @@ import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.indicator.Indicator;
 import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
+import com.crazzyghost.alphavantage.indicator.response.BBANDSResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
@@ -138,6 +135,9 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getPeriodicUrl("PLUS_DI")).respond(getJson("plusdi"));
         mockInterceptor.addRule().get(getPeriodicUrl("MINUS_DM")).respond(getJson("minusdm"));
         mockInterceptor.addRule().get(getPeriodicUrl("PLUS_DM")).respond(getJson("plusdm"));   
+        mockInterceptor.addRule().get(getBBANDSUrl(null)).respond(getJson("bbands"));
+        mockInterceptor.addRule().get(getBBANDSUrl("GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getBBANDSUrl("GOOGL")).respond(errorMessage);
     }
 
 
@@ -208,6 +208,11 @@ public class IndicatorTest {
     private String getPriceOscillatorUrl(String function, String symbol){
         return Config.BASE_URL + "series_type=open&fastperiod=0.1&slowperiod=0.2&matype=8&function=" + function +"&symbol="+ symbol + "&interval=daily&datatype=json&apikey=demo";
     }
+
+    private String getBBANDSUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "series_type=open&time_period=60&nbdevup=4&nbdevdn=4&matype=0&function=BBANDS&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";    }
+
 
     private InputStream getJson(String filename) throws FileNotFoundException {
         FileInputStream stream = new FileInputStream(Paths.get("src", "test", "java", "indicator", "data", filename + ".json").toFile());
@@ -1793,5 +1798,88 @@ public class IndicatorTest {
         lock.await();
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
+
+    @Test
+    public void testBBANDS() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<BBANDSResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .bbands()
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .seriesType(SeriesType.OPEN)
+            .nbdevdn(4)
+            .nbdevup(4)
+            .maType(MAType.SMA)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((BBANDSResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testBBANDSError() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .bbands()
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .seriesType(SeriesType.OPEN)
+            .nbdevdn(4)
+            .nbdevup(4)
+            .maType(MAType.SMA)
+            .forSymbol("GOOGL")
+            .onFailure((e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testBBANDSErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .bbands()
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .seriesType(SeriesType.OPEN)
+            .nbdevdn(4)
+            .nbdevup(4)
+            .maType(MAType.SMA)
+            .forSymbol("GOOGL")
+            .onSuccess((e) -> {
+                lock.countDown();
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
+    }
+
 
 }

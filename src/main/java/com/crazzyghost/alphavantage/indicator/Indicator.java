@@ -206,7 +206,7 @@ public class Indicator {
 
     @SuppressWarnings("unchecked")
     private void parseULTOSCResponse(final Map<String, Object> data){
-       ULTOSCResponse response = ULTOSCResponse.of(data, builder.function.name());
+        ULTOSCResponse response = ULTOSCResponse.of(data, builder.function.name());
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -215,6 +215,19 @@ public class Indicator {
             ((Fetcher.SuccessCallback<ULTOSCResponse>)successCallback).onSuccess(response);
         }
     }
+
+    @SuppressWarnings("unchecked")
+    private void parseBBANDSResponse(final Map<String, Object> data){
+        BBANDSResponse response = BBANDSResponse.of(data);
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<BBANDSResponse>)successCallback).onSuccess(response);
+        }
+    }
+
 
     private void parseIndicatorResponse(final Map<String, Object> data){
         
@@ -279,6 +292,9 @@ public class Indicator {
                 break;
             case ULTOSC:
                 parseULTOSCResponse(data);
+                break;
+            case BBANDS:
+                parseBBANDSResponse(data);
                 break;
             default:
                 break;        
@@ -433,6 +449,10 @@ public class Indicator {
 
     public PeriodicRequestProxy plusdm(){
         return new PeriodicRequestProxy(Function.PLUS_DM);
+    }
+
+    public BBANDSRequestProxy bbands(){
+        return new BBANDSRequestProxy();
     }
 
     @SuppressWarnings("unchecked")
@@ -773,4 +793,39 @@ public class Indicator {
             return this;
         }
     }
+
+    public class BBANDSRequestProxy extends SimpleIndicatorRequestProxy<BBANDSRequestProxy>{
+ 
+        public BBANDSRequestProxy(){
+            builder = new BBANDSRequest.Builder(); 
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;   
+        }
+
+        public BBANDSRequestProxy nbdevup(final int dev){
+            builder = ((BBANDSRequest.Builder)builder).nbdevup(dev);
+            return this;            
+        }
+
+        public BBANDSRequestProxy nbdevdn(final int dev){
+            builder = ((BBANDSRequest.Builder)builder).nbdevdn(dev);
+            return this;            
+        }
+
+        public BBANDSRequestProxy maType(MAType type){
+            builder = ((BBANDSRequest.Builder)builder).maType(type);
+            return this;            
+        }
+
+        public BBANDSRequestProxy timePeriod(final int period){
+            builder = ((BBANDSRequest.Builder)builder).timePeriod(period);
+            return this;
+        }
+
+        public BBANDSRequestProxy seriesType(final SeriesType series){
+            builder = ((BBANDSRequest.Builder)builder).seriesType(series);
+            return this;
+        }
+    }
+
 }

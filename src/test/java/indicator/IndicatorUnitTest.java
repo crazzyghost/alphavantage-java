@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import com.crazzyghost.alphavantage.indicator.response.AROONIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.BBANDSIndicatorUnit;
 import com.crazzyghost.alphavantage.indicator.response.MACDIndicatorUnit;
 import com.crazzyghost.alphavantage.indicator.response.MAMAIndicatorUnit;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFIndicatorUnit;
@@ -83,6 +84,16 @@ public class IndicatorUnitTest {
         assertEquals(unit.getFastKValue(), 4.5, 0.0);
         assertEquals(unit.getFastDValue(), 4.0, 0.0);
         assertEquals(unit.getDate(), "2012-02-02");
+        assertNotNull(unit.toString());
+    }
+
+    @Test
+    public void testBBANDSIndicatorUnit(){
+        BBANDSIndicatorUnit unit = new BBANDSIndicatorUnit("2020-05-02", 220.5, 220.5, 220.5);
+        assertEquals(unit.getRealLowerBandValue(), 220.5, 0.0);
+        assertEquals(unit.getRealMiddleBandValue(), 220.5, 0.0);
+        assertEquals(unit.getRealUpperBandValue(), 220.5, 0.0);
+        assertEquals(unit.getRealLowerBandValue(), 220.5, 0.0);
         assertNotNull(unit.toString());
     }
 }

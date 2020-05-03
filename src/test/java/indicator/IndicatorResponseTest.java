@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
+import com.crazzyghost.alphavantage.indicator.response.BBANDSResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
 import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
@@ -360,6 +361,31 @@ public class IndicatorResponseTest {
         assertEquals(response.getMetaData().getTimeZone(), "");
     }
 
+
+    @Test
+    public void testBBANDS() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        BBANDSResponse response = BBANDSResponse.of(adapter.fromJson(getJson("bbands")));
+        assertEquals(response.getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testBBANDSError() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        BBANDSResponse response = BBANDSResponse.of(adapter.fromJson(errorMessage));
+        assertEquals(response.getIndicatorUnits().size(), 0);
+        assertNotNull(response.getErrorMessage());
+        assertEquals(response.getMetaData().getIndicator(), "");
+        assertEquals(response.getMetaData().getInterval(), "");
+        assertEquals(response.getMetaData().getLastRefreshed(), "");
+        assertEquals(response.getMetaData().getSymbol(), "");
+        assertEquals(response.getMetaData().getTimePeriod(), 0);
+        assertEquals(response.getMetaData().getSeriesType(), "");
+        assertEquals(response.getMetaData().getMaType(), 0);
+        assertEquals(response.getMetaData().getNbdevdn(), 0);
+        assertEquals(response.getMetaData().getNbdevup(), 0);
+        assertEquals(response.getMetaData().getTimeZone(), "");  
+    }
 
  
 }
