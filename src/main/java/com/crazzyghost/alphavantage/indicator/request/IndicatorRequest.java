@@ -21,7 +21,7 @@ public abstract class IndicatorRequest {
 
     public abstract static class Builder<T extends Builder<?>>{
         
-        protected Function function;
+        public Function function;
         protected String symbol;
         protected Interval interval = Interval.SIXTY_MIN;
         protected DataType dataType = DataType.JSON;
