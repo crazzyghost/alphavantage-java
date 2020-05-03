@@ -20,6 +20,7 @@ import com.crazzyghost.alphavantage.indicator.Indicator;
 import com.crazzyghost.alphavantage.indicator.response.ADOSCResponse;
 import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
 import com.crazzyghost.alphavantage.indicator.response.BBANDSResponse;
+import com.crazzyghost.alphavantage.indicator.response.HTPHASORResponse;
 import com.crazzyghost.alphavantage.indicator.response.HTSINEResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
 import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
@@ -164,6 +165,9 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getSeriesUrl("HT_TRENDMODE")).respond(getJson("httrendmode"));
         mockInterceptor.addRule().get(getSeriesUrl("HT_DCPERIOD")).respond(getJson("htdcperiod"));
         mockInterceptor.addRule().get(getSeriesUrl("HT_DCPHASE")).respond(getJson("htdcphase"));
+        mockInterceptor.addRule().get(getSeriesUrl("HT_PHASOR")).respond(getJson("htphasor"));
+        mockInterceptor.addRule().get(getSeriesUrl("HT_PHASOR", "GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getSeriesUrl("HT_PHASOR", "GOOGL")).respond(errorMessage);
 
     }
 
@@ -2445,5 +2449,76 @@ public class IndicatorTest {
         lock.await();
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
+
+    @Test
+    public void testHTPHASOR() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<HTPHASORResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .htphasor()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((HTPHASORResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testHTPHASORError() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .htphasor()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("GOOGL")
+            .onFailure((e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testHTPHASORErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .htphasor()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("GOOGL")
+            .onSuccess((e) -> {
+                lock.countDown();
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
+    }
+
 
 }

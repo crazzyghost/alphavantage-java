@@ -284,6 +284,17 @@ public class Indicator {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private void parseHTPHASORResponse(final Map<String, Object> data){
+        HTPHASORResponse response = HTPHASORResponse.of(data);
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<HTPHASORResponse>)successCallback).onSuccess(response);
+        }
+    }
 
     private void parseIndicatorResponse(final Map<String, Object> data){
         
@@ -375,6 +386,7 @@ public class Indicator {
                 parseHTSINEResponse(data);
                 break;
             case HT_PHASOR:
+                parseHTPHASORResponse(data);
                 break;
             default:
                 break;        
