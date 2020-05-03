@@ -74,7 +74,7 @@ public class Indicator {
 
     @SuppressWarnings("unchecked")
     private void parsePeriodicSeriesResponse(final Map<String, Object> data){
-       PeriodicSeriesResponse response = PeriodicSeriesResponse.of(data, builder.function.name());
+        PeriodicSeriesResponse response = PeriodicSeriesResponse.of(data, builder.function.name());
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -98,7 +98,7 @@ public class Indicator {
 
     @SuppressWarnings("unchecked")
     private void parseSimpleIndicatorResponse(final Map<String, Object> data){
-       SimpleIndicatorResponse response = SimpleIndicatorResponse.of(data, builder.function.name());
+        SimpleIndicatorResponse response = SimpleIndicatorResponse.of(data, builder.function.name());
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -182,7 +182,7 @@ public class Indicator {
 
     @SuppressWarnings("unchecked")
     private void parsePeriodicResponse(final Map<String, Object> data){
-       PeriodicResponse response = PeriodicResponse.of(data, builder.function.name());
+        PeriodicResponse response = PeriodicResponse.of(data, builder.function.name());
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -194,7 +194,7 @@ public class Indicator {
 
     @SuppressWarnings("unchecked")
     private void parseAROONResponse(final Map<String, Object> data){
-       AROONResponse response = AROONResponse.of(data);
+        AROONResponse response = AROONResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -246,6 +246,7 @@ public class Indicator {
             case ROC:
             case ROCR:
             case TRIX:
+            case MIDPOINT:
                 parsePeriodicSeriesResponse(data);
                 break;
             case MAMA:
@@ -285,6 +286,7 @@ public class Indicator {
             case PLUS_DI:
             case MINUS_DM:
             case PLUS_DM:
+            case MIDPRICE:
                 parsePeriodicResponse(data);
                 break;
             case AROON:
@@ -453,6 +455,14 @@ public class Indicator {
 
     public BBANDSRequestProxy bbands(){
         return new BBANDSRequestProxy();
+    }
+
+    public PeriodicSeriesRequestProxy midpoint(){
+        return new PeriodicSeriesRequestProxy(Function.MIDPOINT);
+    }
+
+    public PeriodicRequestProxy midprice(){
+        return new PeriodicRequestProxy(Function.MIDPRICE);
     }
 
     @SuppressWarnings("unchecked")

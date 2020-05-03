@@ -94,6 +94,7 @@ public class IndicatorUnitTest {
         assertEquals(unit.getRealMiddleBandValue(), 220.5, 0.0);
         assertEquals(unit.getRealUpperBandValue(), 220.5, 0.0);
         assertEquals(unit.getRealLowerBandValue(), 220.5, 0.0);
+        assertEquals(unit.getDate(), "2020-05-02");
         assertNotNull(unit.toString());
     }
 }

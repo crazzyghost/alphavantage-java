@@ -138,6 +138,9 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getBBANDSUrl(null)).respond(getJson("bbands"));
         mockInterceptor.addRule().get(getBBANDSUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getBBANDSUrl("GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getPeriodicSeriesUrl("MIDPOINT")).respond(getJson("midpoint"));
+        mockInterceptor.addRule().get(getPeriodicUrl("MIDPRICE")).respond(getJson("midprice"));
+
     }
 
 
@@ -1879,6 +1882,49 @@ public class IndicatorTest {
 
         lock.await();
         assertNull(ref.get());
+    }
+
+    @Test
+    public void testMIDPOINT() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicSeriesResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .midpoint()
+            .forSymbol("IBM")
+            .interval(Interval.WEEKLY)
+            .seriesType(SeriesType.OPEN)
+            .timePeriod(60)
+            .onSuccess((PeriodicSeriesResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testMIDPRICE() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<PeriodicResponse> ref = new AtomicReference<>();
+        AlphaVantage.api()
+            .indicator()
+            .midprice()
+            .forSymbol("IBM")
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((PeriodicResponse e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+        lock.await();
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
     }
 
 
