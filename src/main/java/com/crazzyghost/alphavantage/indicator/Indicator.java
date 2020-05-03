@@ -206,7 +206,7 @@ public class Indicator {
 
     @SuppressWarnings("unchecked")
     private void parseULTOSCResponse(final Map<String, Object> data){
-        ULTOSCResponse response = ULTOSCResponse.of(data, builder.function.name());
+        ULTOSCResponse response = ULTOSCResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -225,6 +225,19 @@ public class Indicator {
         }
         if(successCallback != null){
             ((Fetcher.SuccessCallback<BBANDSResponse>)successCallback).onSuccess(response);
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private void parseSARResponse(final Map<String, Object> data){
+        SARResponse response = SARResponse.of(data);
+        if(response.getErrorMessage() != null) {
+            if(failureCallback != null)
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<SARResponse>)successCallback).onSuccess(response);
         }
     }
 
@@ -297,6 +310,9 @@ public class Indicator {
                 break;
             case BBANDS:
                 parseBBANDSResponse(data);
+                break;
+            case SAR:
+                parseSARResponse(data);
                 break;
             default:
                 break;        
@@ -463,6 +479,10 @@ public class Indicator {
 
     public PeriodicRequestProxy midprice(){
         return new PeriodicRequestProxy(Function.MIDPRICE);
+    }
+
+    public SARRequestProxy sar(){
+        return new SARRequestProxy();
     }
 
     @SuppressWarnings("unchecked")
@@ -837,5 +857,28 @@ public class Indicator {
             return this;
         }
     }
+
+
+    public class SARRequestProxy extends SimpleIndicatorRequestProxy<SARRequestProxy>{
+ 
+        public SARRequestProxy(){
+            builder = new SARRequest.Builder(); 
+            Indicator.this.failureCallback = null;
+            Indicator.this.successCallback = null;   
+        }
+
+        public SARRequestProxy acceleration(final double acceleration){
+            builder = ((SARRequest.Builder)builder).acceleration(acceleration);
+            return this;
+        }
+
+        public SARRequestProxy maximum(final double maximum){
+            builder = ((SARRequest.Builder)builder).maximum(maximum);
+            return this;
+        }
+        
+    }
+
+    
 
 }

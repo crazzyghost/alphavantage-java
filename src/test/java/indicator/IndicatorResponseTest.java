@@ -18,6 +18,7 @@ import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
 import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
+import com.crazzyghost.alphavantage.indicator.response.SARResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
@@ -320,14 +321,14 @@ public class IndicatorResponseTest {
     @Test
     public void testULTOSC() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        ULTOSCResponse response = ULTOSCResponse.of(adapter.fromJson(getJson("ultosc")), "ULTOSC");
+        ULTOSCResponse response = ULTOSCResponse.of(adapter.fromJson(getJson("ultosc")));
         assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
     @Test
     public void testULTOSCError() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        ULTOSCResponse response = ULTOSCResponse.of(adapter.fromJson(errorMessage), "ULTOSC");
+        ULTOSCResponse response = ULTOSCResponse.of(adapter.fromJson(errorMessage));
         assertEquals(response.getIndicatorUnits().size(), 0);
         assertNotNull(response.getErrorMessage());
         assertEquals(response.getMetaData().getIndicator(),"");
@@ -387,5 +388,28 @@ public class IndicatorResponseTest {
         assertEquals(response.getMetaData().getTimeZone(), "");  
     }
 
- 
+
+    @Test
+    public void testSAR() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        SARResponse response = SARResponse.of(adapter.fromJson(getJson("sar")));
+        assertEquals(response.getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testSARError() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        SARResponse response = SARResponse.of(adapter.fromJson(errorMessage));
+        assertEquals(response.getIndicatorUnits().size(), 0);
+        assertNotNull(response.getErrorMessage());
+        assertEquals(response.getMetaData().getIndicator(), "");
+        assertEquals(response.getMetaData().getInterval(), "");
+        assertEquals(response.getMetaData().getLastRefreshed(), "");
+        assertEquals(response.getMetaData().getSymbol(), "");
+        assertEquals(response.getMetaData().getAcceleration(), 0.0, 0);
+        assertEquals(response.getMetaData().getMaximum(), 0.0, 0);
+        assertEquals(response.getMetaData().getTimeZone(), "");  
+    }
+
+    
 }

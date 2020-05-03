@@ -11,6 +11,7 @@ import com.crazzyghost.alphavantage.indicator.request.MAMARequest;
 import com.crazzyghost.alphavantage.indicator.request.PeriodicRequest;
 import com.crazzyghost.alphavantage.indicator.request.PeriodicSeriesRequest;
 import com.crazzyghost.alphavantage.indicator.request.PriceOscillatorRequest;
+import com.crazzyghost.alphavantage.indicator.request.SARRequest;
 import com.crazzyghost.alphavantage.indicator.request.STOCHFRequest;
 import com.crazzyghost.alphavantage.indicator.request.STOCHRSIRequest;
 import com.crazzyghost.alphavantage.indicator.request.STOCHRequest;
@@ -233,6 +234,21 @@ public class IndicatorRequestTest {
             .nbdevup(4)
             .forSymbol("IBM")
             .build();
+        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testSARRequest(){
+        String expected = "acceleration=0.02&maximum=0.5&function=SAR&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        
+        IndicatorRequest request = new SARRequest
+            .Builder()
+            .interval(Interval.DAILY)
+            .acceleration(0.02)
+            .maximum(0.50)
+            .forSymbol("IBM")
+            .build();
+        System.out.println(UrlExtractor.extract(request));
         assertEquals(expected, UrlExtractor.extract(request) + "demo");
     }
 

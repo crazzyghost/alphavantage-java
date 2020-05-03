@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ULTOSCResponse {
+public class SARResponse {
 
     private MetaData metaData;
     private List<SimpleIndicatorUnit> indicatorUnits;
     private String errorMessage;
 
-    private ULTOSCResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData){
+    private SARResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData){
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private ULTOSCResponse(String errorMessage){
+    private SARResponse(String errorMessage){
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -34,7 +34,7 @@ public class ULTOSCResponse {
         return metaData;
     }
     
-    public static ULTOSCResponse of(Map<String, Object> stringObjectMap){
+    public static SARResponse of(Map<String, Object> stringObjectMap){
         Parser parser = new Parser();
         return parser.parse(stringObjectMap);
     }
@@ -42,7 +42,7 @@ public class ULTOSCResponse {
     public static class Parser {
 
         @SuppressWarnings("unchecked")
-        ULTOSCResponse parse(Map<String, Object> stringObjectMap){
+        SARResponse parse(Map<String, Object> stringObjectMap){
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 
@@ -53,18 +53,17 @@ public class ULTOSCResponse {
                 md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
                 indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
             }catch (ClassCastException e){
-                return new ULTOSCResponse((String)stringObjectMap.get(keys.get(0)));
+                return new SARResponse((String)stringObjectMap.get(keys.get(0)));
             }
 
             MetaData metaData = new MetaData(
-                md.get("1: Symbol").toString(),
-                md.get("2: Indicator").toString(),
-                md.get("3: Last Refreshed").toString(),
-                md.get("4: Interval").toString(),
-                Double.valueOf(md.get("5.1: Time Period 1").toString()).intValue(),
-                Double.valueOf(md.get("5.2: Time Period 2").toString()).intValue(),
-                Double.valueOf(md.get("5.3: Time Period 3").toString()).intValue(),
-                md.get("6: Time Zone").toString()
+                String.valueOf(md.get("1: Symbol")),
+                String.valueOf(md.get("2: Indicator")),
+                String.valueOf(md.get("3: Last Refreshed")),
+                String.valueOf(md.get("4: Interval")),
+                Double.valueOf(md.get("5.1: Acceleration").toString()),
+                Double.valueOf(md.get("5.2: Maximum").toString()),
+                String.valueOf(md.get("6: Time Zone"))
             );
 
             List<SimpleIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -73,19 +72,19 @@ public class ULTOSCResponse {
                 Map<String, String> m = e.getValue();     
                 SimpleIndicatorUnit indicatorUnit = new SimpleIndicatorUnit(
                     e.getKey(),
-                    Double.parseDouble(m.get("ULTOSC")),
-                    "ULTOSC"
+                    Double.parseDouble(m.get("SAR")),
+                    "SAR"
                 );
                 indicatorUnits.add(indicatorUnit);
             }
-            return new ULTOSCResponse(indicatorUnits, metaData);
+            return new SARResponse(indicatorUnits, metaData);
         }
     }
 
 
     @Override
     public String toString() {
-        return "ULTOSCResponse{" +
+        return "SARResponse{" +
                 "metaData=" + metaData +
                 ",indicatorUnits=" + indicatorUnits.size() +
                 ", errorMessage='" + errorMessage + '\'' +
@@ -98,32 +97,29 @@ public class ULTOSCResponse {
         private String indicator;
         private String lastRefreshed;
         private String interval;
-        private int timePeriod1;
-        private int timePeriod2;
-        private int timePeriod3;
+        private double acceleration;
+        private double maximum;
         private String timeZone;
         
         public MetaData(){
-            this("", "", "", "", 0, 0, 0, "");
+            this("", "", "", "", 0, 0, "");
         }
 
         public MetaData(
             String symbol, 
             String indicator, 
             String lastRefreshed, 
-            String interval,
-            int timePeriod1,
-            int timePeriod2,
-            int timePeriod3, 
+            String interval, 
+            double acceleration,
+            double maximum,
             String timeZone
         ) {
             this.symbol = symbol;
             this.indicator = indicator;
             this.lastRefreshed = lastRefreshed;
             this.interval = interval;
-            this.timePeriod1 = timePeriod1;
-            this.timePeriod2 = timePeriod2;
-            this.timePeriod3 = timePeriod3;
+            this.acceleration = acceleration;
+            this.maximum = maximum;
             this.timeZone = timeZone;
         }
 
@@ -147,26 +143,23 @@ public class ULTOSCResponse {
             return timeZone;
         }
 
-        public int getTimePeriod1() {
-            return timePeriod1;
+        public double getAcceleration() {
+            return acceleration;
         }
 
-        public int getTimePeriod2() {
-            return timePeriod2;
-        }
-
-        public int getTimePeriod3() {
-            return timePeriod3;
+        public double getMaximum() {
+            return maximum;
         }
 
         @Override
         public String toString() {
-            return "MetaData {indicator=" + indicator + ", interval=" + interval + ", lastRefreshed=" + lastRefreshed
-                    + ", symbol=" + symbol + ", timePeriod1=" + timePeriod1 + ", timePeriod2=" + timePeriod2
-                    + ", timePeriod3=" + timePeriod3 + ", timeZone=" + timeZone + "}";
+            return "MetaData {acceleration=" + acceleration + ", indicator=" + indicator + ", interval=" + interval
+                    + ", lastRefreshed=" + lastRefreshed + ", maximum=" + maximum + ", symbol=" + symbol + ", timeZone="
+                    + timeZone + "}";
         }
 
-
+        
+        
         
     }
 

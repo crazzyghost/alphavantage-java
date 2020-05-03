@@ -25,6 +25,7 @@ import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
 import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
+import com.crazzyghost.alphavantage.indicator.response.SARResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
 import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
@@ -140,7 +141,10 @@ public class IndicatorTest {
         mockInterceptor.addRule().get(getBBANDSUrl("GOOGL")).respond(errorMessage);
         mockInterceptor.addRule().get(getPeriodicSeriesUrl("MIDPOINT")).respond(getJson("midpoint"));
         mockInterceptor.addRule().get(getPeriodicUrl("MIDPRICE")).respond(getJson("midprice"));
-
+        mockInterceptor.addRule().get(getSARUrl(null)).respond(getJson("sar"));
+        mockInterceptor.addRule().get(getSARUrl("GOOGL")).respond(errorMessage);
+        mockInterceptor.addRule().get(getSARUrl("GOOGL")).respond(errorMessage);
+        
     }
 
 
@@ -214,7 +218,13 @@ public class IndicatorTest {
 
     private String getBBANDSUrl(final String symbol){
         String sym = symbol == null ? "IBM" : symbol;
-        return Config.BASE_URL + "series_type=open&time_period=60&nbdevup=4&nbdevdn=4&matype=0&function=BBANDS&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";    }
+        return Config.BASE_URL + "series_type=open&time_period=60&nbdevup=4&nbdevdn=4&matype=0&function=BBANDS&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";    
+    }
+
+    private String getSARUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "acceleration=0.02&maximum=0.5&function=SAR&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";    
+    }
 
 
     private InputStream getJson(String filename) throws FileNotFoundException {
@@ -1925,6 +1935,79 @@ public class IndicatorTest {
             .fetch();
         lock.await();
         assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testSAR() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SARResponse> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .sar()
+            .interval(Interval.DAILY)
+            .acceleration(0.02)
+            .maximum(0.50)
+            .forSymbol("IBM")
+            .onFailure((e) -> lock.countDown())
+            .onSuccess((SARResponse e)-> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertTrue(ref.get().toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(ref.get().getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testSARError() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .sar()
+            .interval(Interval.DAILY)
+            .acceleration(0.02)
+            .maximum(0.50)
+            .forSymbol("GOOGL")
+            .onFailure((e) -> {
+                lock.countDown();
+                ref.set(e);
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testSARErrorWithoutFailureCallback() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage
+            .api()
+            .indicator()
+            .sar()
+            .interval(Interval.DAILY)
+            .acceleration(0.02)
+            .maximum(0.50)
+            .forSymbol("GOOGL")
+            .onSuccess((e) -> {
+                lock.countDown();
+            })
+            .dataType(DataType.JSON)
+            .fetch();
+
+        lock.await();
+        assertNull(ref.get());
     }
 
 
