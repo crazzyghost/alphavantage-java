@@ -15,7 +15,7 @@ allprojects {
 }
 dependencies {
     ...
-    implementation 'com.github.crazzyghost:alphavantage-java:1.1.0'
+    implementation 'com.github.crazzyghost:alphavantage-java:<latest-version>'
 }
 ```
 
