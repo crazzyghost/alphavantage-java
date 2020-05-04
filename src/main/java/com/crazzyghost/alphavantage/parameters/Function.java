@@ -20,7 +20,8 @@ public enum Function {
     DIGITAL_CURRENCY_DAILY,
     DIGITAL_CURRENCY_WEEKLY,
     DIGITAL_CURRENCY_MONTHLY,
-    //Technical Indications
+    CRYPTO_RATING,
+    //Technical Indicators
     SMA,
     EMA,
     WMA,

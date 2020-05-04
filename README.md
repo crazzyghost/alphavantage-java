@@ -139,7 +139,7 @@ AlphaVantage.api()
 AlphaVantage.api()
     .crypto()
     .daily()
-    .symbol("BTC")
+    .forSymbol("BTC")
     .market("CNY")
     .onSuccess(response -> handleSuccess(response.getCryptoUnits()))
     .fetch();

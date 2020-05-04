@@ -1,55 +1,30 @@
 package com.crazzyghost.alphavantage.cryptocurrency.request;
 
-import com.crazzyghost.alphavantage.parameters.Function;
 
-public class CryptoRequest {
+public class CryptoRequest extends DigitalCurrencyRequest {
 
-
-    private Function function;
-    private String symbol;
     private String market;
 
-
     private CryptoRequest(Builder builder){
-        this.function = builder.function;
+        super(builder);
         this.market = builder.market;
-        this.symbol = builder.symbol;
     }
 
-    public Function getFunction() {
-        return function;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public String getMarket() {
-        return market;
-    }
-
+    @Deprecated
     public static Builder builder(){
         return  new Builder();
     }
 
-    public static class Builder{
+    public static class Builder extends DigitalCurrencyRequest.Builder<Builder>{
 
-        private Function function;
-        private String symbol;
         private String market;
+        
+        public String getMarket() {
+            return market;
+        }
 
         public Builder(){
 
-        }
-
-        public Builder function(Function function){
-            this.function  = function;
-            return this;
-        }
-
-        public Builder symbol(String symbol){
-            this.symbol = symbol;
-            return this;
         }
 
         public Builder market(String market){
@@ -57,7 +32,8 @@ public class CryptoRequest {
             return this;
         }
 
-        public CryptoRequest build(){
+        @Override
+        public DigitalCurrencyRequest build(){
             return new CryptoRequest(this);
         }
     }
