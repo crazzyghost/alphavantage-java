@@ -75,6 +75,8 @@ public class ExchangeRate implements Fetcher {
             public void onFailure(Call call, IOException e) {
                 if(failureCallback != null){
                     failureCallback.onFailure(new AlphaVantageException());
+                    failureCallback = null;
+                    successCallback = null;
                 }
             }
 
@@ -99,6 +101,8 @@ public class ExchangeRate implements Fetcher {
                         failureCallback.onFailure(new AlphaVantageException());
                     }
                 }
+                failureCallback = null;
+                successCallback = null;
             }
         });
     }

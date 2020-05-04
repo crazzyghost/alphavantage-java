@@ -15,7 +15,7 @@ public class ExchangeRateRequest {
     }
 
     public static Builder builder(){
-        return  new Builder();
+        return new Builder();
     }
 
     public static class Builder{

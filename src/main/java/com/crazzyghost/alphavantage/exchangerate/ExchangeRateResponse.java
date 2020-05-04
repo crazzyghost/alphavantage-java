@@ -13,8 +13,8 @@ public class ExchangeRateResponse {
     private double exchangeRate;
     private String lastRefreshed;
     private String timeZone;
-    private double bidPrice;
-    private double askPrice;
+    private Double bidPrice;
+    private Double askPrice;
 
     private String errorMessage;
 
@@ -26,8 +26,8 @@ public class ExchangeRateResponse {
             Double exchangeRate,
             String lastRefreshed,
             String timeZone,
-            double bidPrice,
-            double askPrice
+            Double bidPrice,
+            Double askPrice
     ) {
         this.fromCurrencyCode = fromCurrencyCode;
         this.fromCurrencyName = fromCurrencyName;
@@ -54,6 +54,42 @@ public class ExchangeRateResponse {
         return errorMessage;
     }
 
+    public Double getAskPrice() {
+        return askPrice;
+    }
+
+    public Double getBidPrice() {
+        return bidPrice;
+    }
+
+    public String getFromCurrencyCode() {
+        return fromCurrencyCode;
+    }
+
+    public double getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public String getFromCurrencyName() {
+        return fromCurrencyName;
+    }
+
+    public String getToCurrencyCode() {
+        return toCurrencyCode;
+    }
+
+    public String getToCurrencyName() {
+        return toCurrencyName;
+    }
+
+    public String getLastRefreshed() {
+        return lastRefreshed;
+    }
+
+    public String getTimeZone() {
+        return timeZone;
+    }
+
     public static class Parser {
 
         @SuppressWarnings("unchecked")
@@ -68,6 +104,9 @@ public class ExchangeRateResponse {
                 return new ExchangeRateResponse((String)stringObjectMap.get(keys.get(0)));
             }
 
+            Double bidPrice = md.get("8. Bid Price").equals("-")? null : Double.parseDouble(md.get("8. Bid Price"));
+            Double askPrice = md.get("9. Ask Price").equals("-")? null : Double.parseDouble(md.get("9. Ask Price"));
+
             return new ExchangeRateResponse(
                     md.get("1. From_Currency Code"),
                     md.get("2. From_Currency Name"),
@@ -76,8 +115,8 @@ public class ExchangeRateResponse {
                     Double.parseDouble(md.get("5. Exchange Rate")),
                     md.get("6. Last Refreshed"),
                     md.get("7. Time Zone"),
-                    Double.parseDouble(md.get("8. Bid Price")),
-                    Double.parseDouble(md.get("9. Ask Price"))
+                    bidPrice,
+                    askPrice
             );
 
         }

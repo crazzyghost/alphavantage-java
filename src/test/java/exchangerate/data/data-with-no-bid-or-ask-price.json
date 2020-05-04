@@ -1,0 +1,13 @@
+{
+    "Realtime Currency Exchange Rate": {
+        "1. From_Currency Code": "USD",
+        "2. From_Currency Name": "United States Dollar",
+        "3. To_Currency Code": "JPY",
+        "4. To_Currency Name": "Japanese Yen",
+        "5. Exchange Rate": "106.89000000",
+        "6. Last Refreshed": "2020-05-03 20:50:48",
+        "7. Time Zone": "UTC",
+        "8. Bid Price": "-",
+        "9. Ask Price": "-"
+    }
+}
