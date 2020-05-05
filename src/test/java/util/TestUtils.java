@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.Config;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
@@ -85,5 +86,21 @@ public class TestUtils {
     public static Map<String,Object> error() throws IOException {
         return getJsonAdapter().fromJson(errorMessage);
     }
+
+    
+    public static String exchangeRateUrl(final String toCurrency){
+        String currency = toCurrency == null ? "CNY" : toCurrency;
+        return Config.BASE_URL + "function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency="+currency+"&apikey=demo";    
+    };
+
+    public static String cryptoUrl(final String function, final String symbol){
+        String sym = symbol == null ? "BTC" : symbol;
+        return Config.BASE_URL + "market=CNY&function=DIGITAL_CURRENCY_"+ function.toUpperCase() + "&symbol=" + sym +"&apikey=demo";    
+    };
+
+    public static String cryptoRatingUrl(final String symbol){
+        String sym = symbol == null ? "BTC" : symbol;
+        return Config.BASE_URL + "function=CRYPTO_RATING&symbol=" + sym + "&apikey=demo";    
+    };
 
 }

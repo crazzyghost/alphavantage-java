@@ -24,8 +24,8 @@ import java.util.Map;
 public class Crypto implements Fetcher {
 
     private Config config;
-    private DigitalCurrencyRequest request;
-    private DigitalCurrencyRequest.Builder<?> builder;
+    private CryptoRequest request;
+    private CryptoRequest.Builder<?> builder;
     private Fetcher.SuccessCallback<?> successCallback;
     private Fetcher.FailureCallback failureCallback;
 
@@ -53,7 +53,7 @@ public class Crypto implements Fetcher {
     @Override
     public void fetch() {
 
-        if(config.getKey() == null){
+        if(config == null || config.getKey() == null){
             throw new AlphaVantageException("Config not set");
         }
         
@@ -78,7 +78,7 @@ public class Crypto implements Fetcher {
                     Moshi moshi = new Moshi.Builder().build();
                     Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
                     JsonAdapter<Map<String,Object>> adapter = moshi.adapter(type);
-                    parseDigitalCurrencyResponse(adapter.fromJson(response.body().string()));
+                    parseCryptoResponse(adapter.fromJson(response.body().string()));
                 }else{
                     if(failureCallback != null){
                         failureCallback.onFailure(new AlphaVantageException());
@@ -88,7 +88,7 @@ public class Crypto implements Fetcher {
         });
     }
 
-    private void parseDigitalCurrencyResponse(Map<String, Object> data){
+    private void parseCryptoResponse(Map<String, Object> data){
 
         switch(builder.function){
             case CRYPTO_RATING:
@@ -97,7 +97,7 @@ public class Crypto implements Fetcher {
             case DIGITAL_CURRENCY_DAILY:
             case DIGITAL_CURRENCY_MONTHLY:
             case DIGITAL_CURRENCY_WEEKLY:
-                parseCryptoResponse(data);
+                parseDigitalCurrencyResponse(data);
             default:
                 break;
         }
@@ -105,8 +105,8 @@ public class Crypto implements Fetcher {
 
 
     @SuppressWarnings("unchecked")
-    private void parseCryptoResponse(Map<String, Object> data){
-        CryptoResponse response = CryptoResponse.of(data, ((CryptoRequest.Builder)builder).getMarket());
+    private void parseDigitalCurrencyResponse(Map<String, Object> data){
+        CryptoResponse response = CryptoResponse.of(data, ((DigitalCurrencyRequest.Builder)builder).getMarket());
         if(response.getErrorMessage() != null){
             if(failureCallback != null){
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -134,7 +134,7 @@ public class Crypto implements Fetcher {
     @SuppressWarnings("unchecked")
     public abstract class RequestProxy<T extends RequestProxy<?>> implements Fetcher{
 
-        protected DigitalCurrencyRequest.Builder<?> builder;
+        protected CryptoRequest.Builder<?> builder;
 
         private RequestProxy(){
             Crypto.this.successCallback = null;
@@ -166,14 +166,14 @@ public class Crypto implements Fetcher {
     public class DailyRequestProxy extends RequestProxy<DailyRequestProxy>{
         public DailyRequestProxy(){
             super();
-            builder = new CryptoRequest.Builder();
+            builder = new DigitalCurrencyRequest.Builder();
             builder = builder.function(Function.DIGITAL_CURRENCY_DAILY);
             Crypto.this.successCallback = null;
             Crypto.this.failureCallback = null;
         }
  
         public DailyRequestProxy market(String market){
-            ((CryptoRequest.Builder)builder).market(market);
+            ((DigitalCurrencyRequest.Builder)builder).market(market);
             return this;
         }
 
@@ -181,14 +181,14 @@ public class Crypto implements Fetcher {
 
     public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy>{
         public WeeklyRequestProxy(){
-            builder = new CryptoRequest.Builder();
+            builder = new DigitalCurrencyRequest.Builder();
             builder = builder.function(Function.DIGITAL_CURRENCY_WEEKLY);
             Crypto.this.successCallback = null;
             Crypto.this.failureCallback = null;
         }
 
         public WeeklyRequestProxy market(String market){
-            ((CryptoRequest.Builder)builder).market(market);
+            ((DigitalCurrencyRequest.Builder)builder).market(market);
             return this;
         }
 
@@ -196,14 +196,14 @@ public class Crypto implements Fetcher {
 
     public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy>{
         public MonthlyRequestProxy(){
-            builder = new CryptoRequest.Builder();
+            builder = new DigitalCurrencyRequest.Builder();
             builder = builder.function(Function.DIGITAL_CURRENCY_MONTHLY);
             Crypto.this.successCallback = null;
             Crypto.this.failureCallback = null;
         }
 
         public MonthlyRequestProxy market(String market){
-            ((CryptoRequest.Builder)builder).market(market);
+            ((DigitalCurrencyRequest.Builder)builder).market(market);
             return this;
         }
 

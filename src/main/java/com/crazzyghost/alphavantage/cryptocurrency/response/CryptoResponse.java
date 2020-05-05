@@ -84,7 +84,7 @@ public class CryptoResponse {
                 cryptoUnit.lowUSD(Double.parseDouble(m.get("3b. low (USD)")));
                 cryptoUnit.closeUSD(Double.parseDouble(m.get("4b. close (USD)")));
                 cryptoUnit.volume(Double.parseDouble(m.get("5. volume")));
-                cryptoUnit.marketCap(Double.parseDouble(m.get("6. market cap (" + market + ")")));
+                cryptoUnit.marketCap(Double.parseDouble(m.get("6. market cap (USD)")));
 
                 cryptoUnits.add(cryptoUnit.build());
             }

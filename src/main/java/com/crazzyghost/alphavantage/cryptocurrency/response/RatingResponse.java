@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.AlphaVantageException;
-
 public class RatingResponse {
 
     private String symbol;
@@ -121,6 +119,7 @@ public class RatingResponse {
         return "RatingResponse {developerScore=" + developerScore + ", fcasRating=" + fcasRating + ", fcasScore="
                 + fcasScore + ", lastRefreshed=" + lastRefreshed + ", marketMaturityScore=" + marketMaturityScore
                 + ", name=" + name + ", symbol=" + symbol + ", timeZone=" + timeZone + ", utilityScore=" + utilityScore
+                + ", errorMessage" + errorMessage  
                 + "}";
     }
  

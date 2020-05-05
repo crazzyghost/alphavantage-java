@@ -15,6 +15,7 @@ import static util.TestUtils.json;
 import static util.TestUtils.stream;
 import static util.TestUtils.error;
 import static util.TestUtils.errorMessage;
+import static util.TestUtils.exchangeRateUrl;
 
 import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.AlphaVantageException;
@@ -64,11 +65,6 @@ public class ExchangeRateTest {
         mockInterceptor.addRule().get(exchangeRateUrl("GHS")).delay(6000).respond(errorMessage);
 
     }
-
-    public String exchangeRateUrl(final String toCurrency){
-        String currency = toCurrency == null ? "CNY" : toCurrency;
-        return Config.BASE_URL + "function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency="+currency+"&apikey=demo";    
-    };
 
     
     @Test 
