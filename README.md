@@ -141,8 +141,17 @@ AlphaVantage.api()
     .daily()
     .forSymbol("BTC")
     .market("CNY")
-    .onSuccess(response -> handleSuccess(response.getCryptoUnits()))
+    .onSuccess(CryptoResponse response -> handleSuccess(response.getCryptoUnits()))
     .fetch();
+...
+//Crypto Rating/ Health Index
+AlphaVantage.api()
+    .crypto()
+    .rating()
+    .forSymbol("LTC")
+    .onSuccess(RatingResponse response -> handleSuccess(response))
+    .fetch();
+
 ```
 #### Fetching Technical Indicator Data
 ```java
