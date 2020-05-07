@@ -1,0 +1,25 @@
+{
+    "Meta Data": {
+        "1. Information": "FX Intraday (5min) Time Series",
+        "2. From Symbol": "EUR",
+        "3. To Symbol": "USD",
+        "4. Last Refreshed": "2020-05-06 21:55:00",
+        "5. Interval": "5min",
+        "6. Output Size": "Full size",
+        "7. Time Zone": "UTC"
+    },
+    "Time Series FX (5min)": {
+        "2020-05-06 21:55:00": {
+            "1. open": "1.0795",
+            "2. high": "1.0795",
+            "3. low": "1.0792",
+            "4. close": "1.0794"
+        },
+        "2020-05-06 21:50:00": {
+            "1. open": "1.0793",
+            "2. high": "1.0796",
+            "3. low": "1.0792",
+            "4. close": "1.0795"
+        }
+    }
+}

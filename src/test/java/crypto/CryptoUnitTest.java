@@ -2,28 +2,18 @@ package crypto;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 
 import com.crazzyghost.alphavantage.cryptocurrency.response.CryptoUnit;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import util.TestUtils;
-
 public class CryptoUnitTest {
-
-    @Before
-    public void setUp() throws IOException {
-        TestUtils.forDirectory("crypto");        
-    }
 
     @Test
     public void testCryptoUnit(){
 
-        CryptoUnit unit = CryptoUnit.builder()
+        CryptoUnit unit = new CryptoUnit.Builder()
             .close(40.0)
             .closeUSD(45.0)
             .high(56.76)

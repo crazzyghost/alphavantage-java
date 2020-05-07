@@ -13,56 +13,48 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import okhttp3.Call;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class Forex implements Fetcher{
 
-    
-
     private Config config;
     private ForexRequest request;
-    private ForexRequest.Builder builder;
+    private ForexRequest.Builder<?> builder;
     private Fetcher.SuccessCallback<ForexResponse> successCallback;
     private Fetcher.FailureCallback failureCallback;
-    private OkHttpClient client;
 
     public Forex(Config config){
         this.config = config;
         request = null;
-        client = new OkHttpClient.Builder()
-                .connectTimeout(config.getTimeOut(), TimeUnit.SECONDS)
-                .build();
 
     }
 
-    public WeeklyRequestHelper weekly(){
-        return new WeeklyRequestHelper();
+    public WeeklyRequestProxy weekly(){
+        return new WeeklyRequestProxy();
     }
 
-    public DailyRequestHelper daily(){
-        return new DailyRequestHelper();
+    public DailyRequestProxy daily(){
+        return new DailyRequestProxy();
     }
 
-    public IntraDayRequestHelper intraday(){
-        return new IntraDayRequestHelper();
+    public IntraDayRequestProxy intraday(){
+        return new IntraDayRequestProxy();
     }
 
-    public MonthlyRequestHelper monthly(){
-        return new MonthlyRequestHelper();
+    public MonthlyRequestProxy monthly(){
+        return new MonthlyRequestProxy();
     }
 
 
     @Override
     public void fetch(){
 
-        if(config.getKey() == null){
+        if(config == null || config.getKey() == null){
             throw new AlphaVantageException("Config not set");
         }
 
@@ -72,7 +64,7 @@ public class Forex implements Fetcher{
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
                 .build();
 
-        client.newCall(request).enqueue(new okhttp3.Callback() {
+        config.getOkHttpClient().newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if(failureCallback != null){
@@ -92,7 +84,6 @@ public class Forex implements Fetcher{
                     if(forexResponse.getErrorMessage() != null) {
                         if(failureCallback != null)
                             failureCallback.onFailure(new AlphaVantageException(forexResponse.getErrorMessage()));
-                        return;
                     }
                     if(successCallback != null){
                         successCallback.onSuccess(forexResponse);
@@ -108,12 +99,14 @@ public class Forex implements Fetcher{
     }
 
 
-    public abstract class RequestHelper<T extends RequestHelper> implements Fetcher {
+    @SuppressWarnings("unchecked")
+    public abstract class RequestProxy<T extends RequestProxy<?>> implements Fetcher {
 
-        protected ForexRequest.Builder builder;
+        protected ForexRequest.Builder<?> builder;
 
-        private RequestHelper(){
-
+        private RequestProxy(){
+            Forex.this.successCallback = null;
+            Forex.this.failureCallback = null;
         }
 
         public T toSymbol(String toSymbol){
@@ -152,51 +145,59 @@ public class Forex implements Fetcher{
     }
 
 
-    public class DailyRequestHelper extends RequestHelper<DailyRequestHelper>{
+    public class DailyRequestProxy extends RequestProxy<DailyRequestProxy>{
 
-        DailyRequestHelper() {
+        DailyRequestProxy() {
             super();
-            this.builder = DailyRequest.builder();
+            this.builder = new DailyRequest.Builder();
+            Forex.this.successCallback = null;
+            Forex.this.failureCallback = null;
         }
 
-        public DailyRequestHelper outputSize(OutputSize size){
+        public DailyRequestProxy outputSize(OutputSize size){
             ((DailyRequest.Builder)this.builder).outputSize(size);
             return this;
         }
 
     }
 
-    public class IntraDayRequestHelper extends RequestHelper<IntraDayRequestHelper>{
+    public class IntraDayRequestProxy extends RequestProxy<IntraDayRequestProxy>{
 
-        IntraDayRequestHelper() {
+        IntraDayRequestProxy() {
             super();
-            this.builder = IntraDayRequest.builder();
+            this.builder = new IntraDayRequest.Builder();
+            Forex.this.successCallback = null;
+            Forex.this.failureCallback = null;
         }
 
-        public IntraDayRequestHelper outputSize(OutputSize size){
-            ((DailyRequest.Builder)this.builder).outputSize(size);
+        public IntraDayRequestProxy outputSize(OutputSize size){
+            ((IntraDayRequest.Builder)this.builder).outputSize(size);
             return this;
         }
 
-        public IntraDayRequestHelper interval(Interval interval){
+        public IntraDayRequestProxy interval(Interval interval){
             ((IntraDayRequest.Builder)this.builder).interval(interval);
             return this;
         }
     }
 
-    public class WeeklyRequestHelper extends RequestHelper<WeeklyRequestHelper>{
+    public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy>{
 
-        WeeklyRequestHelper(){
+        WeeklyRequestProxy(){
             super();
-            this.builder = WeeklyRequest.builder();
+            this.builder = new WeeklyRequest.Builder();
+            Forex.this.successCallback = null;
+            Forex.this.failureCallback = null;
         }
     }
 
-    public class MonthlyRequestHelper extends RequestHelper<MonthlyRequestHelper>{
+    public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy>{
 
-        MonthlyRequestHelper(){
+        MonthlyRequestProxy(){
             super();
-            this.builder = MonthlyRequest.builder();
+            this.builder = new MonthlyRequest.Builder();
+            Forex.this.successCallback = null;
+            Forex.this.failureCallback = null;
         }
     }
 }

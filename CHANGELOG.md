@@ -3,16 +3,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-## [v1.2.0] - 06-05-2020
+## [v1.2.1] - 07-05-2020
+### Added
+- Tests for Forex
+### Changed
+- RequestHelper to RequestProxy
+### Fixed
+- IntradayRequest interval bug
+### Removed
+- Static builder methods
+## [v1.2.0] - 05-05-2020
 ### Added
 - Support for crypto currency Health Index
-## [v1.1.1] - 06-05-2020
+## [v1.1.1] - 04-05-2020
 ### Added
 - Bid Rates and Ask Rates for Exchange Rates
 ### Fixed
 - Exchange Rates response data access
 
-## [v1.1.0] - 05-05-2020
+## [v1.1.0] - 04-05-2020
 ### Added
 - Support for Technical Indicators
 
