@@ -11,23 +11,13 @@ public class DailyRequest extends ForexRequest{
     private DailyRequest(Builder builder){
         super(builder);
         this.function = Function.FX_DAILY;
-        this.outputSize = builder.outputSize != null ? builder.outputSize : OutputSize.COMPACT;
+        this.outputSize = builder.outputSize;
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
-
-    public static class Builder extends ForexRequest.Builder{
+    public static class Builder extends ForexRequest.Builder<Builder>{
 
         Function function;
-        OutputSize outputSize;
-
-        public Builder function(Function function){
-            this.function = function;
-            return this;
-        }
+        OutputSize outputSize = OutputSize.COMPACT;
 
         public Builder outputSize(OutputSize outputSize){
             this.outputSize = outputSize;

@@ -12,11 +12,7 @@ public class WeeklyRequest extends ForexRequest{
     }
 
 
-    public static Builder builder(){
-        return new Builder();
-    }
-
-    public static class Builder extends ForexRequest.Builder {
+    public static class Builder extends ForexRequest.Builder<Builder> {
 
         public Builder(){
             super();

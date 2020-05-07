@@ -13,19 +13,14 @@ public class IntraDayRequest extends ForexRequest {
     private IntraDayRequest(Builder builder){
         super(builder);
         this.function = Function.FX_INTRADAY;
-        this.outputsize =  builder.outputsize != null ? builder.outputsize : OutputSize.COMPACT;
-        this.interval = builder.interval != null ? builder.interval : Interval.ONE_MIN;
+        this.outputsize =  builder.outputsize;
+        this.interval = builder.interval;
     }
 
+    public static class Builder extends ForexRequest.Builder<Builder>{
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder extends ForexRequest.Builder{
-
-        Interval interval;
-        OutputSize outputsize;
+        Interval interval = Interval.ONE_MIN;
+        OutputSize outputsize = OutputSize.COMPACT;
 
         public Builder interval(Interval interval){
             this.interval = interval;
@@ -38,7 +33,7 @@ public class IntraDayRequest extends ForexRequest {
         }
 
         @Override
-        public IntraDayRequest build() {
+        public ForexRequest build() {
             return new IntraDayRequest(this);
         }
     }

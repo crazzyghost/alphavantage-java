@@ -11,12 +11,7 @@ public class MonthlyRequest extends ForexRequest{
         this.function = Function.FX_MONTHLY;
     }
 
-
-    public static Builder builder(){
-        return new Builder();
-    }
-
-    public static class Builder extends ForexRequest.Builder {
+    public static class Builder extends ForexRequest.Builder<Builder> {
 
         public Builder(){
             super();
