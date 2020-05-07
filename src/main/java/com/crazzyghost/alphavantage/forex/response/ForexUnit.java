@@ -16,10 +16,6 @@ public class ForexUnit {
         this.date = builder.date;
     }
 
-    public static Builder builder(){
-        return new Builder();
-    }
-
     public static class Builder{
 
         double open;

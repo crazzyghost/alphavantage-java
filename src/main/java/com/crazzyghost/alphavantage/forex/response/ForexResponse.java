@@ -27,24 +27,12 @@ public class ForexResponse {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     public MetaData getMetaData() {
         return metaData;
     }
 
-    public void setMetaData(MetaData metaData) {
-        this.metaData = metaData;
-    }
-
     public List<ForexUnit> getForexUnits() {
         return forexUnits;
-    }
-
-    public void setForexUnits(List<ForexUnit> forexUnits) {
-        this.forexUnits = forexUnits;
     }
 
     public static ForexResponse of(Map<String, Object> stringObjectMap){
@@ -53,7 +41,7 @@ public class ForexResponse {
     }
 
     public static class Parser {
-
+        @SuppressWarnings("unchecked")
         ForexResponse parse(Map<String, Object> stringObjectMap) {
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
@@ -84,7 +72,7 @@ public class ForexResponse {
 
             for (Map.Entry<String,Map<String,String>> e: stockData.entrySet()) {
 
-                ForexUnit.Builder forexUnit = ForexUnit.builder();
+                ForexUnit.Builder forexUnit = new ForexUnit.Builder();
                 Map<String, String> m = e.getValue();
                 forexUnit.date(e.getKey());
                 forexUnit.open(Double.parseDouble(m.get("1. open")));

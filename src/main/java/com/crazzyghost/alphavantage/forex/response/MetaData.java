@@ -36,56 +36,28 @@ public class MetaData {
         return information;
     }
 
-    public void setInformation(String information) {
-        this.information = information;
-    }
-
     public String getFromSymbol() {
         return fromSymbol;
-    }
-
-    public void setFromSymbol(String fromSymbol) {
-        this.fromSymbol = fromSymbol;
     }
 
     public String getToSymbol() {
         return toSymbol;
     }
 
-    public void setToSymbol(String toSymbol) {
-        this.toSymbol = toSymbol;
-    }
-
     public String getLastRefreshed() {
         return lastRefreshed;
-    }
-
-    public void setLastRefreshed(String lastRefreshed) {
-        this.lastRefreshed = lastRefreshed;
     }
 
     public String getInterval() {
         return interval;
     }
 
-    public void setInterval(String interval) {
-        this.interval = interval;
-    }
-
     public String getOutputSize() {
         return outputSize;
     }
 
-    public void setOutputSize(String outputSize) {
-        this.outputSize = outputSize;
-    }
-
     public String getTimeZone() {
         return timeZone;
-    }
-
-    public void setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
     }
 
     @Override
