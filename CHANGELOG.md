@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Tests for Forex
 ### Changed
-- RequestHelper to RequestProxy
+- RequestHelper to RequestProxy for Forex
 ### Fixed
-- IntradayRequest interval bug
+- Forex IntradayRequest interval bug
 ### Removed
 - Static builder methods
 ## [v1.2.0] - 05-05-2020
