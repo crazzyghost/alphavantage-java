@@ -27,9 +27,6 @@ public class CryptoUnit {
         this.marketCap  = builder.marketCap;
     }
 
-    public static Builder builder(){
-        return new Builder();
-    }
 
     public static class Builder{
 

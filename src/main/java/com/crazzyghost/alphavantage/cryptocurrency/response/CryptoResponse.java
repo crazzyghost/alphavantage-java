@@ -74,7 +74,7 @@ public class CryptoResponse {
 
             for (Map<String,String> m: stockData.values()) {
 
-                CryptoUnit.Builder cryptoUnit = CryptoUnit.builder();
+                CryptoUnit.Builder cryptoUnit = new CryptoUnit.Builder();
                 cryptoUnit.open(Double.parseDouble(m.get("1a. open (" + market + ")" )));
                 cryptoUnit.high(Double.parseDouble(m.get("2a. high (" + market + ")" )));
                 cryptoUnit.low(Double.parseDouble(m.get("3a. low (" + market + ")" )));

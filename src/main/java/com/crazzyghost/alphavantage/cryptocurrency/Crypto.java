@@ -58,7 +58,6 @@ public class Crypto implements Fetcher {
         }
         
         this.request = this.builder.build();
-        // String market = request.getMarket();
 
         Request request = new Request.Builder()
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())

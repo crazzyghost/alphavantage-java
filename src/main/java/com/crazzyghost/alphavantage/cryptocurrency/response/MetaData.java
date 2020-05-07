@@ -32,6 +32,35 @@ public class MetaData {
         return new MetaData("","","","", "", "", "");
     }
 
+    public String getDigitalCurrencyCode() {
+        return digitalCurrencyCode;
+    }
+
+    public String getDigitalCurrencyName() {
+        return digitalCurrencyName;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+    
+    public String getLastRefreshed() {
+        return lastRefreshed;
+    }
+
+    public String getTimeZone() {
+        return timeZone;
+    }
+
+    public String getMarketCode() {
+        return marketCode;
+    }
+    
+    public String getMarketName() {
+        return marketName;
+    }
+    
+
     @Override
     public String toString() {
         return "MetaData{" +
