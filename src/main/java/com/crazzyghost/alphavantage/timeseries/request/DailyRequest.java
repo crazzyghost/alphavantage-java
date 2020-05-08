@@ -5,13 +5,13 @@ import com.crazzyghost.alphavantage.parameters.OutputSize;
 
 public class DailyRequest extends TimeSeriesRequest{
 
-    private OutputSize outputSize;
+    private OutputSize outputsize;
     private Function function;
 
     private DailyRequest(Builder builder){
         super(builder);
         this.function = builder.function;
-        this.outputSize = builder.outputSize == null ? OutputSize.COMPACT : builder.outputSize ;
+        this.outputsize = builder.outputSize == null ? OutputSize.COMPACT : builder.outputSize ;
     }
 
 
