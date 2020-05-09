@@ -96,20 +96,22 @@ When you are okay with setting the parameters call the `fetch()` method. Simple!
 ### Examples
 #### Fetching Stock Time Series Data
 ```java
-...
 AlphaVantage.api()
     .timeSeries()
     .intraday()
-    .onSuccess(e->handleSuccess(e))
+    .onSuccess((TimeSeriesResponse e)->handleSuccess(e))
     .interval(Interval.ONE_MIN)
     .onFailure(e->handleFailure(e))
     .forSymbol("MSFT")
     .fetch();
-...
-void handleSuccess(TimeSeriesResponse e){
-    plotGraph(e.getStockUnits(), e.getMetaData());
-}
 
+//Quote Endpoint
+AlphaVantage.api()
+    .timeSeries()
+    .quote()
+    .forSymbol("IBM")
+    .onSuccess((QuoteResponse e) -> handleSuccess(e))
+    .fetch();
 ```
 
 #### Fetching Forex Rate Data
@@ -143,7 +145,7 @@ AlphaVantage.api()
     .market("CNY")
     .onSuccess(CryptoResponse response -> handleSuccess(response.getCryptoUnits()))
     .fetch();
-...
+
 //Crypto Rating/ Health Index
 AlphaVantage.api()
     .crypto()
