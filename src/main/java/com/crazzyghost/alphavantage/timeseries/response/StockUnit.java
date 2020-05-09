@@ -124,6 +124,10 @@ public class StockUnit {
         return splitCoefficient;
     }
 
+    public String getDateTime() {
+        return dateTime;
+    }
+
     @Override
     public String toString() {
         return "\n" + "StockUnit{" +
