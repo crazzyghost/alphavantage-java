@@ -9,6 +9,7 @@ public enum Function {
     TIME_SERIES_WEEKLY_ADJUSTED,
     TIME_SERIES_MONTHLY,
     TIME_SERIES_MONTHLY_ADJUSTED,
+    GLOBAL_QUOTE,
     //Exchange Rate
     CURRENCY_EXCHANGE_RATE,
     //Forex (FX) Functions

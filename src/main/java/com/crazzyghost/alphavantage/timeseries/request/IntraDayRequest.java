@@ -8,36 +8,28 @@ public class IntraDayRequest extends TimeSeriesRequest {
 
     private Interval interval;
     private OutputSize outputSize;
-    private Function function;
 
     private IntraDayRequest(IntraDayRequest.Builder builder){
         super(builder);
-        this.function = Function.TIME_SERIES_INTRADAY;
-        this.interval = builder.interval == null ? Interval.ONE_MIN : builder.interval;
-        this.outputSize = builder.outputSize == null ? OutputSize.COMPACT : builder.outputSize ;
+        this.interval = builder.interval;
+        this.outputSize = builder.outputSize;
     }
-
-
-    public static Builder builder(){
-        return new Builder();
-    }
-
 
     public static class Builder extends TimeSeriesRequest.Builder<Builder>{
-
-        Interval interval;
-        OutputSize outputSize;
+ 
+        private Interval interval = Interval.ONE_MIN;
+        private OutputSize outputSize = OutputSize.COMPACT;
 
 
         public Builder(){
             super();
+            this.function(Function.TIME_SERIES_INTRADAY);
         }
 
         public Builder interval(Interval interval){
             this.interval = interval;
             return this;
         }
-
 
 
         public Builder outputSize(OutputSize outputSize){

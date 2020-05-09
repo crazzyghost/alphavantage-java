@@ -17,6 +17,7 @@ public class MetaData {
         this.outputSize = outputSize;
         this.timeZone = timeZone;
     }
+    
     public MetaData(String information, String symbol, String lastRefreshed, String outputSize, String timeZone) {
         this.information = information;
         this.symbol = symbol;
@@ -42,6 +43,14 @@ public class MetaData {
 
     public String getTimeZone() {
         return timeZone;
+    }
+
+    public String getOutputSize() {
+        return outputSize;
+    }
+
+    public String getInterval() {
+        return interval;
     }
 
     @Override

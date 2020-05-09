@@ -26,9 +26,6 @@ public class StockUnit {
         this.dateTime = builder.dateTime;
     }
 
-    public static Builder builder(){
-        return new Builder();
-    }
 
     public static class Builder{
 
@@ -121,6 +118,10 @@ public class StockUnit {
 
     public double getSplitCoefficient() {
         return splitCoefficient;
+    }
+
+    public String getDate() {
+        return dateTime;
     }
 
     @Override

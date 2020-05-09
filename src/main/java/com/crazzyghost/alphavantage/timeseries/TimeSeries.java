@@ -8,64 +8,60 @@ import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 import com.crazzyghost.alphavantage.timeseries.request.*;
+import com.crazzyghost.alphavantage.timeseries.response.QuoteResponse;
 import com.crazzyghost.alphavantage.timeseries.response.TimeSeriesResponse;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import okhttp3.Call;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class TimeSeries implements Fetcher{
 
     private Config config;
     private TimeSeriesRequest request;
-    private TimeSeriesRequest.Builder builder;
+    private TimeSeriesRequest.Builder<?> builder;
     private boolean adjusted = false;
-    private Fetcher.SuccessCallback<TimeSeriesResponse> successCallback;
+    private Fetcher.SuccessCallback<?> successCallback;
     private Fetcher.FailureCallback failureCallback;
-    private OkHttpClient client;
-
+ 
     public TimeSeries(Config config){
         this.config = config;
         request = null;
-        client = new OkHttpClient.Builder()
-                .connectTimeout(config.getTimeOut(), TimeUnit.SECONDS)
-                .build();
-
     }
 
-
-    public MonthlyRequestHelper monthly(){
+    public MonthlyRequestProxy monthly(){
         this.adjusted = false;
-        return new MonthlyRequestHelper();
+        return new MonthlyRequestProxy();
     }
 
-    public WeeklyRequestHelper weekly(){
+    public WeeklyRequestProxy weekly(){
         this.adjusted = false;
-        return new WeeklyRequestHelper();
+        return new WeeklyRequestProxy();
     }
 
-    public DailyRequestHelper daily(){
+    public DailyRequestProxy daily(){
         this.adjusted = false;
-        return new DailyRequestHelper();
+        return new DailyRequestProxy();
     }
 
-    public IntraDayRequestHelper intraday(){
-        this.adjusted = false;
-        return new IntraDayRequestHelper();
+    public IntraDayRequestProxy intraday(){
+        return new IntraDayRequestProxy();
+    }
+
+    public GlobalQuoteRequestProxy quote(){
+        return new GlobalQuoteRequestProxy();
     }
 
     @Override
     public void fetch(){
 
-        if(config.getKey() == null){
+        if(config == null || config.getKey() == null){
             throw new AlphaVantageException("Config not set");
         }
         
@@ -75,7 +71,7 @@ public class TimeSeries implements Fetcher{
                 .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
                 .build();
 
-        client.newCall(request).enqueue(new okhttp3.Callback() {
+        config.getOkHttpClient().newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if(failureCallback != null){
@@ -87,21 +83,11 @@ public class TimeSeries implements Fetcher{
             public void onResponse(Call call, Response response) throws IOException {
 
                 if(response.isSuccessful()){
-
                     Moshi moshi = new Moshi.Builder().build();
                     Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
                     JsonAdapter<Map<String,Object>> adapter = moshi.adapter(type);
-                    TimeSeriesResponse stockResponse = TimeSeriesResponse.of(adapter.fromJson(response.body().string()), adjusted);
-                    if(stockResponse.getErrorMessage() != null){
-                        if(failureCallback != null){
-                            failureCallback.onFailure(new AlphaVantageException(stockResponse.getErrorMessage()));
-                        }
-                        return;
-                    }
-                    if(successCallback != null)
-                        successCallback.onSuccess(stockResponse);
+                    parseResponse(adapter.fromJson(response.body().string()));
                 }else{
-
                     if(failureCallback != null){
                         failureCallback.onFailure(new AlphaVantageException());
                     }
@@ -110,13 +96,60 @@ public class TimeSeries implements Fetcher{
         });
     }
 
+    @SuppressWarnings("unchecked")
+    private void parseTimeSeriesResponse(Map<String, Object> data){
+        TimeSeriesResponse response = TimeSeriesResponse.of(data, adjusted);
+        if(response.getErrorMessage() != null){
+            if(failureCallback != null){
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+            }
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<TimeSeriesResponse>)successCallback).onSuccess(response);
+        }
+    }
 
-    public abstract class RequestHelper<T extends RequestHelper> implements Fetcher {
+    @SuppressWarnings("unchecked")
+    private void parseGlobalQuoteResponse(Map<String, Object> data){
+        QuoteResponse response = QuoteResponse.of(data);
+        if(response.getErrorMessage() != null){
+            if(failureCallback != null){
+                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+            }
+        }
+        if(successCallback != null){
+            ((Fetcher.SuccessCallback<QuoteResponse>)successCallback).onSuccess(response);
+        }
+    }
 
-        protected TimeSeriesRequest.Builder builder;
+    private void parseResponse(Map<String, Object> data){
+        
+        switch(builder.function){
+            case TIME_SERIES_DAILY:
+            case TIME_SERIES_DAILY_ADJUSTED:
+            case TIME_SERIES_MONTHLY:
+            case TIME_SERIES_MONTHLY_ADJUSTED:
+            case TIME_SERIES_WEEKLY:
+            case TIME_SERIES_WEEKLY_ADJUSTED:
+            case TIME_SERIES_INTRADAY:
+                parseTimeSeriesResponse(data);
+                break;
+            case GLOBAL_QUOTE:
+                parseGlobalQuoteResponse(data);
+            default:
+                break;
+                
+        }
+    }
 
-        private RequestHelper(){
+    @SuppressWarnings("unchecked")
+    public abstract class RequestProxy<T extends RequestProxy<?>> implements Fetcher {
 
+        protected TimeSeriesRequest.Builder<?> builder;
+
+        private RequestProxy(){
+            TimeSeries.this.failureCallback = null;
+            TimeSeries.this.successCallback = null;
         }
 
         public T forSymbol(String symbol){
@@ -135,12 +168,10 @@ public class TimeSeries implements Fetcher{
             TimeSeries.this.fetch();
         }
 
-
-        public T onSuccess(SuccessCallback<TimeSeriesResponse> callback) {
+        public T onSuccess(SuccessCallback<?> callback) {
             TimeSeries.this.successCallback = callback;
             return (T)this;
         }
-
 
         public T onFailure(FailureCallback callback) {
             TimeSeries.this.failureCallback = callback;
@@ -149,19 +180,21 @@ public class TimeSeries implements Fetcher{
     }
 
 
-    public class DailyRequestHelper extends RequestHelper<DailyRequestHelper>{
+    public class DailyRequestProxy extends RequestProxy<DailyRequestProxy>{
 
-        DailyRequestHelper() {
+        DailyRequestProxy() {
             super();
-            this.builder = DailyRequest.builder();
+            this.builder = new DailyRequest.Builder();
+            TimeSeries.this.failureCallback = null;
+            TimeSeries.this.successCallback = null;
         }
 
-        public DailyRequestHelper outputSize(OutputSize size){
+        public DailyRequestProxy outputSize(OutputSize size){
             ((DailyRequest.Builder)this.builder).outputSize(size);
             return this;
         }
 
-        public DailyRequestHelper adjusted(){
+        public DailyRequestProxy adjusted(){
             TimeSeries.this.adjusted = true;
             ((DailyRequest.Builder)this.builder).adjusted();
             return this;
@@ -169,49 +202,63 @@ public class TimeSeries implements Fetcher{
 
     }
 
-    public class IntraDayRequestHelper extends RequestHelper<IntraDayRequestHelper>{
+    public class IntraDayRequestProxy extends RequestProxy<IntraDayRequestProxy>{
 
-        IntraDayRequestHelper() {
+        IntraDayRequestProxy() {
             super();
-            this.builder = IntraDayRequest.builder();
+            this.builder = new IntraDayRequest.Builder();
+            TimeSeries.this.failureCallback = null;
+            TimeSeries.this.successCallback = null;
         }
 
-        public IntraDayRequestHelper outputSize(OutputSize size){
-            ((DailyRequest.Builder)this.builder).outputSize(size);
+        public IntraDayRequestProxy outputSize(OutputSize size){
+            ((IntraDayRequest.Builder)this.builder).outputSize(size);
             return this;
         }
 
-        public IntraDayRequestHelper interval(Interval interval){
+        public IntraDayRequestProxy interval(Interval interval){
             ((IntraDayRequest.Builder)this.builder).interval(interval);
             return this;
         }
     }
 
-    public class WeeklyRequestHelper extends RequestHelper<WeeklyRequestHelper>{
+    public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy>{
 
-        WeeklyRequestHelper(){
+        WeeklyRequestProxy(){
             super();
-            this.builder = WeeklyRequest.builder();
+            this.builder = new WeeklyRequest.Builder();
+            TimeSeries.this.failureCallback = null;
+            TimeSeries.this.successCallback = null;
         }
 
-        public WeeklyRequestHelper adjusted(){
+        public WeeklyRequestProxy adjusted(){
             TimeSeries.this.adjusted = true;
             ((WeeklyRequest.Builder)this.builder).adjusted();
             return this;
         }
     }
 
-    public class MonthlyRequestHelper extends RequestHelper<MonthlyRequestHelper>{
+    public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy>{
 
-        MonthlyRequestHelper(){
+        MonthlyRequestProxy(){
             super();
-            this.builder = MonthlyRequest.builder();
+            this.builder = new MonthlyRequest.Builder();
+            TimeSeries.this.failureCallback = null;
+            TimeSeries.this.successCallback = null;
         }
 
-        public MonthlyRequestHelper adjusted(){
+        public MonthlyRequestProxy adjusted(){
             TimeSeries.this.adjusted = true;
             ((MonthlyRequest.Builder)this.builder).adjusted();
             return this;
+        }
+    }
+
+    public class GlobalQuoteRequestProxy extends RequestProxy<GlobalQuoteRequestProxy>{
+
+        GlobalQuoteRequestProxy(){
+            super();
+            this.builder = new QuoteRequest.Builder();
         }
     }
 

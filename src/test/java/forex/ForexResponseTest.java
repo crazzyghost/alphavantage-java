@@ -25,7 +25,7 @@ public class ForexResponseTest {
     }
 
     @Test
-    public void testDigitalCurrencyResponse() throws IOException {
+    public void testForexResponse() throws IOException {
         ForexResponse response = ForexResponse.of(json("daily"));
         assertNotNull(response.getMetaData());
         assertEquals(response.getForexUnits().size(), 2);
@@ -41,7 +41,7 @@ public class ForexResponseTest {
     }
     
     @Test
-    public void testDigitalCurrencyResponseError() throws IOException {
+    public void testForexResponseError() throws IOException {
         ForexResponse response = ForexResponse.of(error());
         assertNotNull(response.getErrorMessage());
         assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));

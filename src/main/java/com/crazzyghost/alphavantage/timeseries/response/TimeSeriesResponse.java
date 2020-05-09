@@ -23,9 +23,9 @@ public class TimeSeriesResponse {
         this.metaData = MetaData.empty();
     }
 
-    public static TimeSeriesResponse of(Map<String, Object> raw, boolean adjusted){
+    public static TimeSeriesResponse of(Map<String, Object> stringObjectMap, boolean adjusted){
         Parser parser = new Parser(adjusted);
-        return parser.parse(raw);
+        return parser.parse(stringObjectMap);
     }
 
     public String getErrorMessage() {
@@ -49,6 +49,7 @@ public class TimeSeriesResponse {
             this.adjusted = adjusted;
         }
 
+        @SuppressWarnings("unchecked")
         TimeSeriesResponse parse(Map<String, Object> stringObjectMap) {
 
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
@@ -67,21 +68,21 @@ public class TimeSeriesResponse {
             MetaData metaData;
             if(md.get("4. Interval") == null){
                 metaData = new MetaData(
-                        md.get("1. Information"),
-                        md.get("2. Symbol"),
-                        md.get("3. Last Refreshed"),
-                        md.get("4. Output Size"),
-                        md.get("5. Time Zone")
+                    md.get("1. Information"),
+                    md.get("2. Symbol"),
+                    md.get("3. Last Refreshed"),
+                    md.get("4. Output Size"),
+                    md.get("5. Time Zone")
                 );
             }else{
 
                 metaData = new MetaData(
-                        md.get("1. Information"),
-                        md.get("2. Symbol"),
-                        md.get("3. Last Refreshed"),
-                        md.get("4. Interval"),
-                        md.get("5. Output Size"),
-                        md.get("6. Time Zone")
+                    md.get("1. Information"),
+                    md.get("2. Symbol"),
+                    md.get("3. Last Refreshed"),
+                    md.get("4. Interval"),
+                    md.get("5. Output Size"),
+                    md.get("6. Time Zone")
                 );
             }
 
@@ -91,7 +92,7 @@ public class TimeSeriesResponse {
             for (Map.Entry<String, Map<String, String>> e : stockData.entrySet()) {
 
                 Map<String, String> m = e.getValue();
-                StockUnit.Builder stockUnit = StockUnit.builder();
+                StockUnit.Builder stockUnit = new StockUnit.Builder();
                 stockUnit.time(e.getKey());
                 stockUnit.open(Double.parseDouble(m.get("1. open")));
                 stockUnit.high(Double.parseDouble(m.get("2. high")));

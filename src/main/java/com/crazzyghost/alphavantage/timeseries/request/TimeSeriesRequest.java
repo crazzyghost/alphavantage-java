@@ -1,28 +1,30 @@
 package com.crazzyghost.alphavantage.timeseries.request;
 
-
 import com.crazzyghost.alphavantage.parameters.DataType;
+import com.crazzyghost.alphavantage.parameters.Function;
 
 public abstract class TimeSeriesRequest {
 
-    private DataType dataType;
+    private Function function;
     private String symbol;
+    private DataType dataType;
 
 
-    protected TimeSeriesRequest(Builder builder){
+    protected TimeSeriesRequest(Builder<?> builder){
         this.symbol = builder.symbol;
-        this.dataType = builder.dataType == null ? DataType.JSON : builder.dataType;
+        this.dataType = builder.dataType;
+        this.function  = builder.function;
     }
 
     public static abstract class Builder<T extends Builder<T>>{
 
-        protected DataType dataType;
+        protected DataType dataType = DataType.JSON;
         protected String symbol;
-
+        public Function function;
+        
         public Builder(){
 
         }
-
 
         public T dataType(DataType dataType){
             this.dataType = dataType;
@@ -34,16 +36,12 @@ public abstract class TimeSeriesRequest {
             return (T) this;
         }
 
+        public T function(Function function){
+            this.function = function;
+            return (T) this;
+        }
+
         public abstract TimeSeriesRequest build();
 
-    }
-
-
-    @Override
-    public String toString() {
-        return "TimeSeriesRequest{" +
-                ", dataType=" + dataType +
-                ", symbol='" + symbol + '\'' +
-                '}';
     }
 }

@@ -1,0 +1,28 @@
+{
+    "Meta Data": {
+        "1. Information": "Weekly Adjusted Prices and Volumes",
+        "2. Symbol": "IBM",
+        "3. Last Refreshed": "2020-05-08 14:08:57",
+        "4. Time Zone": "US/Eastern"
+    },
+    "Weekly Adjusted Time Series": {
+        "2020-05-08": {
+            "1. open": "120.8200",
+            "2. high": "124.3200",
+            "3. low": "119.3910",
+            "4. close": "121.7964",
+            "5. adjusted close": "121.7964",
+            "6. volume": "18736550",
+            "7. dividend amount": "1.6300"
+        },
+        "2020-05-01": {
+            "1. open": "125.5600",
+            "2. high": "129.3100",
+            "3. low": "121.3900",
+            "4. close": "121.8700",
+            "5. adjusted close": "120.2531",
+            "6. volume": "26502989",
+            "7. dividend amount": "0.0000"
+        }
+    }
+}
