@@ -142,3 +142,6 @@ gradle
 **/Main.java
 bin/**
 *.sh
+
+_config.yml
+site/**
