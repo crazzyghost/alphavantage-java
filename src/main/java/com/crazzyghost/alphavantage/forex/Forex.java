@@ -20,6 +20,11 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
 
+/**
+ * Access to Stock Time Series Data
+ * @author crazzyghost
+ * @since 1.0.0
+ */
 public class Forex implements Fetcher{
 
     private Config config;
@@ -31,26 +36,43 @@ public class Forex implements Fetcher{
     public Forex(Config config){
         this.config = config;
         request = null;
-
     }
 
+    /**
+     * Access monthly stock time series data
+     * @return {@link WeeklyRequestProxy} instance
+     */
     public WeeklyRequestProxy weekly(){
         return new WeeklyRequestProxy();
     }
 
+    /**
+     * Access monthly stock time series data
+     * @return {@link DailyRequestProxy} instance
+     */
     public DailyRequestProxy daily(){
         return new DailyRequestProxy();
     }
 
+    /**
+     * Access monthly stock time series data
+     * @return {@link IntraDayRequestProxy} instance
+     */
     public IntraDayRequestProxy intraday(){
         return new IntraDayRequestProxy();
     }
 
+    /**
+     * Access monthly stock time series data
+     * @return {@link MonthlyRequestProxy} instance
+     */
     public MonthlyRequestProxy monthly(){
         return new MonthlyRequestProxy();
     }
 
-
+    /**
+     * Fetch Foreign Exchange data
+     */
     @Override
     public void fetch(){
 
@@ -99,8 +121,13 @@ public class Forex implements Fetcher{
     }
 
 
+    /**
+     * An abstract proxy for building requests. Adds the functionality of adding callbacks and a terminal method for 
+     * fetching data.
+     * @param <T> A Concrete {@link RequestProxy} Implementation
+     */    
     @SuppressWarnings("unchecked")
-    public abstract class RequestProxy<T extends RequestProxy<?>> implements Fetcher {
+    public abstract class RequestProxy<T extends RequestProxy<?>> {
 
         protected ForexRequest.Builder<?> builder;
 
@@ -136,7 +163,6 @@ public class Forex implements Fetcher{
             return (T)this;
         }
 
-        @Override
         public void fetch() {
             Forex.this.builder = this.builder;
             Forex.this.fetch();
@@ -144,14 +170,14 @@ public class Forex implements Fetcher{
 
     }
 
-
+    /**
+     * Proxy for building a {@link DailyRequest}
+     */
     public class DailyRequestProxy extends RequestProxy<DailyRequestProxy>{
 
         DailyRequestProxy() {
             super();
             this.builder = new DailyRequest.Builder();
-            Forex.this.successCallback = null;
-            Forex.this.failureCallback = null;
         }
 
         public DailyRequestProxy outputSize(OutputSize size){
@@ -161,13 +187,14 @@ public class Forex implements Fetcher{
 
     }
 
+     /**
+     * Proxy for building a {@link IntraDayRequest}
+     */
     public class IntraDayRequestProxy extends RequestProxy<IntraDayRequestProxy>{
 
         IntraDayRequestProxy() {
             super();
             this.builder = new IntraDayRequest.Builder();
-            Forex.this.successCallback = null;
-            Forex.this.failureCallback = null;
         }
 
         public IntraDayRequestProxy outputSize(OutputSize size){
@@ -180,24 +207,26 @@ public class Forex implements Fetcher{
             return this;
         }
     }
-
+    
+    /**
+     * Proxy for building a {@link WeeklyRequest}
+     */
     public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy>{
 
         WeeklyRequestProxy(){
             super();
             this.builder = new WeeklyRequest.Builder();
-            Forex.this.successCallback = null;
-            Forex.this.failureCallback = null;
         }
     }
 
+     /**
+     * Proxy for building a {@link MonthlyRequest}
+     */
     public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy>{
 
         MonthlyRequestProxy(){
             super();
             this.builder = new MonthlyRequest.Builder();
-            Forex.this.successCallback = null;
-            Forex.this.failureCallback = null;
         }
     }
 }

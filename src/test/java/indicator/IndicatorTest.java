@@ -588,7 +588,6 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .fastLimit(0.1)
             .slowLimit(0.5)
-            .seriesType(SeriesType.OPEN)
             .onSuccess((MAMAResponse e) -> {
                 lock.countDown();
                 ref.set(e);

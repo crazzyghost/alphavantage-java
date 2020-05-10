@@ -16,6 +16,11 @@ import okhttp3.Call;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * Access to Stock Time Series Data
+ * @author crazzyghost
+ * @since 1.0.0
+ */
 public class ExchangeRate implements Fetcher {
 
     private Config config;

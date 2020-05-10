@@ -24,7 +24,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class Indicator {
+/**
+ * Access to Technical Indicator Data
+ * @author crazzyghost
+ * @since 1.1.0
+ */
+public class Indicator implements Fetcher{
 
     private IndicatorRequest.Builder<?> builder;
     private Fetcher.SuccessCallback<?> successCallback;
@@ -37,6 +42,10 @@ public class Indicator {
         this.request = null;
     }
 
+    /**
+     * Fetch Technical Indicator Data
+     */
+    @Override
     public void fetch(){
         if(config == null || config.getKey() == null){
             throw new AlphaVantageException("Config not set");
@@ -608,7 +617,11 @@ public class Indicator {
     }
 
 
-
+    /**
+     * An base proxy for building requests. Adds the functionality of adding callbacks and a terminal method for 
+     * fetching data.
+     * @param <T> A Concrete {@link SimpleIndicatorRequestProxy} Implementation
+     */
     @SuppressWarnings("unchecked")
     public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
         protected IndicatorRequest.Builder<?> builder;

@@ -21,6 +21,11 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
 
+/**
+ * Access to Stock Time Series Data
+ * @author crazzyghost
+ * @since 1.0.0
+ */
 public class TimeSeries implements Fetcher{
 
     private Config config;
@@ -35,29 +40,52 @@ public class TimeSeries implements Fetcher{
         request = null;
     }
 
+    /**
+     * Access monthly stock time series data
+     * @return {@link MonthlyRequestProxy} instance
+     */
     public MonthlyRequestProxy monthly(){
         this.adjusted = false;
         return new MonthlyRequestProxy();
     }
 
+     /**
+     * Access weekly stock time series data
+     * @return {@link WeeklyRequestProxy} instance
+     */
     public WeeklyRequestProxy weekly(){
         this.adjusted = false;
         return new WeeklyRequestProxy();
     }
 
+     /**
+     * Access daily stock time series data
+     * @return {@link DailyRequestProxy} instance
+     */
     public DailyRequestProxy daily(){
         this.adjusted = false;
         return new DailyRequestProxy();
     }
 
+     /**
+     * Access intraday stock time series data
+     * @return {@link IntraDayRequestProxy} instance
+     */
     public IntraDayRequestProxy intraday(){
         return new IntraDayRequestProxy();
     }
 
+     /**
+     * Access monthly stock time series data
+     * @return {@link GlobalQuoteRequestProxy} instance
+     */
     public GlobalQuoteRequestProxy quote(){
         return new GlobalQuoteRequestProxy();
     }
 
+    /**
+     * Fetch Stock Time Series data
+     */
     @Override
     public void fetch(){
 
@@ -96,6 +124,10 @@ public class TimeSeries implements Fetcher{
         });
     }
 
+     /**
+     * parse {@link TimeSeriesResponse}
+     * @param data [arsed JSON data
+     */
     @SuppressWarnings("unchecked")
     private void parseTimeSeriesResponse(Map<String, Object> data){
         TimeSeriesResponse response = TimeSeriesResponse.of(data, adjusted);
@@ -109,6 +141,11 @@ public class TimeSeries implements Fetcher{
         }
     }
 
+
+    /**
+     * parse {@link QuoteResponse}
+     * @param data [arsed JSON data
+     */
     @SuppressWarnings("unchecked")
     private void parseGlobalQuoteResponse(Map<String, Object> data){
         QuoteResponse response = QuoteResponse.of(data);
@@ -122,6 +159,10 @@ public class TimeSeries implements Fetcher{
         }
     }
 
+    /**
+     * parse a JSON response to a {@link TimeSeriesResponse} or {@link QuoteResponse} object
+     * @param data parsed JSON response
+     */
     private void parseResponse(Map<String, Object> data){
         
         switch(builder.function){
@@ -142,8 +183,14 @@ public class TimeSeries implements Fetcher{
         }
     }
 
+    
+    /**
+     * An abstract proxy for building requests. Adds the functionality of adding callbacks and a terminal method for 
+     * fetching data.
+     * @param <T> A Concrete {@link RequestProxy} Implementation
+     */
     @SuppressWarnings("unchecked")
-    public abstract class RequestProxy<T extends RequestProxy<?>> implements Fetcher {
+    public abstract class RequestProxy<T extends RequestProxy<?>> {
 
         protected TimeSeriesRequest.Builder<?> builder;
 
@@ -162,7 +209,6 @@ public class TimeSeries implements Fetcher{
             return (T)this;
         }
 
-        @Override
         public void fetch() {
             TimeSeries.this.builder = this.builder;
             TimeSeries.this.fetch();
@@ -180,13 +226,14 @@ public class TimeSeries implements Fetcher{
     }
 
 
+    /**
+     * Proxy for building a {@link DailyRequest}
+     */
     public class DailyRequestProxy extends RequestProxy<DailyRequestProxy>{
 
         DailyRequestProxy() {
             super();
             this.builder = new DailyRequest.Builder();
-            TimeSeries.this.failureCallback = null;
-            TimeSeries.this.successCallback = null;
         }
 
         public DailyRequestProxy outputSize(OutputSize size){
@@ -202,13 +249,14 @@ public class TimeSeries implements Fetcher{
 
     }
 
+    /**
+     * Proxy for building an {@link IntraDayRequest}
+     */
     public class IntraDayRequestProxy extends RequestProxy<IntraDayRequestProxy>{
 
         IntraDayRequestProxy() {
             super();
             this.builder = new IntraDayRequest.Builder();
-            TimeSeries.this.failureCallback = null;
-            TimeSeries.this.successCallback = null;
         }
 
         public IntraDayRequestProxy outputSize(OutputSize size){
@@ -222,13 +270,14 @@ public class TimeSeries implements Fetcher{
         }
     }
 
+    /**
+     * Proxy for building a {@link WeeklyRequest}
+     */
     public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy>{
 
         WeeklyRequestProxy(){
             super();
             this.builder = new WeeklyRequest.Builder();
-            TimeSeries.this.failureCallback = null;
-            TimeSeries.this.successCallback = null;
         }
 
         public WeeklyRequestProxy adjusted(){
@@ -238,13 +287,14 @@ public class TimeSeries implements Fetcher{
         }
     }
 
+    /**
+     * Proxy for building a {@link MonthlyRequest}
+     */
     public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy>{
 
         MonthlyRequestProxy(){
             super();
             this.builder = new MonthlyRequest.Builder();
-            TimeSeries.this.failureCallback = null;
-            TimeSeries.this.successCallback = null;
         }
 
         public MonthlyRequestProxy adjusted(){

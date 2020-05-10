@@ -131,7 +131,7 @@ public class Crypto implements Fetcher {
     
 
     @SuppressWarnings("unchecked")
-    public abstract class RequestProxy<T extends RequestProxy<?>> implements Fetcher{
+    public abstract class RequestProxy<T extends RequestProxy<?>> {
 
         protected CryptoRequest.Builder<?> builder;
 
@@ -155,7 +155,6 @@ public class Crypto implements Fetcher {
             return (T)this;
         }
 
-        @Override
         public void fetch() {
             Crypto.this.builder = this.builder;
             Crypto.this.fetch();
