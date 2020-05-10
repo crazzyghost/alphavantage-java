@@ -5,7 +5,7 @@
 
 I created this wrapper to make accessing the [AlphaVantage API](https://www.alphavantage.co/) with Java fairly simple and fun. Make sure to get an [API key](https://www.alphavantage.co/support/#api-key) from Alphavantage's website before continuing. 
 
-See [site](https://crazzyghost.github.io/alphavantage-java/) for more examples & documentation
+<!-- See [site](https://crazzyghost.github.io/alphavantage-java/) for more examples & documentation -->
 
 ### Installation (Gradle)
 ```gradle
