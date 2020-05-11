@@ -45,7 +45,7 @@ dependencies {
 </dependencies>
 ```
 
-### Quick Usage Guide
+## Quick Usage Guide
 
 These five steps summarize how to access data using this library
 
