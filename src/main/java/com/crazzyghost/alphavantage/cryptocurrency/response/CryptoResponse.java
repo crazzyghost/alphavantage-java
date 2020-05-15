@@ -6,11 +6,9 @@ import java.util.Map;
 
 public class CryptoResponse {
 
-
     private List<CryptoUnit> cryptoUnits;
     private MetaData metaData;
     private String errorMessage;
-
 
     public CryptoResponse(MetaData metaData, List<CryptoUnit> cryptoUnits){
         this.metaData = metaData;
@@ -23,7 +21,6 @@ public class CryptoResponse {
         this.cryptoUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
     }
-
 
     public List<CryptoUnit> getCryptoUnits() {
         return cryptoUnits;

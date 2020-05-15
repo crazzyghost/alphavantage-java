@@ -126,7 +126,7 @@ public class TimeSeries implements Fetcher{
 
      /**
      * parse {@link TimeSeriesResponse}
-     * @param data [arsed JSON data
+     * @param data parsed JSON data
      */
     @SuppressWarnings("unchecked")
     private void parseTimeSeriesResponse(Map<String, Object> data){
@@ -144,7 +144,7 @@ public class TimeSeries implements Fetcher{
 
     /**
      * parse {@link QuoteResponse}
-     * @param data [arsed JSON data
+     * @param data parsed JSON data
      */
     @SuppressWarnings("unchecked")
     private void parseGlobalQuoteResponse(Map<String, Object> data){

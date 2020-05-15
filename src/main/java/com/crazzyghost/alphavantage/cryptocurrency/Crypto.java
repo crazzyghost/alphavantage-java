@@ -21,6 +21,12 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
 
+/**
+ * Access to Crypto Currency Data
+ * @author crazzyghost
+ * @since 1.0.0
+ */
+
 public class Crypto implements Fetcher {
 
     private Config config;
@@ -34,22 +40,42 @@ public class Crypto implements Fetcher {
         this.request = null;
     }
 
+    /**
+     * Access daily crypto currency data
+     * @return {@link DailyRequestProxy} instance
+     */
     public DailyRequestProxy daily(){
         return new DailyRequestProxy();
     }
 
+    /**
+     * Access weekly crypto currency data
+     * @return {@link WeeklyRequestProxy} instance
+     */
     public WeeklyRequestProxy weekly(){
         return new WeeklyRequestProxy();
     }
 
+    /**
+     * Access monthly crypto currency data
+     * @return {@link MonthlyRequestProxy} instance
+     */
     public MonthlyRequestProxy monthly(){
         return new MonthlyRequestProxy();
     }
 
+    /**
+     * Access crypto currency health index data
+     * @return {@link RatingRequestProxy} instance
+     */
     public RatingRequestProxy rating(){
         return new RatingRequestProxy();
     }
 
+    /**
+     * Fetch Crypto Currency data 
+     * @see Fetcher#fetch()
+     */
     @Override
     public void fetch() {
 
@@ -87,6 +113,10 @@ public class Crypto implements Fetcher {
         });
     }
 
+    /**
+     * parse a JSON response to a {@link CryptoResponse} or {@link RatingResponse} object
+     * @param data parsed JSON response
+     */
     private void parseCryptoResponse(Map<String, Object> data){
 
         switch(builder.function){
@@ -103,6 +133,10 @@ public class Crypto implements Fetcher {
     }
 
 
+    /**
+     * Parse Digital Currency Data
+     * @param data parsed JSON data
+     */
     @SuppressWarnings("unchecked")
     private void parseDigitalCurrencyResponse(Map<String, Object> data){
         CryptoResponse response = CryptoResponse.of(data, ((DigitalCurrencyRequest.Builder)builder).getMarket());
@@ -116,6 +150,10 @@ public class Crypto implements Fetcher {
         }
     }
 
+    /**
+     * Parse Health Index Data
+     * @param data parsed JSON data
+     */
     @SuppressWarnings("unchecked")
     private void parseRatingResponse(Map<String, Object> data){
         RatingResponse response = RatingResponse.of(data);
@@ -130,6 +168,13 @@ public class Crypto implements Fetcher {
     }
     
 
+
+
+     /**
+     * An abstract proxy for building requests. Adds the functionality of adding callbacks and a terminal method for 
+     * fetching data.
+     * @param <T> A Concrete {@link RequestProxy} Implementation
+     */
     @SuppressWarnings("unchecked")
     public abstract class RequestProxy<T extends RequestProxy<?>> {
 
@@ -161,6 +206,9 @@ public class Crypto implements Fetcher {
         }
     }
 
+    /**
+     * Proxy for building a {@link DailyRequest}
+     */
     public class DailyRequestProxy extends RequestProxy<DailyRequestProxy>{
         public DailyRequestProxy(){
             super();
@@ -177,6 +225,9 @@ public class Crypto implements Fetcher {
 
     }
 
+    /**
+     * Proxy for building a {@link WeeklyRequest}
+     */
     public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy>{
         public WeeklyRequestProxy(){
             builder = new DigitalCurrencyRequest.Builder();
@@ -192,6 +243,9 @@ public class Crypto implements Fetcher {
 
     }
 
+    /**
+     * Proxy for building a {@link MonthlyRequest}
+     */
     public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy>{
         public MonthlyRequestProxy(){
             builder = new DigitalCurrencyRequest.Builder();
@@ -207,6 +261,9 @@ public class Crypto implements Fetcher {
 
     }
 
+    /**
+     * Proxy for building a {@link RatingRequest}
+     */
     public class RatingRequestProxy extends RequestProxy<RatingRequestProxy> {
         public  RatingRequestProxy(){
             builder = new RatingRequest.Builder();
