@@ -1,8 +1,15 @@
 site_name: Alphavantage Java
 repo_name: crazzyghost/alphavantage-java
 repo_url: https://github.com/crazzyghost/alphavantage-java
+site_description: "Fluent Java wrapper for Alphavantage API"
+site_author: S. M. Sefa-Yeboah
+
+copyright: 'Copyright &copy; 2019 S. M. Sefa-Yeboah'
+
 nav:
     - Overview: index.md
+    - API:
+      - alphavantage-java: api/alphavantage/index.md
     - Recipes: 
       - Stock Time Series: timeseries.md
       - Forex (FX): forex.md

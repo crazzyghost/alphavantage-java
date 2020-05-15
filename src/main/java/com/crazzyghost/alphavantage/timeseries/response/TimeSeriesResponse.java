@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class TimeSeriesResponse {
 
-
     private MetaData metaData;
     private List<StockUnit> stockUnits;
     private String errorMessage;
@@ -41,7 +40,6 @@ public class TimeSeriesResponse {
     }
 
     public static class Parser {
-
 
         private boolean adjusted;
 
