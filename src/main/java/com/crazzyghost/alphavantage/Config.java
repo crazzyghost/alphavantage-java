@@ -10,8 +10,6 @@ import okhttp3.OkHttpClient;
  */
 public class Config {
     
-
-
     private String key;
     private int timeOut;
     private OkHttpClient httpClient;
