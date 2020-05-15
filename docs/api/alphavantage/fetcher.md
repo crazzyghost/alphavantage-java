@@ -1,4 +1,4 @@
-[alphavantage-java](index.md) / [Fetcher](#)
+[alphavantage](index.md) / [Fetcher](#)
 
 # Fetcher
 

@@ -1,4 +1,4 @@
-[alphavantage-java](index.md) / [AlphavantageException](#)
+[alphavantage](index.md) / [AlphavantageException](#)
 
 # AlphavantageException
 

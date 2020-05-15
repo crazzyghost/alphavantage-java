@@ -1,4 +1,4 @@
-[alphavantage-java](index.md) / [Config](#)
+[alphavantage](index.md) / [Config](#)
 
 # Config
 

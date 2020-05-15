@@ -1,4 +1,4 @@
-[alphavantage-java](index.md) / [Alphavantage](#)
+[alphavantage](index.md) / [Alphavantage](#)
 
 # Alphavantage
 

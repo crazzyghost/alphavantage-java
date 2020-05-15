@@ -1,4 +1,4 @@
-[alphavantage-java](index.md) / [UrlExtractor](#)
+[alphavantage](index.md) / [UrlExtractor](#)
 
 # UrlExtractor
 

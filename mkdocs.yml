@@ -8,8 +8,13 @@ copyright: 'Copyright &copy; 2019 S. M. Sefa-Yeboah'
 
 nav:
     - Overview: index.md
-    - API:
-      - alphavantage-java: api/alphavantage/index.md
+    - "v1.3.1 API":
+      - alphavantage: api/alphavantage/index.md
+      - crypto: api/crypto/index.md
+      - exchangerate: api/exchangerate/index.md
+      - forex: api/forex/index.md
+      - indicator: api/indicator/index.md
+      - timeseries: api/timeseries/index.md
     - Recipes: 
       - Stock Time Series: timeseries.md
       - Forex (FX): forex.md
