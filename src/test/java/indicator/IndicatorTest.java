@@ -307,8 +307,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -342,8 +342,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .onSuccess((e) -> lock.countDown())
             .dataType(DataType.JSON)
@@ -377,8 +377,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -399,8 +399,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -442,8 +442,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -467,8 +467,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -491,8 +491,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .timePeriod(60).onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -515,8 +515,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .timePeriod(60).onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -539,8 +539,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .timePeriod(60).onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -564,8 +564,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -589,8 +589,8 @@ public class IndicatorTest {
             .fastLimit(0.1)
             .slowLimit(0.5)
             .onSuccess((MAMAResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -616,8 +616,8 @@ public class IndicatorTest {
             .slowLimit(0.5)
             .seriesType(SeriesType.OPEN)
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -662,8 +662,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .interval(Interval.WEEKLY)
             .onSuccess((SimpleIndicatorResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -687,8 +687,8 @@ public class IndicatorTest {
             .forSymbol("GOOGL")
             .interval(Interval.WEEKLY)
             .onFailure((e) -> { 
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
              })
             .dataType(DataType.JSON)
             .fetch();
@@ -735,8 +735,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -763,8 +763,8 @@ public class IndicatorTest {
             .dataType(DataType.JSON)
             .onFailure((e) -> lock.countDown())
             .onSuccess((MACDResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -791,8 +791,8 @@ public class IndicatorTest {
             .forSymbol("GOOGL")
             .dataType(DataType.JSON)
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -846,8 +846,8 @@ public class IndicatorTest {
             .dataType(DataType.JSON)
             .onFailure((e) -> lock.countDown())
             .onSuccess((MACDEXTResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -877,8 +877,8 @@ public class IndicatorTest {
             .forSymbol("GOOGL")
             .dataType(DataType.JSON)
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -934,8 +934,8 @@ public class IndicatorTest {
             .dataType(DataType.JSON)
             .onFailure((e) -> lock.countDown())
             .onSuccess((STOCHResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -963,8 +963,8 @@ public class IndicatorTest {
             .forSymbol("GOOGL")
             .dataType(DataType.JSON)
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1017,8 +1017,8 @@ public class IndicatorTest {
             .dataType(DataType.JSON)
             .onFailure((e) -> lock.countDown())
             .onSuccess((STOCHFResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1044,8 +1044,8 @@ public class IndicatorTest {
             .forSymbol("GOOGL")
             .dataType(DataType.JSON)
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1090,8 +1090,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         lock.await();
@@ -1116,8 +1116,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((STOCHRSIResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1144,8 +1144,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .forSymbol("GOOGL")
             .onFailure(( e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1194,8 +1194,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1219,8 +1219,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1243,8 +1243,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1270,8 +1270,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((PriceOscillatorResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1297,8 +1297,8 @@ public class IndicatorTest {
             .slowPeriod(26)
             .forSymbol("GOOGL")
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1348,8 +1348,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((PriceOscillatorResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1374,8 +1374,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1397,8 +1397,8 @@ public class IndicatorTest {
             .interval(Interval.WEEKLY)
             .onFailure((e) -> lock.countDown())
             .onSuccess((SimpleIndicatorResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1423,8 +1423,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1446,8 +1446,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .forSymbol("GOOGL")
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1491,8 +1491,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1513,8 +1513,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                    lock.countDown();
-                    ref.set(e);
+                ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1535,8 +1535,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                    lock.countDown();
-                    ref.set(e);
+                ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1556,8 +1556,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((AROONResponse e) -> {
-                    lock.countDown();
-                    ref.set(e);
+                ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1577,8 +1577,8 @@ public class IndicatorTest {
             .interval(Interval.DAILY)
             .timePeriod(60)
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1617,8 +1617,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e) -> {
-                    lock.countDown();
-                    ref.set(e);
+                ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1638,8 +1638,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1660,8 +1660,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicSeriesResponse e) -> {
-                    lock.countDown();
-                    ref.set(e);
+                ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1685,8 +1685,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((ULTOSCResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1711,8 +1711,8 @@ public class IndicatorTest {
             .timePeriod3(28)
             .forSymbol("GOOGL")
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1757,8 +1757,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1778,8 +1778,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1799,8 +1799,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1819,8 +1819,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1840,8 +1840,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1867,8 +1867,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((BBANDSResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1895,8 +1895,8 @@ public class IndicatorTest {
             .maType(MAType.SMA)
             .forSymbol("GOOGL")
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1943,8 +1943,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
             .onSuccess((PeriodicSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1965,8 +1965,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -1989,8 +1989,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((SARResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2014,8 +2014,8 @@ public class IndicatorTest {
             .maximum(0.50)
             .forSymbol("GOOGL")
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2060,8 +2060,8 @@ public class IndicatorTest {
             .interval(Interval.WEEKLY)
             .onFailure((e) -> lock.countDown())
             .onSuccess((SimpleIndicatorResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2084,8 +2084,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2105,8 +2105,8 @@ public class IndicatorTest {
             .timePeriod(60)
             .onFailure((e) -> lock.countDown())
             .onSuccess((PeriodicResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2127,8 +2127,8 @@ public class IndicatorTest {
             .interval(Interval.WEEKLY)
             .onFailure((e) -> lock.countDown())
             .onSuccess((SimpleIndicatorResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2154,8 +2154,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((ADOSCResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2179,8 +2179,8 @@ public class IndicatorTest {
             .slowPeriod(10)
             .forSymbol("GOOGL")
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2225,8 +2225,8 @@ public class IndicatorTest {
             .interval(Interval.WEEKLY)
             .onFailure((e) -> lock.countDown())
             .onSuccess((SimpleIndicatorResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2251,8 +2251,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((SeriesResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2275,8 +2275,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .forSymbol("GOOGL")
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2321,8 +2321,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((HTSINEResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2345,8 +2345,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .forSymbol("GOOGL")
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2391,8 +2391,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((SeriesResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2415,8 +2415,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((SeriesResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2439,8 +2439,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((SeriesResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2463,8 +2463,8 @@ public class IndicatorTest {
             .forSymbol("IBM")
             .onFailure((e) -> lock.countDown())
             .onSuccess((HTPHASORResponse e)-> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
@@ -2487,8 +2487,8 @@ public class IndicatorTest {
             .seriesType(SeriesType.OPEN)
             .forSymbol("GOOGL")
             .onFailure((e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .dataType(DataType.JSON)
             .fetch();
