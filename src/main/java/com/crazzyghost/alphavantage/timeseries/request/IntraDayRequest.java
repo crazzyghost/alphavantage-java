@@ -9,7 +9,7 @@ public class IntraDayRequest extends TimeSeriesRequest {
     private Interval interval;
     private OutputSize outputSize;
 
-    private IntraDayRequest(IntraDayRequest.Builder builder){
+    private IntraDayRequest(Builder builder){
         super(builder);
         this.interval = builder.interval;
         this.outputSize = builder.outputSize;
