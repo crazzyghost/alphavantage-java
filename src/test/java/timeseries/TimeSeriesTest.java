@@ -139,8 +139,8 @@ public class TimeSeriesTest {
             .forSymbol("GOOGL")
             .dataType(DataType.JSON)
             .onFailure(e -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             }).fetch();
 
         lock.await();
@@ -159,8 +159,8 @@ public class TimeSeriesTest {
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .onSuccess((TimeSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
             lock.await();
@@ -181,8 +181,8 @@ public class TimeSeriesTest {
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .onSuccess((TimeSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
             lock.await();
@@ -203,8 +203,8 @@ public class TimeSeriesTest {
             .outputSize(OutputSize.FULL)
             .dataType(DataType.JSON)
             .onSuccess((TimeSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
             lock.await();
@@ -225,8 +225,8 @@ public class TimeSeriesTest {
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .onSuccess((TimeSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
             lock.await();
@@ -248,8 +248,8 @@ public class TimeSeriesTest {
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .onSuccess((TimeSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
             lock.await();
@@ -271,8 +271,8 @@ public class TimeSeriesTest {
             .outputSize(OutputSize.FULL)
             .dataType(DataType.JSON)
             .onSuccess((TimeSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
             lock.await();
@@ -330,8 +330,8 @@ public class TimeSeriesTest {
             .interval(Interval.FIVE_MIN) 
             .outputSize(OutputSize.FULL) 
             .onSuccess((TimeSeriesResponse e) -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
             lock.await();
@@ -350,8 +350,8 @@ public class TimeSeriesTest {
             .quote()
             .forSymbol("IBM")
             .onSuccess(e -> {
-                lock.countDown();
                 ref.set((QuoteResponse)e);
+                lock.countDown();
             })
             .fetch();
             lock.await();

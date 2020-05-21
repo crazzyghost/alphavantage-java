@@ -15,7 +15,7 @@ public class AlphaVantage {
 
     private static AlphaVantage INSTANCE;
     private Config config;
-    
+
     private AlphaVantage(){
     }
 
@@ -54,6 +54,7 @@ public class AlphaVantage {
         return new Forex(config);
     }
 
+
     /**
      * Access to Digital/Physical Exchange Rates.
      * @return An {@link ExchangeRate} instance for access to Exchange Rate Data
@@ -61,6 +62,7 @@ public class AlphaVantage {
     public ExchangeRate exchangeRate() {
         return new ExchangeRate(config);
     }
+
 
     /**
      * Access to Digital Currencies.

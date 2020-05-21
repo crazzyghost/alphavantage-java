@@ -60,7 +60,7 @@ public class ExchangeRateTest {
         AlphaVantage.api().init(config);
 
         mockInterceptor.addRule().get(exchangeRateUrl(null)).respond(stream("data"));
-        mockInterceptor.addRule().get(exchangeRateUrl(null)).respond(errorMessage);
+        mockInterceptor.addRule().get(exchangeRateUrl("EUR")).respond(errorMessage);
         mockInterceptor.addRule().get(exchangeRateUrl("USD")).respond(errorMessage).code(400);
         mockInterceptor.addRule().get(exchangeRateUrl("GHS")).delay(6000).respond(errorMessage);
 
@@ -81,7 +81,6 @@ public class ExchangeRateTest {
     @Test
     public void testResponse() throws IOException{
         ExchangeRateResponse response = ExchangeRateResponse.of(json("data"));
-        System.out.println(response.toString());
         assertEquals(response.getExchangeRate(),62423.68125, 0.0);
         assertEquals(response.getBidPrice(),62423.68125, 0.0);
         assertEquals(response.getAskPrice(),62423.751885, 0.0);
@@ -134,8 +133,8 @@ public class ExchangeRateTest {
             .fromCurrency("BTC")
             .toCurrency("CNY")
             .onSuccess((e)->{
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         
@@ -151,11 +150,10 @@ public class ExchangeRateTest {
         AlphaVantage.api()
             .exchangeRate()
             .fromCurrency("BTC")
-            .toCurrency("CNY")
-            // .onSuccess(e->lock.countDown())
+            .toCurrency("EUR")
             .onFailure(e->{
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         
@@ -172,10 +170,9 @@ public class ExchangeRateTest {
             .exchangeRate()
             .fromCurrency("BTC")
             .toCurrency("USD")
-            // .onSuccess(e->lock.countDown())
             .onFailure(e->{
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         
@@ -194,8 +191,8 @@ public class ExchangeRateTest {
             .toCurrency("GHS")
             .onSuccess(e->lock.countDown())
             .onFailure(e->{
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         

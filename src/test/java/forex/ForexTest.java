@@ -80,12 +80,20 @@ public class ForexTest {
 
     @Test(expected = AlphaVantageException.class)
     public void testConfigNotSet() {
-        new Forex(null).daily().fromSymbol("USD").toSymbol("EUR").fetch();
+        new Forex(null)
+            .daily()
+            .fromSymbol("USD")
+            .toSymbol("EUR")
+            .fetch();
     }
 
     @Test(expected = AlphaVantageException.class)
     public void testConfigKeyNotSet() {
-        new Forex(Config.builder().build()).daily().fromSymbol("USD").toSymbol("EUR").fetch();
+        new Forex(Config.builder().build())
+            .daily()
+            .fromSymbol("USD")
+            .toSymbol("EUR")
+            .fetch();
     }
 
     @Test
@@ -99,8 +107,8 @@ public class ForexTest {
             .fromSymbol("EUR")
             .toSymbol("USD")
             .onFailure(e -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             }).fetch();
         lock.await();
         assertNotNull(ref.get());
@@ -120,8 +128,8 @@ public class ForexTest {
             .toSymbol("USD")
             .dataType(DataType.JSON)
             .onSuccess(e -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
             lock.await();
@@ -143,8 +151,8 @@ public class ForexTest {
             .toSymbol("USD")
             .dataType(DataType.JSON)
             .onSuccess(e -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
             lock.await();
@@ -166,8 +174,8 @@ public class ForexTest {
             .outputSize(OutputSize.FULL)
             .dataType(DataType.JSON)
             .onSuccess(e -> {
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
             lock.await();
@@ -228,8 +236,8 @@ public class ForexTest {
             .interval(Interval.FIVE_MIN) 
             .outputSize(OutputSize.FULL) 
             .onSuccess(e -> {
-                lock.countDown();
                 ref.set(e);
+               lock.countDown();
             })
             .fetch();
             lock.await();

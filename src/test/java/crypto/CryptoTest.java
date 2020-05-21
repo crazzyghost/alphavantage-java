@@ -92,8 +92,8 @@ public class CryptoTest {
             .rating()
             .forSymbol("BSV")
             .onFailure(e ->{
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         lock.await();
@@ -112,8 +112,10 @@ public class CryptoTest {
             .rating()
             .forSymbol("BTC")
             .onSuccess((RatingResponse e)->{
-                lock.countDown();
+                System.out.println("called"+e.toString());
+                
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         lock.await();
@@ -130,8 +132,8 @@ public class CryptoTest {
             .rating()
             .forSymbol("XPR")
             .onFailure(e ->{
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         lock.await();
@@ -166,8 +168,8 @@ public class CryptoTest {
             .forSymbol("BTC")
             .market("CNY")
             .onSuccess((CryptoResponse e)->{
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         lock.await();
@@ -186,8 +188,8 @@ public class CryptoTest {
             .forSymbol("XPR")
             .market("CNY")
             .onFailure(e ->{
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         lock.await();
@@ -222,8 +224,8 @@ public class CryptoTest {
             .forSymbol("BTC")
             .market("CNY")
             .onSuccess((CryptoResponse e)->{
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         lock.await();
@@ -241,8 +243,8 @@ public class CryptoTest {
             .forSymbol("BTC")
             .market("CNY")
             .onSuccess((CryptoResponse e)->{
-                lock.countDown();
                 ref.set(e);
+                lock.countDown();
             })
             .fetch();
         lock.await();
