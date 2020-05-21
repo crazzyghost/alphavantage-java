@@ -14,10 +14,6 @@ This class should only be initialized once by calling `init`.You will typically 
 Alphavantage.api().init(config)
 ```
 
-## Lazy Loading
-
-Data Access members `timeSeries`, `crypto`, `exchangeRate`, `forex`, and `indicator` are lazily initialized. They are only instantiated when you first call the functions and will be reused on subsequent calls.
-
 ### Constructors
 
 |Name|Summary|
@@ -31,11 +27,6 @@ Data Access members `timeSeries`, `crypto`, `exchangeRate`, `forex`, and `indica
 |----|-------|
 | [INSTANCE](#) | `private static Alphavantage INSTANCE` |
 | [config](#) | `private Config config` |
-| [timeSeries](#) | `private TimeSeries timeSeries`|
-| [forex](#) | `private Forex forex` |
-| [exchangeRate](#) | `private ExchangeRate exchangeRate` |
-| [crypto](#) | `private Crypto crypto` |
-| [indicator](#) | `private Indicator indicator` |
 
 ### Methods
 

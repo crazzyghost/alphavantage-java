@@ -15,12 +15,7 @@ public class AlphaVantage {
 
     private static AlphaVantage INSTANCE;
     private Config config;
-    private TimeSeries timeSeries;
-    private Forex forex;
-    private ExchangeRate exchangeRate;
-    private Crypto crypto;
-    private Indicator indicator;
-
+    
     private AlphaVantage(){
     }
 
@@ -48,10 +43,7 @@ public class AlphaVantage {
      * @return A {@link TimeSeries} instance for access to Time Series Data
      */
     public TimeSeries timeSeries(){
-        if(timeSeries == null){
-            timeSeries = new TimeSeries(config);
-        }
-        return timeSeries;
+        return new TimeSeries(config);
     }
 
     /**
@@ -59,34 +51,23 @@ public class AlphaVantage {
      * @return A {@link Forex} instance for access to FX data
      */
     public Forex forex(){
-        if(forex == null){
-            forex = new Forex(config);
-        }
-        return forex;
+        return new Forex(config);
     }
-
 
     /**
      * Access to Digital/Physical Exchange Rates.
      * @return An {@link ExchangeRate} instance for access to Exchange Rate Data
      */
     public ExchangeRate exchangeRate() {
-        if(exchangeRate == null){
-            exchangeRate = new ExchangeRate(config);
-        }
-        return exchangeRate;
+        return new ExchangeRate(config);
     }
-
 
     /**
      * Access to Digital Currencies.
      * @return A {@link Crypto} instance for access to Digital Currency Data
      */
     public Crypto crypto(){
-        if(crypto == null){
-            crypto = new Crypto(config);
-        }
-        return crypto;
+        return new Crypto(config);
     }
 
     /**
@@ -94,9 +75,6 @@ public class AlphaVantage {
      * @return A {@link Indicator} instance for access to Technical Indicator Data
      */
     public Indicator indicator(){
-        if(indicator == null){
-            indicator = new Indicator(config);
-        }
-        return indicator;
+        return new Indicator(config);
     }
 }
