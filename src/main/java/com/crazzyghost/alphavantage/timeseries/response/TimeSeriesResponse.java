@@ -3,7 +3,7 @@ package com.crazzyghost.alphavantage.timeseries.response;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+//TODO: fix mothly time series time zone
 public class TimeSeriesResponse {
 
     private MetaData metaData;
