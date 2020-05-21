@@ -30,7 +30,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.mock.Behavior;
 import okhttp3.mock.MockInterceptor;
 
-public class MultipleRequestTest {
+public class MultipleAsyncRequestTest {
 
     MockInterceptor mockInterceptor = new MockInterceptor(Behavior.UNORDERED);
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
