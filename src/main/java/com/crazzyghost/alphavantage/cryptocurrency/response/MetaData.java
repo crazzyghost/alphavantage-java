@@ -11,13 +11,14 @@ public class MetaData {
     private String timeZone;
 
     public MetaData(
-            String information,
-            String digitalCurrencyCode,
-            String digitalCurrencyName,
-            String marketCode,
-            String marketName,
-            String lastRefreshed,
-            String timeZone) {
+        String information,
+        String digitalCurrencyCode,
+        String digitalCurrencyName,
+        String marketCode,
+        String marketName,
+        String lastRefreshed,
+        String timeZone
+    ) {
         this.information = information;
         this.digitalCurrencyCode = digitalCurrencyCode;
         this.digitalCurrencyName = digitalCurrencyName;

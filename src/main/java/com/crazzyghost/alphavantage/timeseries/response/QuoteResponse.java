@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class QuoteResponse {
     private String symbol;
     private double open;
@@ -93,20 +95,21 @@ public class QuoteResponse {
     }
 
     public static QuoteResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+        Parser<QuoteResponse> parser = new QuoteParser();
         return parser.parse(stringObjectMap);
     }
  
-    public static class Parser {
+    public static class QuoteParser extends Parser<QuoteResponse>{
+        
         @SuppressWarnings("unchecked")
-        QuoteResponse parse(Map<String, Object> stringObjectMap){
-            //get the keys
+        @Override
+        public QuoteResponse parse(Map<String, Object> stringObjectMap){
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
             Map<String, String> data;
             try{
                 data = (Map<String, String>) stringObjectMap.get(keys.get(0));
             }catch (ClassCastException e){
-                return new QuoteResponse((String)stringObjectMap.get(keys.get(0)));
+                return onParseError((String)stringObjectMap.get(keys.get(0)));
             }
 
             String changePercentage = data.get("10. change percent");
@@ -124,6 +127,11 @@ public class QuoteResponse {
                 Double.parseDouble(changePercentage)
             );
 
+        }
+
+        @Override
+        public QuoteResponse onParseError(String error) {
+            return new QuoteResponse(error);
         }
     }
 }

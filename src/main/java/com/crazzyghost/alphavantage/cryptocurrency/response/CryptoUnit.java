@@ -2,7 +2,6 @@ package com.crazzyghost.alphavantage.cryptocurrency.response;
 
 public class CryptoUnit {
 
-
     private double open;
     private double close;
     private double high;

@@ -10,15 +10,15 @@ public class MetaData {
     private String outputSize;
     private String timeZone;
 
-
     public MetaData(
-            String information,
-            String fromSymbol,
-            String toSymbol,
-            String lastRefreshed,
-            String interval,
-            String outputSize,
-            String timeZone) {
+        String information,
+        String fromSymbol,
+        String toSymbol,
+        String lastRefreshed,
+        String interval,
+        String outputSize,
+        String timeZone
+    ) {
         this.information = information;
         this.fromSymbol = fromSymbol;
         this.toSymbol = toSymbol;
@@ -29,7 +29,7 @@ public class MetaData {
     }
 
     public static MetaData empty(){
-        return new MetaData("","","","","","","");
+        return new MetaData(null, null, null, null, null, null, null);
     }
 
     public String getInformation() {
@@ -62,14 +62,16 @@ public class MetaData {
 
     @Override
     public String toString() {
-        return "MetaData{" +
-                "information='" + information + '\'' +
-                ", fromSymbol='" + fromSymbol + '\'' +
-                ", toSymbol='" + toSymbol + '\'' +
-                ", lastRefreshed='" + lastRefreshed + '\'' +
-                ", interval='" + interval + '\'' +
-                ", outputSize='" + outputSize + '\'' +
-                ", timeZone='" + timeZone + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("MetaData{");
+        sb.append("information=" + information);
+        sb.append("fromSymbol=" + fromSymbol);
+        sb.append("toSymbol=" + toSymbol);
+        sb.append("lastRefreshed=" + lastRefreshed);
+        sb.append("timeZone=" + timeZone);
+        if (outputSize != null) sb.append("outputSize=" + outputSize);
+        if (interval != null) sb.append("interval=" + interval);
+        sb.append("lastRefreshed=" + information);
+        return sb.toString();
     }
 }

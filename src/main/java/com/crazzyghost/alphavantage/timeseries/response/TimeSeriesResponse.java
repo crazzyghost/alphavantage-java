@@ -3,7 +3,10 @@ package com.crazzyghost.alphavantage.timeseries.response;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-//TODO: fix mothly time series time zone
+
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class TimeSeriesResponse {
 
     private MetaData metaData;
@@ -23,7 +26,7 @@ public class TimeSeriesResponse {
     }
 
     public static TimeSeriesResponse of(Map<String, Object> stringObjectMap, boolean adjusted){
-        Parser parser = new Parser(adjusted);
+        Parser<TimeSeriesResponse> parser = new TimeSeriesParser(adjusted);
         return parser.parse(stringObjectMap);
     }
 
@@ -39,56 +42,41 @@ public class TimeSeriesResponse {
         return stockUnits;
     }
 
-    public static class Parser {
+    public static class TimeSeriesParser extends DefaultParser<TimeSeriesResponse>{
 
         private boolean adjusted;
 
-        Parser(boolean adjusted){
+        public TimeSeriesParser(boolean adjusted){
             this.adjusted = adjusted;
         }
-
-        @SuppressWarnings("unchecked")
-        TimeSeriesResponse parse(Map<String, Object> stringObjectMap) {
-
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-
-            Map<String, String> md;
-            Map<String, Map<String, String>> stockData;
-
-            try{
-                md = (Map<String, String>) stringObjectMap.get(keys.get(0));
-                stockData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-
-            }catch (ClassCastException ex){
-                return new TimeSeriesResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+    
+        @Override
+        public TimeSeriesResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> dataMap) {
+    
             MetaData metaData;
-            if(md.get("4. Interval") == null){
-                metaData = new MetaData(
-                    md.get("1. Information"),
-                    md.get("2. Symbol"),
-                    md.get("3. Last Refreshed"),
-                    md.get("4. Output Size"),
-                    md.get("5. Time Zone")
-                );
-            }else{
+            String information = metaDataMap.get("1. Information");
+            String symbol = metaDataMap.get("2. Symbol");
+            String lastRefreshed = metaDataMap.get("3. Last Refreshed");
+            String interval = null;
+            String outputSize = null;
+            String timeZone;
 
-                metaData = new MetaData(
-                    md.get("1. Information"),
-                    md.get("2. Symbol"),
-                    md.get("3. Last Refreshed"),
-                    md.get("4. Interval"),
-                    md.get("5. Output Size"),
-                    md.get("6. Time Zone")
-                );
+            if(metaDataMap.get("4. Interval") == null && metaDataMap.get("4. Output Size") == null){
+                timeZone = metaDataMap.get("4. timeZone");
+            }else if(metaDataMap.get("4. Interval") == null && metaDataMap.get("4. Output Size") != null){
+                outputSize = metaDataMap.get("4. Output Size");
+                timeZone = metaDataMap.get("5. Output Size");
+            }else {
+                interval = metaDataMap.get("4. Interval");
+                outputSize = metaDataMap.get("5. Output Size");
+                timeZone = metaDataMap.get("6. Time Zone");
             }
 
+            metaData = new MetaData(information, symbol, lastRefreshed, interval, outputSize, timeZone);
+            
             List<StockUnit> stockUnits =  new ArrayList<>();
-
-
-            for (Map.Entry<String, Map<String, String>> e : stockData.entrySet()) {
-
+    
+            for (Map.Entry<String, Map<String, String>> e : dataMap.entrySet()) {
                 Map<String, String> m = e.getValue();
                 StockUnit.Builder stockUnit = new StockUnit.Builder();
                 stockUnit.time(e.getKey());
@@ -102,15 +90,20 @@ public class TimeSeriesResponse {
                     stockUnit.adjustedClose(Double.parseDouble(m.get("5. adjusted close")));
                     stockUnit.volume(Long.parseLong(m.get("6. volume")));
                     stockUnit.dividendAmount(Double.parseDouble(m.get("7. dividend amount")));
-                    if (m.get("8. split coefficient") != null)
+                    if (m.get("8. split coefficient") != null){
                         stockUnit.splitCoefficient(Double.parseDouble(m.get("8. split coefficient")));
+                    }
                 }
                 stockUnits.add(stockUnit.build());
-
             }
-
             return  new TimeSeriesResponse(metaData, stockUnits);
         }
+
+        @Override
+        public TimeSeriesResponse onParseError(String error) {
+            return new TimeSeriesResponse(error);
+        }
+
     }
 
 

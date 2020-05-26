@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class RatingResponse {
 
     private String symbol;
@@ -45,13 +47,15 @@ public class RatingResponse {
     }
 
     public static RatingResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+        Parser<RatingResponse> parser = new RatingParser();
         return parser.parse(stringObjectMap);
     }
 
-    private static class Parser{
-
-        RatingResponse parse(Map<String, Object> stringObjectMap){
+    private static class RatingParser extends Parser<RatingResponse> {
+        
+        @SuppressWarnings("unchecked")
+        @Override
+        public RatingResponse parse(Map<String, Object> stringObjectMap){
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
             try{
                 Map<String, String> md = (Map<String, String>) stringObjectMap.get(keys.get(0));
@@ -67,9 +71,14 @@ public class RatingResponse {
                 return new RatingResponse(symbol, name, fcasRating, fcasScore, developerScore, marketMaturityScore, utilityScore, lastRefreshed, timeZone);
             
             }catch (ClassCastException e){
-               return new RatingResponse((String)stringObjectMap.get(keys.get(0)));
-
+               return onParseError(stringObjectMap.get(keys.get(0)).toString());
             }
+        }
+
+        
+        @Override
+        public RatingResponse onParseError(String error) {
+            return new RatingResponse(error);
         }
 
     }

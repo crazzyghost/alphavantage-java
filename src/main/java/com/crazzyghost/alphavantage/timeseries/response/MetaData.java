@@ -18,17 +18,10 @@ public class MetaData {
         this.timeZone = timeZone;
     }
     
-    public MetaData(String information, String symbol, String lastRefreshed, String outputSize, String timeZone) {
-        this.information = information;
-        this.symbol = symbol;
-        this.lastRefreshed = lastRefreshed;
-        this.outputSize = outputSize;
-        this.timeZone = timeZone;
+    public static MetaData empty(){
+        return new MetaData(null, null, null, null, null, null);
     }
 
-    public static MetaData empty(){
-        return new MetaData("","","","", "", "");
-    }
     public String getInformation() {
         return information;
     }
@@ -55,13 +48,15 @@ public class MetaData {
 
     @Override
     public String toString() {
-        return "MetaData{" +
-                "information='" + information + '\'' +
-                ", symbol='" + symbol + '\'' +
-                ", lastRefreshed='" + lastRefreshed + '\'' +
-                ", timeZone='" + timeZone + '\'' +
-                ", interval='" + interval + '\'' +
-                ", outputSize='" + outputSize + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("MetaData{");
+        sb.append("information=" + information);
+        sb.append("symbol=" + symbol);
+        sb.append("lastRefreshed=" + lastRefreshed);
+        sb.append("timeZone=" + timeZone);
+        if(interval != null) sb.append("interval=" + interval);
+        if(outputSize != null) sb.append("outputSize=" + outputSize);
+        sb.append("}");
+        return sb.toString();
     }
 }

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class CryptoResponse {
 
     private List<CryptoUnit> cryptoUnits;
@@ -35,42 +38,47 @@ public class CryptoResponse {
     }
 
     public static CryptoResponse of(Map<String, Object> stringObjectMap, String market){
-        Parser parser = new Parser();
-        return parser.parse(stringObjectMap, market);
+        Parser<CryptoResponse> parser = new CryptoParser(market);
+        return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class CryptoParser extends DefaultParser<CryptoResponse> {
+        
+        private String market;
+        
+        public CryptoParser(String market){
+            this.market = market;
+        }
 
-        CryptoResponse parse(Map<String, Object> stringObjectMap, String market) {
+        @Override
+        public CryptoResponse onParseError(String error) {
+            return new CryptoResponse(error);
+        }
 
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
+        @Override
+        public CryptoResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> units) {
 
-            Map<String, String> md;
-            Map<String, Map<String, String>> stockData;
-
-            try{
-                md = (Map<String, String>) stringObjectMap.get(keys.get(0));
-                stockData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-
-            }catch (ClassCastException e){
-                return new CryptoResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+            String information = metaDataMap.get("1. Information");
+            String code =  metaDataMap.get("2. Digital Currency Code");
+            String name = metaDataMap.get("3. Digital Currency Name");
+            String marketCode = metaDataMap.get("4. Market Code");
+            String marketName = metaDataMap.get("5. Market Name");
+            String lastRefreshed = metaDataMap.get("6. Last Refreshed");
+            String timeZone = metaDataMap.get("7. Time Zone");
 
             MetaData metaData = new MetaData(
-                    md.get("1. Information"),
-                    md.get("2. Digital Currency Code"),
-                    md.get("3. Digital Currency Name"),
-                    md.get("4. Market Code"),
-                    md.get("5. Market Name"),
-                    md.get("6. Last Refreshed"),
-                    md.get("7. Time Zone")
+                information,
+                code,
+                name,
+                marketCode,
+                marketName,
+                lastRefreshed,
+                timeZone
             );
 
             List<CryptoUnit> cryptoUnits =  new ArrayList<>();
 
-            for (Map<String,String> m: stockData.values()) {
-
+            for (Map<String,String> m: units.values()) {
                 CryptoUnit.Builder cryptoUnit = new CryptoUnit.Builder();
                 cryptoUnit.open(Double.parseDouble(m.get("1a. open (" + market + ")" )));
                 cryptoUnit.high(Double.parseDouble(m.get("2a. high (" + market + ")" )));
@@ -82,7 +90,6 @@ public class CryptoResponse {
                 cryptoUnit.closeUSD(Double.parseDouble(m.get("4b. close (USD)")));
                 cryptoUnit.volume(Double.parseDouble(m.get("5. volume")));
                 cryptoUnit.marketCap(Double.parseDouble(m.get("6. market cap (USD)")));
-
                 cryptoUnits.add(cryptoUnit.build());
             }
             return  new CryptoResponse(metaData, cryptoUnits);
@@ -93,9 +100,9 @@ public class CryptoResponse {
     @Override
     public String toString() {
         return "CryptoResponse{" +
-                "cryptoUnits=" + cryptoUnits.size() +
-                ", metaData=" + metaData +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+            "cryptoUnits=" + cryptoUnits.size() +
+            ", metaData=" + metaData +
+            ", errorMessage='" + errorMessage + '\'' +
+        '}';
     }
 }
