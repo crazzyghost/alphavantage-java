@@ -75,5 +75,7 @@ public enum Function {
     HT_TRENDMODE,
     HT_DCPERIOD,
     HT_DCPHASE,
-    HT_PHASOR
+    HT_PHASOR,
+    //sector performances
+    SECTOR
 }

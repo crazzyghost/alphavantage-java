@@ -14,10 +14,6 @@ public class ExchangeRateRequest {
         this.to_currency = builder.toCurrency;
     }
 
-    public static Builder builder(){
-        return new Builder();
-    }
-
     public static class Builder{
         private Function function;
         private String fromCurrency;
