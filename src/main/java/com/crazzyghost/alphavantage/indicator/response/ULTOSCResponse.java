@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class ULTOSCResponse {
 
     private MetaData metaData;
@@ -35,36 +38,24 @@ public class ULTOSCResponse {
     }
     
     public static ULTOSCResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+        Parser<ULTOSCResponse> parser = new ULTOSCParser();
         return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class ULTOSCParser extends DefaultParser<ULTOSCResponse> {
 
-        @SuppressWarnings("unchecked")
-        ULTOSCResponse parse(Map<String, Object> stringObjectMap){
-
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new ULTOSCResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+        @Override
+        public ULTOSCResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+            
             MetaData metaData = new MetaData(
-                md.get("1: Symbol").toString(),
-                md.get("2: Indicator").toString(),
-                md.get("3: Last Refreshed").toString(),
-                md.get("4: Interval").toString(),
-                Double.valueOf(md.get("5.1: Time Period 1").toString()).intValue(),
-                Double.valueOf(md.get("5.2: Time Period 2").toString()).intValue(),
-                Double.valueOf(md.get("5.3: Time Period 3").toString()).intValue(),
-                md.get("6: Time Zone").toString()
+                metaDataMap.get("1: Symbol").toString(),
+                metaDataMap.get("2: Indicator").toString(),
+                metaDataMap.get("3: Last Refreshed").toString(),
+                metaDataMap.get("4: Interval").toString(),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.1: Time Period 1"))).intValue(),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.2: Time Period 2"))).intValue(),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.3: Time Period 3"))).intValue(),
+                metaDataMap.get("6: Time Zone").toString()
             );
 
             List<SimpleIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -79,7 +70,14 @@ public class ULTOSCResponse {
                 indicatorUnits.add(indicatorUnit);
             }
             return new ULTOSCResponse(indicatorUnits, metaData);
+
         }
+
+        @Override
+        public ULTOSCResponse onParseError(String error) {
+            return new ULTOSCResponse(error);
+        }
+
     }
 
 
@@ -165,8 +163,6 @@ public class ULTOSCResponse {
                     + ", symbol=" + symbol + ", timePeriod1=" + timePeriod1 + ", timePeriod2=" + timePeriod2
                     + ", timePeriod3=" + timePeriod3 + ", timeZone=" + timeZone + "}";
         }
-
-
         
     }
 

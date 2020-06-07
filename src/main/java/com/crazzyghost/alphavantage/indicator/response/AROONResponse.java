@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class AROONResponse {
 
     private MetaData metaData;
@@ -35,34 +38,22 @@ public class AROONResponse {
     }
     
     public static AROONResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+        Parser<AROONResponse> parser = new AROONParser();
         return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class AROONParser extends DefaultParser<AROONResponse>{
 
-        @SuppressWarnings("unchecked")
-        AROONResponse parse(Map<String, Object> stringObjectMap){
-
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new AROONResponse((String)stringObjectMap.get(keys.get(0)));
-            }
+        @Override
+        public AROONResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
 
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                (int)Double.parseDouble(String.valueOf(md.get("5: Time Period"))),
-                String.valueOf(md.get("6: Time Zone"))
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")),
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")),
+                Double.valueOf(String.valueOf(metaDataMap.get("5: Time Period"))).intValue(),
+                String.valueOf(metaDataMap.get("6: Time Zone"))
             );
 
             List<AROONIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -78,16 +69,22 @@ public class AROONResponse {
             }
             return new AROONResponse(indicatorUnits, metaData);
         }
+
+        @Override
+        public AROONResponse onParseError(String error) {
+            return new AROONResponse(error);
+        }
+
     }
 
 
     @Override
     public String toString() {
         return metaData.indicator.replaceAll("\\s+","") +"Response{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+            "metaData=" + metaData +
+            ",indicatorUnits=" + indicatorUnits.size() +
+            ", errorMessage='" + errorMessage + '\'' +
+        '}';
     }
 
     public static class MetaData {
@@ -151,7 +148,7 @@ public class AROONResponse {
                 ", symbol=" + symbol + 
                 ", timePeriod=" + timePeriod + 
                 ", timeZone=" + timeZone +
-                 "}";
+            "}";
         }
         
     }

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class STOCHResponse {
     private MetaData metaData;
     private List<STOCHIndicatorUnit> indicatorUnits;
@@ -34,34 +37,25 @@ public class STOCHResponse {
     }
     
     public static STOCHResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+        Parser<STOCHResponse> parser = new STOCHParser();
         return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class STOCHParser extends DefaultParser<STOCHResponse> {
 
-        @SuppressWarnings("unchecked")
-        STOCHResponse parse(Map<String, Object> stringObjectMap){
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new STOCHResponse((String)stringObjectMap.get(keys.get(0)));
-            }
+        @Override
+        public STOCHResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                Double.valueOf(String.valueOf(md.get("5.1: FastK Period"))),
-                Double.valueOf(String.valueOf(md.get("5.2: SlowK Period"))),
-                Double.valueOf(String.valueOf(md.get("5.3: SlowK MA Type"))),
-                Double.valueOf(String.valueOf(md.get("5.4: SlowD Period"))),
-                Double.valueOf(String.valueOf(md.get("5.5: SlowD MA Type"))),
-                String.valueOf(md.get("6: Time Zone"))            
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")),
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.1: FastK Period"))),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.2: SlowK Period"))),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.3: SlowK MA Type"))),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.4: SlowD Period"))),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.5: SlowD MA Type"))),
+                String.valueOf(metaDataMap.get("6: Time Zone"))            
             );
 
             List<STOCHIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -76,7 +70,15 @@ public class STOCHResponse {
                 indicatorUnits.add(indicatorUnit);
             }
             return new STOCHResponse(indicatorUnits, metaData);
+
         }
+
+        @Override
+        public STOCHResponse onParseError(String error) {
+           return new STOCHResponse(error);
+        }
+
+
     }
 
 

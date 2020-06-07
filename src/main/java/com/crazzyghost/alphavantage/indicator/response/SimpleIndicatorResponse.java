@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class SimpleIndicatorResponse {
 
     private MetaData metaData;
     private List<SimpleIndicatorUnit> indicatorUnits;
     private String errorMessage;
 
-    private SimpleIndicatorResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData){
+    private SimpleIndicatorResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private SimpleIndicatorResponse(String errorMessage){
+    private SimpleIndicatorResponse(String errorMessage) {
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -29,39 +32,33 @@ public class SimpleIndicatorResponse {
     public List<SimpleIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
-    
+
     public MetaData getMetaData() {
         return metaData;
     }
-    
-    public static SimpleIndicatorResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
-        Parser parser = new Parser();
-        return parser.parse(stringObjectMap, indicatorKey);
+
+    public static SimpleIndicatorResponse of(Map<String, Object> stringObjectMap, String indicatorKey) {
+        Parser<SimpleIndicatorResponse> parser = new SimpleIndicatorParser(indicatorKey);
+        return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class SimpleIndicatorParser extends DefaultParser<SimpleIndicatorResponse> {
 
-        @SuppressWarnings("unchecked")
-        SimpleIndicatorResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        private String indicatorKey;
 
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
+        public SimpleIndicatorParser(String indicatorKey) {
+            this.indicatorKey = indicatorKey;
+        }
 
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new SimpleIndicatorResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+        @Override
+        public SimpleIndicatorResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+            
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                String.valueOf(md.get("5: Time Zone"))
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")),
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")),
+                String.valueOf(metaDataMap.get("5: Time Zone"))
             );
 
             List<SimpleIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -76,6 +73,11 @@ public class SimpleIndicatorResponse {
                 indicatorUnits.add(indicatorUnit);
             }
             return new SimpleIndicatorResponse(indicatorUnits, metaData);
+        }
+
+        @Override
+        public SimpleIndicatorResponse onParseError(String error) {
+            return new SimpleIndicatorResponse(error);
         }
     }
 

@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class SeriesResponse {
 
     private MetaData metaData;
     private List<SimpleIndicatorUnit> indicatorUnits;
     private String errorMessage;
 
-    private SeriesResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData){
+    private SeriesResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private SeriesResponse(String errorMessage){
+    private SeriesResponse(String errorMessage) {
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -29,54 +32,52 @@ public class SeriesResponse {
     public List<SimpleIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
-    
+
     public MetaData getMetaData() {
         return metaData;
     }
-    
-    public static SeriesResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
-        Parser parser = new Parser();
-        return parser.parse(stringObjectMap, indicatorKey);
+
+    public static SeriesResponse of(Map<String, Object> stringObjectMap, String indicatorKey) {
+        Parser<SeriesResponse> parser = new SeriesParser(indicatorKey);
+        return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class SeriesParser extends DefaultParser<SeriesResponse> {
 
-        @SuppressWarnings("unchecked")
-        SeriesResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        private String indicatorKey;
 
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
+        public SeriesParser(String indicatorKey) {
+            this.indicatorKey = indicatorKey;
+        }
 
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new SeriesResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+        @Override
+        public SeriesResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                String.valueOf(md.get("5: Series Type")),
-                String.valueOf(md.get("6: Time Zone"))
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")), 
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")), 
+                String.valueOf(metaDataMap.get("5: Series Type")),
+                String.valueOf(metaDataMap.get("6: Time Zone"))
             );
 
-            List<SimpleIndicatorUnit> indicatorUnits =  new ArrayList<>();
+            List<SimpleIndicatorUnit> indicatorUnits = new ArrayList<>();
 
-            for (Map.Entry<String,Map<String,String>> e: indicatorData.entrySet()) {
-                Map<String, String> m = e.getValue();     
+            for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
+                Map<String, String> m = e.getValue();
                 SimpleIndicatorUnit indicatorUnit = new SimpleIndicatorUnit(
                     e.getKey(),
-                    Double.parseDouble(m.get(indicatorKey)),
+                    Double.parseDouble(m.get(indicatorKey)), 
                     indicatorKey
                 );
                 indicatorUnits.add(indicatorUnit);
             }
             return new SeriesResponse(indicatorUnits, metaData);
+        }
+
+        @Override
+        public SeriesResponse onParseError(String error) {
+            return new SeriesResponse(error);
         }
     }
 

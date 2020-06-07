@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class MAMAResponse {
+
     private MetaData metaData;
     private List<MAMAIndicatorUnit> indicatorUnits;
     private String errorMessage;
@@ -34,36 +38,24 @@ public class MAMAResponse {
     }
     
     public static MAMAResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+        Parser<MAMAResponse> parser = new MAMAParser();
         return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class MAMAParser extends DefaultParser<MAMAResponse> {
 
-        @SuppressWarnings("unchecked")
-        MAMAResponse parse(Map<String, Object> stringObjectMap){
-
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new MAMAResponse((String)stringObjectMap.get(keys.get(0)));
-            }
+        @Override
+        public MAMAResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
 
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                Double.valueOf(String.valueOf(md.get("5.1: Fast Limit"))),
-                Double.valueOf(String.valueOf(md.get("5.2: Slow Limit"))),
-                String.valueOf(md.get("6: Series Type")),
-                String.valueOf(md.get("7: Time Zone"))            
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")),
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.1: Fast Limit"))),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.2: Slow Limit"))),
+                String.valueOf(metaDataMap.get("6: Series Type")),
+                String.valueOf(metaDataMap.get("7: Time Zone"))            
             );
 
             List<MAMAIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -79,16 +71,21 @@ public class MAMAResponse {
             }
             return new MAMAResponse(indicatorUnits, metaData);
         }
+
+        @Override
+        public MAMAResponse onParseError(String error) {
+            return new MAMAResponse(error);
+        }
     }
 
 
     @Override
     public String toString() {
         return "MAMAResponse{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+            "metaData=" + metaData +
+            ",indicatorUnits=" + indicatorUnits.size() +
+            ", errorMessage='" + errorMessage + '\'' +
+        '}';
     }
 
     public static class MetaData {
@@ -162,12 +159,9 @@ public class MAMAResponse {
         @Override
         public String toString() {
             return "MetaData {fastLimit=" + fastLimit + ", indicator=" + indicator + ", interval=" + interval
-                    + ", lastRefreshed=" + lastRefreshed + ", seriesType=" + seriesType + ", slowLimit=" + slowLimit
-                    + ", symbol=" + symbol + ", timeZone=" + timeZone + "}";
+            + ", lastRefreshed=" + lastRefreshed + ", seriesType=" + seriesType + ", slowLimit=" + slowLimit
+            + ", symbol=" + symbol + ", timeZone=" + timeZone + "}";
         }
-
-        
-        
     }
 
 }

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class HTPHASORResponse {
 
     private MetaData metaData;
@@ -35,34 +38,22 @@ public class HTPHASORResponse {
     }
     
     public static HTPHASORResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+        Parser<HTPHASORResponse> parser = new HTPHASORParser();
         return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class HTPHASORParser extends DefaultParser<HTPHASORResponse> {
 
-        @SuppressWarnings("unchecked")
-        HTPHASORResponse parse(Map<String, Object> stringObjectMap){
-
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new HTPHASORResponse((String)stringObjectMap.get(keys.get(0)));
-            }
+        @Override
+        public HTPHASORResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
 
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                String.valueOf(md.get("5: Series Type")),
-                String.valueOf(md.get("6: Time Zone"))
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")),
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")),
+                String.valueOf(metaDataMap.get("5: Series Type")),
+                String.valueOf(metaDataMap.get("6: Time Zone"))
             );
 
             List<HTPHASORIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -78,16 +69,21 @@ public class HTPHASORResponse {
             }
             return new HTPHASORResponse(indicatorUnits, metaData);
         }
+
+        @Override
+        public HTPHASORResponse onParseError(String error) {
+            return new HTPHASORResponse(error);
+        }
     }
 
 
     @Override
     public String toString() {
         return "HTPHASORResponse{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+            "metaData=" + metaData +
+            ",indicatorUnits=" + indicatorUnits.size() +
+            ", errorMessage='" + errorMessage + '\'' +
+        '}';
     }
 
     public static class MetaData {

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class BBANDSResponse {
 
     private MetaData metaData;
@@ -35,38 +38,25 @@ public class BBANDSResponse {
     }
     
     public static BBANDSResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+        Parser<BBANDSResponse> parser = new BBANDSParser();
         return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class BBANDSParser extends DefaultParser<BBANDSResponse>{
 
-        @SuppressWarnings("unchecked")
-        BBANDSResponse parse(Map<String, Object> stringObjectMap){
-
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new BBANDSResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+        @Override
+        public BBANDSResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                Double.valueOf(md.get("5: Time Period").toString()).intValue(),
-                Double.valueOf(md.get("6.1: Deviation multiplier for upper band").toString()).intValue(),
-                Double.valueOf(md.get("6.2: Deviation multiplier for lower band").toString()).intValue(),
-                Double.valueOf(md.get("6.3: MA Type").toString()).intValue(),                
-                String.valueOf(md.get("7: Series Type")),
-                String.valueOf(md.get("8: Time Zone"))
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")),
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")),
+                Double.valueOf(String.valueOf(metaDataMap.get("5: Time Period"))).intValue(),
+                Double.valueOf(String.valueOf(metaDataMap.get("6.1: Deviation multiplier for upper band"))).intValue(),
+                Double.valueOf(String.valueOf(metaDataMap.get("6.2: Deviation multiplier for lower band"))).intValue(),
+                Double.valueOf(String.valueOf(metaDataMap.get("6.3: MA Type"))).intValue(),                
+                String.valueOf(metaDataMap.get("7: Series Type")),
+                String.valueOf(metaDataMap.get("8: Time Zone"))
             );
 
             List<BBANDSIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -83,16 +73,21 @@ public class BBANDSResponse {
             }
             return new BBANDSResponse(indicatorUnits, metaData);
         }
+
+        @Override
+        public BBANDSResponse onParseError(String error) {
+            return new BBANDSResponse(error);
+        }
     }
 
 
     @Override
     public String toString() {
         return metaData.indicator.replaceAll("\\s+","") +"Response{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+            "metaData=" + metaData +
+            ",indicatorUnits=" + indicatorUnits.size() +
+            ", errorMessage='" + errorMessage + '\'' +
+        '}';
     }
 
     public static class MetaData {

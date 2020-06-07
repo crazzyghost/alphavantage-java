@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class PriceOscillatorResponse {
 
     private MetaData metaData;
     private List<SimpleIndicatorUnit> indicatorUnits;
     private String errorMessage;
 
-    private PriceOscillatorResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData){
+    private PriceOscillatorResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private PriceOscillatorResponse(String errorMessage){
+    private PriceOscillatorResponse(String errorMessage) {
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -29,58 +32,57 @@ public class PriceOscillatorResponse {
     public List<SimpleIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
-    
+
     public MetaData getMetaData() {
         return metaData;
     }
-    
-    public static PriceOscillatorResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
-        Parser parser = new Parser();
-        return parser.parse(stringObjectMap, indicatorKey);
+
+    public static PriceOscillatorResponse of(Map<String, Object> stringObjectMap, String indicatorKey) {
+        Parser<PriceOscillatorResponse> parser = new PriceOscillatorParser(indicatorKey);
+        return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class PriceOscillatorParser extends DefaultParser<PriceOscillatorResponse> {
 
-        @SuppressWarnings("unchecked")
-        PriceOscillatorResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        private String indicatorKey;
 
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
+        public PriceOscillatorParser(String indicatorKey) {
+            this.indicatorKey = indicatorKey;
+        }
 
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String, String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new PriceOscillatorResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+        @Override
+        public PriceOscillatorResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
             MetaData metaData = new MetaData(
-                md.get("1: Symbol").toString(),
-                md.get("2: Indicator").toString(),
-                md.get("3: Last Refreshed").toString(),
-                md.get("4: Interval").toString(),
-                Double.valueOf(md.get("5.1: Fast Period").toString()).intValue(),
-                Double.valueOf(md.get("5.2: Slow Period").toString()).intValue(),
-                Double.valueOf(md.get("5.3: MA Type").toString()).intValue(),
-                md.get("6: Series Type").toString(),
-                md.get("7: Time Zone").toString()
+                String.valueOf(metaDataMap.get("1: Symbol")), 
+                String.valueOf(metaDataMap.get("2: Indicator")),
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.1: Fast Period"))).intValue(),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.2: Slow Period"))).intValue(),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.3: MA Type"))).intValue(), 
+                String.valueOf(metaDataMap.get("6: Series Type")),
+                String.valueOf(metaDataMap.get("7: Time Zone"))
             );
+            
+            List<SimpleIndicatorUnit> indicatorUnits = new ArrayList<>();
 
-            List<SimpleIndicatorUnit> indicatorUnits =  new ArrayList<>();
-
-            for (Map.Entry<String,Map<String,String>> e: indicatorData.entrySet()) {
-                Map<String, String> m = e.getValue();     
+            for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
+                Map<String, String> m = e.getValue();
                 SimpleIndicatorUnit indicatorUnit = new SimpleIndicatorUnit(
                     e.getKey(),
-                    Double.parseDouble(m.get(indicatorKey)),
+                    Double.parseDouble(m.get(indicatorKey)), 
                     indicatorKey
                 );
                 indicatorUnits.add(indicatorUnit);
             }
             return new PriceOscillatorResponse(indicatorUnits, metaData);
         }
+
+        @Override
+        public PriceOscillatorResponse onParseError(String error) {
+            return new PriceOscillatorResponse(error);
+        }
+
     }
 
 

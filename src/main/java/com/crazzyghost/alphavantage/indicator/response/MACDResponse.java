@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class MACDResponse {
 
     private MetaData metaData;
@@ -35,37 +38,25 @@ public class MACDResponse {
     }
     
     public static MACDResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+        Parser<MACDResponse> parser = new MACDParser();
         return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class MACDParser extends DefaultParser<MACDResponse> {
 
-        @SuppressWarnings("unchecked")
-        MACDResponse parse(Map<String, Object> stringObjectMap){
-
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-
-            }catch (ClassCastException e){
-                return new MACDResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+        @Override
+        public MACDResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+            
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                Double.valueOf(String.valueOf(md.get("5.1: Fast Period"))),
-                Double.valueOf(String.valueOf(md.get("5.2: Slow Period"))),
-                Double.valueOf(String.valueOf(md.get("5.3: Signal Period"))),
-                String.valueOf(md.get("6: Series Type")),
-                String.valueOf(md.get("7: Time Zone"))            
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")),
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.1: Fast Period"))),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.2: Slow Period"))),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.3: Signal Period"))),
+                String.valueOf(metaDataMap.get("6: Series Type")),
+                String.valueOf(metaDataMap.get("7: Time Zone"))            
             );
 
             List<MACDIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -82,16 +73,21 @@ public class MACDResponse {
             }
             return new MACDResponse(indicatorUnits, metaData);
         }
+
+        @Override
+        public MACDResponse onParseError(String error) {
+            return new MACDResponse(error);
+        }
     }
 
 
     @Override
     public String toString() {
         return "MACDResponse{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+            "metaData=" + metaData +
+            ",indicatorUnits=" + indicatorUnits.size() +
+            ", errorMessage='" + errorMessage + '\'' +
+        '}';
     }
 
     public static class MetaData {
@@ -172,12 +168,10 @@ public class MACDResponse {
         @Override
         public String toString() {
             return "MetaData {fastPeriod=" + fastPeriod + ", indicator=" + indicator + ", interval=" + interval
-                    + ", lastRefreshed=" + lastRefreshed + ", seriesType=" + seriesType + ", signalPeriod="
-                    + signalPeriod + ", slowPeriod=" + slowPeriod + ", symbol=" + symbol + ", timeZone=" + timeZone
-                    + "}";
+            + ", lastRefreshed=" + lastRefreshed + ", seriesType=" + seriesType + ", signalPeriod="
+            + signalPeriod + ", slowPeriod=" + slowPeriod + ", symbol=" + symbol + ", timeZone=" + timeZone
+            + "}";
         }
 
-            
-        
     }
 }

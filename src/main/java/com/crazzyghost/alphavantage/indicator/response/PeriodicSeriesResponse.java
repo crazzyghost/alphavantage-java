@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class PeriodicSeriesResponse {
 
     private MetaData metaData;
@@ -35,35 +38,29 @@ public class PeriodicSeriesResponse {
     }
     
     public static PeriodicSeriesResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
-        Parser parser = new Parser();
-        return parser.parse(stringObjectMap, indicatorKey);
+        Parser<PeriodicSeriesResponse> parser = new PeriodicSeriesParser(indicatorKey);
+        return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class PeriodicSeriesParser extends DefaultParser<PeriodicSeriesResponse> {
 
-        @SuppressWarnings("unchecked")
-        PeriodicSeriesResponse parse(Map<String, Object> stringObjectMap, String indicatorKey){
+        private String indicatorKey;
 
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
+        public PeriodicSeriesParser(String indicatorKey){
+            this.indicatorKey = indicatorKey;
+        }
 
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new PeriodicSeriesResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+        @Override
+        public PeriodicSeriesResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+            
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                String.valueOf(md.get("7: Time Zone")),
-                String.valueOf(md.get("6: Series Type")),
-                (int)Double.parseDouble(String.valueOf(md.get("5: Time Period")))
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")),
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")),
+                String.valueOf(metaDataMap.get("7: Time Zone")),
+                String.valueOf(metaDataMap.get("6: Series Type")),
+                (int)Double.parseDouble(String.valueOf(metaDataMap.get("5: Time Period")))
             );
 
             List<SimpleIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -79,16 +76,20 @@ public class PeriodicSeriesResponse {
             }
             return new PeriodicSeriesResponse(indicatorUnits, metaData);
         }
-    }
 
+        @Override
+        public PeriodicSeriesResponse onParseError(String error) {
+            return new PeriodicSeriesResponse(error);
+        }
+    }
 
     @Override
     public String toString() {
         return metaData.indicator.replaceAll("\\s+","") +"Response{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+            "metaData=" + metaData +
+            ",indicatorUnits=" + indicatorUnits.size() +
+            ", errorMessage='" + errorMessage + '\'' +
+        '}';
     }
 
     public static class MetaData {
@@ -160,13 +161,9 @@ public class PeriodicSeriesResponse {
                 ", symbol=" + symbol + 
                 ", timePeriod=" + timePeriod + 
                 ", timeZone=" + timeZone +
-                 "}";
-        }
-
-        
+            "}";
+        }   
     }
-
-
 }
 
 

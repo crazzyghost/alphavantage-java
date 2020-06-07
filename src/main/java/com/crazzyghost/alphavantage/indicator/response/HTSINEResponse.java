@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class HTSINEResponse {
 
     private MetaData metaData;
@@ -35,34 +38,22 @@ public class HTSINEResponse {
     }
     
     public static HTSINEResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+        Parser<HTSINEResponse> parser = new HTSINEParser();
         return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
-
-        @SuppressWarnings("unchecked")
-        HTSINEResponse parse(Map<String, Object> stringObjectMap){
-
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-            }catch (ClassCastException e){
-                return new HTSINEResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+    public static class HTSINEParser extends DefaultParser<HTSINEResponse> {
+        
+        @Override
+        public HTSINEResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+            
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                String.valueOf(md.get("5: Series Type")),
-                String.valueOf(md.get("6: Time Zone"))
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")),
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")),
+                String.valueOf(metaDataMap.get("5: Series Type")),
+                String.valueOf(metaDataMap.get("6: Time Zone"))
             );
 
             List<HTSINEIndicatorUnit> indicatorUnits =  new ArrayList<>();
@@ -78,8 +69,12 @@ public class HTSINEResponse {
             }
             return new HTSINEResponse(indicatorUnits, metaData);
         }
-    }
 
+        @Override
+        public HTSINEResponse onParseError(String error) {
+            return new HTSINEResponse(error);
+        }
+    }
 
     @Override
     public String toString() {
@@ -147,9 +142,7 @@ public class HTSINEResponse {
         public String toString() {
             return "MetaData {indicator=" + indicator + ", interval=" + interval + ", lastRefreshed=" + lastRefreshed
                     + ", seriesType=" + seriesType + ", symbol=" + symbol + ", timeZone=" + timeZone + "}";
-        }
-
-        
+        }        
     }
 }
 

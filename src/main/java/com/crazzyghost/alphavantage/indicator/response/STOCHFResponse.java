@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 public class STOCHFResponse {
 
     private MetaData metaData;
     private List<STOCHFIndicatorUnit> indicatorUnits;
     private String errorMessage;
 
-    private STOCHFResponse(List<STOCHFIndicatorUnit> indicatorUnits, MetaData metaData){
+    private STOCHFResponse(List<STOCHFIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private STOCHFResponse(String errorMessage){
+    private STOCHFResponse(String errorMessage) {
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -29,56 +32,45 @@ public class STOCHFResponse {
     public List<STOCHFIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
-    
+
     public MetaData getMetaData() {
         return metaData;
     }
-    
-    public static STOCHFResponse of(Map<String, Object> stringObjectMap){
-        Parser parser = new Parser();
+
+    public static STOCHFResponse of(Map<String, Object> stringObjectMap) {
+        Parser<STOCHFResponse> parser = new STOCHFParser();
         return parser.parse(stringObjectMap);
     }
 
-    public static class Parser {
+    public static class STOCHFParser extends DefaultParser<STOCHFResponse> {
 
-        @SuppressWarnings("unchecked")
-        STOCHFResponse parse(Map<String, Object> stringObjectMap){
-
-            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-            Map<String, Object> md;
-            Map<String, Map<String, String>> indicatorData;
-
-            try{
-                md = (Map<String, Object>) stringObjectMap.get(keys.get(0));
-                indicatorData = (Map<String, Map<String,String>>) stringObjectMap.get(keys.get(1));
-
-            }catch (ClassCastException e){
-                return new STOCHFResponse((String)stringObjectMap.get(keys.get(0)));
-            }
-
+        @Override
+        public STOCHFResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
             MetaData metaData = new MetaData(
-                String.valueOf(md.get("1: Symbol")),
-                String.valueOf(md.get("2: Indicator")),
-                String.valueOf(md.get("3: Last Refreshed")),
-                String.valueOf(md.get("4: Interval")),
-                Double.valueOf(String.valueOf(md.get("5.1: FastK Period"))),
-                Double.valueOf(String.valueOf(md.get("5.2: FastD Period"))),
-                Double.valueOf(String.valueOf(md.get("5.3: FastD MA Type"))),
-                String.valueOf(md.get("6: Time Zone"))            
+                String.valueOf(metaDataMap.get("1: Symbol")),
+                String.valueOf(metaDataMap.get("2: Indicator")), 
+                String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                String.valueOf(metaDataMap.get("4: Interval")), 
+                Double.valueOf(String.valueOf(metaDataMap.get("5.1: FastK Period"))),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.2: FastD Period"))),
+                Double.valueOf(String.valueOf(metaDataMap.get("5.3: FastD MA Type"))),
+                String.valueOf(metaDataMap.get("6: Time Zone"))
             );
 
-            List<STOCHFIndicatorUnit> indicatorUnits =  new ArrayList<>();
+            List<STOCHFIndicatorUnit> indicatorUnits = new ArrayList<>();
 
-            for (Map.Entry<String,Map<String,String>> e: indicatorData.entrySet()) {
-                Map<String, String> m = e.getValue();     
-                STOCHFIndicatorUnit indicatorUnit = new STOCHFIndicatorUnit(
-                    e.getKey(),
-                    Double.parseDouble(m.get("FastK")),
-                    Double.parseDouble(m.get("FastD"))
-                );
+            for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
+                Map<String, String> m = e.getValue();
+                STOCHFIndicatorUnit indicatorUnit = new STOCHFIndicatorUnit(e.getKey(),
+                        Double.parseDouble(m.get("FastK")), Double.parseDouble(m.get("FastD")));
                 indicatorUnits.add(indicatorUnit);
             }
             return new STOCHFResponse(indicatorUnits, metaData);
+        }
+
+        @Override
+        public STOCHFResponse onParseError(String error) {
+            return new STOCHFResponse(error);
         }
     }
 
