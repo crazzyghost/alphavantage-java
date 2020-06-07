@@ -12,7 +12,7 @@ import java.util.Map;
  * */
 public abstract class DefaultParser<T> extends Parser<T> {
 
-    public abstract T parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData);
+    public abstract T parse(Map<String, String> metaData, Map<String, Map<String, String>> data);
 
     @Override
     @SuppressWarnings("unchecked")

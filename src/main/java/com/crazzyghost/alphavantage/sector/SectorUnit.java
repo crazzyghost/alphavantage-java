@@ -1,30 +1,36 @@
 package com.crazzyghost.alphavantage.sector;
 
+/**
+ * @author crazzyghost
+ * @since 1.4.0
+ * A sector performance data structure
+ */
 public class SectorUnit {
-    private double informationTechnology;
-    private double consumerDiscretionary;
-    private double healthCare;
-    private double communicationServices;
-    private double realEstate;
-    private double utilities;
-    private double financials;
-    private double materials;
-    private double industrials;
-    private double consumerStaples;
-    private double energy;
+
+    private String informationTechnology;
+    private String consumerDiscretionary;
+    private String healthCare;
+    private String communicationServices;
+    private String realEstate;
+    private String utilities;
+    private String financials;
+    private String materials;
+    private String industrials;
+    private String consumerStaples;
+    private String energy;
 
     public SectorUnit(
-        double informationTechnology, 
-        double consumerDiscretionary, 
-        double healthCare,
-        double communicationServices, 
-        double realEstate, 
-        double utilities, 
-        double financials, 
-        double materials,
-        double industrials, 
-        double consumerStaples,
-        double energy
+        String informationTechnology, 
+        String consumerDiscretionary, 
+        String healthCare,
+        String communicationServices, 
+        String realEstate, 
+        String utilities, 
+        String financials, 
+        String materials,
+        String industrials, 
+        String consumerStaples,
+        String energy
     ) {
         this.informationTechnology = informationTechnology;
         this.consumerDiscretionary = consumerDiscretionary;
@@ -39,47 +45,47 @@ public class SectorUnit {
         this.energy = energy;
     }
 
-    public double getInformationTechnology() {
+    public String getInformationTechnology() {
         return informationTechnology;
     }
     
-    public double getConsumerDiscretionary() {
+    public String getConsumerDiscretionary() {
         return consumerDiscretionary;
     }
 
-    public double getHealthCare() {
+    public String getHealthCare() {
         return healthCare;
     }
 
-    public double getCommunicationServices() {
+    public String getCommunicationServices() {
         return communicationServices;
     }
 
-    public double getRealEstate() {
+    public String getRealEstate() {
         return realEstate;
     }
 
-    public double getUtilities() {
+    public String getUtilities() {
         return utilities;
     }
 
-    public double getFinancials() {
+    public String getFinancials() {
         return financials;
     }
 
-    public double getMaterials() {
+    public String getMaterials() {
         return materials;
     }
 
-    public double getIndustrials() {
+    public String getIndustrials() {
         return industrials;
     }
 
-    public double getConsumerStaples() {
+    public String getConsumerStaples() {
         return consumerStaples;
     }
 
-    public double getEnergy() {
+    public String getEnergy() {
         return energy;
     }
 
