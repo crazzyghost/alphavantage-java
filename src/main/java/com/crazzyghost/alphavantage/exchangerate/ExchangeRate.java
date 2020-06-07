@@ -32,7 +32,7 @@ public class ExchangeRate implements Fetcher {
     public ExchangeRate(Config config){
         this.config = config;
         this.request = null;
-        this.builder = ExchangeRateRequest.builder();
+        this.builder = new ExchangeRateRequest.Builder();
     }
 
     public ExchangeRate toCurrency(String toCurrency){

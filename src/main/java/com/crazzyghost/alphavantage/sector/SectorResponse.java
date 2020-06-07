@@ -4,7 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
 
+/**
+ * @author crazzyghost
+ * @since 1.4.0
+ * A sector performance response
+ */
 public final class SectorResponse {
 
     private MetaData metaData;
@@ -18,6 +24,11 @@ public final class SectorResponse {
 
     private SectorResponse(String errorMessage){
         this.errorMessage = errorMessage;
+    }
+
+    public static SectorResponse of(Map<String, Object> stringObjectMap){
+        Parser<SectorResponse> parser = new SectorParser();
+        return parser.parse(stringObjectMap);
     }
     
     public String getErrorMessage() {

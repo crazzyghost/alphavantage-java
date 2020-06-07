@@ -71,7 +71,7 @@ public class ExchangeRateTest {
     public void testRequest(){
 
         String expected = "function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo";        
-        ExchangeRateRequest  request = ExchangeRateRequest.builder()
+        ExchangeRateRequest  request = new ExchangeRateRequest.Builder()
             .fromCurrency("BTC")
             .toCurrency("CNY")
             .build();

@@ -2,6 +2,11 @@ package com.crazzyghost.alphavantage.sector;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
+/**
+ * @author crazzyghost
+ * @since 1.4.0
+ * A Sector request 
+ */
 public class SectorRequest {
 
     private Function function;
