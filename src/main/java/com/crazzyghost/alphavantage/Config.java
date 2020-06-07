@@ -63,6 +63,16 @@ public class Config {
     }
 
     /**
+     * @since 1.4.0
+     * @param config config instance
+     * Check if a config instance is null or has an empty key
+     */
+    public static void checkNotNullOrKeyEmpty(Config config) {
+        if (config == null) throw new AlphaVantageException("Config not set");
+        if (config.getKey() == null) throw new AlphaVantageException("API Key not set");
+    }
+
+    /**
      * Builder class for {@link Config}
      */
     public static class Builder{
@@ -103,4 +113,5 @@ public class Config {
             return new Config(this);
         }
     }
+
 }
