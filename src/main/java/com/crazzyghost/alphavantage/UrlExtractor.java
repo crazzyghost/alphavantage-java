@@ -2,6 +2,8 @@ package com.crazzyghost.alphavantage;
 
 import java.lang.reflect.Field;
 
+import okhttp3.Request;
+
 
 /**
  * Extracts a valid url from a request object. The request object should contain valid 
@@ -48,5 +50,15 @@ public class UrlExtractor{
 
         return stringBuilder.append("apikey=").toString();
 
+    }
+
+    /**
+     * @since 1.4.0
+     * @param request any endpoint request object
+     * @param apiKey Alphavantage API key
+     * @return
+     */
+    public static Request extract(Object request, String apiKey){
+        return new Request.Builder().url(Config.BASE_URL + UrlExtractor.extract(request) + apiKey).build();
     }
 }
