@@ -10,6 +10,7 @@ import com.crazzyghost.alphavantage.parser.Parser;
 
 import okhttp3.Call;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * Access to Stock Time Series Data
@@ -70,9 +71,11 @@ public class ExchangeRate implements Fetcher {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
-                    ExchangeRateResponse exchangeResponse = ExchangeRateResponse.of(Parser.parseJSON(response.body().string()));
-                    if(exchangeResponse.getErrorMessage() != null && failureCallback != null) failureCallback.onFailure(new AlphaVantageException(exchangeResponse.getErrorMessage()));
-                    if(successCallback != null) successCallback.onSuccess(exchangeResponse);
+                    try(ResponseBody body = response.body()){
+                        ExchangeRateResponse exchangeResponse = ExchangeRateResponse.of(Parser.parseJSON(body.string()));
+                        if(exchangeResponse.getErrorMessage() != null && failureCallback != null) failureCallback.onFailure(new AlphaVantageException(exchangeResponse.getErrorMessage()));
+                        if(successCallback != null) successCallback.onSuccess(exchangeResponse);
+                    }
                 }else{
                     if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
                 }

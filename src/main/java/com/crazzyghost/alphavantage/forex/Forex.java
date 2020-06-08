@@ -9,16 +9,12 @@ import com.crazzyghost.alphavantage.forex.response.ForexResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
+import com.crazzyghost.alphavantage.parser.Parser;
 import okhttp3.Call;
-import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.Map;
 
 /**
  * Access to Stock Time Series Data
@@ -28,14 +24,12 @@ import java.util.Map;
 public class Forex implements Fetcher{
 
     private Config config;
-    private ForexRequest request;
     private ForexRequest.Builder<?> builder;
     private Fetcher.SuccessCallback<ForexResponse> successCallback;
     private Fetcher.FailureCallback failureCallback;
 
     public Forex(Config config){
         this.config = config;
-        request = null;
     }
 
     /**
@@ -76,17 +70,9 @@ public class Forex implements Fetcher{
     @Override
     public void fetch(){
 
-        if(config == null || config.getKey() == null){
-            throw new AlphaVantageException("Config not set");
-        }
+        Config.checkNotNullOrKeyEmpty(config);
 
-        this.request = this.builder.build();
-
-        Request request = new Request.Builder()
-                .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
-                .build();
-
-        config.getOkHttpClient().newCall(request).enqueue(new okhttp3.Callback() {
+        config.getOkHttpClient().newCall(UrlExtractor.extract(builder.build(), config.getKey())).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if(failureCallback != null){
@@ -97,24 +83,13 @@ public class Forex implements Fetcher{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
-
-                    Moshi moshi = new Moshi.Builder().build();
-                    Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
-                    JsonAdapter<Map<String,Object>> adapter = moshi.adapter(type);
-                    ForexResponse forexResponse = ForexResponse.of(adapter.fromJson(response.body().string()));
-
-                    if(forexResponse.getErrorMessage() != null) {
-                        if(failureCallback != null)
-                            failureCallback.onFailure(new AlphaVantageException(forexResponse.getErrorMessage()));
-                    }
-                    if(successCallback != null){
-                        successCallback.onSuccess(forexResponse);
+                    try(ResponseBody body = response.body()){
+                        ForexResponse forexResponse = ForexResponse.of(Parser.parseJSON(body.string()));
+                        if(forexResponse.getErrorMessage() != null && failureCallback != null) failureCallback.onFailure(new AlphaVantageException(forexResponse.getErrorMessage()));
+                        if(successCallback != null) successCallback.onSuccess(forexResponse);
                     }
                 }else{
-
-                    if(failureCallback != null){
-                        failureCallback.onFailure(new AlphaVantageException());
-                    }
+                    if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
                 }
             }
         });

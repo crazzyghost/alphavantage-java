@@ -13,6 +13,7 @@ import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parser.Parser;
 import okhttp3.Call;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.util.Map;
@@ -84,7 +85,9 @@ public class Crypto implements Fetcher {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
-                    parseCryptoResponse(Parser.parseJSON(response.body().string()));
+                    try(ResponseBody body = response.body()){
+                        parseCryptoResponse(Parser.parseJSON(body.string()));
+                    }
                 }else{
                     if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
                 }
