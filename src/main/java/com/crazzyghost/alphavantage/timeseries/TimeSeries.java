@@ -7,18 +7,15 @@ import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
+import com.crazzyghost.alphavantage.parser.Parser;
 import com.crazzyghost.alphavantage.timeseries.request.*;
 import com.crazzyghost.alphavantage.timeseries.response.QuoteResponse;
 import com.crazzyghost.alphavantage.timeseries.response.TimeSeriesResponse;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
 import okhttp3.Call;
-import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
@@ -29,7 +26,6 @@ import java.util.Map;
 public class TimeSeries implements Fetcher{
 
     private Config config;
-    private TimeSeriesRequest request;
     private TimeSeriesRequest.Builder<?> builder;
     private boolean adjusted = false;
     private Fetcher.SuccessCallback<?> successCallback;
@@ -37,7 +33,6 @@ public class TimeSeries implements Fetcher{
  
     public TimeSeries(Config config){
         this.config = config;
-        request = null;
     }
 
     /**
@@ -89,36 +84,24 @@ public class TimeSeries implements Fetcher{
     @Override
     public void fetch(){
 
-        if(config == null || config.getKey() == null){
-            throw new AlphaVantageException("Config not set");
-        }
+        Config.checkNotNullOrKeyEmpty(config);
         
-        this.request = this.builder.build();
-
-        Request request = new Request.Builder()
-                .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
-                .build();
-
-        config.getOkHttpClient().newCall(request).enqueue(new okhttp3.Callback() {
+        config.getOkHttpClient().newCall(UrlExtractor.extract(builder.build(), config.getKey())).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if(failureCallback != null){
-                    failureCallback.onFailure(new AlphaVantageException(e.getMessage()));
-                }
+                if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException(e.getMessage()));
+                
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
                 if(response.isSuccessful()){
-                    Moshi moshi = new Moshi.Builder().build();
-                    Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
-                    JsonAdapter<Map<String,Object>> adapter = moshi.adapter(type);
-                    parseResponse(adapter.fromJson(response.body().string()));
-                }else{
-                    if(failureCallback != null){
-                        failureCallback.onFailure(new AlphaVantageException());
+                    try(ResponseBody body = response.body()){
+                        parseResponse(Parser.parseJSON(body.string()));
                     }
+                }else{
+                    if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
                 }
             }
         });
@@ -304,6 +287,9 @@ public class TimeSeries implements Fetcher{
         }
     }
 
+    /**
+     * Proxy for building a {@link QuoteRequest}
+     */
     public class GlobalQuoteRequestProxy extends RequestProxy<GlobalQuoteRequestProxy>{
 
         GlobalQuoteRequestProxy(){
