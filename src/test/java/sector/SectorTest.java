@@ -158,6 +158,57 @@ public class SectorTest {
         assertEquals(yearToDate.getConsumerStaples(), "-4.60%");
         assertEquals(yearToDate.getUtilities(), "-5.84%");
 
+        SectorUnit oneYear = response.getOneYearPerformance();
+        assertEquals(oneYear.getEnergy(), "-24.39%");
+        assertEquals(oneYear.getFinancials(), "-2.40%");
+        assertEquals(oneYear.getIndustrials(), "1.06%");
+        assertEquals(oneYear.getRealEstate(), "2.05%");
+        assertEquals(oneYear.getInformationTechnology(), "39.50%");
+        assertEquals(oneYear.getMaterials(), "7.15%");
+        assertEquals(oneYear.getConsumerDiscretionary(), "17.83%");
+        assertEquals(oneYear.getCommunicationServices(), "18.87%");
+        assertEquals(oneYear.getHealthCare(), "16.92%");
+        assertEquals(oneYear.getConsumerStaples(), "6.06%");
+        assertEquals(oneYear.getUtilities(), "4.06%");
+        
+        SectorUnit threeYear = response.getThreeYearPerformance();
+        assertEquals(threeYear.getEnergy(), "-29.40%");
+        assertEquals(threeYear.getFinancials(), "11.90%");
+        assertEquals(threeYear.getIndustrials(), "8.14%");
+        assertEquals(threeYear.getRealEstate(), "15.47%");
+        assertEquals(threeYear.getInformationTechnology(), "81.81%");
+        assertEquals(threeYear.getMaterials(), "11.25%");
+        assertEquals(threeYear.getConsumerDiscretionary(), "43.24%");
+        assertEquals(threeYear.getCommunicationServices(), "16.03%");
+        assertEquals(threeYear.getHealthCare(), "34.46%");
+        assertEquals(threeYear.getConsumerStaples(), "5.01%");
+        assertEquals(threeYear.getUtilities(), "12.82%");
+
+        SectorUnit fiveYear = response.getFiveYearPerformance();
+        assertEquals(fiveYear.getEnergy(), "-40.14%");
+        assertEquals(fiveYear.getFinancials(), "31.22%");
+        assertEquals(fiveYear.getIndustrials(), "31.50%");
+        assertEquals(fiveYear.getRealEstate(), null);
+        assertEquals(fiveYear.getInformationTechnology(), "148.00%");
+        assertEquals(fiveYear.getMaterials(), "19.43%");
+        assertEquals(fiveYear.getConsumerDiscretionary(), "72.84%");
+        assertEquals(fiveYear.getCommunicationServices(), "18.51%");
+        assertEquals(fiveYear.getHealthCare(), "39.99%");
+        assertEquals(fiveYear.getConsumerStaples(), "25.00%");
+        assertEquals(fiveYear.getUtilities(), "41.67%");
+
+        SectorUnit tenYear = response.getTenYearPerformance();
+        assertEquals(tenYear.getEnergy(), "-12.87%");
+        assertEquals(tenYear.getFinancials(), "128.40%");
+        assertEquals(tenYear.getIndustrials(), "155.30%");
+        assertEquals(tenYear.getRealEstate(), null);
+        assertEquals(tenYear.getInformationTechnology(), "410.69%");
+        assertEquals(tenYear.getMaterials(), "113.13%");
+        assertEquals(tenYear.getConsumerDiscretionary(), "323.53%");
+        assertEquals(tenYear.getCommunicationServices(), "82.36%");
+        assertEquals(tenYear.getHealthCare(), "265.25%");
+        assertEquals(tenYear.getConsumerStaples(), "130.74%");
+        assertEquals(tenYear.getUtilities(), "118.13%");
     }
 
  
