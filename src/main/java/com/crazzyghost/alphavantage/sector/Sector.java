@@ -53,7 +53,7 @@ public class Sector implements Fetcher {
                     try(ResponseBody body = response.body()){
                         SectorResponse sectorResponse = SectorResponse.of(Parser.parseJSON(body.string()));
                         if(sectorResponse.getErrorMessage() != null && failureCallback != null) failureCallback.onFailure(new AlphaVantageException(sectorResponse.getErrorMessage()));
-                        if(successCallback != null) successCallback.onSuccess(sectorResponse);    
+                        if(successCallback != null) successCallback.onSuccess(sectorResponse);
                     }
                 }else{
                     if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());

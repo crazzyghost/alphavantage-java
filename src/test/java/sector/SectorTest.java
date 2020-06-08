@@ -229,8 +229,9 @@ public class SectorTest {
         assertNotNull(ref.get());
     }
 
+
     @Test
-    public void testSectorError() throws InterruptedException{
+    public void testSectorErrorNoErrorCallback() throws InterruptedException{
         mockInterceptor.addRule().get(sectorUrl()).respond(errorMessage);
         CountDownLatch lock = new CountDownLatch(1);
         AtomicReference<SectorResponse> ref = new AtomicReference<>();
@@ -238,6 +239,20 @@ public class SectorTest {
         AlphaVantage.api()
             .sector()
             .onSuccess(e ->lock.countDown())
+            .fetch();
+        lock.await();
+        assertNull(ref.get());
+    }
+
+    @Test
+    public void testSectorErrorWithCallback() throws InterruptedException{
+        mockInterceptor.addRule().get(sectorUrl()).respond(errorMessage);
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SectorResponse> ref = new AtomicReference<>();
+
+        AlphaVantage.api()
+            .sector()
+            .onFailure(e ->lock.countDown())
             .fetch();
         lock.await();
         assertNull(ref.get());
