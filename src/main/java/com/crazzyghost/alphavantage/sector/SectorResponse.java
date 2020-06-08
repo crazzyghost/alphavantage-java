@@ -1,6 +1,8 @@
 package com.crazzyghost.alphavantage.sector;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.crazzyghost.alphavantage.parser.DefaultParser;
@@ -79,38 +81,50 @@ public final class SectorResponse {
         return sectorUnits.getOrDefault("Rank J: 10 Year Performance", null);
     }
 
-    public static class SectorParser extends DefaultParser<SectorResponse> {
+    
 
+    public static class SectorParser extends Parser<SectorResponse> {
+
+        @SuppressWarnings("unchecked")
         @Override
-        public SectorResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> data) {
+        public SectorResponse parse(Map<String, Object> stringObjectMap) {
+            List<String> keys = new ArrayList<>(stringObjectMap.keySet());
+
+            try{
+                Map<String, String> metaDataMap = (Map<String, String>)stringObjectMap.get(keys.get(0));
             
-            MetaData metaData = new MetaData(
-                String.valueOf(metaDataMap.get("Information")),
-                String.valueOf(metaDataMap.get("Last Refreshed"))
-            );
-
-            Map<String, SectorUnit> sectorUnits = new HashMap<>();
-
-            for(Map.Entry<String, Map<String, String>> e: data.entrySet()){
-                String sectorDescription = e.getKey();
-                Map<String, String> sectorData = e.getValue();
-                SectorUnit sectorUnit = new SectorUnit(
-                    sectorData.get("Information Technology"), 
-                    sectorData.get("consumerDiscretionary"), 
-                    sectorData.get("healthCare"), 
-                    sectorData.get("communicationServices"), 
-                    sectorData.get("realEstate"), 
-                    sectorData.get("utilities"), 
-                    sectorData.get("financials"), 
-                    sectorData.get("materials"), 
-                    sectorData.get("industrials"), 
-                    sectorData.get("consumerStaples"), 
-                    sectorData.get("energy")
+                MetaData metaData = new MetaData(
+                    String.valueOf(metaDataMap.get("Information")),
+                    String.valueOf(metaDataMap.get("Last Refreshed"))
                 );
-                sectorUnits.put(sectorDescription, sectorUnit);
-            }
 
-            return new SectorResponse(metaData, sectorUnits);
+                keys.remove(0);
+
+                Map<String, SectorUnit> sectorUnits = new HashMap<>();
+                for(String sectorDescription: keys){
+                    Map<String, String> sectorData = (Map<String, String>)stringObjectMap.get(sectorDescription);
+                    SectorUnit sectorUnit = new SectorUnit(
+                        sectorData.get("Information Technology"), 
+                        sectorData.get("Consumer Discretionary"), 
+                        sectorData.get("Health Care"), 
+                        sectorData.get("Communication Services"), 
+                        sectorData.get("Real Estate"), 
+                        sectorData.get("Utilities"), 
+                        sectorData.get("Financials"), 
+                        sectorData.get("Materials"), 
+                        sectorData.get("Industrials"), 
+                        sectorData.get("Consumer Staples"), 
+                        sectorData.get("Energy")
+                    );
+                    sectorUnits.put(sectorDescription, sectorUnit);
+                }
+
+                return new SectorResponse(metaData, sectorUnits);
+
+            }catch(ClassCastException e){
+                return onParseError(stringObjectMap.get(keys.get(0)).toString());
+            }
+            
         }
 
         @Override
@@ -138,5 +152,16 @@ public final class SectorResponse {
             return lastRefreshed;
         }
 
+        @Override
+        public String toString() {
+            return "MetaData {information=" + information + ", lastRefreshed=" + lastRefreshed + "}";
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return "SectorResponse {errorMessage=" + errorMessage + ", metaData=" + metaData + ", sectorUnits="
+                + sectorUnits + "}";
     }
 }

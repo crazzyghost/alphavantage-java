@@ -87,6 +87,9 @@ public class TestUtils {
         return getJsonAdapter().fromJson(errorMessage);
     }
 
+    public static String sectorUrl(){
+        return Config.BASE_URL + "function=SECTOR&apikey=demo";
+    }
     
     public static String exchangeRateUrl(final String toCurrency){
         String currency = toCurrency == null ? "CNY" : toCurrency;

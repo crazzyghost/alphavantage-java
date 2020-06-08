@@ -10,6 +10,7 @@ import com.crazzyghost.alphavantage.parser.Parser;
 
 import okhttp3.Call;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class Sector implements Fetcher {
 
@@ -49,9 +50,11 @@ public class Sector implements Fetcher {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
-                    SectorResponse sectorResponse = SectorResponse.of(Parser.parseJSON(response.body().toString()));
-                    if(sectorResponse.getErrorMessage() == null && successCallback != null) successCallback.onSuccess(sectorResponse);
-                    if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException(sectorResponse.getErrorMessage()));
+                    try(ResponseBody body = response.body()){
+                        SectorResponse sectorResponse = SectorResponse.of(Parser.parseJSON(body.string()));
+                        if(sectorResponse.getErrorMessage() != null && failureCallback != null) failureCallback.onFailure(new AlphaVantageException(sectorResponse.getErrorMessage()));
+                        if(successCallback != null) successCallback.onSuccess(sectorResponse);    
+                    }
                 }else{
                     if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
                 }

@@ -2,7 +2,6 @@ package crypto;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import java.io.IOException;
 
 import com.crazzyghost.alphavantage.cryptocurrency.response.CryptoUnit;
 

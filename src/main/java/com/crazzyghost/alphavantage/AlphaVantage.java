@@ -4,6 +4,7 @@ import com.crazzyghost.alphavantage.cryptocurrency.Crypto;
 import com.crazzyghost.alphavantage.exchangerate.ExchangeRate;
 import com.crazzyghost.alphavantage.forex.Forex;
 import com.crazzyghost.alphavantage.indicator.Indicator;
+import com.crazzyghost.alphavantage.sector.Sector;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
 
 /**
@@ -78,5 +79,13 @@ public class AlphaVantage {
      */
     public Indicator indicator(){
         return new Indicator(config);
+    }
+
+    /**
+     * Access to Sector Performances.
+     * @return A {@link Sector} instance for access to Sector Performance Data
+     */
+    public Sector sector(){
+        return new Sector(config);
     }
 }
