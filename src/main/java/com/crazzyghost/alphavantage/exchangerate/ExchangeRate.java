@@ -1,19 +1,14 @@
 package com.crazzyghost.alphavantage.exchangerate;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.Map;
 
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
+import com.crazzyghost.alphavantage.parser.Parser;
 
 import okhttp3.Call;
-import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -24,14 +19,12 @@ import okhttp3.Response;
 public class ExchangeRate implements Fetcher {
 
     private Config config;
-    private ExchangeRateRequest request;
     private ExchangeRateRequest.Builder builder;
     private Fetcher.SuccessCallback<ExchangeRateResponse> successCallback;
     private Fetcher.FailureCallback failureCallback;
 
     public ExchangeRate(Config config){
         this.config = config;
-        this.request = null;
         this.builder = new ExchangeRateRequest.Builder();
     }
 
@@ -66,48 +59,23 @@ public class ExchangeRate implements Fetcher {
     @Override
     public void fetch() {
 
-        if(config == null || config.getKey() == null){
-            throw new AlphaVantageException("Config not set");
-        }
-        this.request = this.builder.build();
+        Config.checkNotNullOrKeyEmpty(config);
 
-        Request request = new Request.Builder()
-                .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
-                .build();
-
-        config.getOkHttpClient().newCall(request).enqueue(new okhttp3.Callback() {
+        config.getOkHttpClient().newCall(UrlExtractor.extract(builder.build(), config.getKey())).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if(failureCallback != null){
-                    failureCallback.onFailure(new AlphaVantageException());
-                    failureCallback = null;
-                    successCallback = null;
-                }
+                if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
-
-                    Moshi moshi = new Moshi.Builder().build();
-                    Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
-                    JsonAdapter<Map<String,Object>> adapter = moshi.adapter(type);
-                    ExchangeRateResponse exchangeResponse = ExchangeRateResponse.of(adapter.fromJson(response.body().string()));
-                    if(exchangeResponse.getErrorMessage() != null){
-                        if(failureCallback != null){
-                            failureCallback.onFailure(new AlphaVantageException(exchangeResponse.getErrorMessage()));
-                        }
-                    }
-                    if(successCallback != null)
-                        successCallback.onSuccess(exchangeResponse);
+                    ExchangeRateResponse exchangeResponse = ExchangeRateResponse.of(Parser.parseJSON(response.body().string()));
+                    if(exchangeResponse.getErrorMessage() != null && failureCallback != null) failureCallback.onFailure(new AlphaVantageException(exchangeResponse.getErrorMessage()));
+                    if(successCallback != null) successCallback.onSuccess(exchangeResponse);
                 }else{
-
-                    if(failureCallback != null){
-                        failureCallback.onFailure(new AlphaVantageException());
-                    }
+                    if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
                 }
-                failureCallback = null;
-                successCallback = null;
             }
         });
     }

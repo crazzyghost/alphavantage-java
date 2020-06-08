@@ -26,14 +26,12 @@ import java.util.Map;
 public class Crypto implements Fetcher {
 
     private Config config;
-    private CryptoRequest request;
     private CryptoRequest.Builder<?> builder;
     private Fetcher.SuccessCallback<?> successCallback;
     private Fetcher.FailureCallback failureCallback;
 
     public Crypto(Config config){
         this.config = config;
-        this.request = null;
     }
 
     /**
@@ -77,9 +75,7 @@ public class Crypto implements Fetcher {
 
         Config.checkNotNullOrKeyEmpty(config);
         
-        this.request = this.builder.build();
-
-        config.getOkHttpClient().newCall(UrlExtractor.extract(request, config.getKey())).enqueue(new okhttp3.Callback() {
+        config.getOkHttpClient().newCall(UrlExtractor.extract(builder.build(), config.getKey())).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
@@ -152,8 +148,6 @@ public class Crypto implements Fetcher {
         protected CryptoRequest.Builder<?> builder;
 
         private RequestProxy(){
-            Crypto.this.successCallback = null;
-            Crypto.this.failureCallback = null;
         }
 
         public T forSymbol(String symbol){
