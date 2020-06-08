@@ -10,15 +10,11 @@ import com.crazzyghost.alphavantage.cryptocurrency.request.RatingRequest;
 import com.crazzyghost.alphavantage.cryptocurrency.response.CryptoResponse;
 import com.crazzyghost.alphavantage.cryptocurrency.response.RatingResponse;
 import com.crazzyghost.alphavantage.parameters.Function;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
+import com.crazzyghost.alphavantage.parser.Parser;
 import okhttp3.Call;
-import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
@@ -79,35 +75,22 @@ public class Crypto implements Fetcher {
     @Override
     public void fetch() {
 
-        if(config == null || config.getKey() == null){
-            throw new AlphaVantageException("Config not set");
-        }
+        Config.checkNotNullOrKeyEmpty(config);
         
         this.request = this.builder.build();
 
-        Request request = new Request.Builder()
-                .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
-                .build();
-
-        config.getOkHttpClient().newCall(request).enqueue(new okhttp3.Callback() {
+        config.getOkHttpClient().newCall(UrlExtractor.extract(request, config.getKey())).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if(failureCallback != null){
-                    failureCallback.onFailure(new AlphaVantageException());
-                }
+                if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
-                    Moshi moshi = new Moshi.Builder().build();
-                    Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
-                    JsonAdapter<Map<String,Object>> adapter = moshi.adapter(type);
-                    parseCryptoResponse(adapter.fromJson(response.body().string()));
+                    parseCryptoResponse(Parser.parseJSON(response.body().string()));
                 }else{
-                    if(failureCallback != null){
-                        failureCallback.onFailure(new AlphaVantageException());
-                    }
+                    if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
                 }
             }
         });
@@ -140,14 +123,8 @@ public class Crypto implements Fetcher {
     @SuppressWarnings("unchecked")
     private void parseDigitalCurrencyResponse(Map<String, Object> data){
         CryptoResponse response = CryptoResponse.of(data, ((DigitalCurrencyRequest.Builder)builder).getMarket());
-        if(response.getErrorMessage() != null){
-            if(failureCallback != null){
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-            }
-        }
-        if(successCallback != null){
-            ((Fetcher.SuccessCallback<CryptoResponse>)successCallback).onSuccess(response);
-        }
+        if(response.getErrorMessage() != null && failureCallback != null) failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        if(successCallback != null) ((Fetcher.SuccessCallback<CryptoResponse>)successCallback).onSuccess(response);
     }
 
     /**
@@ -157,14 +134,8 @@ public class Crypto implements Fetcher {
     @SuppressWarnings("unchecked")
     private void parseRatingResponse(Map<String, Object> data){
         RatingResponse response = RatingResponse.of(data);
-        if(response.getErrorMessage() != null){
-            if(failureCallback != null){
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-            }
-        }
-        if(successCallback != null){
-            ((Fetcher.SuccessCallback<RatingResponse>)successCallback).onSuccess(response);
-        }        
+        if(response.getErrorMessage() != null && failureCallback != null) failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
+        if(successCallback != null) ((Fetcher.SuccessCallback<RatingResponse>)successCallback).onSuccess(response);
     }
     
 
@@ -214,8 +185,6 @@ public class Crypto implements Fetcher {
             super();
             builder = new DigitalCurrencyRequest.Builder();
             builder = builder.function(Function.DIGITAL_CURRENCY_DAILY);
-            Crypto.this.successCallback = null;
-            Crypto.this.failureCallback = null;
         }
  
         public DailyRequestProxy market(String market){
@@ -232,8 +201,6 @@ public class Crypto implements Fetcher {
         public WeeklyRequestProxy(){
             builder = new DigitalCurrencyRequest.Builder();
             builder = builder.function(Function.DIGITAL_CURRENCY_WEEKLY);
-            Crypto.this.successCallback = null;
-            Crypto.this.failureCallback = null;
         }
 
         public WeeklyRequestProxy market(String market){
@@ -250,8 +217,6 @@ public class Crypto implements Fetcher {
         public MonthlyRequestProxy(){
             builder = new DigitalCurrencyRequest.Builder();
             builder = builder.function(Function.DIGITAL_CURRENCY_MONTHLY);
-            Crypto.this.successCallback = null;
-            Crypto.this.failureCallback = null;
         }
 
         public MonthlyRequestProxy market(String market){
@@ -267,8 +232,6 @@ public class Crypto implements Fetcher {
     public class RatingRequestProxy extends RequestProxy<RatingRequestProxy> {
         public  RatingRequestProxy(){
             builder = new RatingRequest.Builder();
-            Crypto.this.successCallback = null;
-            Crypto.this.failureCallback = null;
         }
     }
 }
