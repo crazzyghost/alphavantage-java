@@ -1,7 +1,6 @@
 package com.crazzyghost.alphavantage.indicator;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.Map;
 
 import com.crazzyghost.alphavantage.AlphaVantageException;
@@ -15,13 +14,11 @@ import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
+import com.crazzyghost.alphavantage.parser.Parser;
 
 import okhttp3.Call;
-import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 
 /**
@@ -34,12 +31,10 @@ public class Indicator implements Fetcher{
     private IndicatorRequest.Builder<?> builder;
     private Fetcher.SuccessCallback<?> successCallback;
     private Fetcher.FailureCallback failureCallback;
-    private final Config config;
-    private IndicatorRequest request;
+    private  Config config;
 
-    public Indicator(final Config config) {
+    public Indicator(Config config) {
         this.config = config;
-        this.request = null;
     }
 
     /**
@@ -47,42 +42,30 @@ public class Indicator implements Fetcher{
      */
     @Override
     public void fetch(){
-        if(config == null || config.getKey() == null){
-            throw new AlphaVantageException("Config not set");
-        }
 
-        this.request = this.builder.build();
+        Config.checkNotNullOrKeyEmpty(config);
 
-        final Request request = new Request.Builder()
-                .url(Config.BASE_URL + UrlExtractor.extract(this.request) + config.getKey())
-                .build();
-
-        config.getOkHttpClient().newCall(request).enqueue(new okhttp3.Callback() {
+        config.getOkHttpClient().newCall(UrlExtractor.extract(builder.build(), config.getKey())).enqueue(new okhttp3.Callback() {
             @Override
-            public void onFailure(final Call call, final IOException e) {
-                if(failureCallback != null){
-                    failureCallback.onFailure(new AlphaVantageException());
-                }
+            public void onFailure(Call call,  IOException e) {
+                if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
             }
 
             @Override
-            public void onResponse(final Call call, final Response response) throws IOException {
+            public void onResponse(Call call,  Response response) throws IOException {
                 if(!response.isSuccessful()){
-                    if(failureCallback != null){
-                        failureCallback.onFailure(new AlphaVantageException());
-                    }
+                    if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
                 } else {
-                    final Moshi moshi = new Moshi.Builder().build();
-                    final Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
-                    final JsonAdapter<Map<String,Object>> adapter = moshi.adapter(type);
-                    parseIndicatorResponse(adapter.fromJson(response.body().string()));
+                    try(ResponseBody body = response.body()){
+                        parseIndicatorResponse(Parser.parseJSON(body.string()));
+                    }
                 }
             }
         });
     }
 
     @SuppressWarnings("unchecked")
-    private void parsePeriodicSeriesResponse(final Map<String, Object> data){
+    private void parsePeriodicSeriesResponse(Map<String, Object> data){
         PeriodicSeriesResponse response = PeriodicSeriesResponse.of(data, builder.function.name());
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -94,7 +77,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseMAMAResponse(final Map<String, Object> data) {
+    private void parseMAMAResponse(Map<String, Object> data) {
         MAMAResponse response = MAMAResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -106,7 +89,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseSimpleIndicatorResponse(final Map<String, Object> data){
+    private void parseSimpleIndicatorResponse(Map<String, Object> data){
         String functionName = builder.function.name();
         if(functionName.equals("AD")) functionName = "Chaikin A/D";
 
@@ -121,7 +104,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseMACDResponse(final Map<String, Object> data) {
+    private void parseMACDResponse(Map<String, Object> data) {
         MACDResponse response = MACDResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -133,7 +116,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseMACDEXTResponse(final Map<String, Object> data) {
+    private void parseMACDEXTResponse(Map<String, Object> data) {
         MACDEXTResponse response = MACDEXTResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -145,7 +128,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseSTOCHResponse(final Map<String, Object> data) {
+    private void parseSTOCHResponse(Map<String, Object> data) {
         STOCHResponse response = STOCHResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -157,7 +140,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseSTOCHFResponse(final Map<String, Object> data) {
+    private void parseSTOCHFResponse(Map<String, Object> data) {
         STOCHFResponse response = STOCHFResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -169,7 +152,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseSTOCHRSIResponse(final Map<String, Object> data) {
+    private void parseSTOCHRSIResponse(Map<String, Object> data) {
         STOCHRSIResponse response = STOCHRSIResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -181,7 +164,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parsePriceOscillatorResponse(final Map<String, Object> data) {
+    private void parsePriceOscillatorResponse(Map<String, Object> data) {
         PriceOscillatorResponse response = PriceOscillatorResponse.of(data, builder.function.name());
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -193,7 +176,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parsePeriodicResponse(final Map<String, Object> data){
+    private void parsePeriodicResponse(Map<String, Object> data){
         PeriodicResponse response = PeriodicResponse.of(data, builder.function.name());
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -205,7 +188,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseAROONResponse(final Map<String, Object> data){
+    private void parseAROONResponse(Map<String, Object> data){
         AROONResponse response = AROONResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -217,7 +200,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseULTOSCResponse(final Map<String, Object> data){
+    private void parseULTOSCResponse(Map<String, Object> data){
         ULTOSCResponse response = ULTOSCResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -229,7 +212,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseBBANDSResponse(final Map<String, Object> data){
+    private void parseBBANDSResponse(Map<String, Object> data){
         BBANDSResponse response = BBANDSResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -242,7 +225,7 @@ public class Indicator implements Fetcher{
 
 
     @SuppressWarnings("unchecked")
-    private void parseSARResponse(final Map<String, Object> data){
+    private void parseSARResponse(Map<String, Object> data){
         SARResponse response = SARResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -254,7 +237,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseADOSCResponse(final Map<String, Object> data){
+    private void parseADOSCResponse(Map<String, Object> data){
         ADOSCResponse response = ADOSCResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -266,7 +249,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseSeriesResponse(final Map<String, Object> data){
+    private void parseSeriesResponse(Map<String, Object> data){
         String functionName = builder.function.name();
         if(functionName.equals("HT_TRENDMODE")) functionName = "TRENDMODE";
         if(functionName.equals("HT_DCPERIOD")) functionName = "DCPERIOD";
@@ -282,7 +265,7 @@ public class Indicator implements Fetcher{
 
 
     @SuppressWarnings("unchecked")
-    private void parseHTSINEResponse(final Map<String, Object> data){
+    private void parseHTSINEResponse(Map<String, Object> data){
         HTSINEResponse response = HTSINEResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -294,7 +277,7 @@ public class Indicator implements Fetcher{
     }
 
     @SuppressWarnings("unchecked")
-    private void parseHTPHASORResponse(final Map<String, Object> data){
+    private void parseHTPHASORResponse(Map<String, Object> data){
         HTPHASORResponse response = HTPHASORResponse.of(data);
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -305,7 +288,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    private void parseIndicatorResponse(final Map<String, Object> data){
+    private void parseIndicatorResponse(Map<String, Object> data){
         
         switch(builder.function){
             case SMA:
@@ -627,38 +610,35 @@ public class Indicator implements Fetcher{
         protected IndicatorRequest.Builder<?> builder;
         
         public SimpleIndicatorRequestProxy(){
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;
+        
         }
         
-        public SimpleIndicatorRequestProxy(final Function function){
+        public SimpleIndicatorRequestProxy( Function function){
             builder = new SimpleIndicatorRequest.Builder(); 
-            builder = builder.function(function); 
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;  
+            builder = builder.function(function);       
         }
 
-        public T dataType(final DataType dataType){
+        public T dataType( DataType dataType){
             builder = builder.dataType(dataType);
             return (T)this;
         }
 
-        public T forSymbol(final String symbol){
+        public T forSymbol( String symbol){
             builder = builder.forSymbol(symbol);
             return (T)this;
         }
 
-        public T interval(final Interval interval){
+        public T interval( Interval interval){
             builder = builder.interval(interval);
             return (T)this;
         }
 
-        public T onSuccess(final Fetcher.SuccessCallback<?> callback){
+        public T onSuccess( Fetcher.SuccessCallback<?> callback){
             Indicator.this.successCallback =  callback;
             return (T)this;
         }
 
-        public T onFailure(final Fetcher.FailureCallback callback){
+        public T onFailure( Fetcher.FailureCallback callback){
             Indicator.this.failureCallback = callback;
             return (T)this;
         }
@@ -673,19 +653,17 @@ public class Indicator implements Fetcher{
 
     public class PeriodicSeriesRequestProxy extends SimpleIndicatorRequestProxy<PeriodicSeriesRequestProxy>{
  
-        public PeriodicSeriesRequestProxy(final Function function){
+        public PeriodicSeriesRequestProxy( Function function){
             builder = new PeriodicSeriesRequest.Builder(); 
             builder = builder.function(function);
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;   
         }
 
-        public PeriodicSeriesRequestProxy timePeriod(final int period){
+        public PeriodicSeriesRequestProxy timePeriod( int period){
             builder = ((PeriodicSeriesRequest.Builder)builder).timePeriod(period);
             return this;
         }
 
-        public PeriodicSeriesRequestProxy seriesType(final SeriesType series){
+        public PeriodicSeriesRequestProxy seriesType( SeriesType series){
             builder = ((PeriodicSeriesRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -693,14 +671,12 @@ public class Indicator implements Fetcher{
 
     public class PeriodicRequestProxy extends SimpleIndicatorRequestProxy<PeriodicRequestProxy>{
  
-        public PeriodicRequestProxy(final Function function){
+        public PeriodicRequestProxy( Function function){
             builder = new PeriodicRequest.Builder(); 
-            builder = builder.function(function); 
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;  
+            builder = builder.function(function);
         }
 
-        public PeriodicRequestProxy timePeriod(final int period){
+        public PeriodicRequestProxy timePeriod( int period){
             builder = ((PeriodicRequest.Builder)builder).timePeriod(period);
             return this;
         }
@@ -708,12 +684,12 @@ public class Indicator implements Fetcher{
 
     public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy>{
  
-        public SeriesRequestProxy(final Function function){
+        public SeriesRequestProxy( Function function){
             builder = new SeriesRequest.Builder(); 
             builder = builder.function(function);   
         }
 
-        public SeriesRequestProxy seriesType(final SeriesType series){
+        public SeriesRequestProxy seriesType( SeriesType series){
             builder = ((SeriesRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -723,21 +699,19 @@ public class Indicator implements Fetcher{
  
         public MAMARequestProxy(){
             builder = new MAMARequest.Builder(); 
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;
         }
 
-        public MAMARequestProxy fastLimit(final double fastLimit){
+        public MAMARequestProxy fastLimit( double fastLimit){
             builder = ((MAMARequest.Builder)builder).fastLimit(fastLimit);
             return this;
         }
 
-        public MAMARequestProxy seriesType(final SeriesType series){
+        public MAMARequestProxy seriesType( SeriesType series){
             builder = ((MAMARequest.Builder)builder).seriesType(series);
             return this;
         }
 
-        public MAMARequestProxy slowLimit(final double slowLimit){
+        public MAMARequestProxy slowLimit( double slowLimit){
             builder = ((MAMARequest.Builder)builder).slowLimit(slowLimit);
             return this;
         }
@@ -747,26 +721,24 @@ public class Indicator implements Fetcher{
  
         public MACDRequestProxy(){
             builder = new MACDRequest.Builder(); 
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;
         }
 
-        public MACDRequestProxy fastPeriod(final int fastLimit){
+        public MACDRequestProxy fastPeriod( int fastLimit){
             builder = ((MACDRequest.Builder)builder).fastPeriod(fastLimit);
             return this;
         }
 
-        public MACDRequestProxy slowPeriod(final int slowPeriod){
+        public MACDRequestProxy slowPeriod( int slowPeriod){
             builder = ((MACDRequest.Builder)builder).slowPeriod(slowPeriod);
             return this;
         }
 
-        public MACDRequestProxy signalPeriod(final int signalPeriod){
+        public MACDRequestProxy signalPeriod( int signalPeriod){
             builder = ((MACDRequest.Builder)builder).signalPeriod(signalPeriod);
             return this;
         }
 
-        public MACDRequestProxy seriesType(final SeriesType series){
+        public MACDRequestProxy seriesType( SeriesType series){
             builder = ((MACDRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -776,41 +748,39 @@ public class Indicator implements Fetcher{
  
         public MACDEXTRequestProxy(){
             builder = new MACDEXTRequest.Builder();
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null; 
         }
 
-        public MACDEXTRequestProxy fastPeriod(final int period){
+        public MACDEXTRequestProxy fastPeriod( int period){
             builder = ((MACDEXTRequest.Builder)builder).fastPeriod(period);
             return this;
         }
 
-        public MACDEXTRequestProxy slowPeriod(final int period){
+        public MACDEXTRequestProxy slowPeriod( int period){
             builder = ((MACDEXTRequest.Builder)builder).slowPeriod(period);
             return this;
         }
 
-        public MACDEXTRequestProxy signalPeriod(final int period){
+        public MACDEXTRequestProxy signalPeriod( int period){
             builder = ((MACDEXTRequest.Builder)builder).signalPeriod(period);
             return this;
         }
 
-        public MACDEXTRequestProxy fastMaType(final MAType type){
+        public MACDEXTRequestProxy fastMaType( MAType type){
             builder = ((MACDEXTRequest.Builder)builder).fastMaType(type);
             return this;
         }
 
-        public MACDEXTRequestProxy slowMaType(final MAType type){
+        public MACDEXTRequestProxy slowMaType( MAType type){
             builder = ((MACDEXTRequest.Builder)builder).slowMaType(type);
             return this;
         }
 
-        public MACDEXTRequestProxy signalMaType(final MAType type){
+        public MACDEXTRequestProxy signalMaType( MAType type){
             builder = ((MACDEXTRequest.Builder)builder).signalMaType(type);
             return this;
         }
 
-        public MACDEXTRequestProxy seriesType(final SeriesType series){
+        public MACDEXTRequestProxy seriesType( SeriesType series){
             builder = ((MACDEXTRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -819,32 +789,30 @@ public class Indicator implements Fetcher{
     public class STOCHRequestProxy extends SimpleIndicatorRequestProxy<STOCHRequestProxy>{
  
         public STOCHRequestProxy(){
-            builder = new STOCHRequest.Builder(); 
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;
+            builder = new STOCHRequest.Builder();            
         }
 
-        public STOCHRequestProxy fastKPeriod(final int period){
+        public STOCHRequestProxy fastKPeriod( int period){
             builder = ((STOCHRequest.Builder)builder).fastKPeriod(period);
             return this;
         }
 
-        public STOCHRequestProxy slowKPeriod(final int period){
+        public STOCHRequestProxy slowKPeriod( int period){
             builder = ((STOCHRequest.Builder)builder).slowKPeriod(period);
             return this;
         }
  
-        public STOCHRequestProxy slowDPeriod(final int period){
+        public STOCHRequestProxy slowDPeriod( int period){
             builder = ((STOCHRequest.Builder)builder).slowDPeriod(period);
             return this;
         }
 
-        public STOCHRequestProxy slowKMaType(final MAType type){
+        public STOCHRequestProxy slowKMaType( MAType type){
             builder = ((STOCHRequest.Builder)builder).slowKMaType(type);
             return this;
         }
 
-        public STOCHRequestProxy slowDMaType(final MAType type){
+        public STOCHRequestProxy slowDMaType( MAType type){
             builder = ((STOCHRequest.Builder)builder).slowDMaType(type);
             return this;
         }
@@ -854,21 +822,19 @@ public class Indicator implements Fetcher{
  
         public STOCHFRequestProxy(){
             builder = new STOCHFRequest.Builder();
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null; 
         }
 
-        public STOCHFRequestProxy fastKPeriod(final int period){
+        public STOCHFRequestProxy fastKPeriod( int period){
             builder = ((STOCHFRequest.Builder)builder).fastKPeriod(period);
             return this;
         }
 
-        public STOCHFRequestProxy fastDPeriod(final int period){
+        public STOCHFRequestProxy fastDPeriod( int period){
             builder = ((STOCHFRequest.Builder)builder).fastDPeriod(period);
             return this;
         }
  
-        public STOCHFRequestProxy fastDMaType(final MAType type){
+        public STOCHFRequestProxy fastDMaType( MAType type){
             builder = ((STOCHFRequest.Builder)builder).fastDMaType(type);
             return this;
         }
@@ -878,31 +844,29 @@ public class Indicator implements Fetcher{
  
         public STOCHRSIRequestProxy(){
             builder = new STOCHRSIRequest.Builder();
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null; 
         }
 
-        public STOCHRSIRequestProxy fastKPeriod(final int period){
+        public STOCHRSIRequestProxy fastKPeriod( int period){
             builder = ((STOCHRSIRequest.Builder)builder).fastKPeriod(period);
             return this;
         }
 
-        public STOCHRSIRequestProxy fastDPeriod(final int period){
+        public STOCHRSIRequestProxy fastDPeriod( int period){
             builder = ((STOCHRSIRequest.Builder)builder).fastDPeriod(period);
             return this;
         }
  
-        public STOCHRSIRequestProxy fastDMaType(final MAType type){
+        public STOCHRSIRequestProxy fastDMaType( MAType type){
             builder = ((STOCHRSIRequest.Builder)builder).fastDMaType(type);
             return this;
         }
 
-        public STOCHRSIRequestProxy timePeriod(final int period){
+        public STOCHRSIRequestProxy timePeriod( int period){
             builder = ((STOCHRSIRequest.Builder)builder).timePeriod(period);
             return this;
         }
 
-        public STOCHRSIRequestProxy seriesType(final SeriesType series){
+        public STOCHRSIRequestProxy seriesType( SeriesType series){
             builder = ((STOCHRSIRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -910,29 +874,27 @@ public class Indicator implements Fetcher{
 
     public class PriceOscillatorRequestProxy extends SimpleIndicatorRequestProxy<PriceOscillatorRequestProxy>{
  
-        public PriceOscillatorRequestProxy(final Function function){
+        public PriceOscillatorRequestProxy( Function function){
             builder = new PriceOscillatorRequest.Builder(); 
             builder = builder.function(function); 
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;  
         }
 
-        public PriceOscillatorRequestProxy fastPeriod(final int period){
+        public PriceOscillatorRequestProxy fastPeriod( int period){
             builder = ((PriceOscillatorRequest.Builder)builder).fastPeriod(period);
             return this;
         }
 
-        public  PriceOscillatorRequestProxy slowPeriod(final int period){
+        public  PriceOscillatorRequestProxy slowPeriod( int period){
             builder = ((PriceOscillatorRequest.Builder)builder).slowPeriod(period);
             return this;
         }
 
-        public  PriceOscillatorRequestProxy seriesType(final SeriesType series){
+        public  PriceOscillatorRequestProxy seriesType( SeriesType series){
             builder = ((PriceOscillatorRequest.Builder)builder).seriesType(series);
             return this;
         }
 
-        public  PriceOscillatorRequestProxy maType(final MAType type){
+        public  PriceOscillatorRequestProxy maType( MAType type){
             builder = ((PriceOscillatorRequest.Builder)builder).maType(type);
             return this;
         }
@@ -942,21 +904,19 @@ public class Indicator implements Fetcher{
         
         public ULTOSCRequestProxy(){
             builder = new ULTOSCRequest.Builder();
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null; 
         }
 
-        public ULTOSCRequestProxy timePeriod1(final int period){
+        public ULTOSCRequestProxy timePeriod1( int period){
             builder = ((ULTOSCRequest.Builder)builder).timePeriod1(period);
             return this;
         }
 
-        public ULTOSCRequestProxy timePeriod2(final int period){
+        public ULTOSCRequestProxy timePeriod2( int period){
             builder = ((ULTOSCRequest.Builder)builder).timePeriod2(period);
             return this;
         }
         
-        public ULTOSCRequestProxy timePeriod3(final int period){
+        public ULTOSCRequestProxy timePeriod3( int period){
             builder = ((ULTOSCRequest.Builder)builder).timePeriod3(period);
             return this;
         }
@@ -966,16 +926,14 @@ public class Indicator implements Fetcher{
  
         public BBANDSRequestProxy(){
             builder = new BBANDSRequest.Builder(); 
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;   
         }
 
-        public BBANDSRequestProxy nbdevup(final int dev){
+        public BBANDSRequestProxy nbdevup( int dev){
             builder = ((BBANDSRequest.Builder)builder).nbdevup(dev);
             return this;            
         }
 
-        public BBANDSRequestProxy nbdevdn(final int dev){
+        public BBANDSRequestProxy nbdevdn( int dev){
             builder = ((BBANDSRequest.Builder)builder).nbdevdn(dev);
             return this;            
         }
@@ -985,12 +943,12 @@ public class Indicator implements Fetcher{
             return this;            
         }
 
-        public BBANDSRequestProxy timePeriod(final int period){
+        public BBANDSRequestProxy timePeriod( int period){
             builder = ((BBANDSRequest.Builder)builder).timePeriod(period);
             return this;
         }
 
-        public BBANDSRequestProxy seriesType(final SeriesType series){
+        public BBANDSRequestProxy seriesType( SeriesType series){
             builder = ((BBANDSRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -1001,16 +959,14 @@ public class Indicator implements Fetcher{
  
         public SARRequestProxy(){
             builder = new SARRequest.Builder(); 
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;   
         }
 
-        public SARRequestProxy acceleration(final double acceleration){
+        public SARRequestProxy acceleration( double acceleration){
             builder = ((SARRequest.Builder)builder).acceleration(acceleration);
             return this;
         }
 
-        public SARRequestProxy maximum(final double maximum){
+        public SARRequestProxy maximum( double maximum){
             builder = ((SARRequest.Builder)builder).maximum(maximum);
             return this;
         }
@@ -1021,22 +977,18 @@ public class Indicator implements Fetcher{
  
         public ADOSCRequestProxy(){
             builder = new ADOSCRequest.Builder(); 
-            Indicator.this.failureCallback = null;
-            Indicator.this.successCallback = null;  
         }
 
-        public ADOSCRequestProxy fastPeriod(final int period){
+        public ADOSCRequestProxy fastPeriod( int period){
             builder = ((ADOSCRequest.Builder)builder).fastPeriod(period);
             return this;
         }
 
-        public  ADOSCRequestProxy slowPeriod(final int period){
+        public  ADOSCRequestProxy slowPeriod( int period){
             builder = ((ADOSCRequest.Builder)builder).slowPeriod(period);
             return this;
         }
 
     }
-
-    
 
 }
