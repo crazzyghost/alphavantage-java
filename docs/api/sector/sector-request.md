@@ -1,4 +1,4 @@
-[alphavantage](../alphavantage/index.md) / [sector](./index.md) / [request](./request.md) / [SectorRequest](./sectorrequest.md)
+[alphavantage](../alphavantage/index.md) / [sector](./index.md) / [request](./request.md) / [SectorRequest](./sector-request.md)
 
 # SectorRequest
 
@@ -16,7 +16,7 @@ A Sector request
 
 |Name|Summary|
 |----|-------|
-| [SectorRequest](./sectorrequest.md) | `private SectorRequest(SectorRequest.Builder builder)` |
+| [SectorRequest](./sector-request.md) | `private SectorRequest(SectorRequest.Builder builder)` |
 
 
 ### Properties

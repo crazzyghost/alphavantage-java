@@ -1,5 +1,6 @@
 package com.crazzyghost.alphavantage.cryptocurrency.response;
 
+// TODO add date
 public class CryptoUnit {
 
     private double open;

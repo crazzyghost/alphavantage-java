@@ -76,7 +76,7 @@ We're good to go.
 
 #### 2. Selecting a `category`
 
-The available API categories to select from currently are: Stock Time Series, Foreign Exchange(FX), Digital Currencies, Exchange Rates and Technical Indicators. Each of these categories is exposed through a method call in the instantiated wrapper.
+Here, we choose which data category/endpoint we want to access
 
 | Category                  |   Method              |
 | -------------             | ------------------    |
@@ -85,6 +85,7 @@ The available API categories to select from currently are: Stock Time Series, Fo
 | Exchange Rate Data        | `.exchangeRate()`     |
 | Digital Currency Data     | `.crypto()`           |
 | Technical Indicator Data  | `.indicator()`        |
+| Sector Performance Data   | `.sector()`           |
 
 For example, to select the Stock Time Series:
 

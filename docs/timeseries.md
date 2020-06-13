@@ -22,6 +22,9 @@ dataType: DataType.JSON
             .onSuccess(e->onData(e.getStockUnits()))
             .fetch();
 
+**Response Type:**
+`TimeSeriesResponse`
+
 ### Daily
 
 === "Java"
@@ -34,6 +37,9 @@ dataType: DataType.JSON
             .dataType(DataType.JSON)
             .onSuccess(e->onData(e.getStockUnits()))
             .fetch();
+
+**Response Type:**
+`TimeSeriesResponse`
 
 ### Daily Adjusted
 
@@ -49,6 +55,9 @@ dataType: DataType.JSON
             .onSuccess(e->onData(e.getStockUnits()))
             .fetch();
 
+**Response Type:**
+`TimeSeriesResponse`
+
 ### Weekly
 
 === "Java"
@@ -61,6 +70,9 @@ dataType: DataType.JSON
             .dataType(DataType.JSON)
             .onSuccess(e->onData(e.getStockUnits()))
             .fetch();
+
+**Response Type:**
+`TimeSeriesResponse`
 
 ### Weekly Adjusted
 
@@ -76,6 +88,9 @@ dataType: DataType.JSON
             .onSuccess(e->onData(e.getStockUnits()))
             .fetch();
 
+**Response Type:**
+`TimeSeriesResponse`
+
 ### Monthly
 
 === "Java"
@@ -88,6 +103,9 @@ dataType: DataType.JSON
             .dataType(DataType.JSON)
             .onSuccess(e->onData(e.getStockUnits()))
             .fetch();
+
+**Response Type:**
+`TimeSeriesResponse`
 
 ### Monthly Adjusted
 
@@ -103,9 +121,26 @@ dataType: DataType.JSON
             .onSuccess(e->onData(e.getStockUnits()))
             .fetch();
 
-### Response Type
-
+**Response Type:**
 `TimeSeriesResponse`
+
+### Response
+
+=== "Java"
+        :::java
+        public void onData(List<StockUnit> stockUnits){
+           stockUnits.stream().forEach(u -> {
+                System.out.println(u.getHigh());
+                System.out.println(u.getLow());
+                System.out.println(u.getOpen());
+                System.out.println(u.getClose());
+                System.out.println(u.getVolume());
+                System.out.println(u.getAdjustedClose());
+                System.out.println(u.getDividendAmount());
+                System.out.println(u.getSplitCoefficient());
+                System.out.println(u.getDate());
+           })
+        }
 
 ## Quote Endpoint
 
@@ -118,6 +153,22 @@ dataType: DataType.JSON
             .onSuccess(e->onData(e))
             .fetch();
 
-### Response Type
-
+**Response Type:**
 `QuoteResponse`
+
+### Response
+
+=== "Java"
+        :::java
+        public void onData(QuoteResponse reponse){
+            System.out.println(response.getHigh());
+            System.out.println(response.getLow());
+            System.out.println(response.getOpen());
+            System.out.println(response.getClose());
+            System.out.println(response.getVolume());
+            System.out.println(response.getSymbol());
+            System.out.println(response.getLatestTradingDay());
+            System.out.println(response.getPreviousClose());
+            System.out.println(response.getChange());
+            System.out.println(response.getChangePercent());
+        }

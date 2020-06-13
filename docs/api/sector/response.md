@@ -13,6 +13,6 @@
 
 [alphavantage]: ../alphavantage/index.md
 [sector]: ./index.md
-[SectorResponse]: ./sectorresponse.md
-[SectorUnit]: ./sectorunit.md
+[SectorResponse]: ./sector-response.md
+[SectorUnit]: ./sector-unit.md
 [response]: ./response.md

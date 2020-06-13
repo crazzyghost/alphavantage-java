@@ -1,4 +1,4 @@
-[alphavantage](../alphavantage/index.md) / [sector](./index.md) / [response](./response.md) / [SectorUnit](./sectorunit.md)
+[alphavantage](../alphavantage/index.md) / [sector](./index.md) / [response](./response.md) / [SectorUnit](./sector-unit.md)
 
 # SectorUnit
 
@@ -10,7 +10,7 @@ A sector performance data structure
 
 |Name|Summary|
 |----|-------|
-| [SectorUnit](./sectorunit.md) | `public SectorUnit(String informationTechnology ,String consumerDiscretionary, String healthCare, String communicationServices,String realEstate,String utilities,String financials,String materials,String industrials,String consumerStaples,String energy)` |
+| [SectorUnit](./sector-unit.md) | `public SectorUnit(String informationTechnology ,String consumerDiscretionary, String healthCare, String communicationServices,String realEstate,String utilities,String financials,String materials,String industrials,String consumerStaples,String energy)` |
 
 ### Properties
 

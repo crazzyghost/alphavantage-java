@@ -59,6 +59,20 @@ dataType: DataType.JSON
             .onSuccess(e->onData(e.getForexUnits()))
             .fetch();
 
-## Response Type
-
+**Response Type:**
 `ForexResponse`
+
+## Response
+
+=== "Java"
+        :::java
+        public void onData(List<ForexUnit> forexUnits){
+            stockUnits.stream().forEach(u -> {
+                System.out.println(u.getHigh());
+                System.out.println(u.getLow());
+                System.out.println(u.getOpen());
+                System.out.println(u.getClose());
+                System.out.println(u.getDate());
+           })
+        }
+

@@ -11,5 +11,5 @@
 |[SectorRequest]| A sector performance request. `class SectorRequest`|
 
 [sector]: ./index.md
-[SectorRequest]: ./sectorrequest.md
+[SectorRequest]: ./sector-request.md
 [request]: request.md

@@ -1,4 +1,4 @@
-[alphavantage](../alphavantage/index.md) / [sector](./index.md) / [response](./response.md) / [SectorResponse](./sectorresponse.md)
+[alphavantage](../alphavantage/index.md) / [sector](./index.md) / [response](./response.md) / [SectorResponse](./sector-response.md)
 
 # SectorResponse
 
@@ -17,8 +17,8 @@ A Sector response
 
 |Name|Summary|
 |----|-------|
-| [SectorResponse](./sectorresponse.md) | `private SectorResponse(String errorMessage)` |
-| [SectorResponse](./sectorresponse.md) | `private SectorResponse(MetaData metaData, Map<String, SectorUnit> sectorUnits)` |
+| [SectorResponse](./sector-response.md) | `private SectorResponse(String errorMessage)` |
+| [SectorResponse](./sector-response.md) | `private SectorResponse(MetaData metaData, Map<String, SectorUnit> sectorUnits)` |
 
 ### Properties
 
