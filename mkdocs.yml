@@ -8,19 +8,21 @@ copyright: 'Copyright &copy; 2019 S. M. Sefa-Yeboah'
 
 nav:
     - Overview: index.md
-    - "v1.3.1 API":
+    - "v1.4.0 API":
       - alphavantage: api/alphavantage/index.md
       - crypto: api/crypto/index.md
       - exchangerate: api/exchangerate/index.md
       - forex: api/forex/index.md
       - indicator: api/indicator/index.md
       - timeseries: api/timeseries/index.md
+      - sector: api/sector/index.md
     - Recipes: 
       - Stock Time Series: timeseries.md
       - Forex (FX): forex.md
       - CryptoCurrencies: crypto.md
       - Exchange Rates: exchangerate.md
       - Technical Indicators: indicators.md
+      - Sector Performances: sector.md
     - Changelog: changelog.md
 theme:
   name: material

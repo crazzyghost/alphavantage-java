@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.4.0 - 13-06-2020
+
+- New: Support for Sector Performances
+
+## v1.3.2 - 21-05-2020
+
+- Fix: Maven build [issue](https://github.com/crazzyghost/alphavantage-java/issues/6)
+
+## v1.3.1 - 21-05-2020
+
+- Fix: Multiple async requests for enpoint [bug](https://github.com/crazzyghost/alphavantage-java/issues/8)
+
 ## v1.3.0 - 09-05-2020
 
 - New: Support for Quote Endpoint
@@ -38,5 +50,5 @@
 - New: Support for Time Series Data
 - New:Support for Forex Data
 - New:Support for Crypto Currencies
-- New:Support for Exchange Rates 
+- New:Support for Exchange Rates
 - New:Tests for Time Series

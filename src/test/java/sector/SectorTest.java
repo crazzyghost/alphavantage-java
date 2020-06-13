@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
-import com.crazzyghost.alphavantage.sector.SectorResponse;
-import com.crazzyghost.alphavantage.sector.SectorUnit;
+import com.crazzyghost.alphavantage.sector.response.SectorResponse;
+import com.crazzyghost.alphavantage.sector.response.SectorUnit;
 
 import org.junit.Before;
 import org.junit.Test;

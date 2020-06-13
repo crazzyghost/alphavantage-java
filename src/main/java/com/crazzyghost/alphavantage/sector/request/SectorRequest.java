@@ -1,4 +1,4 @@
-package com.crazzyghost.alphavantage.sector;
+package com.crazzyghost.alphavantage.sector.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
@@ -7,11 +7,11 @@ import com.crazzyghost.alphavantage.parameters.Function;
  * @since 1.4.0
  * A Sector request 
  */
-public class SectorRequest {
+public final class SectorRequest {
 
     private Function function;
 
-    SectorRequest(Builder builder){
+    private SectorRequest(Builder builder){
         this.function = builder.function;
     }
 
@@ -23,7 +23,7 @@ public class SectorRequest {
             this.function = Function.SECTOR;
         }
 
-        SectorRequest build(){
+        public SectorRequest build(){
             return new SectorRequest(this);
         }
 

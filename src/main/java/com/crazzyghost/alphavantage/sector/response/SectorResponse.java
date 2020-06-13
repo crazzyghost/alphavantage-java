@@ -1,4 +1,4 @@
-package com.crazzyghost.alphavantage.sector;
+package com.crazzyghost.alphavantage.sector.response;
 
 import java.util.ArrayList;
 import java.util.HashMap;

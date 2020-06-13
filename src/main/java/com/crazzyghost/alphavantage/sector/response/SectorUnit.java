@@ -1,11 +1,11 @@
-package com.crazzyghost.alphavantage.sector;
+package com.crazzyghost.alphavantage.sector.response;
 
 /**
  * @author crazzyghost
  * @since 1.4.0
  * A sector performance data structure
  */
-public class SectorUnit {
+public final class SectorUnit {
 
     private String informationTechnology;
     private String consumerDiscretionary;

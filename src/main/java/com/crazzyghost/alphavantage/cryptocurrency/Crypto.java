@@ -175,7 +175,7 @@ public class Crypto implements Fetcher {
     }
 
     /**
-     * Proxy for building a {@link DailyRequest}
+     * Proxy for building a DailyRequest
      */
     public class DailyRequestProxy extends RequestProxy<DailyRequestProxy>{
         public DailyRequestProxy(){
@@ -192,7 +192,7 @@ public class Crypto implements Fetcher {
     }
 
     /**
-     * Proxy for building a {@link WeeklyRequest}
+     * Proxy for building a WeeklyRequest
      */
     public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy>{
         public WeeklyRequestProxy(){
@@ -208,7 +208,7 @@ public class Crypto implements Fetcher {
     }
 
     /**
-     * Proxy for building a {@link MonthlyRequest}
+     * Proxy for building a MonthlyRequest
      */
     public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy>{
         public MonthlyRequestProxy(){

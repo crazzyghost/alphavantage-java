@@ -7,12 +7,19 @@ import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.parser.Parser;
+import com.crazzyghost.alphavantage.sector.response.SectorResponse;
+import com.crazzyghost.alphavantage.sector.request.SectorRequest;
 
 import okhttp3.Call;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class Sector implements Fetcher {
+/**
+ * Access to Sector Performance Data
+ * @author crazzyghost
+ * @since 1.4.0
+ */
+public final class Sector implements Fetcher {
 
     private Config config;
     private SectorRequest.Builder builder;
@@ -24,12 +31,21 @@ public class Sector implements Fetcher {
         this.builder = new SectorRequest.Builder();
     }
 
-
+    /**
+     * Set the success callback
+     * @param callback successful fetch handler
+     * @return current instance of {@link SectorResponse}
+     */
     public Sector onSuccess(Fetcher.SuccessCallback<SectorResponse> callback){
         this.successCallback = callback;
         return this;
     }
 
+    /**
+     * Set the failure callback
+     * @param callback failed fetch handler
+     * @return current instance of {@link SectorResponse}
+     */
     public Sector onFailure(Fetcher.FailureCallback callback){
         this.failureCallback= callback;
         return this;

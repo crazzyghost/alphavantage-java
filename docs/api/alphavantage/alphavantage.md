@@ -39,3 +39,11 @@ Alphavantage.api().init(config)
 | [forex](#) | Access to Foreign Exchange Data. `public Forex forex()` |
 | [indicator](#) | Access to Technical Indicators. Returns an Indicator instance for access to Technical Indicator Data `public Indicator indicator()` |
 | [timeSeries](#) | Access to Stock Time Series Data.`public TimeSeries timeSeries()` |
+
+[api]: (#)
+[init]: (#)
+[crypto]: (#)
+[exchangeRate]: (#)
+[forex]: (#)
+[indicator]: (#)
+[timeseries]: (#)
