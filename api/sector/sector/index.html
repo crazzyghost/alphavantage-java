@@ -19,7 +19,7 @@
     
     
       
-        <title>Alphavantage - Alphavantage Java</title>
+        <title>Sector - Alphavantage Java</title>
       
     
     
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#alphavantage" class="md-skip">
+        <a href="#sector" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Alphavantage
+              Sector
             
           </span>
         </div>
@@ -227,7 +227,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="alphavantage" class="md-nav__link">
+    <a href="../../alphavantage/" title="alphavantage" class="md-nav__link">
       alphavantage
     </a>
   </li>
@@ -299,7 +299,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../sector/" title="sector" class="md-nav__link">
+    <a href="../" title="sector" class="md-nav__link">
       sector
     </a>
   </li>
@@ -450,36 +450,23 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#initialization" class="md-nav__link">
-    Initialization
-  </a>
-  
-    <nav class="md-nav" aria-label="Initialization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#constructors" class="md-nav__link">
     Constructors
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#properties" class="md-nav__link">
     Properties
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -495,7 +482,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/crazzyghost/alphavantage-java/edit/master/docs/api/alphavantage/alphavantage.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/crazzyghost/alphavantage-java/edit/master/docs/api/sector/sector.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
                   </a>
                 
@@ -503,16 +490,10 @@
                   
                 
                 
-                <p><a href="../">alphavantage</a> / <a href="#">Alphavantage</a></p>
-<h1 id="alphavantage">Alphavantage<a class="headerlink" href="#alphavantage" title="Permanent link">&para;</a></h1>
-<p><code>public class  Alphavantage extends Object</code></p>
-<p>Client interface of library. The API is accessed through this class. Exposes a singleton instance for interaction.</p>
-<h2 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h2>
-<p>This class should only be initialized once by calling <code>init</code>.You will typically call this in your main application class. You cannot create an instance using <code>new</code>.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">Alphavantage</span><span class="p">.</span><span class="na">api</span><span class="p">().</span><span class="na">init</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-</code></pre></div>
-
-
+                <p><a href="../../alphavantage/">alphavantage</a> / <a href="../">sector</a> / <a href="./">Sector</a></p>
+<h1 id="sector">Sector<a class="headerlink" href="#sector" title="Permanent link">&para;</a></h1>
+<p><code>public final class Sector extends Object implements</code><a href="../../alphavantage/fetcher/"><code>Fetcher</code></a></p>
+<p>Access to Sector Performance Data</p>
 <h3 id="constructors">Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -523,8 +504,8 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="#">Alphavantage</a></td>
-<td>private default constructor <code>private Alphavantage()</code></td>
+<td><a href="./">Sector</a></td>
+<td><code>public Sector(Config config)</code></td>
 </tr>
 </tbody>
 </table>
@@ -538,12 +519,20 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="#">INSTANCE</a></td>
-<td><code>private static Alphavantage INSTANCE</code></td>
-</tr>
-<tr>
 <td><a href="#">config</a></td>
 <td><code>private Config config</code></td>
+</tr>
+<tr>
+<td><a href="#">builder</a></td>
+<td><code>private SectorRequest.Builder builder</code></td>
+</tr>
+<tr>
+<td><a href="#">successCallback</a></td>
+<td><code>private Fetcher.SuccessCallback&lt;SectorResponse&gt; successCallback</code></td>
+</tr>
+<tr>
+<td><a href="#">failureCallback</a></td>
+<td><code>private Fetcher.FailureCallback failureCallback</code></td>
 </tr>
 </tbody>
 </table>
@@ -557,32 +546,16 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="#">api</a></td>
-<td>Get a reference to the api. <code>public static Alphavantage api()</code></td>
+<td><a href="#">onSuccess</a></td>
+<td><code>public Sector onSuccess(Fetcher.SuccessCallback&lt;SectorResponse&gt; callback)</code></td>
 </tr>
 <tr>
-<td><a href="#">init</a></td>
-<td>Initialize the library with your configuration. <code>public void init(Config config)</code></td>
+<td><a href="#">onFailure</a></td>
+<td><code>public Sector onFailure(Fetcher.FailureCallback callback)</code></td>
 </tr>
 <tr>
-<td><a href="#">crypto</a></td>
-<td>Access to Digital Currencies. Returns a Crypto Instace for acces to Digital Currency data. <code>public Crypto crypto()</code></td>
-</tr>
-<tr>
-<td><a href="#">exchangeRate</a></td>
-<td>Access to Exchnage Rates Data. <code>public ExchangeRate exhcangeRate()</code></td>
-</tr>
-<tr>
-<td><a href="#">forex</a></td>
-<td>Access to Foreign Exchange Data. <code>public Forex forex()</code></td>
-</tr>
-<tr>
-<td><a href="#">indicator</a></td>
-<td>Access to Technical Indicators. Returns an Indicator instance for access to Technical Indicator Data <code>public Indicator indicator()</code></td>
-</tr>
-<tr>
-<td><a href="#">timeSeries</a></td>
-<td>Access to Stock Time Series Data.<code>public TimeSeries timeSeries()</code></td>
+<td><a href="#">fetch</a></td>
+<td><code>public void fetch()</code></td>
 </tr>
 </tbody>
 </table>

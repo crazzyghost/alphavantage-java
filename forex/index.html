@@ -206,17 +206,17 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
     
     <label class="md-nav__link" for="nav-2">
-      v1.3.1 API
+      v1.4.0 API
       <span class="md-nav__icon md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
       </span>
     </label>
-    <nav class="md-nav" aria-label="v1.3.1 API" data-md-level="1">
+    <nav class="md-nav" aria-label="v1.4.0 API" data-md-level="1">
       <label class="md-nav__title" for="nav-2">
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
         </span>
-        v1.3.1 API
+        v1.4.0 API
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -289,6 +289,18 @@
   <li class="md-nav__item">
     <a href="../api/timeseries/" title="timeseries" class="md-nav__link">
       timeseries
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/sector/" title="sector" class="md-nav__link">
+      sector
     </a>
   </li>
 
@@ -409,8 +421,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#response-type" class="md-nav__link">
-    Response Type
+  <a href="#response" class="md-nav__link">
+    Response
   </a>
   
 </li>
@@ -454,6 +466,18 @@
   <li class="md-nav__item">
     <a href="../indicators/" title="Technical Indicators" class="md-nav__link">
       Technical Indicators
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sector/" title="Sector Performances" class="md-nav__link">
+      Sector Performances
     </a>
   </li>
 
@@ -534,8 +558,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#response-type" class="md-nav__link">
-    Response Type
+  <a href="#response" class="md-nav__link">
+    Response
   </a>
   
 </li>
@@ -630,8 +654,24 @@ dataType: DataType.JSON
 
 </div>
 </div>
-<h2 id="response-type">Response Type<a class="headerlink" href="#response-type" title="Permanent link">&para;</a></h2>
-<p><code>ForexResponse</code></p>
+<p><strong>Response Type:</strong>
+<code>ForexResponse</code></p>
+<h2 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">Java</label><div class="tabbed-content">
+<div class="codehilite"><pre><span></span><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onData</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">ForexUnit</span><span class="o">&gt;</span> <span class="n">forexUnits</span><span class="p">){</span>
+    <span class="n">stockUnits</span><span class="p">.</span><span class="na">stream</span><span class="p">().</span><span class="na">forEach</span><span class="p">(</span><span class="n">u</span> <span class="o">-&gt;</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="na">getHigh</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="na">getLow</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="na">getOpen</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="na">getClose</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="na">getDate</span><span class="p">());</span>
+   <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+</div>
+</div>
                 
               
               
@@ -703,7 +743,7 @@ dataType: DataType.JSON
     </div>
     
       <script src="../assets/javascripts/vendor.f45d2d8d.min.js"></script>
-      <script src="../assets/javascripts/bundle.74d0b805.min.js"></script><script id="__lang" type="application/json">{"search.result.one": "1 matching document", "clipboard.copied": "Copied to clipboard", "search.result.other": "# matching documents", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.config.lang": "en", "clipboard.copy": "Copy to clipboard", "search.config.separator": "[\\s\\-]+"}</script>
+      <script src="../assets/javascripts/bundle.74d0b805.min.js"></script><script id="__lang" type="application/json">{"search.config.separator": "[\\s\\-]+", "clipboard.copied": "Copied to clipboard", "search.result.none": "No matching documents", "search.result.placeholder": "Type to start searching", "search.result.one": "1 matching document", "search.config.lang": "en", "search.result.other": "# matching documents", "search.config.pipeline": "trimmer, stopWordFilter", "clipboard.copy": "Copy to clipboard"}</script>
       
       <script>
         app = initialize({
