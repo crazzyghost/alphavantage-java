@@ -79,6 +79,28 @@ public class TimeSeries implements Fetcher{
     }
 
     /**
+     * Make a blocking synchronous http request to fetch the data.
+     * This will be called by the {@link RequestProxy#fetchSync()}. 
+     * You will have to handle it on a separate thread to avoid ui or program hang
+     * Prefer using the async fetch implementation through the {@link RequestProxy#fetch()}
+     * @since 1.4.1
+     * @param successCallback internally used {@link SuccessCallback}
+     * @throws AlphaVantageException exception thrown
+     */
+    private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
+
+        Config.checkNotNullOrKeyEmpty(config);
+        
+        this.successCallback = successCallback;
+        okhttp3.OkHttpClient client = config.getOkHttpClient();
+        try(Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()){
+            parseResponse(Parser.parseJSON(response.body().string()));
+        }catch(IOException e){
+            throw new AlphaVantageException(e.getMessage());
+        }        
+    }
+
+    /**
      * Fetch Stock Time Series data
      */
     @Override
@@ -89,13 +111,11 @@ public class TimeSeries implements Fetcher{
         config.getOkHttpClient().newCall(UrlExtractor.extract(builder.build(), config.getKey())).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException(e.getMessage()));
-                
+                if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException(e.getMessage()));   
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
                 if(response.isSuccessful()){
                     try(ResponseBody body = response.body()){
                         parseResponse(Parser.parseJSON(body.string()));
@@ -171,59 +191,113 @@ public class TimeSeries implements Fetcher{
      * An abstract proxy for building requests. Adds the functionality of adding callbacks and a terminal method for 
      * fetching data.
      * @param <T> A Concrete {@link RequestProxy} Implementation
+     * @param <U> A Response Type to return during a synchronous call
      */
     @SuppressWarnings("unchecked")
-    public abstract class RequestProxy<T extends RequestProxy<?>> {
+    public abstract class RequestProxy<T extends RequestProxy<?, U>, U> {
 
         protected TimeSeriesRequest.Builder<?> builder;
+        protected U syncResponse;
 
         private RequestProxy(){
-            TimeSeries.this.failureCallback = null;
-            TimeSeries.this.successCallback = null;
         }
 
+        /**
+         * Set the symbol for the request
+         * @param symbol
+         * @return
+         */
         public T forSymbol(String symbol){
             this.builder.forSymbol(symbol);
             return (T)this;
         }
 
+        /**
+         * Set the dataType for the request
+         * @param type the datatype {@link DataType}
+         * @return 
+         */
         public T dataType(DataType type){
             this.builder.dataType(type);
             return (T)this;
         }
 
-        public void fetch() {
-            TimeSeries.this.builder = this.builder;
-            TimeSeries.this.fetch();
-        }
-
+        /**
+         * Set the success callback during an async call
+         * @param callback
+         * @return
+         */
         public T onSuccess(SuccessCallback<?> callback) {
             TimeSeries.this.successCallback = callback;
             return (T)this;
         }
 
+        /**
+         * Set the failure callback during an async call
+         * @param callback
+         * @return
+         */
         public T onFailure(FailureCallback callback) {
             TimeSeries.this.failureCallback = callback;
             return (T)this;
         }
+
+        /**
+         * Set the right builder and make an async http request using the {@link TimeSeries#fetch()}
+         */
+        public void fetch() {
+            TimeSeries.this.builder = this.builder;
+            TimeSeries.this.fetch();
+        }
+        
+        /**
+         * Set the reponse during a synchronous call
+         * @param response
+         */
+        public void setSyncResponse(U response) {
+            this.syncResponse = response;
+        }
+
+
+        /**
+         * Set the right builder and make a synchronous request using {@link TimeSeries#fetch()}
+         * @return The api response
+         * @throws AlphaVantageException
+         */
+        public U fetchSync() throws AlphaVantageException {
+            SuccessCallback<U> callback = (e) -> setSyncResponse(e);
+            TimeSeries.this.builder = this.builder;
+            TimeSeries.this.fetchSync(callback);
+            return this.syncResponse;            
+        }
+
     }
 
 
     /**
      * Proxy for building a {@link DailyRequest}
      */
-    public class DailyRequestProxy extends RequestProxy<DailyRequestProxy>{
+    public class DailyRequestProxy extends RequestProxy<DailyRequestProxy, TimeSeriesResponse>{
 
         DailyRequestProxy() {
             super();
             this.builder = new DailyRequest.Builder();
         }
 
+        /**
+         * Set the output size of the request
+         * @param size {@link OutputSize}
+         * @return
+         */
         public DailyRequestProxy outputSize(OutputSize size){
             ((DailyRequest.Builder)this.builder).outputSize(size);
             return this;
         }
 
+        /**
+         * Set the time series function to adjusted
+         * @return 
+         */
         public DailyRequestProxy adjusted(){
             TimeSeries.this.adjusted = true;
             ((DailyRequest.Builder)this.builder).adjusted();
@@ -235,18 +309,28 @@ public class TimeSeries implements Fetcher{
     /**
      * Proxy for building an {@link IntraDayRequest}
      */
-    public class IntraDayRequestProxy extends RequestProxy<IntraDayRequestProxy>{
+    public class IntraDayRequestProxy extends RequestProxy<IntraDayRequestProxy, TimeSeriesResponse>{
 
         IntraDayRequestProxy() {
             super();
             this.builder = new IntraDayRequest.Builder();
         }
 
+        /**
+         * Set the output size of the request
+         * @param size {@link OutputSize}
+         * @return
+         */
         public IntraDayRequestProxy outputSize(OutputSize size){
             ((IntraDayRequest.Builder)this.builder).outputSize(size);
             return this;
         }
 
+        /**
+         * Set the interval of the request
+         * @param interval {@link Interval}
+         * @return
+         */
         public IntraDayRequestProxy interval(Interval interval){
             ((IntraDayRequest.Builder)this.builder).interval(interval);
             return this;
@@ -256,13 +340,16 @@ public class TimeSeries implements Fetcher{
     /**
      * Proxy for building a {@link WeeklyRequest}
      */
-    public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy>{
+    public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy, TimeSeriesResponse>{
 
         WeeklyRequestProxy(){
             super();
             this.builder = new WeeklyRequest.Builder();
         }
-
+        /**
+         * Set the request function to adjusted
+         * @return 
+         */
         public WeeklyRequestProxy adjusted(){
             TimeSeries.this.adjusted = true;
             ((WeeklyRequest.Builder)this.builder).adjusted();
@@ -273,13 +360,17 @@ public class TimeSeries implements Fetcher{
     /**
      * Proxy for building a {@link MonthlyRequest}
      */
-    public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy>{
+    public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy, TimeSeriesResponse>{
 
         MonthlyRequestProxy(){
             super();
             this.builder = new MonthlyRequest.Builder();
         }
 
+        /**
+         * Set the request function to adjusted
+         * @return 
+         */
         public MonthlyRequestProxy adjusted(){
             TimeSeries.this.adjusted = true;
             ((MonthlyRequest.Builder)this.builder).adjusted();
@@ -290,12 +381,13 @@ public class TimeSeries implements Fetcher{
     /**
      * Proxy for building a {@link QuoteRequest}
      */
-    public class GlobalQuoteRequestProxy extends RequestProxy<GlobalQuoteRequestProxy>{
-
+    public class GlobalQuoteRequestProxy extends RequestProxy<GlobalQuoteRequestProxy , QuoteResponse>{
+        
         GlobalQuoteRequestProxy(){
             super();
             this.builder = new QuoteRequest.Builder();
         }
+        
     }
 
 }
