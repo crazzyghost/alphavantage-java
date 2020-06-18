@@ -79,28 +79,6 @@ public class TimeSeries implements Fetcher{
     }
 
     /**
-     * Make a blocking synchronous http request to fetch the data.
-     * This will be called by the {@link RequestProxy#fetchSync()}. 
-     * You will have to handle it on a separate thread to avoid ui or program hang
-     * Prefer using the async fetch implementation through the {@link RequestProxy#fetch()}
-     * @since 1.4.1
-     * @param successCallback internally used {@link SuccessCallback}
-     * @throws AlphaVantageException exception thrown
-     */
-    private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
-
-        Config.checkNotNullOrKeyEmpty(config);
-        
-        this.successCallback = successCallback;
-        okhttp3.OkHttpClient client = config.getOkHttpClient();
-        try(Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()){
-            parseResponse(Parser.parseJSON(response.body().string()));
-        }catch(IOException e){
-            throw new AlphaVantageException(e.getMessage());
-        }        
-    }
-
-    /**
      * Fetch Stock Time Series data
      */
     @Override
@@ -127,7 +105,38 @@ public class TimeSeries implements Fetcher{
         });
     }
 
-     /**
+    /**
+     * Make a blocking synchronous http request to fetch the data.
+     * This will be called by the {@link RequestProxy#fetchSync()}. 
+     * <p>
+     * On Android this will throw NetworkOnMainThreadException. In that case you should handle this on
+     * another thread
+     * </p>
+     * <p>
+     * Prefer using the async fetch implementation through the {@link RequestProxy#fetch()}
+     * </p>
+     * 
+     * <p>Using this method will overwrite any async callback</p>
+     * @since 1.4.1
+     * @param successCallback internally used {@link SuccessCallback}
+     * @throws AlphaVantageException exception thrown
+     */
+    private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
+
+        Config.checkNotNullOrKeyEmpty(config);
+        
+        this.successCallback = successCallback;
+        this.failureCallback = null;
+        okhttp3.OkHttpClient client = config.getOkHttpClient();
+        try(Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()){
+            parseResponse(Parser.parseJSON(response.body().string()));
+        }catch(IOException e){
+            throw new AlphaVantageException(e.getMessage());
+        }        
+    }
+
+
+    /**
      * parse {@link TimeSeriesResponse}
      * @param data parsed JSON data
      */
@@ -261,6 +270,7 @@ public class TimeSeries implements Fetcher{
 
         /**
          * Set the right builder and make a synchronous request using {@link TimeSeries#fetch()}
+         * <p>When calling this method, any async callbacks will be overwritten</p>
          * @return The api response
          * @throws AlphaVantageException
          */

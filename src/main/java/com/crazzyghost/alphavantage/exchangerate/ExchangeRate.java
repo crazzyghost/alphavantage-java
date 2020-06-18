@@ -57,6 +57,34 @@ public class ExchangeRate implements Fetcher {
         return this;
     }
 
+
+    /**
+     * Make a blocking synchronous http request to fetch the data.
+     * <p>
+     * On Android this will throw NetworkOnMainThreadException. In that case you should handle this on
+     * another thread
+     * </p>
+     * <p> Prefer using the async fetch implementation</p>
+     * 
+     * <p>Using this method will overwrite any async callback</p>
+     * @since 1.4.1
+     * @throws AlphaVantageException exception thrown
+     */
+    public ExchangeRateResponse fetchSync() throws AlphaVantageException {
+        
+        Config.checkNotNullOrKeyEmpty(config);
+        
+        this.successCallback = null;
+        this.failureCallback = null;
+        okhttp3.OkHttpClient client = config.getOkHttpClient();
+        try(Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()){
+            return ExchangeRateResponse.of(Parser.parseJSON(response.body().string()));
+        }catch(IOException e){
+            throw new AlphaVantageException(e.getMessage());
+        }        
+
+    }
+
     @Override
     public void fetch() {
 

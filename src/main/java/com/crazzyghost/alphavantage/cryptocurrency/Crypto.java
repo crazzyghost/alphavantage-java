@@ -96,6 +96,37 @@ public class Crypto implements Fetcher {
     }
 
     /**
+     * Make a blocking synchronous http request to fetch the data.
+     * This will be called by the {@link RequestProxy#fetchSync()}. 
+     * <p>
+     * On Android this will throw NetworkOnMainThreadException. In that case you should handle this on
+     * another thread
+     * </p>
+     * <p>
+     * Prefer using the async fetch implementation through the {@link RequestProxy#fetch()}
+     * </p>
+     * 
+     * <p>Using this method will overwrite any async callback</p>
+     * @since 1.4.1
+     * @param successCallback internally used {@link SuccessCallback}
+     * @throws AlphaVantageException exception thrown
+     */
+    private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
+
+        Config.checkNotNullOrKeyEmpty(config);
+        
+        this.successCallback = successCallback;
+        this.failureCallback = null;
+        okhttp3.OkHttpClient client = config.getOkHttpClient();
+        try(Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()){
+            parseCryptoResponse(Parser.parseJSON(response.body().string()));
+        }catch(IOException e){
+            throw new AlphaVantageException(e.getMessage());
+        }        
+    }
+
+
+    /**
      * parse a JSON response to a {@link CryptoResponse} or {@link RatingResponse} object
      * @param data parsed JSON response
      */
@@ -140,15 +171,16 @@ public class Crypto implements Fetcher {
 
 
 
-     /**
+    /**
      * An abstract proxy for building requests. Adds the functionality of adding callbacks and a terminal method for 
      * fetching data.
      * @param <T> A Concrete {@link RequestProxy} Implementation
      */
     @SuppressWarnings("unchecked")
-    public abstract class RequestProxy<T extends RequestProxy<?>> {
+    public abstract class RequestProxy<T extends RequestProxy<?, U>, U> {
 
         protected CryptoRequest.Builder<?> builder;
+        protected U syncResponse;
 
         private RequestProxy(){
         }
@@ -172,12 +204,35 @@ public class Crypto implements Fetcher {
             Crypto.this.builder = this.builder;
             Crypto.this.fetch();
         }
+
+        /**
+         * Set the reponse during a synchronous call
+         * @param response
+         */
+        public void setSyncResponse(U response) {
+            this.syncResponse = response;
+        }
+
+
+        /**
+         * Set the right builder and make a synchronous request using {@link Crypto#fetch()}
+         * <p>When calling this method, any async callbacks will be overwritten</p>
+         * @return The api response
+         * @throws AlphaVantageException
+         */
+        public U fetchSync() throws AlphaVantageException {
+            SuccessCallback<U> callback = (e) -> setSyncResponse(e);
+            Crypto.this.builder = this.builder;
+            Crypto.this.fetchSync(callback);
+            return this.syncResponse;            
+        }
+
     }
 
     /**
      * Proxy for building a DailyRequest
      */
-    public class DailyRequestProxy extends RequestProxy<DailyRequestProxy>{
+    public class DailyRequestProxy extends RequestProxy<DailyRequestProxy, CryptoResponse> {
         public DailyRequestProxy(){
             super();
             builder = new DigitalCurrencyRequest.Builder();
@@ -194,7 +249,7 @@ public class Crypto implements Fetcher {
     /**
      * Proxy for building a WeeklyRequest
      */
-    public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy>{
+    public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy, CryptoResponse> {
         public WeeklyRequestProxy(){
             builder = new DigitalCurrencyRequest.Builder();
             builder = builder.function(Function.DIGITAL_CURRENCY_WEEKLY);
@@ -210,7 +265,7 @@ public class Crypto implements Fetcher {
     /**
      * Proxy for building a MonthlyRequest
      */
-    public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy>{
+    public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy, CryptoResponse> {
         public MonthlyRequestProxy(){
             builder = new DigitalCurrencyRequest.Builder();
             builder = builder.function(Function.DIGITAL_CURRENCY_MONTHLY);
@@ -226,7 +281,7 @@ public class Crypto implements Fetcher {
     /**
      * Proxy for building a {@link RatingRequest}
      */
-    public class RatingRequestProxy extends RequestProxy<RatingRequestProxy> {
+    public class RatingRequestProxy extends RequestProxy<RatingRequestProxy, RatingResponse> {
         public  RatingRequestProxy(){
             builder = new RatingRequest.Builder();
         }
