@@ -1,12 +1,15 @@
 package sector;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static util.TestUtils.errorMessage;
+import static util.TestUtils.sectorUrl;
+import static util.TestUtils.stream;
+
 import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
 import com.crazzyghost.alphavantage.AlphaVantage;
-import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.sector.Sector;
 import com.crazzyghost.alphavantage.sector.response.SectorResponse;
@@ -21,12 +24,6 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.mock.Behavior;
 import okhttp3.mock.MockInterceptor;
 import util.TestUtils;
-import static util.TestUtils.stream;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static util.TestUtils.errorMessage;
-import static util.TestUtils.sectorUrl;
 
 public class SectorSyncTest {
     
