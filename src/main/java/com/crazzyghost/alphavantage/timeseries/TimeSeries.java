@@ -112,9 +112,6 @@ public class TimeSeries implements Fetcher{
      * On Android this will throw NetworkOnMainThreadException. In that case you should handle this on
      * another thread
      * </p>
-     * <p>
-     * Prefer using the async fetch implementation through the {@link RequestProxy#fetch()}
-     * </p>
      * 
      * <p>Using this method will overwrite any async callback</p>
      * @since 1.4.1

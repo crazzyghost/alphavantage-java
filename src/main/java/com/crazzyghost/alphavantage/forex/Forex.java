@@ -95,6 +95,34 @@ public class Forex implements Fetcher{
         });
     }
 
+    /**
+     * Make a blocking synchronous http request to fetch the data.
+     * This will be called by the {@link RequestProxy#fetchSync()}. 
+     * <p>
+     * On Android this will throw NetworkOnMainThreadException. In that case you should handle this on
+     * another thread
+     * </p>
+     * 
+     * <p>Using this method will overwrite any async callback</p>
+     * @since 1.4.1
+     * @param successCallback internally used {@link SuccessCallback}
+     * @throws AlphaVantageException exception thrown
+     */
+    private void fetchSync(SuccessCallback<ForexResponse> successCallback) throws AlphaVantageException {
+
+        Config.checkNotNullOrKeyEmpty(config);
+        
+        this.successCallback = successCallback;
+        this.failureCallback = null;
+        okhttp3.OkHttpClient client = config.getOkHttpClient();
+        try(Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()){
+            ForexResponse forexResponse = ForexResponse.of(Parser.parseJSON(response.body().string()));
+            this.successCallback.onSuccess(forexResponse);
+        }catch(IOException e){
+            throw new AlphaVantageException(e.getMessage());
+        }        
+    }
+
 
     /**
      * An abstract proxy for building requests. Adds the functionality of adding callbacks and a terminal method for 
@@ -105,6 +133,7 @@ public class Forex implements Fetcher{
     public abstract class RequestProxy<T extends RequestProxy<?>> {
 
         protected ForexRequest.Builder<?> builder;
+        protected ForexResponse syncResponse;
 
         private RequestProxy(){
             Forex.this.successCallback = null;
@@ -141,6 +170,28 @@ public class Forex implements Fetcher{
         public void fetch() {
             Forex.this.builder = this.builder;
             Forex.this.fetch();
+        }
+
+        /**
+         * Set the reponse during a synchronous call
+         * @param response
+         */
+        public void setSyncResponse(ForexResponse response) {
+            this.syncResponse = response;
+        }
+
+
+        /**
+         * Set the right builder and make a synchronous request using {@link Forex#fetch()}
+         * <p>When calling this method, any async callbacks will be overwritten</p>
+         * @return The api response
+         * @throws AlphaVantageException
+         */
+        public ForexResponse fetchSync() throws AlphaVantageException {
+            SuccessCallback<ForexResponse> callback = (e) -> setSyncResponse(e);
+            Forex.this.builder = this.builder;
+            Forex.this.fetchSync(callback);
+            return this.syncResponse;            
         }
 
     }
