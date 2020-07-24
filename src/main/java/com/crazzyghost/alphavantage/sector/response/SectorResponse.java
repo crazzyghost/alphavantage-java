@@ -31,7 +31,7 @@ public final class SectorResponse {
         Parser<SectorResponse> parser = new SectorParser();
         return parser.parse(stringObjectMap);
     }
-    
+
     public String getErrorMessage() {
         return errorMessage;
     }
@@ -80,7 +80,7 @@ public final class SectorResponse {
         return sectorUnits.getOrDefault("Rank J: 10 Year Performance", null);
     }
 
-    
+
 
     public static class SectorParser extends Parser<SectorResponse> {
 
@@ -89,41 +89,46 @@ public final class SectorResponse {
         public SectorResponse parse(Map<String, Object> stringObjectMap) {
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
 
-            try{
-                Map<String, String> metaDataMap = (Map<String, String>)stringObjectMap.get(keys.get(0));
-            
-                MetaData metaData = new MetaData(
-                    String.valueOf(metaDataMap.get("Information")),
-                    String.valueOf(metaDataMap.get("Last Refreshed"))
-                );
+            if (keys.isEmpty()) {
+                return onParseError("Empty JSON returned by the API.");
+            } else {
 
-                keys.remove(0);
+                try {
+                    Map<String, String> metaDataMap = (Map<String, String>) stringObjectMap.get(keys.get(0));
 
-                Map<String, SectorUnit> sectorUnits = new HashMap<>();
-                for(String sectorDescription: keys){
-                    Map<String, String> sectorData = (Map<String, String>)stringObjectMap.get(sectorDescription);
-                    SectorUnit sectorUnit = new SectorUnit(
-                        sectorData.get("Information Technology"), 
-                        sectorData.get("Consumer Discretionary"), 
-                        sectorData.get("Health Care"), 
-                        sectorData.get("Communication Services"), 
-                        sectorData.get("Real Estate"), 
-                        sectorData.get("Utilities"), 
-                        sectorData.get("Financials"), 
-                        sectorData.get("Materials"), 
-                        sectorData.get("Industrials"), 
-                        sectorData.get("Consumer Staples"), 
-                        sectorData.get("Energy")
+                    MetaData metaData = new MetaData(
+                            String.valueOf(metaDataMap.get("Information")),
+                            String.valueOf(metaDataMap.get("Last Refreshed"))
                     );
-                    sectorUnits.put(sectorDescription, sectorUnit);
+
+                    keys.remove(0);
+
+                    Map<String, SectorUnit> sectorUnits = new HashMap<>();
+                    for (String sectorDescription : keys) {
+                        Map<String, String> sectorData = (Map<String, String>) stringObjectMap.get(sectorDescription);
+                        SectorUnit sectorUnit = new SectorUnit(
+                                sectorData.get("Information Technology"),
+                                sectorData.get("Consumer Discretionary"),
+                                sectorData.get("Health Care"),
+                                sectorData.get("Communication Services"),
+                                sectorData.get("Real Estate"),
+                                sectorData.get("Utilities"),
+                                sectorData.get("Financials"),
+                                sectorData.get("Materials"),
+                                sectorData.get("Industrials"),
+                                sectorData.get("Consumer Staples"),
+                                sectorData.get("Energy")
+                        );
+                        sectorUnits.put(sectorDescription, sectorUnit);
+                    }
+
+                    return new SectorResponse(metaData, sectorUnits);
+
+                } catch (ClassCastException e) {
+                    return onParseError(stringObjectMap.get(keys.get(0)).toString());
                 }
-
-                return new SectorResponse(metaData, sectorUnits);
-
-            }catch(ClassCastException e){
-                return onParseError(stringObjectMap.get(keys.get(0)).toString());
             }
-            
+
         }
 
         @Override
@@ -132,7 +137,7 @@ public final class SectorResponse {
         }
 
     }
-    
+
     public static final class MetaData {
 
         private String information;
@@ -142,7 +147,7 @@ public final class SectorResponse {
             this.information = information;
             this.lastRefreshed = lastRefreshed;
         }
-        
+
         public String getInformation() {
             return information;
         }

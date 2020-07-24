@@ -19,9 +19,10 @@ public class RatingResponseTest {
     }
 
     @Test
-    public void testRatingResponseError() throws IOException {
+    public void testEmptyRatingResponseError() throws IOException {
         RatingResponse response = RatingResponse.of(empty());
         assertNotNull(response.getErrorMessage());
+        System.out.println(response.toString());
         assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
     }
 }

@@ -57,23 +57,25 @@ public class RatingResponse {
         @Override
         public RatingResponse parse(Map<String, Object> stringObjectMap){
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-            try{
-                Map<String, String> md = (Map<String, String>) stringObjectMap.get(keys.get(0));
-                String symbol = md.get("1. symbol");
-                String name = md.get("2. name");
-                String fcasRating = md.get("3. fcas rating");
-                String fcasScore = md.get("4. fcas score");
-                String developerScore = md.get("5. developer score");
-                String marketMaturityScore = md.get("6. market maturity score");
-                String utilityScore = md.get("7. utility score");
-                String lastRefreshed = md.get("8. last refreshed");
-                String timeZone = md.get("9. timezone");
-                return new RatingResponse(symbol, name, fcasRating, fcasScore, developerScore, marketMaturityScore, utilityScore, lastRefreshed, timeZone);
+            if (keys.isEmpty()) {
+                return onParseError("Empty JSON returned by the API.");
+            } else {
+                try{
+                    Map<String, String> md = (Map<String, String>) stringObjectMap.get(keys.get(0));
+                    String symbol = md.get("1. symbol");
+                    String name = md.get("2. name");
+                    String fcasRating = md.get("3. fcas rating");
+                    String fcasScore = md.get("4. fcas score");
+                    String developerScore = md.get("5. developer score");
+                    String marketMaturityScore = md.get("6. market maturity score");
+                    String utilityScore = md.get("7. utility score");
+                    String lastRefreshed = md.get("8. last refreshed");
+                    String timeZone = md.get("9. timezone");
+                    return new RatingResponse(symbol, name, fcasRating, fcasScore, developerScore, marketMaturityScore, utilityScore, lastRefreshed, timeZone);
 
-            }catch (ClassCastException e){
-                return onParseError(stringObjectMap.get(keys.get(0)).toString());
-            }catch (IndexOutOfBoundsException e){
-                return onParseError(stringObjectMap.toString());
+                }catch (ClassCastException e){
+                    return onParseError(stringObjectMap.get(keys.get(0)).toString());
+                }
             }
         }
 
