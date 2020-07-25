@@ -20,15 +20,14 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.mock.Behavior;
 import okhttp3.mock.MockInterceptor;
 import util.TestUtils;
-import static util.TestUtils.stream;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static util.TestUtils.errorMessage;
-import static util.TestUtils.sectorUrl;
+import static util.TestUtils.*;
 
 public class SectorTest {
-    
+
     MockInterceptor mockInterceptor = new MockInterceptor(Behavior.UNORDERED);
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     Config config;
@@ -36,7 +35,7 @@ public class SectorTest {
     @Before
     public void setUp() throws IOException {
         TestUtils.forDirectory("sector");
-        
+
         loggingInterceptor.level(Level.BASIC);
         OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(4, TimeUnit.SECONDS)
@@ -49,16 +48,16 @@ public class SectorTest {
             .key("demo")
             .httpClient(client)
             .build();
-        
+
         AlphaVantage.api().init(config);
 
     }
 
     @Test
     public void testSector() throws Exception{
-        
+
         mockInterceptor.addRule().get(sectorUrl()).respond(stream("data"));
-        
+
         CountDownLatch lock = new CountDownLatch(1);
         AtomicReference<SectorResponse> ref = new AtomicReference<>();
 
@@ -78,7 +77,7 @@ public class SectorTest {
         assertNotNull(response.getMetaData().getLastRefreshed());
         assertNotNull(response.getMetaData().toString());
         assertNotNull(response.toString());
-        
+
         SectorUnit realtime = response.getRealTimePerformance();
         assertEquals(realtime.getEnergy(), "7.46%");
         assertEquals(realtime.getFinancials(), "3.87%");
@@ -92,7 +91,7 @@ public class SectorTest {
         assertEquals(realtime.getConsumerStaples(), "1.45%");
         assertEquals(realtime.getUtilities(), "1.36%");
         assertNotNull(realtime.toString());
-        
+
         SectorUnit oneDay = response.getOneDayPerformance();
         assertEquals(oneDay.getEnergy(), "7.46%");
         assertEquals(oneDay.getFinancials(), "3.87%");
@@ -170,7 +169,7 @@ public class SectorTest {
         assertEquals(oneYear.getHealthCare(), "16.92%");
         assertEquals(oneYear.getConsumerStaples(), "6.06%");
         assertEquals(oneYear.getUtilities(), "4.06%");
-        
+
         SectorUnit threeYear = response.getThreeYearPerformance();
         assertEquals(threeYear.getEnergy(), "-29.40%");
         assertEquals(threeYear.getFinancials(), "11.90%");
@@ -211,7 +210,7 @@ public class SectorTest {
         assertEquals(tenYear.getUtilities(), "118.13%");
     }
 
- 
+
     @Test
     public void testSectorFailure() throws InterruptedException{
         mockInterceptor.addRule().get(sectorUrl()).respond(errorMessage).code(400);
@@ -254,6 +253,20 @@ public class SectorTest {
             .sector()
             .onFailure(e ->lock.countDown())
             .fetch();
+        lock.await();
+        assertNull(ref.get());
+    }
+
+    @Test
+    public void testEmptySectorErrorWithCallback() throws InterruptedException{
+        mockInterceptor.addRule().get(sectorUrl()).respond(emptyMessage);
+        CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<SectorResponse> ref = new AtomicReference<>();
+
+        AlphaVantage.api()
+                .sector()
+                .onSuccess(e ->lock.countDown())
+                .fetch();
         lock.await();
         assertNull(ref.get());
     }

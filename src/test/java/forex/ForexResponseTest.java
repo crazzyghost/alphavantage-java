@@ -5,8 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static util.TestUtils.json;
-import static util.TestUtils.error;
+import static util.TestUtils.*;
 
 import java.io.IOException;
 
@@ -18,8 +17,8 @@ import org.junit.Test;
 import util.TestUtils;
 
 public class ForexResponseTest {
-    
-    @Before 
+
+    @Before
     public void setUp(){
         TestUtils.forDirectory("forex");
     }
@@ -39,10 +38,17 @@ public class ForexResponseTest {
         assertNotEquals(response.getMetaData().getToSymbol(), "");
 
     }
-    
+
     @Test
     public void testForexResponseError() throws IOException {
         ForexResponse response = ForexResponse.of(error());
+        assertNotNull(response.getErrorMessage());
+        assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
+    }
+
+    @Test
+    public void testEmptyForexResponseError() throws IOException {
+        ForexResponse response = ForexResponse.of(empty());
         assertNotNull(response.getErrorMessage());
         assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
     }

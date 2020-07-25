@@ -98,28 +98,32 @@ public class ExchangeRateResponse {
         @Override
         public ExchangeRateResponse parse(Map<String, Object> stringObjectMap) {
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-            Map<String, String> data;
-            try{
-                data = (Map<String, String>) stringObjectMap.get(keys.get(0));
-            }catch (ClassCastException e){
-                return onParseError((String)stringObjectMap.get(keys.get(0)));
+            if (keys.isEmpty()) {
+                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+            } else {
+
+                Map<String, String> data;
+                try {
+                    data = (Map<String, String>) stringObjectMap.get(keys.get(0));
+                } catch (ClassCastException e) {
+                    return onParseError((String) stringObjectMap.get(keys.get(0)));
+                }
+
+                Double bidPrice = data.get("8. Bid Price").equals("-") ? null : Double.parseDouble(data.get("8. Bid Price"));
+                Double askPrice = data.get("9. Ask Price").equals("-") ? null : Double.parseDouble(data.get("9. Ask Price"));
+
+                return new ExchangeRateResponse(
+                        data.get("1. From_Currency Code"),
+                        data.get("2. From_Currency Name"),
+                        data.get("3. To_Currency Code"),
+                        data.get("4. To_Currency Name"),
+                        Double.parseDouble(data.get("5. Exchange Rate")),
+                        data.get("6. Last Refreshed"),
+                        data.get("7. Time Zone"),
+                        bidPrice,
+                        askPrice
+                );
             }
-
-            Double bidPrice = data.get("8. Bid Price").equals("-")? null : Double.parseDouble(data.get("8. Bid Price"));
-            Double askPrice = data.get("9. Ask Price").equals("-")? null : Double.parseDouble(data.get("9. Ask Price"));
-
-            return new ExchangeRateResponse(
-                data.get("1. From_Currency Code"),
-                data.get("2. From_Currency Name"),
-                data.get("3. To_Currency Code"),
-                data.get("4. To_Currency Name"),
-                Double.parseDouble(data.get("5. Exchange Rate")),
-                data.get("6. Last Refreshed"),
-                data.get("7. Time Zone"),
-                bidPrice,
-                askPrice
-            );
-
         }
 
         @Override

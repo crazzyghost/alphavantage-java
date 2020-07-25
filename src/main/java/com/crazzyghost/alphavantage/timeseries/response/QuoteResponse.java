@@ -21,15 +21,15 @@ public class QuoteResponse {
     private String errorMessage;
 
     public QuoteResponse(
-        String symbol, 
-        double open, 
-        double high, 
-        double low, 
-        double price, 
+        String symbol,
+        double open,
+        double high,
+        double low,
+        double price,
         double volume,
-        String latestTradingDay, 
-        double previousClose, 
-        double change, 
+        String latestTradingDay,
+        double previousClose,
+        double change,
         double changePercent
     ) {
         this.symbol = symbol;
@@ -98,35 +98,39 @@ public class QuoteResponse {
         Parser<QuoteResponse> parser = new QuoteParser();
         return parser.parse(stringObjectMap);
     }
- 
+
     public static class QuoteParser extends Parser<QuoteResponse>{
-        
+
         @SuppressWarnings("unchecked")
         @Override
         public QuoteResponse parse(Map<String, Object> stringObjectMap){
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
-            Map<String, String> data;
-            try{
-                data = (Map<String, String>) stringObjectMap.get(keys.get(0));
-            }catch (ClassCastException e){
-                return onParseError((String)stringObjectMap.get(keys.get(0)));
+            if (keys.isEmpty()) {
+                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+            } else {
+
+                Map<String, String> data;
+                try {
+                    data = (Map<String, String>) stringObjectMap.get(keys.get(0));
+                } catch (ClassCastException e) {
+                    return onParseError((String) stringObjectMap.get(keys.get(0)));
+                }
+
+                String changePercentage = data.get("10. change percent");
+                changePercentage = changePercentage.substring(0, changePercentage.length() - 1);
+                return new QuoteResponse(
+                        data.get("01. symbol"),
+                        Double.parseDouble(data.get("02. open")),
+                        Double.parseDouble(data.get("03. high")),
+                        Double.parseDouble(data.get("04. low")),
+                        Double.parseDouble(data.get("05. price")),
+                        Double.parseDouble(data.get("06. volume")),
+                        data.get("07. latest trading day"),
+                        Double.parseDouble(data.get("08. previous close")),
+                        Double.parseDouble(data.get("09. change")),
+                        Double.parseDouble(changePercentage)
+                );
             }
-
-            String changePercentage = data.get("10. change percent");
-            changePercentage = changePercentage.substring(0, changePercentage.length()-1);
-            return new QuoteResponse(
-                data.get("01. symbol"),
-                Double.parseDouble(data.get("02. open")),
-                Double.parseDouble(data.get("03. high")),
-                Double.parseDouble(data.get("04. low")),
-                Double.parseDouble(data.get("05. price")),
-                Double.parseDouble(data.get("06. volume")),
-                data.get("07. latest trading day"),
-                Double.parseDouble(data.get("08. previous close")),
-                Double.parseDouble(data.get("09. change")),
-                Double.parseDouble(changePercentage)
-            );
-
         }
 
         @Override
