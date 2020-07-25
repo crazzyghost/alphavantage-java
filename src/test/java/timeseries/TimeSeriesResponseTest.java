@@ -100,4 +100,11 @@ public class TimeSeriesResponseTest {
         assertNotNull(response.getErrorMessage());
         assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
     }
+
+    @Test
+    public void testEmptyGlobalQuoteResponse() throws IOException {
+        QuoteResponse response = QuoteResponse.of(empty());
+        assertNotNull(response.getErrorMessage());
+        assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
+    }
 }

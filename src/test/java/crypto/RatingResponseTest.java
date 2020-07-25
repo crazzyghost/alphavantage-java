@@ -1,6 +1,5 @@
 package crypto;
 
-import com.crazzyghost.alphavantage.cryptocurrency.response.CryptoResponse;
 import com.crazzyghost.alphavantage.cryptocurrency.response.RatingResponse;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +9,6 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 import static util.TestUtils.empty;
-import static util.TestUtils.json;
 
 public class RatingResponseTest {
     @Before
