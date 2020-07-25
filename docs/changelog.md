@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.4.1 - 25-07-2020
+
+- Fix: Array index out of bounds exception caused by [empty API response](https://github.com/crazzyghost/alphavantage-java/issues/9)
+
 ## v1.4.0 - 13-06-2020
 
 - New: Support for Sector Performances
