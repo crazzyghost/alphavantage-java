@@ -73,7 +73,6 @@ public class CryptoResponseTest {
     public void testEmptyCryptoResponseError() throws IOException {
         CryptoResponse response = CryptoResponse.of(empty(), "CNY");
         assertNotNull(response.getErrorMessage());
-        System.out.println(response.toString());
         assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
     }
 }

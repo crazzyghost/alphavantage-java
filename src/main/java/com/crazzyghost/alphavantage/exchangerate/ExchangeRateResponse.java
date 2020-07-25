@@ -99,7 +99,7 @@ public class ExchangeRateResponse {
         public ExchangeRateResponse parse(Map<String, Object> stringObjectMap) {
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
             if (keys.isEmpty()) {
-                return onParseError("Empty JSON returned by the API.");
+                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
             } else {
 
                 Map<String, String> data;

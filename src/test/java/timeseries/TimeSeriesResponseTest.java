@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static util.TestUtils.*;
 
 import java.io.IOException;
 
@@ -14,12 +15,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import util.TestUtils;
-import static util.TestUtils.json;
-import static util.TestUtils.error;
 
 public class TimeSeriesResponseTest {
 
-    @Before 
+    @Before
     public void setUp(){
         TestUtils.forDirectory("timeseries");
     }
@@ -72,7 +71,14 @@ public class TimeSeriesResponseTest {
         assertNotNull(response.getErrorMessage());
         assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
     }
- 
+
+    @Test
+    public void testEmptyTimeSeriesResponseError() throws IOException {
+        TimeSeriesResponse response = TimeSeriesResponse.of(empty(), false);
+        assertNotNull(response.getErrorMessage());
+        assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
+    }
+
     @Test
     public void testGlobalQuoteResponse() throws IOException {
         QuoteResponse response = QuoteResponse.of(json("globalquote"));

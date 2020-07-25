@@ -1,9 +1,5 @@
 package indicator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,9 +34,12 @@ import org.junit.Test;
 import okio.BufferedSource;
 import okio.Okio;
 
+import static org.junit.Assert.*;
+import static util.TestUtils.emptyMessage;
+
 public class IndicatorResponseTest {
 
-    String errorMessage = "{" + 
+    String errorMessage = "{" +
         "\"Information\":" + "\"The **demo** API key is for demo purposes only. Please claim your free API key at (https://www.alphavantage.co/support/#api-key) to explore our full API offerings. It takes fewer than 20 seconds, and we are committed to making it free forever.\"" +
     "}";
 
@@ -53,6 +52,14 @@ public class IndicatorResponseTest {
         final Moshi moshi = new Moshi.Builder().build();
         final Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
         return moshi.adapter(type);
+    }
+
+    @Test
+    public void testEmptyResponseError() throws IOException{
+        final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
+        PeriodicSeriesResponse response = PeriodicSeriesResponse.of(adapter.fromJson(emptyMessage), "SMA");
+        assertNotNull(response.getErrorMessage());
+        assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
     }
 
     @Test
@@ -260,7 +267,7 @@ public class IndicatorResponseTest {
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
         PriceOscillatorResponse response = PriceOscillatorResponse.of(adapter.fromJson(getJson("apo")),"APO");
         assertEquals(response.getIndicatorUnits().size(), 2);
-    
+
     }
 
     @Test
@@ -299,27 +306,27 @@ public class IndicatorResponseTest {
         assertEquals(response.getMetaData().getLastRefreshed(),"");
         assertEquals(response.getMetaData().getSymbol(),"");
         assertEquals(response.getMetaData().getTimePeriod(), 0);
-        assertEquals(response.getMetaData().getTimeZone(), "");   
+        assertEquals(response.getMetaData().getTimeZone(), "");
     }
 
     @Test
     public void testSimpleIndicatorResponse() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
         SimpleIndicatorResponse response = SimpleIndicatorResponse.of(adapter.fromJson(getJson("vwap")), "VWAP");
-        assertEquals(response.getIndicatorUnits().size(), 2);    
+        assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
     @Test
     public void testSimpleIndicatorResponseError() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
         SimpleIndicatorResponse response = SimpleIndicatorResponse.of(adapter.fromJson(errorMessage), "VWAP");
-        assertEquals(response.getIndicatorUnits().size(), 0);    
+        assertEquals(response.getIndicatorUnits().size(), 0);
         assertNotNull(response.getErrorMessage());
         assertEquals(response.getMetaData().getIndicator(),"");
         assertEquals(response.getMetaData().getInterval(),"");
         assertEquals(response.getMetaData().getLastRefreshed(),"");
         assertEquals(response.getMetaData().getSymbol(),"");
-        assertEquals(response.getMetaData().getTimeZone(), "");   
+        assertEquals(response.getMetaData().getTimeZone(), "");
     }
 
     @Test
@@ -342,7 +349,7 @@ public class IndicatorResponseTest {
         assertEquals(response.getMetaData().getTimePeriod1(), 0);
         assertEquals(response.getMetaData().getTimePeriod2(), 0);
         assertEquals(response.getMetaData().getTimePeriod3(), 0);
-        assertEquals(response.getMetaData().getTimeZone(), "");  
+        assertEquals(response.getMetaData().getTimeZone(), "");
     }
 
     @Test
@@ -389,7 +396,7 @@ public class IndicatorResponseTest {
         assertEquals(response.getMetaData().getMaType(), 0);
         assertEquals(response.getMetaData().getNbdevdn(), 0);
         assertEquals(response.getMetaData().getNbdevup(), 0);
-        assertEquals(response.getMetaData().getTimeZone(), "");  
+        assertEquals(response.getMetaData().getTimeZone(), "");
     }
 
 
@@ -412,7 +419,7 @@ public class IndicatorResponseTest {
         assertEquals(response.getMetaData().getSymbol(), "");
         assertEquals(response.getMetaData().getAcceleration(), 0.0, 0);
         assertEquals(response.getMetaData().getMaximum(), 0.0, 0);
-        assertEquals(response.getMetaData().getTimeZone(), "");  
+        assertEquals(response.getMetaData().getTimeZone(), "");
     }
 
     @Test
@@ -463,5 +470,5 @@ public class IndicatorResponseTest {
         assertNotEquals(response.getMetaData().getTimeZone(),"");
     }
 
-    
+
 }
