@@ -106,4 +106,97 @@ public class TestUtils {
         return Config.BASE_URL + "function=CRYPTO_RATING&symbol=" + sym + "&apikey=demo";    
     };
 
+    public static String getSimpleIndicatorRequestUrl(String function){
+        return Config.BASE_URL + "function=" + function + "&symbol=IBM&interval=weekly&datatype=json&apikey=demo";
+    }
+
+    public static String getSimpleIndicatorRequestUrl(String function, String symbol){
+        return Config.BASE_URL + "function=" + function + "&symbol="+ symbol +"&interval=weekly&datatype=json&apikey=demo";
+    }
+
+    public static String getPeriodicSeriesUrl(String function){
+       return Config.BASE_URL + "series_type=open&time_period=60&function=" + function + "&symbol=IBM&interval=weekly&datatype=json&apikey=demo";
+    }
+
+    public static String getPeriodicSeriesUrl(String function, String symbol){
+        return Config.BASE_URL + "series_type=open&time_period=60&function=" + function + "&symbol=" + symbol + "&interval=weekly&datatype=json&apikey=demo";
+     }
+
+    public static String getPeriodicUrl(String function){
+        return Config.BASE_URL + "time_period=60&function=" + function + "&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+    }
+ 
+    public static String getPeriodicUrl(String function, String symbol){
+        return Config.BASE_URL + "time_period=60&function=" + function + "&symbol=" + symbol + "&interval=daily&datatype=json&apikey=demo";
+    }
+
+    public static String getSeriesUrl(String function){
+        return Config.BASE_URL + "series_type=open&function=" + function + "&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+    }
+ 
+    public static String getSeriesUrl(String function, String symbol){
+        return Config.BASE_URL + "series_type=open&function=" + function + "&symbol=" + symbol + "&interval=daily&datatype=json&apikey=demo";
+    }
+
+
+    public static String getMAMAUrl(String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "series_type=open&fastlimit=0.1&slowlimit=0.5&function=MAMA&symbol="+sym+"&interval=weekly&datatype=json&apikey=demo";
+    }
+
+    public static String getMACDUrl(String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "series_type=open&fastperiod=12&slowperiod=26&signalperiod=9&function=MACD&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";
+    }
+
+
+    public static String getMACDEXTUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "series_type=open&fastperiod=12&slowperiod=26&signalperiod=9&fastmatype=8&slowmatype=0&signalmatype=0&function=MACDEXT&symbol="+sym+"&interval=daily&datatype=json&apikey=demo";
+    }
+
+    public static String getSTOCHUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "fastkperiod=5&slowkperiod=3&slowdperiod=3&slowkmatype=0&slowdmatype=0&function=STOCH&symbol="+sym+"&interval=60min&datatype=json&apikey=demo";
+    }
+
+    public static String getSTOCHFUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "fastkperiod=5&fastdperiod=3&fastdmatype=8&function=STOCHF&symbol="+sym+"&interval=60min&datatype=json&apikey=demo";
+    }
+
+    public static String getSTOCHRSIUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "time_period=60&series_type=open&fastkperiod=5&fastdperiod=3&fastdmatype=8&function=STOCHRSI&symbol="+sym+"&interval=60min&datatype=json&apikey=demo";
+    }
+
+    public static String getULTOSCUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "timeperiod1=7&timeperiod2=14&timeperiod3=28&function=ULTOSC&symbol="+ sym + "&interval=60min&datatype=json&apikey=demo";
+    }
+
+    public static String getPriceOscillatorUrl(String function){
+        return Config.BASE_URL + "series_type=open&fastperiod=10&slowperiod=26&matype=8&function=" + function +"&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+    }
+
+    public static String getPriceOscillatorUrl(String function, String symbol){
+        return Config.BASE_URL + "series_type=open&fastperiod=10&slowperiod=26&matype=8&function=" + function +"&symbol="+ symbol + "&interval=daily&datatype=json&apikey=demo";
+    }
+
+    public static String getBBANDSUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "series_type=open&time_period=60&nbdevup=4&nbdevdn=4&matype=0&function=BBANDS&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";    
+    }
+
+    public static String getSARUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "acceleration=0.02&maximum=0.5&function=SAR&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";    
+    }
+
+    public static String getADOSCUrl(final String symbol){
+        String sym = symbol == null ? "IBM" : symbol;
+        return Config.BASE_URL + "fastperiod=3&slowperiod=10&function=ADOSC&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";    
+    }
+
+
 }
