@@ -64,6 +64,35 @@ public class Indicator implements Fetcher{
         });
     }
 
+    /**
+     * Make a blocking synchronous http request to fetch the data.
+     * This will be called by the {@link SimpleIndicatorRequestProxy#fetchSync()}. 
+     * <p>
+     * On Android this will throw NetworkOnMainThreadException. In that case you should handle this on
+     * another thread
+     * </p>
+     * 
+     * <p>Using this method will overwrite any async callback</p>
+     * @since 1.4.1
+     * @param successCallback internally used {@link SuccessCallback}
+     * @throws AlphaVantageException exception thrown
+     */
+    private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
+
+        Config.checkNotNullOrKeyEmpty(config);
+        
+        this.successCallback = successCallback;
+        this.failureCallback = null;
+        okhttp3.OkHttpClient client = config.getOkHttpClient();
+        try(Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()){
+            parseIndicatorResponse(Parser.parseJSON(response.body().string()));
+        }catch(IOException e){
+            throw new AlphaVantageException(e.getMessage());
+        }        
+    }
+
+
+
     @SuppressWarnings("unchecked")
     private void parsePeriodicSeriesResponse(Map<String, Object> data){
         PeriodicSeriesResponse response = PeriodicSeriesResponse.of(data, builder.function.name());
@@ -423,7 +452,7 @@ public class Indicator implements Fetcher{
         return new PeriodicSeriesRequestProxy(Function.T3);
     }
 
-    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> vwap(){
+    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?, SimpleIndicatorResponse>, SimpleIndicatorResponse> vwap(){
         return new SimpleIndicatorRequestProxy<>(Function.VWAP);
     }
 
@@ -475,7 +504,7 @@ public class Indicator implements Fetcher{
         return new PeriodicSeriesRequestProxy(Function.MOM);
     }
 
-    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> bop(){
+    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?, SimpleIndicatorResponse>, SimpleIndicatorResponse> bop(){
         return new SimpleIndicatorRequestProxy<>(Function.BOP);
     }
 
@@ -551,7 +580,7 @@ public class Indicator implements Fetcher{
         return new SARRequestProxy();
     }
 
-    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> trange(){
+    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?, SimpleIndicatorResponse>, SimpleIndicatorResponse> trange(){
         return new SimpleIndicatorRequestProxy<>(Function.TRANGE);
     }
 
@@ -563,7 +592,7 @@ public class Indicator implements Fetcher{
         return new PeriodicRequestProxy(Function.NATR);
     }
 
-    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> ad(){
+    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?, SimpleIndicatorResponse>, SimpleIndicatorResponse> ad(){
         return new SimpleIndicatorRequestProxy<>(Function.AD);
     }
 
@@ -571,7 +600,7 @@ public class Indicator implements Fetcher{
         return new ADOSCRequestProxy();
     }
 
-    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?>> obv(){
+    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?, SimpleIndicatorResponse>, SimpleIndicatorResponse> obv(){
         return new SimpleIndicatorRequestProxy<>(Function.OBV);
     }
 
@@ -606,9 +635,11 @@ public class Indicator implements Fetcher{
      * @param <T> A Concrete {@link SimpleIndicatorRequestProxy} Implementation
      */
     @SuppressWarnings("unchecked")
-    public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?>> {
-        protected IndicatorRequest.Builder<?> builder;
+    public class SimpleIndicatorRequestProxy<T extends SimpleIndicatorRequestProxy<?, U>, U> {
         
+        protected IndicatorRequest.Builder<?> builder;
+        protected U syncResponse;
+
         public SimpleIndicatorRequestProxy(){
         
         }
@@ -648,10 +679,33 @@ public class Indicator implements Fetcher{
             Indicator.this.fetch();
         }
 
+        /**
+         * Set the reponse during a synchronous call
+         * @param response
+         */
+        public void setSyncResponse(U response) {
+            this.syncResponse = response;
+        }
+
+
+        /**
+         * Set the right builder and make a synchronous request using {@link Indicator#fetch()}
+         * <p>When calling this method, any async callbacks will be overwritten</p>
+         * @return The api response
+         * @throws AlphaVantageException
+         */
+        public U fetchSync() throws AlphaVantageException {
+            SuccessCallback<U> callback = (e) -> setSyncResponse(e);
+            Indicator.this.builder = this.builder;
+            Indicator.this.fetchSync(callback);
+            return this.syncResponse;            
+        }
+
+
     }
 
 
-    public class PeriodicSeriesRequestProxy extends SimpleIndicatorRequestProxy<PeriodicSeriesRequestProxy>{
+    public class PeriodicSeriesRequestProxy extends SimpleIndicatorRequestProxy<PeriodicSeriesRequestProxy, PeriodicSeriesResponse> {
  
         public PeriodicSeriesRequestProxy( Function function){
             builder = new PeriodicSeriesRequest.Builder(); 
@@ -669,7 +723,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class PeriodicRequestProxy extends SimpleIndicatorRequestProxy<PeriodicRequestProxy>{
+    public class PeriodicRequestProxy extends SimpleIndicatorRequestProxy<PeriodicRequestProxy, PeriodicResponse> {
  
         public PeriodicRequestProxy( Function function){
             builder = new PeriodicRequest.Builder(); 
@@ -682,7 +736,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy>{
+    public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy, SeriesResponse> {
  
         public SeriesRequestProxy( Function function){
             builder = new SeriesRequest.Builder(); 
@@ -695,7 +749,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class MAMARequestProxy extends SimpleIndicatorRequestProxy<MAMARequestProxy>{
+    public class MAMARequestProxy extends SimpleIndicatorRequestProxy<MAMARequestProxy, MAMAResponse> {
  
         public MAMARequestProxy(){
             builder = new MAMARequest.Builder(); 
@@ -717,7 +771,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class MACDRequestProxy extends SimpleIndicatorRequestProxy<MACDRequestProxy>{
+    public class MACDRequestProxy extends SimpleIndicatorRequestProxy<MACDRequestProxy, MACDResponse> {
  
         public MACDRequestProxy(){
             builder = new MACDRequest.Builder(); 
@@ -744,7 +798,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class MACDEXTRequestProxy extends SimpleIndicatorRequestProxy<MACDEXTRequestProxy>{
+    public class MACDEXTRequestProxy extends SimpleIndicatorRequestProxy<MACDEXTRequestProxy, MACDEXTResponse> {
  
         public MACDEXTRequestProxy(){
             builder = new MACDEXTRequest.Builder();
@@ -786,7 +840,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class STOCHRequestProxy extends SimpleIndicatorRequestProxy<STOCHRequestProxy>{
+    public class STOCHRequestProxy extends SimpleIndicatorRequestProxy<STOCHRequestProxy, STOCHResponse> {
  
         public STOCHRequestProxy(){
             builder = new STOCHRequest.Builder();            
@@ -818,7 +872,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class STOCHFRequestProxy extends SimpleIndicatorRequestProxy<STOCHFRequestProxy>{
+    public class STOCHFRequestProxy extends SimpleIndicatorRequestProxy<STOCHFRequestProxy, STOCHFResponse> {
  
         public STOCHFRequestProxy(){
             builder = new STOCHFRequest.Builder();
@@ -840,7 +894,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class STOCHRSIRequestProxy extends SimpleIndicatorRequestProxy<STOCHRSIRequestProxy>{
+    public class STOCHRSIRequestProxy extends SimpleIndicatorRequestProxy<STOCHRSIRequestProxy, STOCHRSIResponse> {
  
         public STOCHRSIRequestProxy(){
             builder = new STOCHRSIRequest.Builder();
@@ -872,7 +926,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class PriceOscillatorRequestProxy extends SimpleIndicatorRequestProxy<PriceOscillatorRequestProxy>{
+    public class PriceOscillatorRequestProxy extends SimpleIndicatorRequestProxy<PriceOscillatorRequestProxy, PriceOscillatorResponse> {
  
         public PriceOscillatorRequestProxy( Function function){
             builder = new PriceOscillatorRequest.Builder(); 
@@ -900,7 +954,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class ULTOSCRequestProxy extends SimpleIndicatorRequestProxy<ULTOSCRequestProxy> {
+    public class ULTOSCRequestProxy extends SimpleIndicatorRequestProxy<ULTOSCRequestProxy, ULTOSCResponse> {
         
         public ULTOSCRequestProxy(){
             builder = new ULTOSCRequest.Builder();
@@ -922,7 +976,7 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class BBANDSRequestProxy extends SimpleIndicatorRequestProxy<BBANDSRequestProxy>{
+    public class BBANDSRequestProxy extends SimpleIndicatorRequestProxy<BBANDSRequestProxy, BBANDSResponse> {
  
         public BBANDSRequestProxy(){
             builder = new BBANDSRequest.Builder(); 
@@ -955,7 +1009,7 @@ public class Indicator implements Fetcher{
     }
 
 
-    public class SARRequestProxy extends SimpleIndicatorRequestProxy<SARRequestProxy>{
+    public class SARRequestProxy extends SimpleIndicatorRequestProxy<SARRequestProxy, SARResponse> {
  
         public SARRequestProxy(){
             builder = new SARRequest.Builder(); 
@@ -973,7 +1027,7 @@ public class Indicator implements Fetcher{
         
     }
 
-    public class ADOSCRequestProxy extends SimpleIndicatorRequestProxy<ADOSCRequestProxy>{
+    public class ADOSCRequestProxy extends SimpleIndicatorRequestProxy<ADOSCRequestProxy, ADOSCResponse> {
  
         public ADOSCRequestProxy(){
             builder = new ADOSCRequest.Builder(); 
