@@ -1,6 +1,7 @@
 package timeseries;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static util.TestUtils.errorMessage;
 import static util.TestUtils.stream;
 
@@ -11,6 +12,7 @@ import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.parameters.DataType;
+import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
 import com.crazzyghost.alphavantage.timeseries.response.QuoteResponse;
@@ -107,15 +109,15 @@ public class TimeSeriesSyncTest {
             .get("https://www.alphavantage.co/query?interval=5min&outputsize=full&function=TIME_SERIES_INTRADAY&symbol=IBM&datatype=json&apikey=demo")
             .respond(stream("intraday"));
         
-        TimeSeriesResponse response = AlphaVantage.api()
-            .timeSeries()
-            .intraday()
-            .forSymbol("IBM")
+        TimeSeries timeSeries = AlphaVantage.api().timeSeries();
+        TimeSeries.IntraDayRequestProxy requestProxy = timeSeries.intraday();
+        TimeSeriesResponse response = requestProxy.forSymbol("IBM")
             .outputSize(OutputSize.FULL)
+            .interval(Interval.FIVE_MIN)
             .dataType(DataType.JSON)
             .fetchSync();
             
-        assertNotNull(response);
+        assertNull(response.getErrorMessage());
     }
 
     @Test
@@ -124,14 +126,13 @@ public class TimeSeriesSyncTest {
             .get("https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=IBM&datatype=json&apikey=demo")
             .respond(stream("weekly"));
 
-        TimeSeriesResponse response = AlphaVantage.api()
-            .timeSeries()
-            .weekly()
-            .forSymbol("IBM")
+        TimeSeries timeSeries = AlphaVantage.api().timeSeries();
+        TimeSeries.WeeklyRequestProxy requestProxy = timeSeries.weekly();
+        TimeSeriesResponse response = requestProxy.forSymbol("IBM")
             .dataType(DataType.JSON)
             .fetchSync();
             
-        assertNotNull(response);
+        assertNull(response.getErrorMessage());
     }
 
     @Test
@@ -140,14 +141,13 @@ public class TimeSeriesSyncTest {
             .get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=IBM&datatype=json&apikey=demo")
             .respond(stream("monthly"));
 
-        TimeSeriesResponse response = AlphaVantage.api()
-            .timeSeries()
-            .monthly()
-            .forSymbol("IBM")
+        TimeSeries timeSeries = AlphaVantage.api().timeSeries();
+        TimeSeries.MonthlyRequestProxy requestProxy = timeSeries.monthly();
+        TimeSeriesResponse response = requestProxy.forSymbol("IBM")
             .dataType(DataType.JSON)
             .fetchSync();
             
-        assertNotNull(response);
+        assertNull(response.getErrorMessage());
     }
 
 
