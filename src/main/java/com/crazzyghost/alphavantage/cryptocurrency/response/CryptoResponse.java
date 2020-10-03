@@ -78,8 +78,10 @@ public class CryptoResponse {
 
             List<CryptoUnit> cryptoUnits =  new ArrayList<>();
 
-            for (Map<String,String> m: units.values()) {
+            for (String key : units.keySet()){
+                Map<String,String> m = units.get(key);
                 CryptoUnit.Builder cryptoUnit = new CryptoUnit.Builder();
+                cryptoUnit.date(key);
                 cryptoUnit.open(Double.parseDouble(m.get("1a. open (" + market + ")" )));
                 cryptoUnit.high(Double.parseDouble(m.get("2a. high (" + market + ")" )));
                 cryptoUnit.low(Double.parseDouble(m.get("3a. low (" + market + ")" )));
@@ -92,6 +94,7 @@ public class CryptoResponse {
                 cryptoUnit.marketCap(Double.parseDouble(m.get("6. market cap (USD)")));
                 cryptoUnits.add(cryptoUnit.build());
             }
+
             return  new CryptoResponse(metaData, cryptoUnits);
         }
     }
