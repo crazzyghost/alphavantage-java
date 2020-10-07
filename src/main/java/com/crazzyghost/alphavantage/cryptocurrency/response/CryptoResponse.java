@@ -3,6 +3,7 @@ package com.crazzyghost.alphavantage.cryptocurrency.response;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.crazzyghost.alphavantage.parser.DefaultParser;
 import com.crazzyghost.alphavantage.parser.Parser;
@@ -78,10 +79,10 @@ public class CryptoResponse {
 
             List<CryptoUnit> cryptoUnits =  new ArrayList<>();
 
-            for (String key : units.keySet()){
-                Map<String,String> m = units.get(key);
+            for (Entry<String,Map<String,String>> entry : units.entrySet()){
+                Map<String,String> m = entry.getValue();
                 CryptoUnit.Builder cryptoUnit = new CryptoUnit.Builder();
-                cryptoUnit.date(key);
+                cryptoUnit.date(entry.getKey());
                 cryptoUnit.open(Double.parseDouble(m.get("1a. open (" + market + ")" )));
                 cryptoUnit.high(Double.parseDouble(m.get("2a. high (" + market + ")" )));
                 cryptoUnit.low(Double.parseDouble(m.get("3a. low (" + market + ")" )));
