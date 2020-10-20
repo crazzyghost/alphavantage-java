@@ -644,32 +644,32 @@ public class Indicator implements Fetcher{
         
         }
         
-        public SimpleIndicatorRequestProxy( Function function){
+        public SimpleIndicatorRequestProxy(Function function){
             builder = new SimpleIndicatorRequest.Builder(); 
             builder = builder.function(function);       
         }
 
-        public T dataType( DataType dataType){
+        public T dataType(DataType dataType){
             builder = builder.dataType(dataType);
             return (T)this;
         }
 
-        public T forSymbol( String symbol){
+        public T forSymbol(String symbol){
             builder = builder.forSymbol(symbol);
             return (T)this;
         }
 
-        public T interval( Interval interval){
+        public T interval(Interval interval){
             builder = builder.interval(interval);
             return (T)this;
         }
 
-        public T onSuccess( Fetcher.SuccessCallback<?> callback){
+        public T onSuccess(Fetcher.SuccessCallback<?> callback){
             Indicator.this.successCallback =  callback;
             return (T)this;
         }
 
-        public T onFailure( Fetcher.FailureCallback callback){
+        public T onFailure(Fetcher.FailureCallback callback){
             Indicator.this.failureCallback = callback;
             return (T)this;
         }
@@ -680,7 +680,7 @@ public class Indicator implements Fetcher{
         }
 
         /**
-         * Set the reponse during a synchronous call
+         * Set the response during a synchronous call
          * @param response
          */
         public void setSyncResponse(U response) {
@@ -707,17 +707,17 @@ public class Indicator implements Fetcher{
 
     public class PeriodicSeriesRequestProxy extends SimpleIndicatorRequestProxy<PeriodicSeriesRequestProxy, PeriodicSeriesResponse> {
  
-        public PeriodicSeriesRequestProxy( Function function){
+        public PeriodicSeriesRequestProxy(Function function){
             builder = new PeriodicSeriesRequest.Builder(); 
             builder = builder.function(function);
         }
 
-        public PeriodicSeriesRequestProxy timePeriod( int period){
+        public PeriodicSeriesRequestProxy timePeriod(int period){
             builder = ((PeriodicSeriesRequest.Builder)builder).timePeriod(period);
             return this;
         }
 
-        public PeriodicSeriesRequestProxy seriesType( SeriesType series){
+        public PeriodicSeriesRequestProxy seriesType(SeriesType series){
             builder = ((PeriodicSeriesRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -725,12 +725,12 @@ public class Indicator implements Fetcher{
 
     public class PeriodicRequestProxy extends SimpleIndicatorRequestProxy<PeriodicRequestProxy, PeriodicResponse> {
  
-        public PeriodicRequestProxy( Function function){
+        public PeriodicRequestProxy(Function function){
             builder = new PeriodicRequest.Builder(); 
             builder = builder.function(function);
         }
 
-        public PeriodicRequestProxy timePeriod( int period){
+        public PeriodicRequestProxy timePeriod(int period){
             builder = ((PeriodicRequest.Builder)builder).timePeriod(period);
             return this;
         }
@@ -738,12 +738,12 @@ public class Indicator implements Fetcher{
 
     public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy, SeriesResponse> {
  
-        public SeriesRequestProxy( Function function){
+        public SeriesRequestProxy(Function function){
             builder = new SeriesRequest.Builder(); 
             builder = builder.function(function);   
         }
 
-        public SeriesRequestProxy seriesType( SeriesType series){
+        public SeriesRequestProxy seriesType(SeriesType series){
             builder = ((SeriesRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -755,17 +755,17 @@ public class Indicator implements Fetcher{
             builder = new MAMARequest.Builder(); 
         }
 
-        public MAMARequestProxy fastLimit( double fastLimit){
+        public MAMARequestProxy fastLimit(double fastLimit){
             builder = ((MAMARequest.Builder)builder).fastLimit(fastLimit);
             return this;
         }
 
-        public MAMARequestProxy seriesType( SeriesType series){
+        public MAMARequestProxy seriesType(SeriesType series){
             builder = ((MAMARequest.Builder)builder).seriesType(series);
             return this;
         }
 
-        public MAMARequestProxy slowLimit( double slowLimit){
+        public MAMARequestProxy slowLimit(double slowLimit){
             builder = ((MAMARequest.Builder)builder).slowLimit(slowLimit);
             return this;
         }
@@ -777,22 +777,22 @@ public class Indicator implements Fetcher{
             builder = new MACDRequest.Builder(); 
         }
 
-        public MACDRequestProxy fastPeriod( int fastLimit){
+        public MACDRequestProxy fastPeriod(int fastLimit){
             builder = ((MACDRequest.Builder)builder).fastPeriod(fastLimit);
             return this;
         }
 
-        public MACDRequestProxy slowPeriod( int slowPeriod){
+        public MACDRequestProxy slowPeriod(int slowPeriod){
             builder = ((MACDRequest.Builder)builder).slowPeriod(slowPeriod);
             return this;
         }
 
-        public MACDRequestProxy signalPeriod( int signalPeriod){
+        public MACDRequestProxy signalPeriod(int signalPeriod){
             builder = ((MACDRequest.Builder)builder).signalPeriod(signalPeriod);
             return this;
         }
 
-        public MACDRequestProxy seriesType( SeriesType series){
+        public MACDRequestProxy seriesType(SeriesType series){
             builder = ((MACDRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -804,37 +804,37 @@ public class Indicator implements Fetcher{
             builder = new MACDEXTRequest.Builder();
         }
 
-        public MACDEXTRequestProxy fastPeriod( int period){
+        public MACDEXTRequestProxy fastPeriod(int period){
             builder = ((MACDEXTRequest.Builder)builder).fastPeriod(period);
             return this;
         }
 
-        public MACDEXTRequestProxy slowPeriod( int period){
+        public MACDEXTRequestProxy slowPeriod(int period){
             builder = ((MACDEXTRequest.Builder)builder).slowPeriod(period);
             return this;
         }
 
-        public MACDEXTRequestProxy signalPeriod( int period){
+        public MACDEXTRequestProxy signalPeriod(int period){
             builder = ((MACDEXTRequest.Builder)builder).signalPeriod(period);
             return this;
         }
 
-        public MACDEXTRequestProxy fastMaType( MAType type){
+        public MACDEXTRequestProxy fastMaType(MAType type){
             builder = ((MACDEXTRequest.Builder)builder).fastMaType(type);
             return this;
         }
 
-        public MACDEXTRequestProxy slowMaType( MAType type){
+        public MACDEXTRequestProxy slowMaType(MAType type){
             builder = ((MACDEXTRequest.Builder)builder).slowMaType(type);
             return this;
         }
 
-        public MACDEXTRequestProxy signalMaType( MAType type){
+        public MACDEXTRequestProxy signalMaType(MAType type){
             builder = ((MACDEXTRequest.Builder)builder).signalMaType(type);
             return this;
         }
 
-        public MACDEXTRequestProxy seriesType( SeriesType series){
+        public MACDEXTRequestProxy seriesType(SeriesType series){
             builder = ((MACDEXTRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -846,27 +846,27 @@ public class Indicator implements Fetcher{
             builder = new STOCHRequest.Builder();            
         }
 
-        public STOCHRequestProxy fastKPeriod( int period){
+        public STOCHRequestProxy fastKPeriod(int period){
             builder = ((STOCHRequest.Builder)builder).fastKPeriod(period);
             return this;
         }
 
-        public STOCHRequestProxy slowKPeriod( int period){
+        public STOCHRequestProxy slowKPeriod(int period){
             builder = ((STOCHRequest.Builder)builder).slowKPeriod(period);
             return this;
         }
  
-        public STOCHRequestProxy slowDPeriod( int period){
+        public STOCHRequestProxy slowDPeriod(int period){
             builder = ((STOCHRequest.Builder)builder).slowDPeriod(period);
             return this;
         }
 
-        public STOCHRequestProxy slowKMaType( MAType type){
+        public STOCHRequestProxy slowKMaType(MAType type){
             builder = ((STOCHRequest.Builder)builder).slowKMaType(type);
             return this;
         }
 
-        public STOCHRequestProxy slowDMaType( MAType type){
+        public STOCHRequestProxy slowDMaType(MAType type){
             builder = ((STOCHRequest.Builder)builder).slowDMaType(type);
             return this;
         }
@@ -878,17 +878,17 @@ public class Indicator implements Fetcher{
             builder = new STOCHFRequest.Builder();
         }
 
-        public STOCHFRequestProxy fastKPeriod( int period){
+        public STOCHFRequestProxy fastKPeriod(int period){
             builder = ((STOCHFRequest.Builder)builder).fastKPeriod(period);
             return this;
         }
 
-        public STOCHFRequestProxy fastDPeriod( int period){
+        public STOCHFRequestProxy fastDPeriod(int period){
             builder = ((STOCHFRequest.Builder)builder).fastDPeriod(period);
             return this;
         }
  
-        public STOCHFRequestProxy fastDMaType( MAType type){
+        public STOCHFRequestProxy fastDMaType(MAType type){
             builder = ((STOCHFRequest.Builder)builder).fastDMaType(type);
             return this;
         }
@@ -900,27 +900,27 @@ public class Indicator implements Fetcher{
             builder = new STOCHRSIRequest.Builder();
         }
 
-        public STOCHRSIRequestProxy fastKPeriod( int period){
+        public STOCHRSIRequestProxy fastKPeriod(int period){
             builder = ((STOCHRSIRequest.Builder)builder).fastKPeriod(period);
             return this;
         }
 
-        public STOCHRSIRequestProxy fastDPeriod( int period){
+        public STOCHRSIRequestProxy fastDPeriod(int period){
             builder = ((STOCHRSIRequest.Builder)builder).fastDPeriod(period);
             return this;
         }
  
-        public STOCHRSIRequestProxy fastDMaType( MAType type){
+        public STOCHRSIRequestProxy fastDMaType(MAType type){
             builder = ((STOCHRSIRequest.Builder)builder).fastDMaType(type);
             return this;
         }
 
-        public STOCHRSIRequestProxy timePeriod( int period){
+        public STOCHRSIRequestProxy timePeriod(int period){
             builder = ((STOCHRSIRequest.Builder)builder).timePeriod(period);
             return this;
         }
 
-        public STOCHRSIRequestProxy seriesType( SeriesType series){
+        public STOCHRSIRequestProxy seriesType(SeriesType series){
             builder = ((STOCHRSIRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -928,27 +928,27 @@ public class Indicator implements Fetcher{
 
     public class PriceOscillatorRequestProxy extends SimpleIndicatorRequestProxy<PriceOscillatorRequestProxy, PriceOscillatorResponse> {
  
-        public PriceOscillatorRequestProxy( Function function){
+        public PriceOscillatorRequestProxy(Function function){
             builder = new PriceOscillatorRequest.Builder(); 
             builder = builder.function(function); 
         }
 
-        public PriceOscillatorRequestProxy fastPeriod( int period){
+        public PriceOscillatorRequestProxy fastPeriod(int period){
             builder = ((PriceOscillatorRequest.Builder)builder).fastPeriod(period);
             return this;
         }
 
-        public  PriceOscillatorRequestProxy slowPeriod( int period){
+        public  PriceOscillatorRequestProxy slowPeriod(int period){
             builder = ((PriceOscillatorRequest.Builder)builder).slowPeriod(period);
             return this;
         }
 
-        public  PriceOscillatorRequestProxy seriesType( SeriesType series){
+        public  PriceOscillatorRequestProxy seriesType(SeriesType series){
             builder = ((PriceOscillatorRequest.Builder)builder).seriesType(series);
             return this;
         }
 
-        public  PriceOscillatorRequestProxy maType( MAType type){
+        public  PriceOscillatorRequestProxy maType(MAType type){
             builder = ((PriceOscillatorRequest.Builder)builder).maType(type);
             return this;
         }
@@ -960,17 +960,17 @@ public class Indicator implements Fetcher{
             builder = new ULTOSCRequest.Builder();
         }
 
-        public ULTOSCRequestProxy timePeriod1( int period){
+        public ULTOSCRequestProxy timePeriod1(int period){
             builder = ((ULTOSCRequest.Builder)builder).timePeriod1(period);
             return this;
         }
 
-        public ULTOSCRequestProxy timePeriod2( int period){
+        public ULTOSCRequestProxy timePeriod2(int period){
             builder = ((ULTOSCRequest.Builder)builder).timePeriod2(period);
             return this;
         }
         
-        public ULTOSCRequestProxy timePeriod3( int period){
+        public ULTOSCRequestProxy timePeriod3(int period){
             builder = ((ULTOSCRequest.Builder)builder).timePeriod3(period);
             return this;
         }
@@ -982,12 +982,12 @@ public class Indicator implements Fetcher{
             builder = new BBANDSRequest.Builder(); 
         }
 
-        public BBANDSRequestProxy nbdevup( int dev){
+        public BBANDSRequestProxy nbdevup(int dev){
             builder = ((BBANDSRequest.Builder)builder).nbdevup(dev);
             return this;            
         }
 
-        public BBANDSRequestProxy nbdevdn( int dev){
+        public BBANDSRequestProxy nbdevdn(int dev){
             builder = ((BBANDSRequest.Builder)builder).nbdevdn(dev);
             return this;            
         }
@@ -997,12 +997,12 @@ public class Indicator implements Fetcher{
             return this;            
         }
 
-        public BBANDSRequestProxy timePeriod( int period){
+        public BBANDSRequestProxy timePeriod(int period){
             builder = ((BBANDSRequest.Builder)builder).timePeriod(period);
             return this;
         }
 
-        public BBANDSRequestProxy seriesType( SeriesType series){
+        public BBANDSRequestProxy seriesType(SeriesType series){
             builder = ((BBANDSRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -1015,12 +1015,12 @@ public class Indicator implements Fetcher{
             builder = new SARRequest.Builder(); 
         }
 
-        public SARRequestProxy acceleration( double acceleration){
+        public SARRequestProxy acceleration(double acceleration){
             builder = ((SARRequest.Builder)builder).acceleration(acceleration);
             return this;
         }
 
-        public SARRequestProxy maximum( double maximum){
+        public SARRequestProxy maximum(double maximum){
             builder = ((SARRequest.Builder)builder).maximum(maximum);
             return this;
         }
@@ -1033,12 +1033,12 @@ public class Indicator implements Fetcher{
             builder = new ADOSCRequest.Builder(); 
         }
 
-        public ADOSCRequestProxy fastPeriod( int period){
+        public ADOSCRequestProxy fastPeriod(int period){
             builder = ((ADOSCRequest.Builder)builder).fastPeriod(period);
             return this;
         }
 
-        public  ADOSCRequestProxy slowPeriod( int period){
+        public  ADOSCRequestProxy slowPeriod(int period){
             builder = ((ADOSCRequest.Builder)builder).slowPeriod(period);
             return this;
         }
