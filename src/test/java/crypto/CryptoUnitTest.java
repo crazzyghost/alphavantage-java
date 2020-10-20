@@ -13,6 +13,7 @@ public class CryptoUnitTest {
     public void testCryptoUnit(){
 
         CryptoUnit unit = new CryptoUnit.Builder()
+            .date("2020-04-12")
             .close(40.0)
             .closeUSD(45.0)
             .high(56.76)
@@ -25,6 +26,7 @@ public class CryptoUnitTest {
             .volume(100.0)
             .build();
 
+        assertEquals("Crypto unit date not set correctly", "2020-04-12", unit.getDate());
         assertEquals(unit.getClose(), 40.0, 0);
         assertEquals(unit.getCloseUSD(), 45.0, 0);
         assertEquals(unit.getHigh(), 56.76, 0);

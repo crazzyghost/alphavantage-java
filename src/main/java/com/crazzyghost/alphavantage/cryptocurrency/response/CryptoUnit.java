@@ -1,6 +1,5 @@
 package com.crazzyghost.alphavantage.cryptocurrency.response;
 
-// TODO add date
 public class CryptoUnit {
 
     private double open;
@@ -13,6 +12,7 @@ public class CryptoUnit {
     private double lowUSD;
     private double volume;
     private double marketCap;
+    private String date;
 
     public CryptoUnit(Builder builder) {
         this.open       = builder.open;
@@ -25,6 +25,7 @@ public class CryptoUnit {
         this.lowUSD     = builder.lowUSD;
         this.volume     = builder.volume;
         this.marketCap  = builder.marketCap;
+        this.date       = builder.date;
     }
 
 
@@ -40,6 +41,7 @@ public class CryptoUnit {
         double lowUSD;
         double volume;
         double marketCap;
+        String date;
 
         public Builder open(double open){
             this.open = open;
@@ -89,9 +91,16 @@ public class CryptoUnit {
             return this;
         }
 
+        public Builder date(String date){
+            this.date = date;
+            return this;
+        }
+
         public CryptoUnit build(){
             return new CryptoUnit(this);
         }
+
+       
 
     }
 
@@ -135,10 +144,15 @@ public class CryptoUnit {
         return marketCap;
     }
 
+    public String getDate(){
+        return date;
+    }
+
     @Override
     public String toString() {
         return "\n" + "CryptoUnit {" +
-            "close=" + close + 
+            "date=" + date +
+            ", close=" + close + 
             ", closeUSD=" + closeUSD + 
             ", high=" + high + 
             ", highUSD=" + highUSD + 
