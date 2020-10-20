@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.4.2] - 20-10-2020
+### Fixed
+- [Missing crypto unit date](https://github.com/crazzyghost/alphavantage-java/pull/13) 
+
+
 ## [v1.4.1] - 25-07-2020
 ### Fixed
 - Array index out of bounds exception caused by [empty API response](https://github.com/crazzyghost/alphavantage-java/issues/9) 

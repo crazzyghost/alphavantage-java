@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.4.2 - 20-10-2020
+
+- [Missing crypto unit date](https://github.com/crazzyghost/alphavantage-java/pull/13) 
+
 ## v1.4.1 - 25-07-2020
 
 - Fix: Array index out of bounds exception caused by [empty API response](https://github.com/crazzyghost/alphavantage-java/issues/9)
