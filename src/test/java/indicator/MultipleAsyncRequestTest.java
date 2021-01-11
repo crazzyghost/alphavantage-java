@@ -14,7 +14,9 @@ import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
-import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
+import com.crazzyghost.alphavantage.indicator.response.adx.ADXResponse;
+import com.crazzyghost.alphavantage.indicator.response.stoch.STOCHResponse;
+import com.crazzyghost.alphavantage.indicator.response.sma.SMAResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.MAType;
@@ -137,9 +139,9 @@ public class MultipleAsyncRequestTest {
             .fetch();
 
         lock.await();
-        assertEquals(smaRef.get().getClass(), PeriodicSeriesResponse.class);
+        assertEquals(smaRef.get().getClass(), SMAResponse.class);
         assertEquals(stochRef.get().getClass(), STOCHResponse.class);
-        assertEquals(adxRef.get().getClass(), PeriodicResponse.class);
+        assertEquals(adxRef.get().getClass(), ADXResponse.class);
     }
 
    

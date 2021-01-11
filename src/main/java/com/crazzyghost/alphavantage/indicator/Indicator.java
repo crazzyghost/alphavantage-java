@@ -9,6 +9,59 @@ import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.indicator.request.*;
 import com.crazzyghost.alphavantage.indicator.response.*;
+import com.crazzyghost.alphavantage.indicator.response.ad.ADResponse;
+import com.crazzyghost.alphavantage.indicator.response.adosc.ADOSCResponse;
+import com.crazzyghost.alphavantage.indicator.response.adx.ADXResponse;
+import com.crazzyghost.alphavantage.indicator.response.adxr.ADXRResponse;
+import com.crazzyghost.alphavantage.indicator.response.apo.APOResponse;
+import com.crazzyghost.alphavantage.indicator.response.aroon.AROONResponse;
+import com.crazzyghost.alphavantage.indicator.response.aroonosc.AROONOSCResponse;
+import com.crazzyghost.alphavantage.indicator.response.atr.ATRResponse;
+import com.crazzyghost.alphavantage.indicator.response.bbands.BBANDSResponse;
+import com.crazzyghost.alphavantage.indicator.response.bop.BOPResponse;
+import com.crazzyghost.alphavantage.indicator.response.cci.CCIResponse;
+import com.crazzyghost.alphavantage.indicator.response.cmo.CMOResponse;
+import com.crazzyghost.alphavantage.indicator.response.dema.DEMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.dx.DXResponse;
+import com.crazzyghost.alphavantage.indicator.response.ema.EMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.htdcperiod.HTDCPERIODResponse;
+import com.crazzyghost.alphavantage.indicator.response.htdcphase.HTDCPHASEResponse;
+import com.crazzyghost.alphavantage.indicator.response.htphasor.HTPHASORResponse;
+import com.crazzyghost.alphavantage.indicator.response.htsine.HTSINEResponse;
+import com.crazzyghost.alphavantage.indicator.response.httrendline.HTTRENDLINEResponse;
+import com.crazzyghost.alphavantage.indicator.response.httrendmode.HTTRENDMODEResponse;
+import com.crazzyghost.alphavantage.indicator.response.kama.KAMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.macd.MACDEXTResponse;
+import com.crazzyghost.alphavantage.indicator.response.macd.MACDResponse;
+import com.crazzyghost.alphavantage.indicator.response.mama.MAMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.mfi.MFIResponse;
+import com.crazzyghost.alphavantage.indicator.response.midpoint.MIDPOINTResponse;
+import com.crazzyghost.alphavantage.indicator.response.midprice.MIDPRICEResponse;
+import com.crazzyghost.alphavantage.indicator.response.minusdi.MINUSDIResponse;
+import com.crazzyghost.alphavantage.indicator.response.minusdm.MINUSDMResponse;
+import com.crazzyghost.alphavantage.indicator.response.mom.MOMResponse;
+import com.crazzyghost.alphavantage.indicator.response.natr.NATRResponse;
+import com.crazzyghost.alphavantage.indicator.response.obv.OBVResponse;
+import com.crazzyghost.alphavantage.indicator.response.plusdi.PLUSDIResponse;
+import com.crazzyghost.alphavantage.indicator.response.plusdm.PLUSDMResponse;
+import com.crazzyghost.alphavantage.indicator.response.ppo.PPOResponse;
+import com.crazzyghost.alphavantage.indicator.response.roc.ROCResponse;
+import com.crazzyghost.alphavantage.indicator.response.rocr.ROCRResponse;
+import com.crazzyghost.alphavantage.indicator.response.rsi.RSIResponse;
+import com.crazzyghost.alphavantage.indicator.response.sar.SARResponse;
+import com.crazzyghost.alphavantage.indicator.response.sma.SMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.stoch.STOCHResponse;
+import com.crazzyghost.alphavantage.indicator.response.stochf.STOCHFResponse;
+import com.crazzyghost.alphavantage.indicator.response.stochrsi.STOCHRSIResponse;
+import com.crazzyghost.alphavantage.indicator.response.t3.T3Response;
+import com.crazzyghost.alphavantage.indicator.response.tema.TEMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.trange.TRANGEResponse;
+import com.crazzyghost.alphavantage.indicator.response.trima.TRIMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.trix.TRIXResponse;
+import com.crazzyghost.alphavantage.indicator.response.ultosc.ULTOSCResponse;
+import com.crazzyghost.alphavantage.indicator.response.vwap.VWAPResponse;
+import com.crazzyghost.alphavantage.indicator.response.willr.WILLRResponse;
+import com.crazzyghost.alphavantage.indicator.response.wma.WMAResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
@@ -31,7 +84,7 @@ public class Indicator implements Fetcher{
     private IndicatorRequest.Builder<?> builder;
     private Fetcher.SuccessCallback<?> successCallback;
     private Fetcher.FailureCallback failureCallback;
-    private  Config config;
+    private final Config config;
 
     public Indicator(Config config) {
         this.config = config;
@@ -95,13 +148,66 @@ public class Indicator implements Fetcher{
 
     @SuppressWarnings("unchecked")
     private void parsePeriodicSeriesResponse(Map<String, Object> data){
-        PeriodicSeriesResponse response = PeriodicSeriesResponse.of(data, builder.function.name());
+        PeriodicSeriesResponse response = null;
+        switch(builder.function){
+            case SMA:
+                response = SMAResponse.of(data);
+                break;
+            case EMA:
+                response = EMAResponse.of(data);
+                break;
+            case WMA:
+                response = WMAResponse.of(data);
+                break;
+            case DEMA:
+                response = DEMAResponse.of(data);
+                break;
+            case TEMA:
+                response = TEMAResponse.of(data);
+                break;
+            case TRIMA:
+                response = TRIMAResponse.of(data);
+                break;
+            case KAMA:
+                response = KAMAResponse.of(data);
+                break;
+            case T3:
+                response = T3Response.of(data);
+                break;
+            case RSI:
+                response = RSIResponse.of(data);
+                break;
+            case MOM:
+                response = MOMResponse.of(data);
+                break;
+            case CMO:
+                response = CMOResponse.of(data);
+                break;
+            case ROC:
+                response = ROCResponse.of(data);
+                break;
+            case ROCR:
+                response = ROCRResponse.of(data);
+                break;
+            case TRIX:
+                response = TRIXResponse.of(data);
+                break;
+            case MIDPOINT:
+                response = MIDPOINTResponse.of(data);
+                break;
+            default:
+                break;
+        }
+        if(response == null && failureCallback != null){
+            failureCallback.onFailure(new AlphaVantageException("Response could not be parsed"));
+            return;
+        }
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
         if(successCallback != null){
-            ((Fetcher.SuccessCallback<PeriodicSeriesResponse>)successCallback).onSuccess(response);
+            ((SuccessCallback<PeriodicSeriesResponse>)successCallback).onSuccess(response);
         }
     }
 
@@ -119,16 +225,38 @@ public class Indicator implements Fetcher{
 
     @SuppressWarnings("unchecked")
     private void parseSimpleIndicatorResponse(Map<String, Object> data){
-        String functionName = builder.function.name();
-        if(functionName.equals("AD")) functionName = "Chaikin A/D";
 
-        SimpleIndicatorResponse response = SimpleIndicatorResponse.of(data, functionName);
+        SimpleIndicatorResponse response = null;
+        switch (builder.function){
+            case VWAP:
+                response = VWAPResponse.of(data);
+                break;
+            case BOP:
+                response = BOPResponse.of(data);
+                break;
+            case TRANGE:
+                response = TRANGEResponse.of(data);
+                break;
+            case AD:
+                response = ADResponse.of(data);
+                break;
+            case OBV:
+                response = OBVResponse.of(data);
+                break;
+            default:
+                break;
+        }
+
+        if(response == null && failureCallback != null){
+            failureCallback.onFailure(new AlphaVantageException("Response could not be parsed"));
+            return;
+        }
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
         if(successCallback != null){
-            ((Fetcher.SuccessCallback<SimpleIndicatorResponse>)successCallback).onSuccess(response);
+            ((SuccessCallback<SimpleIndicatorResponse>)successCallback).onSuccess(response);
         }
     }
 
@@ -194,7 +322,21 @@ public class Indicator implements Fetcher{
 
     @SuppressWarnings("unchecked")
     private void parsePriceOscillatorResponse(Map<String, Object> data) {
-        PriceOscillatorResponse response = PriceOscillatorResponse.of(data, builder.function.name());
+        PriceOscillatorResponse response = null;
+        switch (builder.function){
+            case APO:
+                response = APOResponse.of(data);
+                break;
+            case PPO:
+                response = PPOResponse.of(data);
+                break;
+            default:
+                break;
+        }
+        if(response == null && failureCallback != null){
+            failureCallback.onFailure(new AlphaVantageException("Response could not be parsed"));
+            return;
+        }
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -206,7 +348,57 @@ public class Indicator implements Fetcher{
 
     @SuppressWarnings("unchecked")
     private void parsePeriodicResponse(Map<String, Object> data){
-        PeriodicResponse response = PeriodicResponse.of(data, builder.function.name());
+        PeriodicResponse response = null;
+        switch (builder.function){
+            case WILLR:
+                response = WILLRResponse.of(data);
+                break;
+            case ADX:
+                response = ADXResponse.of(data);
+                break;
+            case ADXR:
+                response = ADXRResponse.of(data);
+                break;
+            case CCI:
+                response = CCIResponse.of(data);
+                break;
+            case AROONOSC:
+                response = AROONOSCResponse.of(data);
+                break;
+            case MFI:
+                response = MFIResponse.of(data);
+                break;
+            case DX:
+                response = DXResponse.of(data);
+                break;
+            case MINUS_DI:
+                response = MINUSDIResponse.of(data);
+                break;
+            case PLUS_DI:
+                response = PLUSDIResponse.of(data);
+                break;
+            case MINUS_DM:
+                response = MINUSDMResponse.of(data);
+                break;
+            case PLUS_DM:
+                response = PLUSDMResponse.of(data);
+                break;
+            case MIDPRICE:
+                response = MIDPRICEResponse.of(data);
+                break;
+            case ATR:
+                response = ATRResponse.of(data);
+                break;
+            case NATR:
+                response = NATRResponse.of(data);
+                break;
+            default:
+                break;
+        }
+        if(response == null && failureCallback != null){
+            failureCallback.onFailure(new AlphaVantageException("Response could not be parsed"));
+            return;
+        }
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -279,16 +471,33 @@ public class Indicator implements Fetcher{
 
     @SuppressWarnings("unchecked")
     private void parseSeriesResponse(Map<String, Object> data){
-        String functionName = builder.function.name();
-        if(functionName.equals("HT_TRENDMODE")) functionName = "TRENDMODE";
-        if(functionName.equals("HT_DCPERIOD")) functionName = "DCPERIOD";
-        SeriesResponse response = SeriesResponse.of(data, functionName);
+        SeriesResponse response = null;
+        switch (builder.function){
+            case HT_TRENDLINE:
+                response = HTTRENDLINEResponse.of(data);
+                break;
+            case HT_TRENDMODE:
+                response = HTTRENDMODEResponse.of(data);
+                break;
+            case HT_DCPERIOD:
+                response = HTDCPERIODResponse.of(data);
+                break;
+            case HT_DCPHASE:
+                response = HTDCPHASEResponse.of(data);
+                break;
+            default:
+                break;
+        }
+        if(response == null && failureCallback != null){
+            failureCallback.onFailure(new AlphaVantageException("Response could not be parsed"));
+            return;
+        }
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
         if(successCallback != null){
-            ((Fetcher.SuccessCallback<SeriesResponse>)successCallback).onSuccess(response);
+            ((SuccessCallback<SeriesResponse>)successCallback).onSuccess(response);
         }
     }
 
@@ -416,43 +625,43 @@ public class Indicator implements Fetcher{
     }
 
 
-    public PeriodicSeriesRequestProxy sma(){
-        return new PeriodicSeriesRequestProxy(Function.SMA);
+    public PeriodicSeriesRequestProxy<SMAResponse> sma(){
+        return new PeriodicSeriesRequestProxy<>(Function.SMA);
     }
 
-    public PeriodicSeriesRequestProxy ema(){
-        return new PeriodicSeriesRequestProxy(Function.EMA);
+    public PeriodicSeriesRequestProxy<EMAResponse> ema(){
+        return new PeriodicSeriesRequestProxy<>(Function.EMA);
     }
 
-    public PeriodicSeriesRequestProxy wma(){
-        return new PeriodicSeriesRequestProxy(Function.WMA);
+    public PeriodicSeriesRequestProxy<WMAResponse> wma(){
+        return new PeriodicSeriesRequestProxy<>(Function.WMA);
     }
 
-    public PeriodicSeriesRequestProxy dema(){
-        return new PeriodicSeriesRequestProxy(Function.DEMA);
+    public PeriodicSeriesRequestProxy<DEMAResponse> dema(){
+        return new PeriodicSeriesRequestProxy<>(Function.DEMA);
     }
 
-    public PeriodicSeriesRequestProxy tema(){
-        return new PeriodicSeriesRequestProxy(Function.TEMA);
+    public PeriodicSeriesRequestProxy<TEMAResponse> tema(){
+        return new PeriodicSeriesRequestProxy<>(Function.TEMA);
     }
 
-    public PeriodicSeriesRequestProxy trima(){
-        return new PeriodicSeriesRequestProxy(Function.TRIMA);
+    public PeriodicSeriesRequestProxy<TRIMAResponse> trima(){
+        return new PeriodicSeriesRequestProxy<>(Function.TRIMA);
     }
 
-    public PeriodicSeriesRequestProxy kama(){
-        return new PeriodicSeriesRequestProxy(Function.KAMA);
+    public PeriodicSeriesRequestProxy<KAMAResponse> kama(){
+        return new PeriodicSeriesRequestProxy<>(Function.KAMA);
     }
 
     public MAMARequestProxy mama(){
         return new MAMARequestProxy();
     }
 
-    public PeriodicSeriesRequestProxy t3(){
-        return new PeriodicSeriesRequestProxy(Function.T3);
+    public PeriodicSeriesRequestProxy<T3Response> t3(){
+        return new PeriodicSeriesRequestProxy<>(Function.T3);
     }
 
-    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?, SimpleIndicatorResponse>, SimpleIndicatorResponse> vwap(){
+    public SimpleIndicatorRequestProxy<?, VWAPResponse> vwap(){
         return new SimpleIndicatorRequestProxy<>(Function.VWAP);
     }
 
@@ -472,127 +681,127 @@ public class Indicator implements Fetcher{
         return new STOCHFRequestProxy();
     }
 
-    public PeriodicSeriesRequestProxy rsi(){
-        return new PeriodicSeriesRequestProxy(Function.RSI);
+    public PeriodicSeriesRequestProxy<RSIResponse> rsi(){
+        return new PeriodicSeriesRequestProxy<>(Function.RSI);
     }
 
     public STOCHRSIRequestProxy stochrsi(){
         return new STOCHRSIRequestProxy();
     }
 
-    public PeriodicRequestProxy willr(){
-        return new PeriodicRequestProxy(Function.WILLR);
-    }
-    
-    public PeriodicRequestProxy adx(){
-        return new PeriodicRequestProxy(Function.ADX);
+    public PeriodicRequestProxy<WILLRResponse> willr(){
+        return new PeriodicRequestProxy<>(Function.WILLR);
     }
 
-    public PeriodicRequestProxy adxr(){
-        return new PeriodicRequestProxy(Function.ADXR);
+    public PeriodicRequestProxy<ADXResponse> adx(){
+        return new PeriodicRequestProxy<>(Function.ADX);
     }
 
-    public PriceOscillatorRequestProxy apo(){
-        return new PriceOscillatorRequestProxy(Function.APO);
+    public PeriodicRequestProxy<ADXRResponse> adxr(){
+        return new PeriodicRequestProxy<>(Function.ADXR);
     }
 
-    public PriceOscillatorRequestProxy ppo(){
-        return new PriceOscillatorRequestProxy(Function.PPO);
-    }
-    
-    public PeriodicSeriesRequestProxy mom(){
-        return new PeriodicSeriesRequestProxy(Function.MOM);
+    public PriceOscillatorRequestProxy<APOResponse> apo(){
+        return new PriceOscillatorRequestProxy<>(Function.APO);
     }
 
-    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?, SimpleIndicatorResponse>, SimpleIndicatorResponse> bop(){
+    public PriceOscillatorRequestProxy<PPOResponse> ppo(){
+        return new PriceOscillatorRequestProxy<>(Function.PPO);
+    }
+
+    public PeriodicSeriesRequestProxy<MOMResponse> mom(){
+        return new PeriodicSeriesRequestProxy<>(Function.MOM);
+    }
+
+    public SimpleIndicatorRequestProxy<?, BOPResponse> bop(){
         return new SimpleIndicatorRequestProxy<>(Function.BOP);
     }
 
-    public PeriodicRequestProxy cci(){
-        return new PeriodicRequestProxy(Function.CCI);
+    public PeriodicRequestProxy<CCIResponse> cci(){
+        return new PeriodicRequestProxy<>(Function.CCI);
     }
 
-    public PeriodicSeriesRequestProxy cmo(){
-        return new PeriodicSeriesRequestProxy(Function.CMO);
+    public PeriodicSeriesRequestProxy<CMOResponse> cmo(){
+        return new PeriodicSeriesRequestProxy<>(Function.CMO);
     }
 
-    public PeriodicSeriesRequestProxy roc(){
-        return new PeriodicSeriesRequestProxy(Function.ROC);
+    public PeriodicSeriesRequestProxy<ROCResponse> roc(){
+        return new PeriodicSeriesRequestProxy<>(Function.ROC);
     }
 
-    public PeriodicSeriesRequestProxy rocr(){
-        return new PeriodicSeriesRequestProxy(Function.ROCR);
+    public PeriodicSeriesRequestProxy<ROCRResponse> rocr(){
+        return new PeriodicSeriesRequestProxy<>(Function.ROCR);
     }
 
-    public PeriodicRequestProxy aroon(){
-        return new PeriodicRequestProxy(Function.AROON);
+    public PeriodicRequestProxy<AROONResponse> aroon(){
+        return new PeriodicRequestProxy<>(Function.AROON);
     }
 
-    public PeriodicRequestProxy aroonosc(){
-        return new PeriodicRequestProxy(Function.AROONOSC);
+    public PeriodicRequestProxy<AROONOSCResponse> aroonosc(){
+        return new PeriodicRequestProxy<>(Function.AROONOSC);
     }
 
-    public PeriodicRequestProxy mfi(){
-        return new PeriodicRequestProxy(Function.MFI);
+    public PeriodicRequestProxy<MFIResponse> mfi(){
+        return new PeriodicRequestProxy<>(Function.MFI);
     }
 
-    public PeriodicSeriesRequestProxy trix(){
-        return new PeriodicSeriesRequestProxy(Function.TRIX);
+    public PeriodicSeriesRequestProxy<TRIXResponse> trix(){
+        return new PeriodicSeriesRequestProxy<>(Function.TRIX);
     }
 
     public ULTOSCRequestProxy ultosc(){
         return new ULTOSCRequestProxy();
     }
 
-    public PeriodicRequestProxy dx(){
-        return new PeriodicRequestProxy(Function.DX);
+    public PeriodicRequestProxy<DXResponse> dx(){
+        return new PeriodicRequestProxy<>(Function.DX);
     }
 
-    public PeriodicRequestProxy minusdi(){
-        return new PeriodicRequestProxy(Function.MINUS_DI);
+    public PeriodicRequestProxy<MINUSDIResponse> minusdi(){
+        return new PeriodicRequestProxy<>(Function.MINUS_DI);
     }
 
-    public PeriodicRequestProxy plusdi(){
-        return new PeriodicRequestProxy(Function.PLUS_DI);
+    public PeriodicRequestProxy<PLUSDIResponse> plusdi(){
+        return new PeriodicRequestProxy<>(Function.PLUS_DI);
     }
 
-    public PeriodicRequestProxy minusdm(){
-        return new PeriodicRequestProxy(Function.MINUS_DM);
+    public PeriodicRequestProxy<MINUSDMResponse> minusdm(){
+        return new PeriodicRequestProxy<>(Function.MINUS_DM);
     }
 
-    public PeriodicRequestProxy plusdm(){
-        return new PeriodicRequestProxy(Function.PLUS_DM);
+    public PeriodicRequestProxy<PLUSDMResponse> plusdm(){
+        return new PeriodicRequestProxy<>(Function.PLUS_DM);
     }
 
     public BBANDSRequestProxy bbands(){
         return new BBANDSRequestProxy();
     }
 
-    public PeriodicSeriesRequestProxy midpoint(){
-        return new PeriodicSeriesRequestProxy(Function.MIDPOINT);
+    public PeriodicSeriesRequestProxy<MIDPOINTResponse> midpoint(){
+        return new PeriodicSeriesRequestProxy<>(Function.MIDPOINT);
     }
 
-    public PeriodicRequestProxy midprice(){
-        return new PeriodicRequestProxy(Function.MIDPRICE);
+    public PeriodicRequestProxy<MIDPRICEResponse> midprice(){
+        return new PeriodicRequestProxy<>(Function.MIDPRICE);
     }
 
     public SARRequestProxy sar(){
         return new SARRequestProxy();
     }
 
-    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?, SimpleIndicatorResponse>, SimpleIndicatorResponse> trange(){
+    public SimpleIndicatorRequestProxy<?, TRANGEResponse> trange(){
         return new SimpleIndicatorRequestProxy<>(Function.TRANGE);
     }
 
-    public PeriodicRequestProxy atr(){
-        return new PeriodicRequestProxy(Function.ATR);
+    public PeriodicRequestProxy<ATRResponse> atr(){
+        return new PeriodicRequestProxy<>(Function.ATR);
     }
 
-    public PeriodicRequestProxy natr(){
-        return new PeriodicRequestProxy(Function.NATR);
+    public PeriodicRequestProxy<NATRResponse> natr(){
+        return new PeriodicRequestProxy<>(Function.NATR);
     }
 
-    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?, SimpleIndicatorResponse>, SimpleIndicatorResponse> ad(){
+    public SimpleIndicatorRequestProxy<?, ADResponse> ad(){
         return new SimpleIndicatorRequestProxy<>(Function.AD);
     }
 
@@ -600,32 +809,32 @@ public class Indicator implements Fetcher{
         return new ADOSCRequestProxy();
     }
 
-    public SimpleIndicatorRequestProxy<SimpleIndicatorRequestProxy<?, SimpleIndicatorResponse>, SimpleIndicatorResponse> obv(){
+    public SimpleIndicatorRequestProxy<?, OBVResponse> obv(){
         return new SimpleIndicatorRequestProxy<>(Function.OBV);
     }
 
-    public SeriesRequestProxy httrendline(){
-        return new SeriesRequestProxy(Function.HT_TRENDLINE);
+    public SeriesRequestProxy<HTTRENDLINEResponse> httrendline(){
+        return new SeriesRequestProxy<>(Function.HT_TRENDLINE);
     }
 
-    public SeriesRequestProxy htsine(){
-        return new SeriesRequestProxy(Function.HT_SINE);
+    public SeriesRequestProxy<HTSINEResponse> htsine(){
+        return new SeriesRequestProxy<>(Function.HT_SINE);
     }
     
-    public SeriesRequestProxy httrendmode(){
-        return new SeriesRequestProxy(Function.HT_TRENDMODE);
+    public SeriesRequestProxy<HTTRENDMODEResponse> httrendmode(){
+        return new SeriesRequestProxy<>(Function.HT_TRENDMODE);
     }
 
-    public SeriesRequestProxy htdcphase(){
-        return new SeriesRequestProxy(Function.HT_DCPHASE);
+    public SeriesRequestProxy<HTDCPHASEResponse> htdcphase(){
+        return new SeriesRequestProxy<>(Function.HT_DCPHASE);
     }
 
-    public SeriesRequestProxy htdcperiod(){
-        return new SeriesRequestProxy(Function.HT_DCPERIOD);
+    public SeriesRequestProxy<HTDCPERIODResponse> htdcperiod(){
+        return new SeriesRequestProxy<>(Function.HT_DCPERIOD);
     }
 
-    public SeriesRequestProxy htphasor(){
-        return new SeriesRequestProxy(Function.HT_PHASOR);
+    public SeriesRequestProxy<HTPHASORResponse> htphasor(){
+        return new SeriesRequestProxy<>(Function.HT_PHASOR);
     }
 
 
@@ -683,7 +892,7 @@ public class Indicator implements Fetcher{
          * Set the response during a synchronous call
          * @param response
          */
-        public void setSyncResponse(U response) {
+        private void setSyncResponse(U response) {
             this.syncResponse = response;
         }
 
@@ -705,45 +914,45 @@ public class Indicator implements Fetcher{
     }
 
 
-    public class PeriodicSeriesRequestProxy extends SimpleIndicatorRequestProxy<PeriodicSeriesRequestProxy, PeriodicSeriesResponse> {
+    public class PeriodicSeriesRequestProxy<T> extends SimpleIndicatorRequestProxy<PeriodicSeriesRequestProxy<T>, T> {
  
         public PeriodicSeriesRequestProxy(Function function){
             builder = new PeriodicSeriesRequest.Builder(); 
             builder = builder.function(function);
         }
 
-        public PeriodicSeriesRequestProxy timePeriod(int period){
+        public PeriodicSeriesRequestProxy<T> timePeriod(int period){
             builder = ((PeriodicSeriesRequest.Builder)builder).timePeriod(period);
             return this;
         }
 
-        public PeriodicSeriesRequestProxy seriesType(SeriesType series){
+        public PeriodicSeriesRequestProxy<T> seriesType(SeriesType series){
             builder = ((PeriodicSeriesRequest.Builder)builder).seriesType(series);
             return this;
         }
     }
 
-    public class PeriodicRequestProxy extends SimpleIndicatorRequestProxy<PeriodicRequestProxy, PeriodicResponse> {
+    public class PeriodicRequestProxy<T> extends SimpleIndicatorRequestProxy<PeriodicRequestProxy<T>, T> {
  
         public PeriodicRequestProxy(Function function){
             builder = new PeriodicRequest.Builder(); 
             builder = builder.function(function);
         }
 
-        public PeriodicRequestProxy timePeriod(int period){
+        public PeriodicRequestProxy<T> timePeriod(int period){
             builder = ((PeriodicRequest.Builder)builder).timePeriod(period);
             return this;
         }
     }
 
-    public class SeriesRequestProxy extends SimpleIndicatorRequestProxy<SeriesRequestProxy, SeriesResponse> {
+    public class SeriesRequestProxy<T> extends SimpleIndicatorRequestProxy<SeriesRequestProxy<T>, T> {
  
         public SeriesRequestProxy(Function function){
             builder = new SeriesRequest.Builder(); 
             builder = builder.function(function);   
         }
 
-        public SeriesRequestProxy seriesType(SeriesType series){
+        public SeriesRequestProxy<T> seriesType(SeriesType series){
             builder = ((SeriesRequest.Builder)builder).seriesType(series);
             return this;
         }
@@ -926,29 +1135,29 @@ public class Indicator implements Fetcher{
         }
     }
 
-    public class PriceOscillatorRequestProxy extends SimpleIndicatorRequestProxy<PriceOscillatorRequestProxy, PriceOscillatorResponse> {
+    public class PriceOscillatorRequestProxy<T> extends SimpleIndicatorRequestProxy<PriceOscillatorRequestProxy<T>, T> {
  
         public PriceOscillatorRequestProxy(Function function){
             builder = new PriceOscillatorRequest.Builder(); 
             builder = builder.function(function); 
         }
 
-        public PriceOscillatorRequestProxy fastPeriod(int period){
+        public PriceOscillatorRequestProxy<T> fastPeriod(int period){
             builder = ((PriceOscillatorRequest.Builder)builder).fastPeriod(period);
             return this;
         }
 
-        public  PriceOscillatorRequestProxy slowPeriod(int period){
+        public PriceOscillatorRequestProxy<T> slowPeriod(int period){
             builder = ((PriceOscillatorRequest.Builder)builder).slowPeriod(period);
             return this;
         }
 
-        public  PriceOscillatorRequestProxy seriesType(SeriesType series){
+        public PriceOscillatorRequestProxy<T> seriesType(SeriesType series){
             builder = ((PriceOscillatorRequest.Builder)builder).seriesType(series);
             return this;
         }
 
-        public  PriceOscillatorRequestProxy maType(MAType type){
+        public PriceOscillatorRequestProxy<T> maType(MAType type){
             builder = ((PriceOscillatorRequest.Builder)builder).maType(type);
             return this;
         }

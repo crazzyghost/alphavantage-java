@@ -7,19 +7,19 @@ import java.util.Map;
 import com.crazzyghost.alphavantage.parser.DefaultParser;
 import com.crazzyghost.alphavantage.parser.Parser;
 
-public class SimpleIndicatorResponse {
+public abstract class SimpleIndicatorResponse {
 
-    private MetaData metaData;
-    private List<SimpleIndicatorUnit> indicatorUnits;
-    private String errorMessage;
+    protected MetaData metaData;
+    protected List<SimpleIndicatorUnit> indicatorUnits;
+    protected String errorMessage;
 
-    private SimpleIndicatorResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData) {
+    protected SimpleIndicatorResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private SimpleIndicatorResponse(String errorMessage) {
+    protected SimpleIndicatorResponse(String errorMessage) {
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -37,21 +37,17 @@ public class SimpleIndicatorResponse {
         return metaData;
     }
 
-    public static SimpleIndicatorResponse of(Map<String, Object> stringObjectMap, String indicatorKey) {
-        Parser<SimpleIndicatorResponse> parser = new SimpleIndicatorParser(indicatorKey);
-        return parser.parse(stringObjectMap);
-    }
+//    public static SimpleIndicatorResponse of(Map<String, Object> stringObjectMap, String indicatorKey) {
+//        Parser<SimpleIndicatorResponse> parser = new SimpleIndicatorParser(indicatorKey);
+//        return parser.parse(stringObjectMap);
+//    }
 
-    public static class SimpleIndicatorParser extends DefaultParser<SimpleIndicatorResponse> {
+    public static abstract class SimpleIndicatorParser<T> extends DefaultParser<T> {
 
-        private String indicatorKey;
-
-        public SimpleIndicatorParser(String indicatorKey) {
-            this.indicatorKey = indicatorKey;
-        }
+        protected SimpleIndicatorParser() { }
 
         @Override
-        public SimpleIndicatorResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+        public T parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
             
             MetaData metaData = new MetaData(
                 String.valueOf(metaDataMap.get("1: Symbol")),
@@ -67,18 +63,22 @@ public class SimpleIndicatorResponse {
                 Map<String, String> m = e.getValue();     
                 SimpleIndicatorUnit indicatorUnit = new SimpleIndicatorUnit(
                     e.getKey(),
-                    Double.parseDouble(m.get(indicatorKey)),
-                    indicatorKey
+                    Double.parseDouble(m.get(getIndicatorKey())),
+                    getIndicatorKey()
                 );
                 indicatorUnits.add(indicatorUnit);
             }
-            return new SimpleIndicatorResponse(indicatorUnits, metaData);
+            return get(indicatorUnits, metaData);
         }
 
         @Override
-        public SimpleIndicatorResponse onParseError(String error) {
-            return new SimpleIndicatorResponse(error);
+        public T onParseError(String error) {
+            return get(error);
         }
+
+        public abstract T get(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData);
+        public abstract T get(String error);
+        public abstract String getIndicatorKey();
     }
 
 

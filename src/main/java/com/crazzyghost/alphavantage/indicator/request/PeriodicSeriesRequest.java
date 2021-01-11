@@ -1,10 +1,9 @@
 package com.crazzyghost.alphavantage.indicator.request;
 
-import com.crazzyghost.alphavantage.indicator.request.IndicatorRequest;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
 
-public class PeriodicSeriesRequest extends IndicatorRequest{
+public class PeriodicSeriesRequest extends IndicatorRequest {
 
     private SeriesType series_type;
     private int time_period;
@@ -15,7 +14,7 @@ public class PeriodicSeriesRequest extends IndicatorRequest{
         this.series_type = builder.seriesType;
     }
 
-    public static class Builder extends IndicatorRequest.Builder<Builder>{
+    public static class Builder extends IndicatorRequest.Builder<Builder> {
 
         private SeriesType seriesType;
         private int timePeriod;
@@ -32,6 +31,7 @@ public class PeriodicSeriesRequest extends IndicatorRequest{
 
         @Override
         public IndicatorRequest build() {
+
             return new PeriodicSeriesRequest(this);
         }
 

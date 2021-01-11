@@ -3,15 +3,15 @@ package indicator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.crazzyghost.alphavantage.indicator.response.AROONIndicatorUnit;
-import com.crazzyghost.alphavantage.indicator.response.BBANDSIndicatorUnit;
-import com.crazzyghost.alphavantage.indicator.response.HTPHASORIndicatorUnit;
-import com.crazzyghost.alphavantage.indicator.response.HTSINEIndicatorUnit;
-import com.crazzyghost.alphavantage.indicator.response.MACDIndicatorUnit;
-import com.crazzyghost.alphavantage.indicator.response.MAMAIndicatorUnit;
-import com.crazzyghost.alphavantage.indicator.response.STOCHFIndicatorUnit;
-import com.crazzyghost.alphavantage.indicator.response.STOCHIndicatorUnit;
-import com.crazzyghost.alphavantage.indicator.response.STOCHRSIIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.aroon.AROONIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.bbands.BBANDSIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.htphasor.HTPHASORIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.htsine.HTSINEIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.macd.MACDIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.mama.MAMAIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.stochf.STOCHFIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.stoch.STOCHIndicatorUnit;
+import com.crazzyghost.alphavantage.indicator.response.stochrsi.STOCHRSIIndicatorUnit;
 import com.crazzyghost.alphavantage.indicator.response.SimpleIndicatorUnit;
 
 import org.junit.Test;

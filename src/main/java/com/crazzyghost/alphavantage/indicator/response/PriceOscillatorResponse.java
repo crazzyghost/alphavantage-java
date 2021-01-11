@@ -7,19 +7,19 @@ import java.util.Map;
 import com.crazzyghost.alphavantage.parser.DefaultParser;
 import com.crazzyghost.alphavantage.parser.Parser;
 
-public class PriceOscillatorResponse {
+public abstract class PriceOscillatorResponse {
 
-    private MetaData metaData;
-    private List<SimpleIndicatorUnit> indicatorUnits;
-    private String errorMessage;
+    protected MetaData metaData;
+    protected List<SimpleIndicatorUnit> indicatorUnits;
+    protected String errorMessage;
 
-    private PriceOscillatorResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData) {
+    protected PriceOscillatorResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private PriceOscillatorResponse(String errorMessage) {
+    protected PriceOscillatorResponse(String errorMessage) {
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -37,21 +37,12 @@ public class PriceOscillatorResponse {
         return metaData;
     }
 
-    public static PriceOscillatorResponse of(Map<String, Object> stringObjectMap, String indicatorKey) {
-        Parser<PriceOscillatorResponse> parser = new PriceOscillatorParser(indicatorKey);
-        return parser.parse(stringObjectMap);
-    }
+    public static abstract class PriceOscillatorParser<T> extends DefaultParser<T> {
 
-    public static class PriceOscillatorParser extends DefaultParser<PriceOscillatorResponse> {
-
-        private String indicatorKey;
-
-        public PriceOscillatorParser(String indicatorKey) {
-            this.indicatorKey = indicatorKey;
-        }
+        public PriceOscillatorParser(){}
 
         @Override
-        public PriceOscillatorResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+        public T parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
             MetaData metaData = new MetaData(
                 String.valueOf(metaDataMap.get("1: Symbol")), 
                 String.valueOf(metaDataMap.get("2: Indicator")),
@@ -70,19 +61,22 @@ public class PriceOscillatorResponse {
                 Map<String, String> m = e.getValue();
                 SimpleIndicatorUnit indicatorUnit = new SimpleIndicatorUnit(
                     e.getKey(),
-                    Double.parseDouble(m.get(indicatorKey)), 
-                    indicatorKey
+                    Double.parseDouble(m.get(getIndicatorKey())),
+                    getIndicatorKey()
                 );
                 indicatorUnits.add(indicatorUnit);
             }
-            return new PriceOscillatorResponse(indicatorUnits, metaData);
+            return get(indicatorUnits, metaData);
         }
 
         @Override
-        public PriceOscillatorResponse onParseError(String error) {
-            return new PriceOscillatorResponse(error);
+        public T onParseError(String error) {
+            return get(error);
         }
 
+        public abstract T get(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData);
+        public abstract T get(String error);
+        public abstract String getIndicatorKey();
     }
 
 

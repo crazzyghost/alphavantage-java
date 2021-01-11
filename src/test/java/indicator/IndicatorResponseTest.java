@@ -11,24 +11,30 @@ import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.indicator.response.ADOSCResponse;
-import com.crazzyghost.alphavantage.indicator.response.AROONResponse;
-import com.crazzyghost.alphavantage.indicator.response.BBANDSResponse;
-import com.crazzyghost.alphavantage.indicator.response.HTPHASORResponse;
-import com.crazzyghost.alphavantage.indicator.response.HTSINEResponse;
-import com.crazzyghost.alphavantage.indicator.response.MACDEXTResponse;
-import com.crazzyghost.alphavantage.indicator.response.MACDResponse;
-import com.crazzyghost.alphavantage.indicator.response.MAMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.adosc.ADOSCResponse;
+import com.crazzyghost.alphavantage.indicator.response.adx.ADXResponse;
+import com.crazzyghost.alphavantage.indicator.response.apo.APOResponse;
+import com.crazzyghost.alphavantage.indicator.response.aroon.AROONResponse;
+import com.crazzyghost.alphavantage.indicator.response.bbands.BBANDSResponse;
+import com.crazzyghost.alphavantage.indicator.response.htphasor.HTPHASORResponse;
+import com.crazzyghost.alphavantage.indicator.response.htsine.HTSINEResponse;
+import com.crazzyghost.alphavantage.indicator.response.httrendline.HTTRENDLINEResponse;
+import com.crazzyghost.alphavantage.indicator.response.macd.MACDEXTResponse;
+import com.crazzyghost.alphavantage.indicator.response.macd.MACDResponse;
+import com.crazzyghost.alphavantage.indicator.response.mama.MAMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicResponse;
 import com.crazzyghost.alphavantage.indicator.response.PeriodicSeriesResponse;
 import com.crazzyghost.alphavantage.indicator.response.PriceOscillatorResponse;
-import com.crazzyghost.alphavantage.indicator.response.SARResponse;
-import com.crazzyghost.alphavantage.indicator.response.STOCHFResponse;
-import com.crazzyghost.alphavantage.indicator.response.STOCHRSIResponse;
-import com.crazzyghost.alphavantage.indicator.response.STOCHResponse;
+import com.crazzyghost.alphavantage.indicator.response.ppo.PPOResponse;
+import com.crazzyghost.alphavantage.indicator.response.sar.SARResponse;
+import com.crazzyghost.alphavantage.indicator.response.stochf.STOCHFResponse;
+import com.crazzyghost.alphavantage.indicator.response.stochrsi.STOCHRSIResponse;
+import com.crazzyghost.alphavantage.indicator.response.stoch.STOCHResponse;
 import com.crazzyghost.alphavantage.indicator.response.SeriesResponse;
 import com.crazzyghost.alphavantage.indicator.response.SimpleIndicatorResponse;
-import com.crazzyghost.alphavantage.indicator.response.ULTOSCResponse;
+import com.crazzyghost.alphavantage.indicator.response.ultosc.ULTOSCResponse;
+import com.crazzyghost.alphavantage.indicator.response.sma.SMAResponse;
+import com.crazzyghost.alphavantage.indicator.response.vwap.VWAPResponse;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
@@ -58,14 +64,14 @@ public class IndicatorResponseTest {
     @Test
     public void testPeriodicSeriesResponse() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        PeriodicSeriesResponse response = PeriodicSeriesResponse.of(adapter.fromJson(getJson("sma")), "SMA");
+        PeriodicSeriesResponse response = SMAResponse.of(adapter.fromJson(getJson("sma")));
         assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
     @Test
     public void testPeriodicSeriesResponseError() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        PeriodicSeriesResponse response = PeriodicSeriesResponse.of(adapter.fromJson(errorMessage), "SMA");
+        PeriodicSeriesResponse response = SMAResponse.of(adapter.fromJson(errorMessage));
         assertEquals(response.getIndicatorUnits().size(), 0);
         assertNotNull(response.getErrorMessage());
         assertEquals(response.getMetaData().getIndicator(),"");
@@ -230,14 +236,14 @@ public class IndicatorResponseTest {
     @Test
     public void testPeriodicResponse() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        PeriodicResponse response = PeriodicResponse.of(adapter.fromJson(getJson("adx")), "ADX");
+        PeriodicResponse response = ADXResponse.of(adapter.fromJson(getJson("adx")));
         assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
     @Test
     public void testPeriodicResponseError() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        PeriodicResponse response = PeriodicResponse.of(adapter.fromJson(errorMessage), "ADX");
+        PeriodicResponse response = ADXResponse.of(adapter.fromJson(errorMessage));
         assertEquals(response.getIndicatorUnits().size(), 0);
         assertNotNull(response.getErrorMessage());
         assertEquals(response.getMetaData().getIndicator(),"");
@@ -251,14 +257,14 @@ public class IndicatorResponseTest {
     @Test
     public void testPPO() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        PriceOscillatorResponse response = PriceOscillatorResponse.of(adapter.fromJson(getJson("ppo")), "PPO");
+        PriceOscillatorResponse response = PPOResponse.of(adapter.fromJson(getJson("ppo")));
         assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
     @Test
     public void testAPO() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        PriceOscillatorResponse response = PriceOscillatorResponse.of(adapter.fromJson(getJson("apo")),"APO");
+        PriceOscillatorResponse response = APOResponse.of(adapter.fromJson(getJson("apo")));
         assertEquals(response.getIndicatorUnits().size(), 2);
     
     }
@@ -266,7 +272,7 @@ public class IndicatorResponseTest {
     @Test
     public void testPOError() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        PriceOscillatorResponse response = PriceOscillatorResponse.of(adapter.fromJson(errorMessage), "PPO");
+        PriceOscillatorResponse response = PPOResponse.of(adapter.fromJson(errorMessage));
         assertEquals(response.getIndicatorUnits().size(), 0);
         assertNotNull(response.getErrorMessage());
         assertEquals(response.getMetaData().getIndicator(),"");
@@ -305,14 +311,14 @@ public class IndicatorResponseTest {
     @Test
     public void testSimpleIndicatorResponse() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        SimpleIndicatorResponse response = SimpleIndicatorResponse.of(adapter.fromJson(getJson("vwap")), "VWAP");
+        SimpleIndicatorResponse response = VWAPResponse.of(adapter.fromJson(getJson("vwap")));
         assertEquals(response.getIndicatorUnits().size(), 2);    
     }
 
     @Test
     public void testSimpleIndicatorResponseError() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        SimpleIndicatorResponse response = SimpleIndicatorResponse.of(adapter.fromJson(errorMessage), "VWAP");
+        SimpleIndicatorResponse response = VWAPResponse.of(adapter.fromJson(errorMessage));
         assertEquals(response.getIndicatorUnits().size(), 0);    
         assertNotNull(response.getErrorMessage());
         assertEquals(response.getMetaData().getIndicator(),"");
@@ -348,14 +354,14 @@ public class IndicatorResponseTest {
     @Test
     public void testSeriesResponse() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        SeriesResponse response = SeriesResponse.of(adapter.fromJson(getJson("httrendline")), "HT_TRENDLINE");
+        SeriesResponse response = HTTRENDLINEResponse.of(adapter.fromJson(getJson("httrendline")));
         assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
     @Test
     public void testSeriesResponseError() throws IOException{
         final JsonAdapter<Map<String,Object>> adapter = getJsonAdapter();
-        SeriesResponse response = SeriesResponse.of(adapter.fromJson(errorMessage), "HT_TRENDLINE");
+        SeriesResponse response = HTTRENDLINEResponse.of(adapter.fromJson(errorMessage));
         assertEquals(response.getIndicatorUnits().size(), 0);
         assertNotNull(response.getErrorMessage());
         assertEquals(response.getMetaData().getIndicator(),"");

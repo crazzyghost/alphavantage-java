@@ -7,19 +7,19 @@ import java.util.Map;
 import com.crazzyghost.alphavantage.parser.DefaultParser;
 import com.crazzyghost.alphavantage.parser.Parser;
 
-public class PeriodicResponse {
+public abstract class PeriodicResponse {
 
-    private MetaData metaData;
-    private List<SimpleIndicatorUnit> indicatorUnits;
-    private String errorMessage;
+    protected MetaData metaData;
+    protected List<SimpleIndicatorUnit> indicatorUnits;
+    protected String errorMessage;
 
-    private PeriodicResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData){
+    protected PeriodicResponse(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData){
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
-    private PeriodicResponse(String errorMessage){
+    protected PeriodicResponse(String errorMessage){
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
@@ -37,22 +37,15 @@ public class PeriodicResponse {
     public MetaData getMetaData() {
         return metaData;
     }
-    
-    public static PeriodicResponse of(Map<String, Object> stringObjectMap, String indicatorKey){
-        Parser<PeriodicResponse> parser = new PeriodicParser(indicatorKey);
-        return parser.parse(stringObjectMap);
-    }
 
-    public static class PeriodicParser extends DefaultParser<PeriodicResponse> {
+    public static abstract class PeriodicParser<T> extends DefaultParser<T> {
 
-        private String indicatorKey;
+        public PeriodicParser(){
 
-        public PeriodicParser(String indicatorKey){
-            this.indicatorKey = indicatorKey;
         }
 
         @Override
-        public PeriodicResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+        public T parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
             
             MetaData metaData = new MetaData(
                 String.valueOf(metaDataMap.get("1: Symbol")),
@@ -69,18 +62,22 @@ public class PeriodicResponse {
                 Map<String, String> m = e.getValue();     
                 SimpleIndicatorUnit indicatorUnit = new SimpleIndicatorUnit(
                     e.getKey(),
-                    Double.parseDouble(m.get(indicatorKey)),
-                    indicatorKey
+                    Double.parseDouble(m.get(getIndicatorKey())),
+                    getIndicatorKey()
                 );
                 indicatorUnits.add(indicatorUnit);
             }
-            return new PeriodicResponse(indicatorUnits, metaData);
+            return get(indicatorUnits, metaData);
         }
 
         @Override
-        public PeriodicResponse onParseError(String error) {
-            return new PeriodicResponse(error);
+        public T onParseError(String error) {
+            return get(error);
         }
+
+        public abstract T get(List<SimpleIndicatorUnit> indicatorUnits, MetaData metaData);
+        public abstract T get(String error);
+        public abstract String getIndicatorKey();
     }
 
     @Override
