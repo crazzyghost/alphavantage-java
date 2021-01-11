@@ -194,14 +194,10 @@ public class Indicator implements Fetcher{
                 break;
             case MIDPOINT:
                 response = MIDPOINTResponse.of(data);
-                break;
             default:
                 break;
         }
-        if(response == null && failureCallback != null){
-            failureCallback.onFailure(new AlphaVantageException("Response could not be parsed"));
-            return;
-        }
+
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -242,15 +238,10 @@ public class Indicator implements Fetcher{
                 break;
             case OBV:
                 response = OBVResponse.of(data);
-                break;
             default:
                 break;
         }
 
-        if(response == null && failureCallback != null){
-            failureCallback.onFailure(new AlphaVantageException("Response could not be parsed"));
-            return;
-        }
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
@@ -329,13 +320,8 @@ public class Indicator implements Fetcher{
                 break;
             case PPO:
                 response = PPOResponse.of(data);
-                break;
             default:
                 break;
-        }
-        if(response == null && failureCallback != null){
-            failureCallback.onFailure(new AlphaVantageException("Response could not be parsed"));
-            return;
         }
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -391,13 +377,8 @@ public class Indicator implements Fetcher{
                 break;
             case NATR:
                 response = NATRResponse.of(data);
-                break;
             default:
                 break;
-        }
-        if(response == null && failureCallback != null){
-            failureCallback.onFailure(new AlphaVantageException("Response could not be parsed"));
-            return;
         }
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)
@@ -484,13 +465,8 @@ public class Indicator implements Fetcher{
                 break;
             case HT_DCPHASE:
                 response = HTDCPHASEResponse.of(data);
-                break;
             default:
                 break;
-        }
-        if(response == null && failureCallback != null){
-            failureCallback.onFailure(new AlphaVantageException("Response could not be parsed"));
-            return;
         }
         if(response.getErrorMessage() != null) {
             if(failureCallback != null)

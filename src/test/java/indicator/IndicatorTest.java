@@ -20,6 +20,7 @@ import com.crazzyghost.alphavantage.indicator.Indicator;
 import com.crazzyghost.alphavantage.indicator.response.adosc.ADOSCResponse;
 import com.crazzyghost.alphavantage.indicator.response.aroon.AROONResponse;
 import com.crazzyghost.alphavantage.indicator.response.bbands.BBANDSResponse;
+import com.crazzyghost.alphavantage.indicator.response.ema.EMAResponse;
 import com.crazzyghost.alphavantage.indicator.response.htphasor.HTPHASORResponse;
 import com.crazzyghost.alphavantage.indicator.response.htsine.HTSINEResponse;
 import com.crazzyghost.alphavantage.indicator.response.macd.MACDEXTResponse;
@@ -441,7 +442,7 @@ public class IndicatorTest {
             .interval(Interval.WEEKLY)
             .seriesType(SeriesType.OPEN)
             .timePeriod(60)
-            .onSuccess((PeriodicSeriesResponse e) -> {
+            .onSuccess((EMAResponse e) -> {
                 ref.set(e);
                 lock.countDown();
             })
