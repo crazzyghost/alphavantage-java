@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/crazzyghost/alphavantage-java/branch/master/graph/badge.svg)](https://codecov.io/gh/crazzyghost/alphavantage-java)
 [![](https://jitpack.io/v/crazzyghost/alphavantage-java.svg)](https://jitpack.io/#crazzyghost/alphavantage-java)
 
-I created this wrapper to make accessing the [AlphaVantage API](https://www.alphavantage.co/) fairly simple and fun by providing a fluent interface with Java.
+An easy to use, fluent Java wrapper for accessing the [AlphaVantage API](https://www.alphavantage.co/).
 
 ## Getting Started
 
@@ -49,15 +49,19 @@ dependencies {
 
 These five steps summarize how to access data using this library
 
-1. `config`ure the wrapper
-2. Select a `category`
-3. Set the `parameters` for the selected category
-4. Add `response callbacks`
-5. `fetch` results
+Step 1. `config`ure the wrapper
+
+Step 2. Select a `category`
+
+Step 3. Set the `parameters` for the selected category
+
+Step 4. (Optional) Add `response callbacks`
+
+Step 5. `fetch` results
 
 #### 1. `Config`uring the wrapper
 
-Access to the API is through the AlphaVantage Singleton which is accessed using the `static` `api()` method of the class. Initialize the singleton with a `Config` instance once through out your apps lifetime.
+Access to the API is through the AlphaVantage Singleton which is accessed using the `static` `api()` method of the class. Initialize the singleton with a `Config` instance once throughout your app's lifetime.
 
 ```java
 Config cfg = Config.builder()
@@ -66,7 +70,7 @@ Config cfg = Config.builder()
     .build();
 ```
 
-The config object is then used to initialize the instance. You will use this object to set your api key and configure the http client. Using the wrapper without setting a config or a config key will throw an exception.
+Initialize the instance with the config. You will use this object to set your api key and configure the http client. Using the wrapper without setting a config or a config key will throw an exception.
 
 ```java
 AlphaVantage.api().init(cfg);
@@ -111,7 +115,7 @@ Start setting parameters by calling an appropriate function method in the select
 
 #### 4. Adding `response callbacks`
 
-To handle responses add the `onSuccess()` or `onFailure()` callbacks.
+To handle responses add the `onSuccess()` or `onFailure()` async callbacks. Starting from version 1.5.0, this is an optional step.
 
 ```java
 public void handleSuccess(TimeSeriesResponse response) {
@@ -147,5 +151,18 @@ AlphaVantage.api()
     .onFailure(e->hanldeFailure(e))
     .fetch();
 ```
+
+If you want a synchronous response, call the `fetchSync()` method.
+
+```java
+TimeSeriesResponse response = AlphaVantage.api()
+    .timeSeries()
+    .intraday()
+    .forSymbol("IBM")
+    .interval(Interval.FIVE_MIN)
+    .outputSize(OutputSize.FULL)
+    .fetchSync();
+```
+
 
 That's it! :tada: See [site](https://crazzyghost.github.io/alphavantage-java/) and [demo project](https://github.com/crazzyghost/stockmonitor) for more examples & documentation

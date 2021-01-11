@@ -47,11 +47,15 @@ dependencies {
 
 These five steps summarize how to access data using this library
 
-1. `config`ure the wrapper
-2. Select a `category`
-3. Set the `parameters` for the selected category
-4. Add `response callbacks`
-5. `fetch` results
+Step 1. `config`ure the wrapper
+
+Step 2. Select a `category`
+
+Step 3. Set the `parameters` for the selected category
+
+Step 4. (Optional) Add `response callbacks`
+
+Step 5. `fetch` results
 
 #### 1. `Config`uring the wrapper
 
@@ -74,7 +78,7 @@ Access to the API is through the AlphaVantage Singleton which is accessed using 
             .timeOut(10)
             .build()
 
-The config object is then used to initialize the instance. You will use this object to set your api key and configure the http client.
+Use the config object to initialize the api instance. You will use this object to set your api key and configure the http client.
 
 !!! warning
     Using the wrapper without setting a config or a config key will throw an exception.
@@ -142,7 +146,7 @@ Let's select the `TIME_SERIES_INTRADAY` function
 
 #### 4. Adding `response callbacks`
 
-To handle responses add the `onSuccess()` or `onFailure()` callbacks.
+To handle responses add the `onSuccess()` or `onFailure()` async callbacks. Starting from version 1.5.0, this is an optional step.
 
 === "Java"
         :::java
@@ -212,6 +216,28 @@ When you are okay with setting the parameters call the `fetch()` method. Simple!
             .outputSize(OutputSize.FULL)
             .onSuccess({ e-> handleSuccess(e) })
             .onFailure({ e-> hanldeFailure(e) })
+            .fetch()
+
+You can also use the sychronous fetch method by calling the `fetchSync()` method without callback handlers.
+
+=== "Java"
+        :::java
+        TimeSeriesResponse response = AlphaVantage.api()
+            .timeSeries()
+            .intraday()
+            .forSymbol("IBM")
+            .interval(Interval.FIVE_MIN)
+            .outputSize(OutputSize.FULL)
+            .fetch();
+
+=== "Kotlin"
+        :::java
+        TimeSeriesResponse response = AlphaVantage.api()
+            .timeSeries()
+            .intraday()
+            .forSymbol("IBM")
+            .interval(Interval.FIVE_MIN)
+            .outputSize(OutputSize.FULL)
             .fetch()
 
 ## Releases

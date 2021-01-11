@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.5.0] - 11-01-2021
+
+- New: Support for synchronous requests
+
 ## v1.4.2 - 20-10-2020
 
 - [Missing crypto unit date](https://github.com/crazzyghost/alphavantage-java/pull/13) 
