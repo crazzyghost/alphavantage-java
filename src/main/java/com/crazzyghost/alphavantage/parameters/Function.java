@@ -3,6 +3,7 @@ package com.crazzyghost.alphavantage.parameters;
 public enum Function {
     //Stock Time Series Functions
     TIME_SERIES_INTRADAY,
+    TIME_SERIES_INTRADAY_EXTENDED,
     TIME_SERIES_DAILY,
     TIME_SERIES_DAILY_ADJUSTED,
     TIME_SERIES_WEEKLY,
@@ -77,5 +78,12 @@ public enum Function {
     HT_DCPHASE,
     HT_PHASOR,
     //sector performances
-    SECTOR
+    SECTOR,
+    //Fundamental Data
+    OVERVIEW,
+    INCOME_STATEMENT,
+    BALANCE_SHEET,
+    CASH_FLOW,
+    EARNINGS,
+    LISTING_STATUS
 }
