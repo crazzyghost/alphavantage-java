@@ -17,16 +17,18 @@ import okio.BufferedSource;
 import okio.Okio;
 
 public class TestUtils {
-    
+
     private static String directory;
 
     private TestUtils(){
 
     }
 
-    public static String errorMessage = "{" + 
-        "\"Information\":" + "\"The **demo** API key is for demo purposes only. Please claim your free API key at (https://www.alphavantage.co/support/#api-key) to explore our full API offerings. It takes fewer than 20 seconds, and we are committed to making it free forever.\"" +
-    "}";
+    public static String errorMessage = "{" +
+            "\"Information\":" + "\"The **demo** API key is for demo purposes only. Please claim your free API key at (https://www.alphavantage.co/support/#api-key) to explore our full API offerings. It takes fewer than 20 seconds, and we are committed to making it free forever.\"" +
+            "}";
+
+    public static String emptyMessage = "{}";
 
     /**
      * Get json file as {@link BufferedSource}
@@ -79,7 +81,7 @@ public class TestUtils {
     }
 
     /**
-     * Mock and error response
+     * Mock an error response
      * @return
      * @throws IOException
      */
@@ -87,23 +89,32 @@ public class TestUtils {
         return getJsonAdapter().fromJson(errorMessage);
     }
 
+    /**
+     * Mock an empty response
+     * @return
+     * @throws IOException
+     */
+    public static Map<String,Object> empty() throws IOException {
+        return getJsonAdapter().fromJson(emptyMessage);
+    }
+
     public static String sectorUrl(){
         return Config.BASE_URL + "function=SECTOR&apikey=demo";
     }
-    
+
     public static String exchangeRateUrl(final String toCurrency){
         String currency = toCurrency == null ? "CNY" : toCurrency;
-        return Config.BASE_URL + "function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency="+currency+"&apikey=demo";    
+        return Config.BASE_URL + "function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency="+currency+"&apikey=demo";
     };
 
     public static String cryptoUrl(final String function, final String symbol){
         String sym = symbol == null ? "BTC" : symbol;
-        return Config.BASE_URL + "market=CNY&function=DIGITAL_CURRENCY_"+ function.toUpperCase() + "&symbol=" + sym +"&apikey=demo";    
+        return Config.BASE_URL + "market=CNY&function=DIGITAL_CURRENCY_"+ function.toUpperCase() + "&symbol=" + sym +"&apikey=demo";
     };
 
     public static String cryptoRatingUrl(final String symbol){
         String sym = symbol == null ? "BTC" : symbol;
-        return Config.BASE_URL + "function=CRYPTO_RATING&symbol=" + sym + "&apikey=demo";    
+        return Config.BASE_URL + "function=CRYPTO_RATING&symbol=" + sym + "&apikey=demo";
     };
 
     public static String getSimpleIndicatorRequestUrl(String function){
@@ -200,3 +211,4 @@ public class TestUtils {
 
 
 }
+

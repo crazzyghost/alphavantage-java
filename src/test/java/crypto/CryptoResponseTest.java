@@ -9,13 +9,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import util.TestUtils;
-import static util.TestUtils.json;
-import static util.TestUtils.error;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static util.TestUtils.*;
 
 public class CryptoResponseTest {
 
@@ -39,7 +39,7 @@ public class CryptoResponseTest {
         assertNotEquals(response.getMetaData().getTimeZone(), "");
 
     }
-    
+
     @Test
     public void testDigitalCurrencyResponseError() throws IOException {
         CryptoResponse response = CryptoResponse.of(error(), "CNY");
@@ -59,14 +59,20 @@ public class CryptoResponseTest {
         assertEquals(response.getUtilityScore(), "951");
         assertEquals(response.getLastRefreshed(), "2020-05-03 00:00:00");
         assertEquals(response.getTimeZone(), "UTC");
-        assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));        
+        assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
 
     }
-    
+
     @Test
     public void testHealthIndexResponseError() throws IOException {
         RatingResponse response = RatingResponse.of(error());
         assertNotNull(response.getErrorMessage());
     }
 
+    @Test
+    public void testEmptyCryptoResponseError() throws IOException {
+        CryptoResponse response = CryptoResponse.of(empty(), "CNY");
+        assertNotNull(response.getErrorMessage());
+        assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
+    }
 }

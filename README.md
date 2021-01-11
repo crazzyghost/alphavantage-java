@@ -148,4 +148,4 @@ AlphaVantage.api()
     .fetch();
 ```
 
-That's it! :tada: See [site](https://crazzyghost.github.io/alphavantage-java/) for more examples & documentation
+That's it! :tada: See [site](https://crazzyghost.github.io/alphavantage-java/) and [demo project](https://github.com/crazzyghost/stockmonitor) for more examples & documentation

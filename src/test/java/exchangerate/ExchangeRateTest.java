@@ -1,9 +1,7 @@
 package exchangerate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static util.TestUtils.*;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -11,11 +9,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import util.TestUtils;
-import static util.TestUtils.json;
-import static util.TestUtils.stream;
-import static util.TestUtils.error;
-import static util.TestUtils.errorMessage;
-import static util.TestUtils.exchangeRateUrl;
 
 import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.AlphaVantageException;
@@ -35,7 +28,7 @@ import okhttp3.mock.Behavior;
 import okhttp3.mock.MockInterceptor;
 
 public class ExchangeRateTest {
- 
+
     MockInterceptor mockInterceptor = new MockInterceptor(Behavior.UNORDERED);
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     Config config;
@@ -43,7 +36,7 @@ public class ExchangeRateTest {
     @Before
     public void setUp() throws IOException {
         TestUtils.forDirectory("exchangerate");
-        
+
         loggingInterceptor.level(Level.BASIC);
         OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(4, TimeUnit.SECONDS)
@@ -56,7 +49,7 @@ public class ExchangeRateTest {
             .key("demo")
             .httpClient(client)
             .build();
-        
+
         AlphaVantage.api().init(config);
 
         mockInterceptor.addRule().get(exchangeRateUrl(null)).respond(stream("data"));
@@ -66,11 +59,11 @@ public class ExchangeRateTest {
 
     }
 
-    
-    @Test 
+
+    @Test
     public void testRequest(){
 
-        String expected = "function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo";        
+        String expected = "function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo";
         ExchangeRateRequest  request = new ExchangeRateRequest.Builder()
             .fromCurrency("BTC")
             .toCurrency("CNY")
@@ -106,6 +99,13 @@ public class ExchangeRateTest {
         assertNotNull(response.getErrorMessage());
     }
 
+    @Test
+    public void testEmptyResponseError() throws IOException{
+        ExchangeRateResponse response = ExchangeRateResponse.of(empty());
+        assertNotNull(response.getErrorMessage());
+        assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
+    }
+
 
     @Test(expected = AlphaVantageException.class)
     public void testConfigNotSet(){
@@ -123,7 +123,7 @@ public class ExchangeRateTest {
             .fetch();
     }
 
-    @Test 
+    @Test
     public void testExchangeRate() throws InterruptedException {
         CountDownLatch lock = new CountDownLatch(1);
         AtomicReference<ExchangeRateResponse> ref = new AtomicReference<>();
@@ -137,12 +137,12 @@ public class ExchangeRateTest {
                 lock.countDown();
             })
             .fetch();
-        
-        lock.await(); 
+
+        lock.await();
         assertNotNull(ref.get());
     }
 
-    @Test 
+    @Test
     public void testExchangeRateError() throws InterruptedException{
         CountDownLatch lock = new CountDownLatch(1);
         AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
@@ -156,12 +156,12 @@ public class ExchangeRateTest {
                 lock.countDown();
             })
             .fetch();
-        
-        lock.await(); 
-        assertNotNull(ref.get());    
+
+        lock.await();
+        assertNotNull(ref.get());
     }
 
-    @Test 
+    @Test
     public void testExchangeRateUnsuccessful() throws InterruptedException{
         CountDownLatch lock = new CountDownLatch(1);
         AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
@@ -175,12 +175,12 @@ public class ExchangeRateTest {
                 lock.countDown();
             })
             .fetch();
-        
-        lock.await(); 
-        assertNotNull(ref.get());    
+
+        lock.await();
+        assertNotNull(ref.get());
     }
 
-    @Test 
+    @Test
     public void testExchangeRateFailure() throws InterruptedException{
         CountDownLatch lock = new CountDownLatch(1);
         AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
@@ -195,9 +195,9 @@ public class ExchangeRateTest {
                 lock.countDown();
             })
             .fetch();
-        
-        lock.await(); 
-        assertNotNull(ref.get());    
+
+        lock.await();
+        assertNotNull(ref.get());
     }
 
 
