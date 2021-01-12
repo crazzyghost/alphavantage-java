@@ -332,17 +332,17 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
     
     <label class="md-nav__link" for="nav-2">
-      v1.4.0 API
+      v1.5.0 API
       <span class="md-nav__icon md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
       </span>
     </label>
-    <nav class="md-nav" aria-label="v1.4.0 API" data-md-level="1">
+    <nav class="md-nav" aria-label="v1.5.0 API" data-md-level="1">
       <label class="md-nav__title" for="nav-2">
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
         </span>
-        v1.4.0 API
+        v1.5.0 API
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -725,13 +725,11 @@
 
 <h3 id="quick-usage-guide">Quick Usage Guide<a class="headerlink" href="#quick-usage-guide" title="Permanent link">&para;</a></h3>
 <p>These five steps summarize how to access data using this library</p>
-<ol>
-<li><code>config</code>ure the wrapper</li>
-<li>Select a <code>category</code></li>
-<li>Set the <code>parameters</code> for the selected category</li>
-<li>Add <code>response callbacks</code></li>
-<li><code>fetch</code> results</li>
-</ol>
+<p>Step 1. <code>config</code>ure the wrapper</p>
+<p>Step 2. Select a <code>category</code></p>
+<p>Step 3. Set the <code>parameters</code> for the selected category</p>
+<p>Step 4. (Optional) Add <code>response callbacks</code></p>
+<p>Step 5. <code>fetch</code> results</p>
 <h4 id="1-configuring-the-wrapper">1. <code>Config</code>uring the wrapper<a class="headerlink" href="#1-configuring-the-wrapper" title="Permanent link">&para;</a></h4>
 <p>Access to the API is through the AlphaVantage Singleton which is accessed using the <code>static</code> <code>api()</code> method of the class.</p>
 <div class="admonition tip">
@@ -757,7 +755,7 @@
 
 </div>
 </div>
-<p>The config object is then used to initialize the instance. You will use this object to set your api key and configure the http client.</p>
+<p>Use the config object to initialize the api instance. You will use this object to set your api key and configure the http client.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Using the wrapper without setting a config or a config key will throw an exception.</p>
@@ -859,7 +857,7 @@
 <p>Start setting parameters by calling an appropriate function method in the selected category</p>
 </div>
 <h4 id="4-adding-response-callbacks">4. Adding <code>response callbacks</code><a class="headerlink" href="#4-adding-response-callbacks" title="Permanent link">&para;</a></h4>
-<p>To handle responses add the <code>onSuccess()</code> or <code>onFailure()</code> callbacks.</p>
+<p>To handle responses add the <code>onSuccess()</code> or <code>onFailure()</code> async callbacks. Starting from version 1.5.0, this is an optional step.</p>
 <div class="tabbed-set" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">Java</label><div class="tabbed-content">
 <div class="codehilite"><pre><span></span><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleSuccess</span><span class="p">(</span><span class="n">TimeSeriesResponse</span> <span class="n">response</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">plotGraph</span><span class="p">(</span><span class="n">reponse</span><span class="p">.</span><span class="na">getStockUnits</span><span class="p">());</span>
@@ -932,6 +930,32 @@
     <span class="p">.</span><span class="na">outputSize</span><span class="p">(</span><span class="n">OutputSize</span><span class="p">.</span><span class="na">FULL</span><span class="p">)</span>
     <span class="p">.</span><span class="na">onSuccess</span><span class="p">({</span> <span class="n">e</span><span class="o">-&gt;</span> <span class="n">handleSuccess</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">})</span>
     <span class="p">.</span><span class="na">onFailure</span><span class="p">({</span> <span class="n">e</span><span class="o">-&gt;</span> <span class="n">hanldeFailure</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">})</span>
+    <span class="p">.</span><span class="na">fetch</span><span class="p">()</span>
+</code></pre></div>
+
+
+</div>
+</div>
+<p>You can also use the sychronous fetch method by calling the <code>fetchSync()</code> method without callback handlers.</p>
+<div class="tabbed-set" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><label for="__tabbed_7_1">Java</label><div class="tabbed-content">
+<div class="codehilite"><pre><span></span><code><span class="n">TimeSeriesResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">AlphaVantage</span><span class="p">.</span><span class="na">api</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">timeSeries</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">intraday</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">forSymbol</span><span class="p">(</span><span class="s">&quot;IBM&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">interval</span><span class="p">(</span><span class="n">Interval</span><span class="p">.</span><span class="na">FIVE_MIN</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">outputSize</span><span class="p">(</span><span class="n">OutputSize</span><span class="p">.</span><span class="na">FULL</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">fetch</span><span class="p">();</span>
+</code></pre></div>
+
+
+</div>
+<input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><label for="__tabbed_7_2">Kotlin</label><div class="tabbed-content">
+<div class="codehilite"><pre><span></span><code><span class="n">TimeSeriesResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">AlphaVantage</span><span class="p">.</span><span class="na">api</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">timeSeries</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">intraday</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">forSymbol</span><span class="p">(</span><span class="s">&quot;IBM&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">interval</span><span class="p">(</span><span class="n">Interval</span><span class="p">.</span><span class="na">FIVE_MIN</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">outputSize</span><span class="p">(</span><span class="n">OutputSize</span><span class="p">.</span><span class="na">FULL</span><span class="p">)</span>
     <span class="p">.</span><span class="na">fetch</span><span class="p">()</span>
 </code></pre></div>
 
