@@ -218,7 +218,7 @@ When you are okay with setting the parameters call the `fetch()` method. Simple!
             .onFailure({ e-> hanldeFailure(e) })
             .fetch()
 
-You can also use the sychronous fetch method by calling the `fetchSync()` method without callback handlers.
+You can also use the synchronous fetch method by calling the `fetchSync()` method without callback handlers.
 
 === "Java"
         :::java
@@ -228,7 +228,7 @@ You can also use the sychronous fetch method by calling the `fetchSync()` method
             .forSymbol("IBM")
             .interval(Interval.FIVE_MIN)
             .outputSize(OutputSize.FULL)
-            .fetch();
+            .fetchSync();
 
 === "Kotlin"
         :::java
@@ -238,7 +238,7 @@ You can also use the sychronous fetch method by calling the `fetchSync()` method
             .forSymbol("IBM")
             .interval(Interval.FIVE_MIN)
             .outputSize(OutputSize.FULL)
-            .fetch()
+            .fetchSync()
 
 ## Releases
 
