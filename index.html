@@ -936,7 +936,7 @@
 
 </div>
 </div>
-<p>You can also use the sychronous fetch method by calling the <code>fetchSync()</code> method without callback handlers.</p>
+<p>You can also use the synchronous fetch method by calling the <code>fetchSync()</code> method without callback handlers.</p>
 <div class="tabbed-set" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><label for="__tabbed_7_1">Java</label><div class="tabbed-content">
 <div class="codehilite"><pre><span></span><code><span class="n">TimeSeriesResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">AlphaVantage</span><span class="p">.</span><span class="na">api</span><span class="p">()</span>
     <span class="p">.</span><span class="na">timeSeries</span><span class="p">()</span>
@@ -944,7 +944,7 @@
     <span class="p">.</span><span class="na">forSymbol</span><span class="p">(</span><span class="s">&quot;IBM&quot;</span><span class="p">)</span>
     <span class="p">.</span><span class="na">interval</span><span class="p">(</span><span class="n">Interval</span><span class="p">.</span><span class="na">FIVE_MIN</span><span class="p">)</span>
     <span class="p">.</span><span class="na">outputSize</span><span class="p">(</span><span class="n">OutputSize</span><span class="p">.</span><span class="na">FULL</span><span class="p">)</span>
-    <span class="p">.</span><span class="na">fetch</span><span class="p">();</span>
+    <span class="p">.</span><span class="na">fetchSync</span><span class="p">();</span>
 </code></pre></div>
 
 
@@ -956,7 +956,7 @@
     <span class="p">.</span><span class="na">forSymbol</span><span class="p">(</span><span class="s">&quot;IBM&quot;</span><span class="p">)</span>
     <span class="p">.</span><span class="na">interval</span><span class="p">(</span><span class="n">Interval</span><span class="p">.</span><span class="na">FIVE_MIN</span><span class="p">)</span>
     <span class="p">.</span><span class="na">outputSize</span><span class="p">(</span><span class="n">OutputSize</span><span class="p">.</span><span class="na">FULL</span><span class="p">)</span>
-    <span class="p">.</span><span class="na">fetch</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">fetchSync</span><span class="p">()</span>
 </code></pre></div>
 
 
