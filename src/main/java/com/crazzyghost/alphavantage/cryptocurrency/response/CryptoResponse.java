@@ -42,13 +42,13 @@ public class CryptoResponse {
     private final MetaData metaData;
     private final String errorMessage;
 
-    public CryptoResponse(MetaData metaData, List<CryptoUnit> cryptoUnits) {
+    private CryptoResponse(MetaData metaData, List<CryptoUnit> cryptoUnits) {
         this.metaData = metaData;
         this.cryptoUnits = cryptoUnits;
         this.errorMessage = null;
     }
 
-    public CryptoResponse(String errorMessage) {
+    private CryptoResponse(String errorMessage) {
         this.metaData = MetaData.empty();
         this.cryptoUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
