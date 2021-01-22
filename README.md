@@ -1,7 +1,9 @@
-[![CircleCI](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master.svg?style=shield)](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master)
-[![codecov](https://codecov.io/gh/crazzyghost/alphavantage-java/branch/master/graph/badge.svg)](https://codecov.io/gh/crazzyghost/alphavantage-java)
-[![](https://jitpack.io/v/crazzyghost/alphavantage-java.svg)](https://jitpack.io/#crazzyghost/alphavantage-java)
-
+<p align="center">
+    <a href="https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master"><img src="https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master.svg?style=shield"/></a>
+    <a href="https://codecov.io/gh/crazzyghost/alphavantage-java"> <img src="https://codecov.io/gh/crazzyghost/alphavantage-java/branch/master/graph/badge.svg" /></a>
+    <a href="https://jitpack.io/#crazzyghost/alphavantage-java"> <img src="https://jitpack.io/v/crazzyghost/alphavantage-java.svg" /></a>
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg"/></a>
+</p>
 
 An easy to use, fluent Java wrapper for accessing the [AlphaVantage API](https://www.alphavantage.co/).
 
