@@ -1,7 +1,6 @@
 [![CircleCI](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master.svg?style=shield)](https://circleci.com/gh/crazzyghost/alphavantage-java/tree/master)
 [![codecov](https://codecov.io/gh/crazzyghost/alphavantage-java/branch/master/graph/badge.svg)](https://codecov.io/gh/crazzyghost/alphavantage-java)
 [![](https://jitpack.io/v/crazzyghost/alphavantage-java.svg)](https://jitpack.io/#crazzyghost/alphavantage-java)
-![Downloads](https://jitpack.io/v/crazzyghost/alphavantage-java/month.svg)
 
 
 An easy to use, fluent Java wrapper for accessing the [AlphaVantage API](https://www.alphavantage.co/).
