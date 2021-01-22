@@ -46,7 +46,6 @@ import java.util.Map;
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0
  */
-
 public class Crypto implements Fetcher {
 
     private final Config config;
