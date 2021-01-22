@@ -3,6 +3,7 @@
 [![](https://jitpack.io/v/crazzyghost/alphavantage-java.svg)](https://jitpack.io/#crazzyghost/alphavantage-java)
 ![Downloads](https://jitpack.io/v/crazzyghost/alphavantage-java/month.svg)
 
+
 An easy to use, fluent Java wrapper for accessing the [AlphaVantage API](https://www.alphavantage.co/).
 
 ## Getting Started
