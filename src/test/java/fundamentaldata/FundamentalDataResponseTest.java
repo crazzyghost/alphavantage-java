@@ -28,7 +28,7 @@ public class FundamentalDataResponseTest {
         assertEquals(response.getAnnualReports().size(), 2);
         assertEquals(response.getQuarterlyReports().size(), 3);
         assertNull(response.getErrorMessage());
-        assertEquals("IBM", response.getSymbol());
+        assertEquals(response.getSymbol(), "IBM");
     }
 
 }
