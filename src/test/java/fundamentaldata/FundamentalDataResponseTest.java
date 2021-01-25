@@ -12,6 +12,7 @@ import util.TestUtils;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static util.TestUtils.json;
 
 public class FundamentalDataResponseTest {
@@ -24,9 +25,10 @@ public class FundamentalDataResponseTest {
     @Test
     public void testBalanceSheetResponse() throws IOException {
         BalanceSheetResponse response = BalanceSheetResponse.of(json("balancesheet"));
-        System.out.println(response.getAnnualReports().toString());
-        System.out.println(response.getQuarterlyReports().toString());
-        assertEquals(true, true);
+        assertEquals(response.getAnnualReports().size(), 2);
+        assertEquals(response.getQuarterlyReports().size(), 3);
+        assertNull(response.getErrorMessage());
+        assertEquals("IBM", response.getSymbol());
     }
 
 }

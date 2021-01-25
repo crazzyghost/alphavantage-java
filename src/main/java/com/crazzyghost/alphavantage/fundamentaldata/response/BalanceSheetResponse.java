@@ -54,6 +54,14 @@ public class BalanceSheetResponse {
         return parser.parse(objectMap);
     }
 
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
     public List<BalanceSheetUnit> getAnnualReports() {
         return annualReports;
     }
@@ -77,7 +85,7 @@ public class BalanceSheetResponse {
                 return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
             }
             try {
-                String symbol = keys.get(0);
+                String symbol = (String)object.get(keys.get(0));
                 List<BalanceSheetUnit> annualReports = (List<BalanceSheetUnit>)object.get(keys.get(1));
                 List<BalanceSheetUnit> quarterlyReports = (List<BalanceSheetUnit>)object.get(keys.get(2));
                 return new BalanceSheetResponse(symbol, annualReports, quarterlyReports);
