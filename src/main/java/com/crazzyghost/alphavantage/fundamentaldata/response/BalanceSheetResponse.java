@@ -30,10 +30,10 @@ import java.util.Map;
 
 public class BalanceSheetResponse {
 
-    private String symbol;
-    private List<BalanceSheetUnit> annualReports;
-    private List<BalanceSheetUnit> quarterlyReports;
-    private String errorMessage = null;
+    private final String symbol;
+    private final List<BalanceSheetUnit> annualReports;
+    private final List<BalanceSheetUnit> quarterlyReports;
+    private final String errorMessage;
 
     private BalanceSheetResponse(String error) {
         this.errorMessage = error;
