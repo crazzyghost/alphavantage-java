@@ -1,19 +1,17 @@
 package fundamentaldata;
 
 
-import com.crazzyghost.alphavantage.Config;
-import com.crazzyghost.alphavantage.UrlExtractor;
-import com.crazzyghost.alphavantage.fundamentaldata.request.*;
 import com.crazzyghost.alphavantage.fundamentaldata.response.BalanceSheetResponse;
+import com.crazzyghost.alphavantage.fundamentaldata.response.CompanyOverviewResponse;
+import com.crazzyghost.alphavantage.fundamentaldata.response.CompanyOverviewUnit;
 import org.junit.Before;
 import org.junit.Test;
 import util.TestUtils;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static util.TestUtils.json;
+import static org.junit.Assert.*;
+import static util.TestUtils.*;
 
 public class FundamentalDataResponseTest {
 
@@ -30,5 +28,20 @@ public class FundamentalDataResponseTest {
         assertNull(response.getErrorMessage());
         assertEquals(response.getSymbol(), "IBM");
     }
+
+    @Test
+    public void testCompanyOverviewResponse() throws IOException {
+        CompanyOverviewResponse response = CompanyOverviewResponse.of(parseJSON("companyoverview", CompanyOverviewUnit.class));
+        assertNull(response.getErrorMessage());
+        assertNotNull(response.getOverview());
+        assertEquals(response.getSymbol(), "IBM");
+    }
+
+    @Test
+    public void testCompanyOverviewResponseEmpty() throws IOException {
+        CompanyOverviewResponse response = CompanyOverviewResponse.of(empty());
+        assertNotNull(response.getErrorMessage());
+    }
+
 
 }

@@ -16,6 +16,7 @@ import com.squareup.moshi.Types;
  * 
  * */
 public abstract class Parser<T> {
+
     public abstract T onParseError(String error);
     public abstract T parse(Map<String, Object> object);
 
@@ -24,6 +25,14 @@ public abstract class Parser<T> {
         Moshi moshi = new Moshi.Builder().build();
         Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
         JsonAdapter<Map<String, Object>> adapter = moshi.adapter(type);
+        return adapter.fromJson(responseBody);
+    }
+
+    public static <U> U parseJSON(String responseBody, Class<U> c) throws IOException {
+        if(responseBody == null) throw new IllegalArgumentException();
+        Moshi moshi = new Moshi.Builder().build();
+        Type type = Types.getRawType(c);
+        JsonAdapter<U> adapter = moshi.adapter(type);
         return adapter.fromJson(responseBody);
     }
 }
