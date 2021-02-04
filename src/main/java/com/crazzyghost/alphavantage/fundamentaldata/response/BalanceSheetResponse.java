@@ -31,8 +31,8 @@ import java.util.Map;
 public class BalanceSheetResponse {
 
     private final String symbol;
-    private final List<BalanceSheetUnit> annualReports;
-    private final List<BalanceSheetUnit> quarterlyReports;
+    private final List<BalanceSheet> annualReports;
+    private final List<BalanceSheet> quarterlyReports;
     private final String errorMessage;
 
     private BalanceSheetResponse(String error) {
@@ -42,7 +42,7 @@ public class BalanceSheetResponse {
         this.symbol = null;
     }
 
-    private BalanceSheetResponse(String symbol, List<BalanceSheetUnit> annualReports, List<BalanceSheetUnit> quarterlyReports) {
+    private BalanceSheetResponse(String symbol, List<BalanceSheet> annualReports, List<BalanceSheet> quarterlyReports) {
         this.symbol = symbol;
         this.annualReports = annualReports;
         this.quarterlyReports = quarterlyReports;
@@ -62,11 +62,11 @@ public class BalanceSheetResponse {
         return symbol;
     }
 
-    public List<BalanceSheetUnit> getAnnualReports() {
+    public List<BalanceSheet> getAnnualReports() {
         return annualReports;
     }
 
-    public List<BalanceSheetUnit> getQuarterlyReports() {
+    public List<BalanceSheet> getQuarterlyReports() {
         return quarterlyReports;
     }
 
@@ -86,8 +86,8 @@ public class BalanceSheetResponse {
             }
             try {
                 String symbol = (String)object.get(keys.get(0));
-                List<BalanceSheetUnit> annualReports = (List<BalanceSheetUnit>)object.get(keys.get(1));
-                List<BalanceSheetUnit> quarterlyReports = (List<BalanceSheetUnit>)object.get(keys.get(2));
+                List<BalanceSheet> annualReports = (List<BalanceSheet>)object.get(keys.get(1));
+                List<BalanceSheet> quarterlyReports = (List<BalanceSheet>)object.get(keys.get(2));
                 return new BalanceSheetResponse(symbol, annualReports, quarterlyReports);
             } catch (ClassCastException e) {
                 return onParseError(object.get(keys.get(0)).toString());

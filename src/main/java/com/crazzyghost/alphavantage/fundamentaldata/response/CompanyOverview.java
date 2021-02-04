@@ -2,7 +2,7 @@ package com.crazzyghost.alphavantage.fundamentaldata.response;
 
 import com.squareup.moshi.Json;
 
-public class CompanyOverviewUnit {
+public class CompanyOverview {
 
     @Json(name="Symbol")
     private String symbol;
@@ -26,8 +26,8 @@ public class CompanyOverviewUnit {
     private String address;
     @Json(name="FullTimeEmployees")
     private Long fullTimeEmployees;
-    @Json(name="FiscalYearEnding")
-    private String fiscalYearEnding;
+    @Json(name="FiscalYearEnd")
+    private String fiscalYearEnd;
     @Json(name="LatestQuarter")
     private String latestQuarter;
     @Json(name="MarketCapitalization")
@@ -56,10 +56,12 @@ public class CompanyOverviewUnit {
     private Double returnOnAssetsTTM;
     @Json(name="ReturnOnEquityTTM")
     private Double returnOnEquityTTM;
+    @Json(name="RevenueTTM")
+    private Double revenueTTM;
     @Json(name="GrossProfitTTM")
     private Double grossProfitTTM;
     @Json(name="DilutedEPSTTM")
-    private Double dilutedTTM;
+    private Double dilutedEpsTTM;
     @Json(name="QuarterlyEarningsGrowthYOY")
     private Double quarterlyEarningsGrowthYOY;
     @Json(name="QuarterlyRevenueGrowthYOY")
@@ -165,8 +167,8 @@ public class CompanyOverviewUnit {
         return fullTimeEmployees;
     }
 
-    public String getFiscalYearEnding() {
-        return fiscalYearEnding;
+    public String getFiscalYearEnd() {
+        return fiscalYearEnd;
     }
 
     public String getLatestQuarter() {
@@ -225,12 +227,16 @@ public class CompanyOverviewUnit {
         return returnOnEquityTTM;
     }
 
+    public Double getRevenueTTM() {
+        return revenueTTM;
+    }
+
     public Double getGrossProfitTTM() {
         return grossProfitTTM;
     }
 
-    public Double getDilutedTTM() {
-        return dilutedTTM;
+    public Double getDilutedEpsTTM() {
+        return dilutedEpsTTM;
     }
 
     public Double getQuarterlyEarningsGrowthYOY() {
@@ -355,7 +361,7 @@ public class CompanyOverviewUnit {
 
     @Override
     public String toString() {
-        return "CompanyOverviewUnit{" +
+        return "CompanyOverview{" +
                 "symbol='" + symbol + '\'' +
                 ", assetType='" + assetType + '\'' +
                 ", name='" + name + '\'' +
@@ -367,7 +373,7 @@ public class CompanyOverviewUnit {
                 ", industry='" + industry + '\'' +
                 ", address='" + address + '\'' +
                 ", fullTimeEmployees=" + fullTimeEmployees +
-                ", fiscalYearEnding='" + fiscalYearEnding + '\'' +
+                ", fiscalYearEnd='" + fiscalYearEnd + '\'' +
                 ", latestQuarter='" + latestQuarter + '\'' +
                 ", marketCapitalization=" + marketCapitalization +
                 ", ebitda=" + ebitda +
@@ -382,8 +388,9 @@ public class CompanyOverviewUnit {
                 ", operatingMarginTTM=" + operatingMarginTTM +
                 ", returnOnAssetsTTM=" + returnOnAssetsTTM +
                 ", returnOnEquityTTM=" + returnOnEquityTTM +
+                ", revenueTTM=" + revenueTTM +
                 ", grossProfitTTM=" + grossProfitTTM +
-                ", dilutedTTM=" + dilutedTTM +
+                ", dilutedEpsTTM=" + dilutedEpsTTM +
                 ", quarterlyEarningsGrowthYOY=" + quarterlyEarningsGrowthYOY +
                 ", quarterlyRevenueGrowthYOY=" + quarterlyRevenueGrowthYOY +
                 ", analystTargetPrice=" + analystTargetPrice +

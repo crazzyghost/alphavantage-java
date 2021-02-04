@@ -30,18 +30,15 @@ import java.util.Map;
 
 public class CompanyOverviewResponse {
 
-    private final String symbol;
-    private final CompanyOverviewUnit overview;
+    private final CompanyOverview overview;
     private final String errorMessage;
 
     private CompanyOverviewResponse(String error) {
         this.errorMessage = error;
         this.overview = null;
-        this.symbol = null;
     }
 
-    private CompanyOverviewResponse(String symbol, CompanyOverviewUnit overview) {
-        this.symbol = symbol;
+    private CompanyOverviewResponse(CompanyOverview overview) {
         this.overview = overview;
         this.errorMessage = null;
     }
@@ -55,11 +52,7 @@ public class CompanyOverviewResponse {
         return errorMessage;
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public CompanyOverviewUnit getOverview() {
+    public CompanyOverview getOverview() {
         return overview;
     }
 
@@ -74,15 +67,16 @@ public class CompanyOverviewResponse {
         @SuppressWarnings("unchecked")
         public CompanyOverviewResponse parse(Object data) {
             try {
-                CompanyOverviewUnit unit = (CompanyOverviewUnit)data;
-                return new CompanyOverviewResponse(unit.getSymbol(), unit);
+                CompanyOverview overview = (CompanyOverview)data;
+                return new CompanyOverviewResponse(overview);
             } catch (ClassCastException e) {
                 Map<String, String> map = (Map<String, String>) data;
                 List<String> error = new ArrayList<>(map.keySet());
-                if (error.size() == 0) {
+                if (error.isEmpty()) {
                     return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+                } else {
+                    return onParseError(error.get(0));
                 }
-                return onParseError(error.get(0));
             }
         }
     }
@@ -90,7 +84,6 @@ public class CompanyOverviewResponse {
     @Override
     public String toString() {
         return "CompanyOverviewResponse{" +
-                "symbol='" + symbol + '\'' +
                 ", overview=" + overview +
                 ", errorMessage='" + errorMessage + '\'' +
                 '}';

@@ -24,7 +24,7 @@ package com.crazzyghost.alphavantage.fundamentaldata.response;
 
 import com.squareup.moshi.Json;
 
-public class BalanceSheetUnit {
+public class BalanceSheet {
 
     private String fiscalEndingDate;
     private String reportedCurrency;
