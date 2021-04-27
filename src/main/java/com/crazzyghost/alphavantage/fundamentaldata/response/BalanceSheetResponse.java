@@ -23,7 +23,12 @@
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
 import com.crazzyghost.alphavantage.parser.Parser;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -86,12 +91,22 @@ public class BalanceSheetResponse {
             }
             try {
                 String symbol = (String)object.get(keys.get(0));
-                List<BalanceSheet> annualReports = (List<BalanceSheet>)object.get(keys.get(1));
-                List<BalanceSheet> quarterlyReports = (List<BalanceSheet>)object.get(keys.get(2));
+                List<BalanceSheet> annualReports = Parser.parseJSONList(object.get(keys.get(1)), BalanceSheet.class);
+                List<BalanceSheet> quarterlyReports = Parser.parseJSONList(object.get(keys.get(2)), BalanceSheet.class);
                 return new BalanceSheetResponse(symbol, annualReports, quarterlyReports);
             } catch (ClassCastException e) {
                 return onParseError(object.get(keys.get(0)).toString());
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "BalanceSheetResponse{" +
+                "symbol='" + symbol + '\'' +
+                ", annualReports=" + annualReports +
+                ", quarterlyReports=" + quarterlyReports +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
     }
 }

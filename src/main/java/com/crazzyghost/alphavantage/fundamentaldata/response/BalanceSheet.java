@@ -25,59 +25,83 @@ package com.crazzyghost.alphavantage.fundamentaldata.response;
 import com.squareup.moshi.Json;
 
 public class BalanceSheet {
-
-    private String fiscalEndingDate;
+    @Json(name = "fiscalDateEnding")
+    private String fiscalDateEnding;
+    @Json(name = "reportedCurrency")
     private String reportedCurrency;
+    @Json(name = "totalAssets")
     private String totalAssets;
-    private String intangibleAssets;
-    private String otherCurrentAssets;
-    private String totalLiabilities;
-    private String totalShareholderEquity;
-    private String deferredLongTermLiabilities;
-    private String otherCurrentLiabilities;
-    private String commonStock;
-    private String retainedEarnings;
-    private String otherLiabilities;
-    private String goodWill;
-    private String otherAssets;
-    private String cash;
-    private String totalCurrentLiabilities;
-    private String shortTermDebt;
-    private String currentLongTermDebt;
-    private String otherShareholderEquity;
-    private String propertyPlantEquipment;
+    @Json(name = "totalCurrentAssets")
     private String totalCurrentAssets;
-    private String longTermInvestments;
-    private String netTangibleAsses;
-    private String shortTermInvestments;
-    private String netReceivables;
-    private String longTermDebt;
-    private String inventory;
-    private String totalPermanentEquity;
-    private String additionalPaidInCapital;
-    private String commonStockTotalEquity;
-    private String preferredStockTotalEquity;
-    private String retainedEarningsTotalEquity;
-    private String treasuryStock;
-    private String accumulatedAmortization;
-    @Json(name = "otherNonCurrrentAssets") private String otherNonCurrentAssets;
-    private String deferredLongTermAssetCharges;
-    private String totalNonCurrentAssets;
-    private String capitalLeaseObligations;
-    private String totalLongTermDebt;
-    private String otherNonCurrentLiabilities;
-    private String totalNonCurrentLiabilities;
-    private String negativeGoodwill;
-    private String warrants;
-    private String preferredStockRedeemable;
-    private String capitalSurplus;
-    private String liabilitiesAndShareholderEquity;
+    @Json(name = "cashAndCashEquivalentsAtCarryingValue")
+    private String cashAndCashEquivalentsAtCarryingValue;
+    @Json(name = "cashAndShortTermInvestments")
     private String cashAndShortTermInvestments;
-    private String accumulatedDepreciation;
+    @Json(name = "inventory")
+    private String inventory;
+    @Json(name = "currentNetReceivables")
+    private String currentNetReceivables;
+    @Json(name = "totalNonCurrentAssets")
+    private String totalNonCurrentAssets;
+    @Json(name = "propertyPlantEquipment")
+    private String propertyPlantEquipment;
+    @Json(name = "intangibleAssets")
+    private String intangibleAssets;
+    @Json(name = "intangibleAssetsExcludingGoodwill")
+    private String intangibleAssetsExcludingGoodwill;
+    @Json(name = "goodwill")
+    private String goodWill;
+    @Json(name = "investments")
+    private String investments;
+    @Json(name = "longTermInvestments")
+    private String longTermInvestments;
+    @Json(name = "shortTermInvestments")
+    private String shortTermInvestments;
+    @Json(name = "otherCurrentAssets")
+    private String otherCurrentAssets;
+    @Json(name = "otherNonCurrrentAssets")
+    private String otherNonCurrentAssets;
+    @Json(name = "totalLiabilities")
+    private String totalLiabilities;
+    @Json(name = "totalCurrentLiabilities")
+    private String totalCurrentLiabilities;
+    @Json(name = "currentAccountsPayable")
+    private String currentAccountsPayable;
+    @Json(name = "deferredRevenue")
+    private String deferredRevenue;
+    @Json(name = "currentDebt")
+    private String currentDebt;
+    @Json(name = "shortTermDebt")
+    private String shortTermDebt;
+    @Json(name = "totalNonCurrentLiabilities")
+    private String totalNonCurrentLiabilities;
+    @Json(name = "capitalLeaseObligations")
+    private String capitalLeaseObligations;
+    @Json(name = "longTermDebt")
+    private String longTermDebt;
+    @Json(name = "currentLongTermDebt")
+    private String currentLongTermDebt;
+    @Json(name = "longTermDebtNoncurrent")
+    private String longTermDebtNonCurrent;
+    @Json(name = "shortLongTermDebtTotal")
+    private String shortLongTermDebtTotal;
+    @Json(name = "otherCurrentLiabilities")
+    private String otherCurrentLiabilities;
+    @Json(name = "otherNonCurrentLiabilities")
+    private String otherNonCurrentLiabilities;
+    @Json(name = "totalShareholderEquity")
+    private String totalShareholderEquity;
+    @Json(name = "treasuryStock")
+    private String treasuryStock;
+    @Json(name = "retainedEarnings")
+    private String retainedEarnings;
+    @Json(name = "commonStock")
+    private String commonStock;
+    @Json(name = "commonStockSharesOutstanding")
     private String commonStockSharesOutstanding;
 
-    public String getFiscalEndingDate() {
-        return fiscalEndingDate;
+    public String getFiscalDateEnding() {
+        return fiscalDateEnding;
     }
 
     public String getReportedCurrency() {
@@ -88,184 +112,136 @@ public class BalanceSheet {
         return totalAssets;
     }
 
-    public String getIntangibleAssets() {
-        return intangibleAssets;
-    }
-
-    public String getOtherCurrentAssets() {
-        return otherCurrentAssets;
-    }
-
-    public String getTotalLiabilities() {
-        return totalLiabilities;
-    }
-
-    public String getTotalShareholderEquity() {
-        return totalShareholderEquity;
-    }
-
-    public String getDeferredLongTermLiabilities() {
-        return deferredLongTermLiabilities;
-    }
-
-    public String getOtherCurrentLiabilities() {
-        return otherCurrentLiabilities;
-    }
-
-    public String getCommonStock() {
-        return commonStock;
-    }
-
-    public String getRetainedEarnings() {
-        return retainedEarnings;
-    }
-
-    public String getOtherLiabilities() {
-        return otherLiabilities;
-    }
-
-    public String getGoodWill() {
-        return goodWill;
-    }
-
-    public String getOtherAssets() {
-        return otherAssets;
-    }
-
-    public String getCash() {
-        return cash;
-    }
-
-    public String getTotalCurrentLiabilities() {
-        return totalCurrentLiabilities;
-    }
-
-    public String getShortTermDebt() {
-        return shortTermDebt;
-    }
-
-    public String getCurrentLongTermDebt() {
-        return currentLongTermDebt;
-    }
-
-    public String getOtherShareholderEquity() {
-        return otherShareholderEquity;
-    }
-
-    public String getPropertyPlantEquipment() {
-        return propertyPlantEquipment;
-    }
-
     public String getTotalCurrentAssets() {
         return totalCurrentAssets;
     }
 
-    public String getLongTermInvestments() {
-        return longTermInvestments;
-    }
-
-    public String getNetTangibleAsses() {
-        return netTangibleAsses;
-    }
-
-    public String getShortTermInvestments() {
-        return shortTermInvestments;
-    }
-
-    public String getNetReceivables() {
-        return netReceivables;
-    }
-
-    public String getLongTermDebt() {
-        return longTermDebt;
-    }
-
-    public String getInventory() {
-        return inventory;
-    }
-
-    public String getTotalPermanentEquity() {
-        return totalPermanentEquity;
-    }
-
-    public String getAdditionalPaidInCapital() {
-        return additionalPaidInCapital;
-    }
-
-    public String getCommonStockTotalEquity() {
-        return commonStockTotalEquity;
-    }
-
-    public String getPreferredStockTotalEquity() {
-        return preferredStockTotalEquity;
-    }
-
-    public String getRetainedEarningsTotalEquity() {
-        return retainedEarningsTotalEquity;
-    }
-
-    public String getTreasuryStock() {
-        return treasuryStock;
-    }
-
-    public String getAccumulatedAmortization() {
-        return accumulatedAmortization;
-    }
-
-    public String getOtherNonCurrentAssets() {
-        return otherNonCurrentAssets;
-    }
-
-    public String getDeferredLongTermAssetCharges() {
-        return deferredLongTermAssetCharges;
-    }
-
-    public String getTotalNonCurrentAssets() {
-        return totalNonCurrentAssets;
-    }
-
-    public String getCapitalLeaseObligations() {
-        return capitalLeaseObligations;
-    }
-
-    public String getTotalLongTermDebt() {
-        return totalLongTermDebt;
-    }
-
-    public String getOtherNonCurrentLiabilities() {
-        return otherNonCurrentLiabilities;
-    }
-
-    public String getTotalNonCurrentLiabilities() {
-        return totalNonCurrentLiabilities;
-    }
-
-    public String getNegativeGoodwill() {
-        return negativeGoodwill;
-    }
-
-    public String getWarrants() {
-        return warrants;
-    }
-
-    public String getPreferredStockRedeemable() {
-        return preferredStockRedeemable;
-    }
-
-    public String getCapitalSurplus() {
-        return capitalSurplus;
-    }
-
-    public String getLiabilitiesAndShareholderEquity() {
-        return liabilitiesAndShareholderEquity;
+    public String getCashAndCashEquivalentsAtCarryingValue() {
+        return cashAndCashEquivalentsAtCarryingValue;
     }
 
     public String getCashAndShortTermInvestments() {
         return cashAndShortTermInvestments;
     }
 
-    public String getAccumulatedDepreciation() {
-        return accumulatedDepreciation;
+    public String getInventory() {
+        return inventory;
+    }
+
+    public String getCurrentNetReceivables() {
+        return currentNetReceivables;
+    }
+
+    public String getTotalNonCurrentAssets() {
+        return totalNonCurrentAssets;
+    }
+
+    public String getPropertyPlantEquipment() {
+        return propertyPlantEquipment;
+    }
+
+    public String getIntangibleAssets() {
+        return intangibleAssets;
+    }
+
+    public String getIntangibleAssetsExcludingGoodwill() {
+        return intangibleAssetsExcludingGoodwill;
+    }
+
+    public String getGoodWill() {
+        return goodWill;
+    }
+
+    public String getInvestments() {
+        return investments;
+    }
+
+    public String getLongTermInvestments() {
+        return longTermInvestments;
+    }
+
+    public String getShortTermInvestments() {
+        return shortTermInvestments;
+    }
+
+    public String getOtherCurrentAssets() {
+        return otherCurrentAssets;
+    }
+
+    public String getOtherNonCurrentAssets() {
+        return otherNonCurrentAssets;
+    }
+
+    public String getTotalLiabilities() {
+        return totalLiabilities;
+    }
+
+    public String getTotalCurrentLiabilities() {
+        return totalCurrentLiabilities;
+    }
+
+    public String getCurrentAccountsPayable() {
+        return currentAccountsPayable;
+    }
+
+    public String getDeferredRevenue() {
+        return deferredRevenue;
+    }
+
+    public String getCurrentDebt() {
+        return currentDebt;
+    }
+
+    public String getShortTermDebt() {
+        return shortTermDebt;
+    }
+
+    public String getTotalNonCurrentLiabilities() {
+        return totalNonCurrentLiabilities;
+    }
+
+    public String getCapitalLeaseObligations() {
+        return capitalLeaseObligations;
+    }
+
+    public String getLongTermDebt() {
+        return longTermDebt;
+    }
+
+    public String getCurrentLongTermDebt() {
+        return currentLongTermDebt;
+    }
+
+    public String getLongTermDebtNonCurrent() {
+        return longTermDebtNonCurrent;
+    }
+
+    public String getShortLongTermDebtTotal() {
+        return shortLongTermDebtTotal;
+    }
+
+    public String getOtherCurrentLiabilities() {
+        return otherCurrentLiabilities;
+    }
+
+    public String getOtherNonCurrentLiabilities() {
+        return otherNonCurrentLiabilities;
+    }
+
+    public String getTotalShareholderEquity() {
+        return totalShareholderEquity;
+    }
+
+    public String getTreasuryStock() {
+        return treasuryStock;
+    }
+
+    public String getRetainedEarnings() {
+        return retainedEarnings;
+    }
+
+    public String getCommonStock() {
+        return commonStock;
     }
 
     public String getCommonStockSharesOutstanding() {
@@ -274,55 +250,43 @@ public class BalanceSheet {
 
     @Override
     public String toString() {
-        return "BalanceSheetUnit{" +
-                "fiscalEndingDate='" + fiscalEndingDate + '\'' +
+        return "BalanceSheet{" +
+                "fiscalDateEnding='" + fiscalDateEnding + '\'' +
                 ", reportedCurrency='" + reportedCurrency + '\'' +
                 ", totalAssets='" + totalAssets + '\'' +
-                ", intangibleAssets='" + intangibleAssets + '\'' +
-                ", otherCurrentAssets='" + otherCurrentAssets + '\'' +
-                ", totalLiabilities='" + totalLiabilities + '\'' +
-                ", totalShareholderEquity='" + totalShareholderEquity + '\'' +
-                ", deferredLongTermLiabilities='" + deferredLongTermLiabilities + '\'' +
-                ", otherCurrentLiabilities='" + otherCurrentLiabilities + '\'' +
-                ", commonStock='" + commonStock + '\'' +
-                ", retainedEarnings='" + retainedEarnings + '\'' +
-                ", otherLiabilities='" + otherLiabilities + '\'' +
-                ", goodWill='" + goodWill + '\'' +
-                ", otherAssets='" + otherAssets + '\'' +
-                ", cash='" + cash + '\'' +
-                ", totalCurrentLiabilities='" + totalCurrentLiabilities + '\'' +
-                ", shortTermDebt='" + shortTermDebt + '\'' +
-                ", currentLongTermDebt='" + currentLongTermDebt + '\'' +
-                ", otherShareholderEquity='" + otherShareholderEquity + '\'' +
-                ", propertyPlantEquipment='" + propertyPlantEquipment + '\'' +
                 ", totalCurrentAssets='" + totalCurrentAssets + '\'' +
-                ", longTermInvestments='" + longTermInvestments + '\'' +
-                ", netTangibleAsses='" + netTangibleAsses + '\'' +
-                ", shortTermInvestments='" + shortTermInvestments + '\'' +
-                ", netReceivables='" + netReceivables + '\'' +
-                ", longTermDebt='" + longTermDebt + '\'' +
-                ", inventory='" + inventory + '\'' +
-                ", totalPermanentEquity='" + totalPermanentEquity + '\'' +
-                ", additionalPaidInCapital='" + additionalPaidInCapital + '\'' +
-                ", commonStockTotalEquity='" + commonStockTotalEquity + '\'' +
-                ", preferredStockTotalEquity='" + preferredStockTotalEquity + '\'' +
-                ", retainedEarningsTotalEquity='" + retainedEarningsTotalEquity + '\'' +
-                ", treasuryStock='" + treasuryStock + '\'' +
-                ", accumulatedAmortization='" + accumulatedAmortization + '\'' +
-                ", otherNonCurrentAssets='" + otherNonCurrentAssets + '\'' +
-                ", deferredLongTermAssetCharges='" + deferredLongTermAssetCharges + '\'' +
-                ", totalNonCurrentAssets='" + totalNonCurrentAssets + '\'' +
-                ", capitalLeaseObligations='" + capitalLeaseObligations + '\'' +
-                ", totalLongTermDebt='" + totalLongTermDebt + '\'' +
-                ", otherNonCurrentLiabilities='" + otherNonCurrentLiabilities + '\'' +
-                ", totalNonCurrentLiabilities='" + totalNonCurrentLiabilities + '\'' +
-                ", negativeGoodwill='" + negativeGoodwill + '\'' +
-                ", warrants='" + warrants + '\'' +
-                ", preferredStockRedeemable='" + preferredStockRedeemable + '\'' +
-                ", capitalSurplus='" + capitalSurplus + '\'' +
-                ", liabilitiesAndShareholderEquity='" + liabilitiesAndShareholderEquity + '\'' +
+                ", cashAndCashEquivalentsAtCarryingValue='" + cashAndCashEquivalentsAtCarryingValue + '\'' +
                 ", cashAndShortTermInvestments='" + cashAndShortTermInvestments + '\'' +
-                ", accumulatedDepreciation='" + accumulatedDepreciation + '\'' +
+                ", inventory='" + inventory + '\'' +
+                ", currentNetReceivables='" + currentNetReceivables + '\'' +
+                ", totalNonCurrentAssets='" + totalNonCurrentAssets + '\'' +
+                ", propertyPlantEquipment='" + propertyPlantEquipment + '\'' +
+                ", intangibleAssets='" + intangibleAssets + '\'' +
+                ", intangibleAssetsExcludingGoodwill='" + intangibleAssetsExcludingGoodwill + '\'' +
+                ", goodWill='" + goodWill + '\'' +
+                ", investments='" + investments + '\'' +
+                ", longTermInvestments='" + longTermInvestments + '\'' +
+                ", shortTermInvestments='" + shortTermInvestments + '\'' +
+                ", otherCurrentAssets='" + otherCurrentAssets + '\'' +
+                ", otherNonCurrentAssets='" + otherNonCurrentAssets + '\'' +
+                ", totalLiabilities='" + totalLiabilities + '\'' +
+                ", totalCurrentLiabilities='" + totalCurrentLiabilities + '\'' +
+                ", currentAccountsPayable='" + currentAccountsPayable + '\'' +
+                ", deferredRevenue='" + deferredRevenue + '\'' +
+                ", currentDebt='" + currentDebt + '\'' +
+                ", shortTermDebt='" + shortTermDebt + '\'' +
+                ", totalNonCurrentLiabilities='" + totalNonCurrentLiabilities + '\'' +
+                ", capitalLeaseObligations='" + capitalLeaseObligations + '\'' +
+                ", longTermDebt='" + longTermDebt + '\'' +
+                ", currentLongTermDebt='" + currentLongTermDebt + '\'' +
+                ", longTermDebtNonCurrent='" + longTermDebtNonCurrent + '\'' +
+                ", shortLongTermDebtTotal='" + shortLongTermDebtTotal + '\'' +
+                ", otherCurrentLiabilities='" + otherCurrentLiabilities + '\'' +
+                ", otherNonCurrentLiabilities='" + otherNonCurrentLiabilities + '\'' +
+                ", totalShareholderEquity='" + totalShareholderEquity + '\'' +
+                ", treasuryStock='" + treasuryStock + '\'' +
+                ", retainedEarnings='" + retainedEarnings + '\'' +
+                ", commonStock='" + commonStock + '\'' +
                 ", commonStockSharesOutstanding='" + commonStockSharesOutstanding + '\'' +
                 '}';
     }
