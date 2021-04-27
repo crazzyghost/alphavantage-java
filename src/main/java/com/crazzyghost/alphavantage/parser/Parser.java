@@ -2,8 +2,10 @@ package com.crazzyghost.alphavantage.parser;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
+import com.crazzyghost.alphavantage.fundamentaldata.response.BalanceSheet;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.JsonReader;
 import com.squareup.moshi.Moshi;
@@ -34,5 +36,13 @@ public abstract class Parser<T> {
         Type type = Types.getRawType(c);
         JsonAdapter<U> adapter = moshi.adapter(type);
         return adapter.fromJson(responseBody);
+    }
+
+    public static <U> List<U> parseJSONList(Object object, Class<U> klass) {
+        if(object == null) throw new IllegalArgumentException();
+        Moshi moshi = new Moshi.Builder().build();
+        Type type = Types.newParameterizedType(List.class, klass);
+        JsonAdapter<List<U>> adapter = moshi.adapter(type);
+        return adapter.fromJsonValue(object);
     }
 }
