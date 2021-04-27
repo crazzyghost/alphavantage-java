@@ -12,6 +12,8 @@ public class CompanyOverview {
     private String name;
     @Json(name="Description")
     private String description;
+    @Json(name="CIK")
+    private String cik;
     @Json(name="Exchange")
     private String exchange;
     @Json(name="Currency")
@@ -137,6 +139,10 @@ public class CompanyOverview {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getCik() {
+        return cik;
     }
 
     public String getExchange() {
@@ -366,6 +372,7 @@ public class CompanyOverview {
                 ", assetType='" + assetType + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", cik='" + cik + '\'' +
                 ", exchange='" + exchange + '\'' +
                 ", currency='" + currency + '\'' +
                 ", country='" + country + '\'' +
