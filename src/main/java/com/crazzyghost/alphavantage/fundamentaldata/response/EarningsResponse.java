@@ -28,29 +28,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class EarningResponse {
+public class EarningsResponse {
 
     private final String symbol;
     private final List<AnnualEarning> annualReports;
     private final List<QuarterlyEarning> quarterlyReports;
     private final String errorMessage;
 
-    private EarningResponse(String error) {
+    private EarningsResponse(String error) {
         this.errorMessage = error;
         this.annualReports = new ArrayList<>();
         this.quarterlyReports = new ArrayList<>();
         this.symbol = null;
     }
 
-    private EarningResponse(String symbol, List<AnnualEarning> annualReports, List<QuarterlyEarning> quarterlyReports) {
+    private EarningsResponse(String symbol, List<AnnualEarning> annualReports, List<QuarterlyEarning> quarterlyReports) {
         this.symbol = symbol;
         this.annualReports = annualReports;
         this.quarterlyReports = quarterlyReports;
         this.errorMessage = null;
     }
 
-    public static EarningResponse of(Map<String, Object> objectMap) {
-        Parser<EarningResponse> parser = new EarningParser();
+    public static EarningsResponse of(Map<String, Object> objectMap) {
+        Parser<EarningsResponse> parser = new EarningParser();
         return parser.parse(objectMap);
     }
 
@@ -70,16 +70,16 @@ public class EarningResponse {
         return quarterlyReports;
     }
 
-    public static class EarningParser extends Parser<EarningResponse> {
+    public static class EarningParser extends Parser<EarningsResponse> {
 
         @Override
-        public EarningResponse onParseError(String error) {
-            return new EarningResponse(error);
+        public EarningsResponse onParseError(String error) {
+            return new EarningsResponse(error);
         }
 
         @Override
         @SuppressWarnings("unchecked")
-        public EarningResponse parse(Map<String, Object> object) {
+        public EarningsResponse parse(Map<String, Object> object) {
             List<String> keys = new ArrayList<>(object.keySet());
             if (keys.isEmpty()) {
                 return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
@@ -88,7 +88,7 @@ public class EarningResponse {
                 String symbol = (String)object.get(keys.get(0));
                 List<AnnualEarning> annualReports = Parser.parseJSONList(object.get(keys.get(1)), AnnualEarning.class);
                 List<QuarterlyEarning> quarterlyReports = Parser.parseJSONList(object.get(keys.get(2)), QuarterlyEarning.class);
-                return new EarningResponse(symbol, annualReports, quarterlyReports);
+                return new EarningsResponse(symbol, annualReports, quarterlyReports);
             } catch (ClassCastException e) {
                 return onParseError(object.get(keys.get(0)).toString());
             }
