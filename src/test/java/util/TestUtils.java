@@ -69,13 +69,6 @@ public class TestUtils {
         return getJsonAdapter().fromJson(getJson(filename));
     }
 
-    public static <U> U parseJSON(String filename, Class<U> c) throws IOException {
-        Moshi moshi = new Moshi.Builder().build();
-        Type type = Types.getRawType(c);
-        JsonAdapter<U> adapter = moshi.adapter(type);
-        return adapter.fromJson(getJson(filename));
-    }
-
     /**
      * Get json file as {@link InputStream}
      * @param filename

@@ -1,43 +1,19 @@
-/*
- *
- * Copyright (c) 2020 Sylvester Sefa-Yeboah
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.crazzyghost.alphavantage;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 /**
- * Allows you to set the library configuration parameters.
- *
+ * Allows you to set the library configuration parameters. 
  * @since 1.0.0
- * @author Sylvester Sefa-Yeboah
+ * @author crazzyghost
  */
 public class Config {
-
+    
+    private String key;
+    private int timeOut;
+    private OkHttpClient httpClient;
     public static String BASE_URL = "https://www.alphavantage.co/query?";
-
-    private final String key;
-    private final int timeOut;
-    private final OkHttpClient httpClient;
 
     private Config(Builder builder) {
         this.key = builder.key;
@@ -45,22 +21,30 @@ public class Config {
         this.httpClient = builder.httpClient == null ? defaultClient(builder.timeOut): builder.httpClient;
     }
 
+    /**
+     * @return the connection timeout value
+     */
     public int getTimeOut() {
         return timeOut;
     }
 
 
+    /**
+     * @return the API Key
+     */
     public String getKey() {
         return key;
     }
 
+    /**
+     * @return the HTTP client used to fetch data
+     */
     public OkHttpClient getOkHttpClient(){
         return this.httpClient;
     }
 
     /**
      * Get a builder instance
-     *
      * @return {@link Builder}
      */
     public static Builder builder(){
@@ -68,8 +52,7 @@ public class Config {
     }
 
     /**
-     * Configure a default http client for the library
-     *
+     * 
      * @param timeOut connect timeout
      * @return a default HTTP client for fetching data
      */
@@ -80,8 +63,6 @@ public class Config {
     }
 
     /**
-     * Make sure the config is not null and is with an api key
-     *
      * @since 1.4.0
      * @param config config instance
      * Check if a config instance is null or has an empty key
@@ -91,9 +72,10 @@ public class Config {
         if (config.getKey() == null) throw new AlphaVantageException("API Key not set");
     }
 
-
-    public static class Builder {
-
+    /**
+     * Builder class for {@link Config}
+     */
+    public static class Builder{
         private String key;
         private int timeOut;
         private OkHttpClient httpClient;
@@ -103,16 +85,30 @@ public class Config {
             return this;
         }
 
+        /**
+         * Set the connect timeout of the HTTP client
+         * @param timeOut timeout for config
+         * @return the builder instance
+         */
         public Builder timeOut(int timeOut){
             this.timeOut = timeOut;
             return this;
         }
 
+        /**
+         * Set the HTTP client
+         * @param httpClient the HTTP client for config
+         * @return
+         */
         public Builder httpClient(OkHttpClient httpClient){
             this.httpClient = httpClient;
             return this;
         }
 
+        /**
+         * Build a new Configuration instance
+         * @return {@link Config} instance
+         */
         public Config build(){
             return new Config(this);
         }

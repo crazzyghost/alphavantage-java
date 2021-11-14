@@ -42,7 +42,7 @@ public class TimeSeriesResponse {
         return stockUnits;
     }
 
-    public static class TimeSeriesParser extends DefaultParser<TimeSeriesResponse> {
+    public static class TimeSeriesParser extends DefaultParser<TimeSeriesResponse>{
 
         private boolean adjusted;
 

@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.5.0 - 11-01-2021
+## [v1.5.0] - 11-01-2021
 
 - New: Support for synchronous requests
 

@@ -63,3 +63,17 @@ workflows:
  workflow:
    jobs:
    - build
+
+# version: 2.1
+# orbs:
+#     node: circleci/node@2.1.1
+
+        # executor:
+        #     name: node/default
+        #     tag: '10.16'
+        # steps:
+        #     - checkout
+        #     - node/with-cache:
+        #           steps:
+        #               - run: npm install
+        #               - run: npm run test-ci
