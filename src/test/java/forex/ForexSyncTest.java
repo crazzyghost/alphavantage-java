@@ -136,7 +136,7 @@ public class ForexSyncTest {
 
         Forex forex = AlphaVantage.api().forex();
         Forex.MonthlyRequestProxy requestProxy = forex.monthly();
-        requestProxy.fromSymbol("AFN")
+        requestProxy.fromSymbol("EUR")
             .toSymbol("USD")
             .dataType(DataType.JSON);
 

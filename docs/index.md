@@ -107,6 +107,7 @@ Here, we choose which data category/endpoint we want to access
 | Digital Currency Data     | `.crypto()`           |
 | Technical Indicator Data  | `.indicator()`        |
 | Sector Performance Data   | `.sector()`           |
+| Fundamental Data          | `.fundamentalData()`  |
 
 For example, to select the Stock Time Series:
 
@@ -218,7 +219,7 @@ When you are okay with setting the parameters call the `fetch()` method. Simple!
             .onFailure({ e-> hanldeFailure(e) })
             .fetch()
 
-You can also use the synchronous fetch method by calling the `fetchSync()` method without callback handlers.
+From v1.5.0 up, you can also use the synchronous fetch method by calling the `fetchSync()` method without callback handlers.
 
 === "Java"
         :::java

@@ -40,7 +40,7 @@ import okhttp3.ResponseBody;
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0
  */
-public class ExchangeRate implements Fetcher {
+public final class ExchangeRate implements Fetcher {
 
     private final Config config;
     private final ExchangeRateRequest.Builder builder;

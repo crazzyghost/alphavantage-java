@@ -8,7 +8,7 @@ copyright: 'Copyright &copy; 2019 S. M. Sefa-Yeboah'
 
 nav:
     - Overview: index.md
-    - "v1.5.0 API":
+    - "v1.6.0 API":
       - alphavantage: api/alphavantage/index.md
       - crypto: api/crypto/index.md
       - exchangerate: api/exchangerate/index.md
@@ -16,13 +16,15 @@ nav:
       - indicator: api/indicator/index.md
       - timeseries: api/timeseries/index.md
       - sector: api/sector/index.md
-    - Recipes: 
+      - fundamentaldata: api/fundamentaldata/index.md
+    - Recipes:
       - Stock Time Series: timeseries.md
       - Forex (FX): forex.md
       - CryptoCurrencies: crypto.md
       - Exchange Rates: exchangerate.md
       - Technical Indicators: indicators.md
       - Sector Performances: sector.md
+      - Fundamental Data: fundamentaldata.md
     - Changelog: changelog.md
 theme:
   name: material
@@ -40,8 +42,11 @@ extra_css:
 markdown_extensions:
   - admonition
   - codehilite:
-      guess_lang: false
+      guess_lang: true
   - toc:
       permalink: true
   - pymdownx.tabbed
+#  - pymdownx.highlight:
+#      guess_lang: true
+  - pymdownx.superfences
 

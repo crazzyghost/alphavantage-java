@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.6.0 - 14-11-2021
+
+- New: Support for fundamental data
+
 ## v1.5.0 - 11-01-2021
 
 - New: Support for synchronous requests
