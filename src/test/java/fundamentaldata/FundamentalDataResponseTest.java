@@ -1,9 +1,7 @@
 package fundamentaldata;
 
 
-import com.crazzyghost.alphavantage.fundamentaldata.response.BalanceSheetResponse;
-import com.crazzyghost.alphavantage.fundamentaldata.response.CompanyOverviewResponse;
-import com.crazzyghost.alphavantage.fundamentaldata.response.CompanyOverview;
+import com.crazzyghost.alphavantage.fundamentaldata.response.*;
 import org.junit.Before;
 import org.junit.Test;
 import util.TestUtils;
@@ -27,6 +25,49 @@ public class FundamentalDataResponseTest {
         assertEquals(response.getQuarterlyReports().size(), 3);
         assertNull(response.getErrorMessage());
         assertEquals(response.getSymbol(), "IBM");
+
+        BalanceSheet annualSheet = response.getAnnualReports().get(0);
+        assertNotNull(annualSheet.toString());
+
+        assertEquals(annualSheet.getFiscalDateEnding(), "2020-12-31");
+        assertEquals(annualSheet.getReportedCurrency(), "USD");
+        assertEquals(annualSheet.getTotalAssets(), "155971000000");
+        assertEquals(annualSheet.getTotalCurrentAssets(), "39165000000");
+        assertEquals(annualSheet.getCashAndCashEquivalentsAtCarryingValue(), "13212000000");
+        assertEquals(annualSheet.getCashAndShortTermInvestments(), "13812000000");
+        assertEquals(annualSheet.getInventory(), "1839000000");
+        assertEquals(annualSheet.getCurrentNetReceivables(), "18738000000");
+        assertEquals(annualSheet.getTotalNonCurrentAssets(), "115864000000");
+        assertEquals(annualSheet.getPropertyPlantEquipment(), "10040000000");
+        assertEquals(annualSheet.getAccumulatedDepreciationAmortizationPPE(), "23136000000");
+        assertEquals(annualSheet.getIntangibleAssets(), "73413000000");
+        assertEquals(annualSheet.getIntangibleAssetsExcludingGoodwill(), "13796000000");
+        assertEquals(annualSheet.getGoodWill(), "59617000000");
+        assertEquals(annualSheet.getInvestments(), "923000000");
+        assertEquals(annualSheet.getLongTermInvestments(), "172000000");
+        assertEquals(annualSheet.getShortTermInvestments(), "600000000");
+        assertEquals(annualSheet.getOtherCurrentAssets(), "4313000000");
+        assertEquals(annualSheet.getOtherNonCurrentAssets(), "227000000");
+        assertEquals(annualSheet.getTotalLiabilities(), "135244000000");
+        assertEquals(annualSheet.getTotalCurrentLiabilities(), "39869000000");
+        assertEquals(annualSheet.getCurrentAccountsPayable(), "4908000000");
+        assertEquals(annualSheet.getDeferredRevenue(), "17134000000");
+        assertEquals(annualSheet.getCurrentDebt(), "14236000000");
+        assertEquals(annualSheet.getShortTermDebt(), "7183000000");
+        assertEquals(annualSheet.getTotalNonCurrentLiabilities(), "106679000000");
+        assertEquals(annualSheet.getCapitalLeaseObligations(), "4931000000");
+        assertEquals(annualSheet.getLongTermDebt(), "122995000000");
+        assertEquals(annualSheet.getCurrentLongTermDebt(), "7053000000");
+        assertEquals(annualSheet.getLongTermDebtNonCurrent(), "54355000000");
+        assertEquals(annualSheet.getShortLongTermDebtTotal(), "130178000000");
+        assertEquals(annualSheet.getOtherCurrentLiabilities(), "14190000000");
+        assertEquals(annualSheet.getOtherNonCurrentLiabilities(), "14897000000");
+        assertEquals(annualSheet.getTotalShareholderEquity(), "20597000000");
+        assertEquals(annualSheet.getTreasuryStock(), "169339000000");
+        assertEquals(annualSheet.getRetainedEarnings(), "162717000000");
+        assertEquals(annualSheet.getCommonStock(), "56556000000");
+        assertEquals(annualSheet.getCommonStockSharesOutstanding(), "892653424");
+
     }
 
     @Test
@@ -34,73 +75,196 @@ public class FundamentalDataResponseTest {
         CompanyOverviewResponse response = CompanyOverviewResponse.of(json("companyoverview"));
         CompanyOverview overview = response.getOverview();
         assertNull(response.getErrorMessage());
+        assertNotNull(response.toString());
         assertEquals(overview.getSymbol(), "IBM");
         assertEquals(overview.getAssetType(), "Common Stock");
         assertEquals(overview.getName(), "International Business Machines Corporation");
-        assertEquals(overview.getDescription(), "International Business Machines Corporation provides integrated solutions and services worldwide.");
+        assertEquals(overview.getDescription(), "International Business Machines Corporation (IBM) is an American multinational technology company headquartered in Armonk, New York, with operations in over 170 countries. The company began in 1911, founded in Endicott, New York, as the Computing-Tabulating-Recording Company (CTR) and was renamed International Business Machines in 1924. IBM is incorporated in New York. IBM produces and sells computer hardware, middleware and software, and provides hosting and consulting services in areas ranging from mainframe computers to nanotechnology. IBM is also a major research organization, holding the record for most annual U.S. patents generated by a business (as of 2020) for 28 consecutive years. Inventions by IBM include the automated teller machine (ATM), the floppy disk, the hard disk drive, the magnetic stripe card, the relational database, the SQL programming language, the UPC barcode, and dynamic random-access memory (DRAM). The IBM mainframe, exemplified by the System/360, was the dominant computing platform during the 1960s and 1970s.");
+        assertEquals(overview.getCIK(), 51143L, 0.0);
         assertEquals(overview.getExchange(), "NYSE");
         assertEquals(overview.getCurrency(), "USD");
         assertEquals(overview.getCountry(), "USA");
-        assertEquals(overview.getSector(), "Technology");
-        assertEquals(overview.getIndustry(), "Information Technology Services");
-        assertEquals(overview.getAddress(), "One New Orchard Road, Armonk, NY, United States, 10504");
-        assertEquals(overview.getFullTimeEmployees(), 352600L, 0.0);
+        assertEquals(overview.getSector(), "TECHNOLOGY");
+        assertEquals(overview.getIndustry(), "COMPUTER & OFFICE EQUIPMENT");
+        assertEquals(overview.getAddress(), "1 NEW ORCHARD ROAD, ARMONK, NY, US");
         assertEquals(overview.getFiscalYearEnd(), "December");
-        assertEquals(overview.getLatestQuarter(), "2020-09-30");
-        assertEquals(overview.getMarketCapitalization(), 117307654144D, 0.0);
-        assertEquals(overview.getEbitda(), 15690000384D, 0.0);
-        assertEquals(overview.getPeRatio(), 14.9212, 0.0);
-        assertEquals(overview.getPegRatio(), 9.5324, 0.0);
-        assertEquals(overview.getBookValue(), 23.801, 0.0);
-        assertEquals(overview.getDividendPerShare(), 6.52, 0.0);
-        assertEquals(overview.getDividendYield(), 0.0501, 0.0);
-        assertEquals(overview.getEps(), 8.823, 0.0);
-        assertEquals(overview.getRevenuePerShareTTM(), 84.402, 0.0);
-        assertEquals(overview.getProfitMargin(), 0.1053, 0.0);
-        assertEquals(overview.getOperatingMarginTTM(), 0.1205, 0.0);
-        assertEquals(overview.getReturnOnAssetsTTM(), 0.0372, 0.0);
-        assertEquals(overview.getReturnOnEquityTTM(), 0.401, 0.0);
-        assertEquals(overview.getRevenueTTM(), 75030003712D, 0.0);
-        assertEquals(overview.getGrossProfitTTM(), 36489000000D, 0.0);
-        assertEquals(overview.getDilutedEpsTTM(), 8.823, 0.0);
-        assertEquals(overview.getQuarterlyEarningsGrowthYOY(), 0.011, 0.0);
-        assertEquals(overview.getQuarterlyRevenueGrowthYOY(), -0.026, 0.0);
-        assertEquals(overview.getAnalystTargetPrice(), 138.2, 0.0);
-        assertEquals(overview.getTrailingPE(), 14.9212, 0.0);
-        assertEquals(overview.getForwardPE(), 10.9649, 0.0);
-        assertEquals(overview.getPriceToSaleRatioTTM(), 1.532, 0.0);
-        assertEquals(overview.getPriceToBookRatio(), 5.3943, 0.0);
-        assertEquals(overview.getEvToRevenue(), 2.255, 0.0);
-        assertEquals(overview.getEvToEBITDA(), 11.0499, 0.0);
-        assertEquals(overview.getBeta(), 1.2416, 0.0);
-        assertEquals(overview.getFiftyTwoWeekHigh(), 150.8394, 0.0);
-        assertEquals(overview.getFiftyTwoWeekLow(), 86.9458, 0.0);
-        assertEquals(overview.getFiftyDayMovingAverage(), 126.0836, 0.0);
-        assertEquals(overview.getTwoHundredDayMovingAverage(), 122.5964, 0.0);
-        assertEquals(overview.getSharesOutstanding(), 891057024L, 0.0);
-        assertEquals(overview.getSharesFloat(), 889471034L, 0.0);
-        assertEquals(overview.getSharesShort(), 24592416L, 0.0);
-        assertEquals(overview.getSharesShortPriorMonth(), 22028993L, 0.0);
-        assertEquals(overview.getShortRatio(), 5.2, 0.0);
-        assertEquals(overview.getShortPercentOutstanding(), 0.03, 0.0);
-        assertEquals(overview.getShortPercentFloat(), 0.0276, 0.0);
-        assertEquals(overview.getPercentInsiders(), 0.128, 0.0);
-        assertEquals(overview.getPercentInstitutions(), 58.584, 0.0);
-        assertEquals(overview.getForwardAnnualDividendRate(), 6.52, 0.0);
-        assertEquals(overview.getForwardAnnualDividendYield(), 0.0501, 0.0);
-        assertEquals(overview.getPayoutRatio(), 0.4865, 0.0);
-        assertEquals(overview.getDividendDate(), "2020-12-10");
-        assertEquals(overview.getExDividendDate(), "2020-11-09");
-        assertEquals(overview.getLastSplitFactor(), "2:1");
-        assertEquals(overview.getLastSplitDate(), "1999-05-27");
+        assertEquals(overview.getLatestQuarter(), "2021-09-30");
+        assertEquals(overview.getMarketCapitalization(), 106626228000L, 0.0);
+        assertEquals(overview.getEBITDA(), 15659000000L, 0.0);
+        assertEquals(overview.getPERatio(), 22.52, 0.0);
+        assertEquals(overview.getPEGRatio(), 2.057, 0.0);
+        assertEquals(overview.getBookValue(), 24.79, 0.0);
+        assertEquals(overview.getDividendPerShare(), 6.54, 0.0);
+        assertEquals(overview.getDividendYield(), 0.0544, 0.0);
+        assertEquals(overview.getEPS(), 5.28, 0.0);
+        assertEquals(overview.getRevenuePerShareTTM(), 83.23, 0.0);
+        assertEquals(overview.getProfitMargin(), 0.064, 0.0);
+        assertEquals(overview.getOperatingMarginTTM(), 0.12, 0.0);
+        assertEquals(overview.getReturnOnAssetsTTM(), 0.0374, 0.0);
+        assertEquals(overview.getReturnOnEquityTTM(), 0.214, 0.0);
+        assertEquals(overview.getRevenueTTM(), 74461004000L, 0.0);
+        assertEquals(overview.getGrossProfitTTM(), 35575000000L, 0.0);
+        assertEquals(overview.getDilutedEpsTTM(), 5.28, 0.0);
+        assertEquals(overview.getQuarterlyEarningsGrowthYOY(), -0.338, 0.0);
+        assertEquals(overview.getQuarterlyRevenueGrowthYOY(), 0.003, 0.0);
+        assertEquals(overview.getAnalystTargetPrice(), 148.48, 0.0);
+        assertEquals(overview.getTrailingPE(), 22.52, 0.0);
+        assertEquals(overview.getForwardPE(), 10.37, 0.0);
+        assertEquals(overview.getPriceToSaleRatioTTM(), 1.432, 0.0);
+        assertEquals(overview.getPriceToBookRatio(), 4.852, 0.0);
+        assertEquals(overview.getEvToRevenue(), 2.132, 0.0);
+        assertEquals(overview.getEvToEBITDA(), 12.24, 0.0);
+        assertEquals(overview.getBeta(), 1.102, 0.0);
+        assertEquals(overview.getFiftyTwoWeekHigh(), 142.43, 0.0);
+        assertEquals(overview.getFiftyTwoWeekLow(), 105.39, 0.0);
+        assertEquals(overview.getFiftyDayMovingAverage(), 128.52, 0.0);
+        assertEquals(overview.getTwoHundredDayMovingAverage(), 134.22, 0.0);
+        assertEquals(overview.getSharesOutstanding(), 896320000L, 0.0);
+        assertEquals(overview.getDividendDate(), "2021-12-10");
+        assertEquals(overview.getExDividendDate(), "2021-11-09");
 
     }
 
     @Test
-    public void testCompanyOverviewResponseEmpty() throws IOException {
+    public void testIncomeStatementResponse() throws IOException {
+        IncomeStatementResponse response = IncomeStatementResponse.of(json("incomestatement"));
+        assertEquals(response.getAnnualReports().size(), 2);
+        assertEquals(response.getQuarterlyReports().size(), 3);
+        assertNull(response.getErrorMessage());
+        assertEquals(response.getSymbol(), "IBM");
+
+        IncomeStatement incomeStatement = response.getAnnualReports().get(0);
+        assertNotNull(incomeStatement.toString());
+
+        assertEquals(incomeStatement.getFiscalDateEnding(), "2020-12-31");
+        assertEquals(incomeStatement.getReportedCurrency(), "USD");
+        assertEquals(incomeStatement.getGrossProfit(), "35575000000");
+        assertEquals(incomeStatement.getTotalRevenue(), "73620000000");
+        assertEquals(incomeStatement.getCostOfRevenue(), "38046000000");
+        assertEquals(incomeStatement.getCostofGoodsAndServicesSold(), "439000000");
+        assertEquals(incomeStatement.getOperatingIncome(), "4609000000");
+        assertEquals(incomeStatement.getSellingGeneralAndAdministrative(), "23082000000");
+        assertEquals(incomeStatement.getResearchAndDevelopment(), "6333000000");
+        assertEquals(incomeStatement.getOperatingExpenses(), "30966000000");
+        assertEquals(incomeStatement.getNetInterestIncome(), "-1288000000");
+        assertEquals(incomeStatement.getInvestmentIncomeNet(), "None");
+        assertEquals(incomeStatement.getInterestExpense(), "1288000000");
+        assertEquals(incomeStatement.getInterestIncome(), "105000000");
+        assertEquals(incomeStatement.getNonInterestIncome(), "None");
+        assertEquals(incomeStatement.getOtherNonOperatingIncome(), "-861000000");
+        assertEquals(incomeStatement.getDepreciation(), "4227000000");
+        assertEquals(incomeStatement.getDepreciationAndAmortization(), "2468000000");
+        assertEquals(incomeStatement.getIncomeBeforeTax(), "4726000000");
+        assertEquals(incomeStatement.getIncomeTaxExpense(), "-864000000");
+        assertEquals(incomeStatement.getInterestAndDebtExpense(), "1288000000");
+        assertEquals(incomeStatement.getNetIncomeFromContinuingOperations(), "5501000000");
+        assertEquals(incomeStatement.getComprehensiveIncomeNetOfTax(), "4850000000");
+        assertEquals(incomeStatement.getEbit(), "6014000000");
+        assertEquals(incomeStatement.getEbitda(), "8482000000");
+        assertEquals(incomeStatement.getNetIncome(), "5590000000");
+    }
+
+    @Test
+    public void testEarningsResponse() throws IOException {
+        EarningsResponse response = EarningsResponse.of(json("earnings"));
+        assertEquals(response.getAnnualReports().size(), 2);
+        assertEquals(response.getQuarterlyReports().size(), 3);
+        assertNull(response.getErrorMessage());
+        assertEquals(response.getSymbol(), "IBM");
+
+        AnnualEarning annualEarning = response.getAnnualReports().get(0);
+        assertNotNull(annualEarning.toString());
+        assertEquals(annualEarning.getFiscalDateEnding(), "2020-12-31");
+        assertEquals(annualEarning.getReportedEPS(), 8.67, 0.0);
+
+        QuarterlyEarning quarterlyEarning = response.getQuarterlyReports().get(0);
+        assertNotNull(quarterlyEarning.toString());
+        assertEquals(quarterlyEarning.getFiscalDateEnding(), "2020-09-30");
+        assertEquals(quarterlyEarning.getReportedDate(), "2020-10-19");
+        assertEquals(quarterlyEarning.getReportedEPS(), 2.58, 0.0);
+        assertEquals(quarterlyEarning.getEstimatedEPS(), 2.579, 0.0);
+        assertEquals(quarterlyEarning.getSurprise(), 0.001, 0.0);
+        assertEquals(quarterlyEarning.getSurprisePercentage(), 0.0388, 0.0);
+
+    }
+
+    @Test
+    public void testCashFlowResponse() throws IOException {
+        CashFlowResponse response = CashFlowResponse.of(json("cashflow"));
+        assertEquals(response.getAnnualReports().size(), 5);
+        assertEquals(response.getQuarterlyReports().size(), 21);
+        assertNull(response.getErrorMessage());
+        assertEquals(response.getSymbol(), "IBM");
+    }
+
+    @Test
+    public void testEmptyCompanyOverviewResponse() throws IOException {
         CompanyOverviewResponse response = CompanyOverviewResponse.of(empty());
+        assertNotNull(response.toString());
         assertNotNull(response.getErrorMessage());
     }
 
+    @Test
+    public void testEmptyBalanceSheetResponse() throws IOException {
+        BalanceSheetResponse response = BalanceSheetResponse.of(empty());
+        assertNotNull(response.toString());
+        assertNotNull(response.getErrorMessage());
+    }
+
+    @Test
+    public void testEmptyCashFlowResponse() throws IOException {
+        CashFlowResponse response = CashFlowResponse.of(empty());
+        assertNotNull(response.toString());
+        assertNotNull(response.getErrorMessage());
+    }
+
+    @Test
+    public void testEmptyEarningsResponse() throws IOException {
+        EarningsResponse response = EarningsResponse.of(empty());
+        assertNotNull(response.toString());
+        assertNotNull(response.getErrorMessage());
+    }
+
+    @Test
+    public void testEmptyIncomeStatementResponse() throws IOException {
+        IncomeStatementResponse response = IncomeStatementResponse.of(empty());
+        assertNotNull(response.toString());
+        assertNotNull(response.getErrorMessage());
+    }
+
+    @Test
+    public void testErrorCompanyOverviewResponse() throws IOException {
+        CompanyOverviewResponse response = CompanyOverviewResponse.of(error());
+        assertNotNull(response.toString());
+        assertNotNull(response.getErrorMessage());
+    }
+
+    @Test
+    public void testErrorBalanceSheetResponse() throws IOException {
+        BalanceSheetResponse response = BalanceSheetResponse.of(error());
+        assertNotNull(response.toString());
+        assertNotNull(response.getErrorMessage());
+    }
+
+    @Test
+    public void testErrorCashFlowResponse() throws IOException {
+        CashFlowResponse response = CashFlowResponse.of(error());
+        assertNotNull(response.toString());
+        assertNotNull(response.getErrorMessage());
+    }
+
+    @Test
+    public void testErrorEarningsResponse() throws IOException {
+        EarningsResponse response = EarningsResponse.of(error());
+        assertNotNull(response.toString());
+        assertNotNull(response.getErrorMessage());
+    }
+
+    @Test
+    public void testErrorIncomeStatementResponse() throws IOException {
+        IncomeStatementResponse response = IncomeStatementResponse.of(error());
+        assertNotNull(response.toString());
+        assertNotNull(response.getErrorMessage());
+    }
 
 }

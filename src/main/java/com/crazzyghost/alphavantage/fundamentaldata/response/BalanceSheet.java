@@ -45,6 +45,8 @@ public class BalanceSheet {
     private String totalNonCurrentAssets;
     @Json(name = "propertyPlantEquipment")
     private String propertyPlantEquipment;
+    @Json(name = "accumulatedDepreciationAmortizationPPE")
+    private String accumulatedDepreciationAmortizationPPE;
     @Json(name = "intangibleAssets")
     private String intangibleAssets;
     @Json(name = "intangibleAssetsExcludingGoodwill")
@@ -138,6 +140,10 @@ public class BalanceSheet {
 
     public String getPropertyPlantEquipment() {
         return propertyPlantEquipment;
+    }
+
+    public String getAccumulatedDepreciationAmortizationPPE() {
+        return accumulatedDepreciationAmortizationPPE;
     }
 
     public String getIntangibleAssets() {

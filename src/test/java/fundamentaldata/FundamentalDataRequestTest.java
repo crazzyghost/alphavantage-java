@@ -2,11 +2,7 @@ package fundamentaldata;
 
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.UrlExtractor;
-import com.crazzyghost.alphavantage.cryptocurrency.request.CryptoRequest;
-import com.crazzyghost.alphavantage.cryptocurrency.request.DigitalCurrencyRequest;
-import com.crazzyghost.alphavantage.cryptocurrency.request.RatingRequest;
 import com.crazzyghost.alphavantage.fundamentaldata.request.*;
-import com.crazzyghost.alphavantage.parameters.Function;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

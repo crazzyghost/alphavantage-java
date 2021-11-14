@@ -13,7 +13,7 @@ public class CompanyOverview {
     @Json(name="Description")
     private String description;
     @Json(name="CIK")
-    private String cik;
+    private Long cik;
     @Json(name="Exchange")
     private String exchange;
     @Json(name="Currency")
@@ -26,16 +26,14 @@ public class CompanyOverview {
     private String industry;
     @Json(name="Address")
     private String address;
-    @Json(name="FullTimeEmployees")
-    private Long fullTimeEmployees;
     @Json(name="FiscalYearEnd")
     private String fiscalYearEnd;
     @Json(name="LatestQuarter")
     private String latestQuarter;
     @Json(name="MarketCapitalization")
-    private Double marketCapitalization;
+    private Long marketCapitalization;
     @Json(name="EBITDA")
-    private Double ebitda;
+    private Long ebitda;
     @Json(name="PERatio")
     private Double peRatio;
     @Json(name="PEGRatio")
@@ -59,9 +57,9 @@ public class CompanyOverview {
     @Json(name="ReturnOnEquityTTM")
     private Double returnOnEquityTTM;
     @Json(name="RevenueTTM")
-    private Double revenueTTM;
+    private Long revenueTTM;
     @Json(name="GrossProfitTTM")
-    private Double grossProfitTTM;
+    private Long grossProfitTTM;
     @Json(name="DilutedEPSTTM")
     private Double dilutedEpsTTM;
     @Json(name="QuarterlyEarningsGrowthYOY")
@@ -94,36 +92,10 @@ public class CompanyOverview {
     private Double twoHundredDayMovingAverage;
     @Json(name="SharesOutstanding")
     private Long sharesOutstanding;
-    @Json(name="SharesFloat")
-    private Long sharesFloat;
-    @Json(name="SharesShort")
-    private Long sharesShort;
-    @Json(name="SharesShortPriorMonth")
-    private Long sharesShortPriorMonth;
-    @Json(name="ShortRatio")
-    private Double shortRatio;
-    @Json(name="ShortPercentOutstanding")
-    private Double shortPercentOutstanding;
-    @Json(name="ShortPercentFloat")
-    private Double shortPercentFloat;
-    @Json(name="PercentInsiders")
-    private Double percentInsiders;
-    @Json(name="PercentInstitutions")
-    private Double percentInstitutions;
-    @Json(name="ForwardAnnualDividendRate")
-    private Double ForwardAnnualDividendRate;
-    @Json(name="ForwardAnnualDividendYield")
-    private Double ForwardAnnualDividendYield;
-    @Json(name="PayoutRatio")
-    private Double payoutRatio;
     @Json(name="DividendDate")
     private String dividendDate;
     @Json(name="ExDividendDate")
     private String exDividendDate;
-    @Json(name="LastSplitFactor")
-    private String lastSplitFactor;
-    @Json(name="LastSplitDate")
-    private String lastSplitDate;
 
     public String getSymbol() {
         return symbol;
@@ -141,7 +113,7 @@ public class CompanyOverview {
         return description;
     }
 
-    public String getCik() {
+    public Long getCIK() {
         return cik;
     }
 
@@ -169,10 +141,6 @@ public class CompanyOverview {
         return address;
     }
 
-    public Long getFullTimeEmployees() {
-        return fullTimeEmployees;
-    }
-
     public String getFiscalYearEnd() {
         return fiscalYearEnd;
     }
@@ -181,19 +149,19 @@ public class CompanyOverview {
         return latestQuarter;
     }
 
-    public Double getMarketCapitalization() {
+    public Long getMarketCapitalization() {
         return marketCapitalization;
     }
 
-    public Double getEbitda() {
+    public Long getEBITDA() {
         return ebitda;
     }
 
-    public Double getPeRatio() {
+    public Double getPERatio() {
         return peRatio;
     }
 
-    public Double getPegRatio() {
+    public Double getPEGRatio() {
         return pegRatio;
     }
 
@@ -209,7 +177,7 @@ public class CompanyOverview {
         return dividendYield;
     }
 
-    public Double getEps() {
+    public Double getEPS() {
         return eps;
     }
 
@@ -233,11 +201,11 @@ public class CompanyOverview {
         return returnOnEquityTTM;
     }
 
-    public Double getRevenueTTM() {
+    public Long getRevenueTTM() {
         return revenueTTM;
     }
 
-    public Double getGrossProfitTTM() {
+    public Long getGrossProfitTTM() {
         return grossProfitTTM;
     }
 
@@ -305,50 +273,6 @@ public class CompanyOverview {
         return sharesOutstanding;
     }
 
-    public Long getSharesFloat() {
-        return sharesFloat;
-    }
-
-    public Long getSharesShort() {
-        return sharesShort;
-    }
-
-    public Long getSharesShortPriorMonth() {
-        return sharesShortPriorMonth;
-    }
-
-    public Double getShortRatio() {
-        return shortRatio;
-    }
-
-    public Double getShortPercentOutstanding() {
-        return shortPercentOutstanding;
-    }
-
-    public Double getShortPercentFloat() {
-        return shortPercentFloat;
-    }
-
-    public Double getPercentInsiders() {
-        return percentInsiders;
-    }
-
-    public Double getPercentInstitutions() {
-        return percentInstitutions;
-    }
-
-    public Double getForwardAnnualDividendRate() {
-        return ForwardAnnualDividendRate;
-    }
-
-    public Double getForwardAnnualDividendYield() {
-        return ForwardAnnualDividendYield;
-    }
-
-    public Double getPayoutRatio() {
-        return payoutRatio;
-    }
-
     public String getDividendDate() {
         return dividendDate;
     }
@@ -357,13 +281,6 @@ public class CompanyOverview {
         return exDividendDate;
     }
 
-    public String getLastSplitFactor() {
-        return lastSplitFactor;
-    }
-
-    public String getLastSplitDate() {
-        return lastSplitDate;
-    }
 
     @Override
     public String toString() {
@@ -379,7 +296,6 @@ public class CompanyOverview {
                 ", sector='" + sector + '\'' +
                 ", industry='" + industry + '\'' +
                 ", address='" + address + '\'' +
-                ", fullTimeEmployees=" + fullTimeEmployees +
                 ", fiscalYearEnd='" + fiscalYearEnd + '\'' +
                 ", latestQuarter='" + latestQuarter + '\'' +
                 ", marketCapitalization=" + marketCapitalization +
@@ -413,21 +329,8 @@ public class CompanyOverview {
                 ", fiftyDayMovingAverage=" + fiftyDayMovingAverage +
                 ", twoHundredDayMovingAverage=" + twoHundredDayMovingAverage +
                 ", sharesOutstanding=" + sharesOutstanding +
-                ", sharesFloat=" + sharesFloat +
-                ", sharesShort=" + sharesShort +
-                ", sharesShortPriorMonth=" + sharesShortPriorMonth +
-                ", shortRatio=" + shortRatio +
-                ", shortPercentOutstanding=" + shortPercentOutstanding +
-                ", shortPercentFloat=" + shortPercentFloat +
-                ", percentInsiders=" + percentInsiders +
-                ", percentInstitutions=" + percentInstitutions +
-                ", ForwardAnnualDividendRate=" + ForwardAnnualDividendRate +
-                ", ForwardAnnualDividendYield=" + ForwardAnnualDividendYield +
-                ", payoutRatio=" + payoutRatio +
                 ", dividendDate='" + dividendDate + '\'' +
                 ", exDividendDate='" + exDividendDate + '\'' +
-                ", lastSplitFactor='" + lastSplitFactor + '\'' +
-                ", lastSplitDate='" + lastSplitDate + '\'' +
                 '}';
     }
 }

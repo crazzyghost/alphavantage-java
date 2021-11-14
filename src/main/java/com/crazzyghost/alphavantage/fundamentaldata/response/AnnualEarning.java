@@ -7,13 +7,13 @@ public class AnnualEarning {
     @Json(name="fiscalDateEnding")
     private String fiscalDateEnding;
     @Json(name="reportedEPS")
-    private String reportedEPS;
+    private Double reportedEPS;
 
     public String getFiscalDateEnding() {
         return fiscalDateEnding;
     }
 
-    public String getReportedEPS() {
+    public Double getReportedEPS() {
         return reportedEPS;
     }
 

@@ -45,7 +45,7 @@ import java.util.Map;
  * @author Sylvester Sefa-Yeboah
  * @since 1.6.0
  */
-public class FundamentalData implements Fetcher {
+public final class FundamentalData implements Fetcher {
 
     private final Config config;
     private FundamentalDataRequest.Builder<?> builder;

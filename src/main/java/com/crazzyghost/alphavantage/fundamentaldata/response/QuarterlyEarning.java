@@ -8,13 +8,13 @@ public class QuarterlyEarning {
     @Json(name="reportedDate")
     private String reportedDate;
     @Json(name="reportedEPS")
-    private String reportedEPS;
+    private Double reportedEPS;
     @Json(name="estimatedEPS")
-    private String estimatedEPS;
+    private Double estimatedEPS;
     @Json(name="surprise")
-    private String surprise;
+    private Double surprise;
     @Json(name="surprisePercentage")
-    private String surprisePercentage;
+    private Double surprisePercentage;
 
     public String getFiscalDateEnding() {
         return fiscalDateEnding;
@@ -24,19 +24,19 @@ public class QuarterlyEarning {
         return reportedDate;
     }
 
-    public String getReportedEPS() {
+    public Double getReportedEPS() {
         return reportedEPS;
     }
 
-    public String getEstimatedEPS() {
+    public Double getEstimatedEPS() {
         return estimatedEPS;
     }
 
-    public String getSurprise() {
+    public Double getSurprise() {
         return surprise;
     }
 
-    public String getSurprisePercentage() {
+    public Double getSurprisePercentage() {
         return surprisePercentage;
     }
 
