@@ -18,7 +18,7 @@
     
     
       
-        <title>Sector - Alphavantage Java</title>
+        <title>Fundamentaldata - Alphavantage Java</title>
       
     
     
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Sector
+              Fundamentaldata
             
           </span>
         </div>
@@ -341,7 +341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../sector/" class="md-nav__link">
         sector
       </a>
     </li>
@@ -355,7 +355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentaldata/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         fundamentaldata
       </a>
     </li>
@@ -576,15 +576,15 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/crazzyghost/alphavantage-java/edit/master/docs/api/sector/sector.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/crazzyghost/alphavantage-java/edit/master/docs/api/fundamentaldata/fundamentaldata.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <p><a href="../../alphavantage/">alphavantage</a> / <a href="../">sector</a> / <a href="./">Sector</a></p>
+                <p><a href="../../alphavantage/">alphavantage</a> / <a href="../">fundamentaldata</a> / <a href="#">FundamentalData</a></p>
 <h1 id="sector">Sector<a class="headerlink" href="#sector" title="Permanent link">&para;</a></h1>
-<p><code>public final class Sector extends Object implements</code><a href="../../alphavantage/fetcher/"><code>Fetcher</code></a></p>
-<p>Access to Sector Performance Data</p>
+<p><code>public final class FundamentalData extends Object implements</code><a href="../../alphavantage/fetcher/"><code>Fetcher</code></a></p>
+<p>Access to Fundamental Data</p>
 <h3 id="constructors">Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -595,8 +595,8 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="./">Sector</a></td>
-<td><code>public Sector(Config config)</code></td>
+<td><a href="./">FundamentalData</a></td>
+<td><code>public FundamentalData(Config config)</code></td>
 </tr>
 </tbody>
 </table>
@@ -615,11 +615,11 @@
 </tr>
 <tr>
 <td><a href="#">builder</a></td>
-<td><code>private SectorRequest.Builder builder</code></td>
+<td><code>private FundamentaDataRequest.Builder builder</code></td>
 </tr>
 <tr>
 <td><a href="#">successCallback</a></td>
-<td><code>private Fetcher.SuccessCallback&lt;SectorResponse&gt; successCallback</code></td>
+<td><code>private Fetcher.SuccessCallback&lt;?&gt; successCallback</code></td>
 </tr>
 <tr>
 <td><a href="#">failureCallback</a></td>
@@ -638,15 +638,19 @@
 <tbody>
 <tr>
 <td><a href="#">onSuccess</a></td>
-<td><code>public Sector onSuccess(Fetcher.SuccessCallback&lt;SectorResponse&gt; callback)</code></td>
+<td><code>public FundamentalData onSuccess(Fetcher.SuccessCallback&lt;?&gt; callback)</code></td>
 </tr>
 <tr>
 <td><a href="#">onFailure</a></td>
-<td><code>public Sector onFailure(Fetcher.FailureCallback callback)</code></td>
+<td><code>public FundamentalData onFailure(Fetcher.FailureCallback callback)</code></td>
 </tr>
 <tr>
 <td><a href="#">fetch</a></td>
 <td><code>public void fetch()</code></td>
+</tr>
+<tr>
+<td><a href="#">fetchSync</a></td>
+<td><code>public void fetchSync()</code></td>
 </tr>
 </tbody>
 </table>
