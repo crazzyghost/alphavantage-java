@@ -1,5 +1,6 @@
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
+import com.crazzyghost.alphavantage.parser.Noneable;
 import com.squareup.moshi.Json;
 
 public class CashFlow {
@@ -7,60 +8,114 @@ public class CashFlow {
     private String fiscalDateEnding;
     @Json(name="reportedCurrency")
     private String reportedCurrency;
+
     @Json(name="operatingCashflow")
-    private String operatingCashflow;
+    @Noneable
+    private Long operatingCashflow;
+
     @Json(name="paymentsForOperatingActivities")
-    private String paymentsForOperatingActivities;
+    @Noneable
+    private Long paymentsForOperatingActivities;
+
     @Json(name="proceedsFromOperatingActivities")
-    private String proceedsFromOperatingActivities;
+    @Noneable
+    private Long proceedsFromOperatingActivities;
+
     @Json(name="changeInOperatingLiabilities")
-    private String changeInOperatingLiabilities;
+    @Noneable
+    private Long changeInOperatingLiabilities;
+
     @Json(name="changeInOperatingAssets")
-    private String changeInOperatingAssets;
+    @Noneable
+    private Long changeInOperatingAssets;
+
     @Json(name="depreciationDepletionAndAmortization")
-    private String depreciationDepletionAndAmortization;
+    @Noneable
+    private Long depreciationDepletionAndAmortization;
+
     @Json(name="capitalExpenditures")
-    private String capitalExpenditures;
+    @Noneable
+    private Long capitalExpenditures;
+
     @Json(name="changeInReceivables")
-    private String changeInReceivables;
+    @Noneable
+    private Long changeInReceivables;
+
     @Json(name="changeInInventory")
-    private String changeInInventory;
+    @Noneable
+    private Long changeInInventory;
+
     @Json(name="profitLoss")
-    private String profitLoss;
+    @Noneable
+    private Long profitLoss;
+
     @Json(name="cashflowFromInvestment")
-    private String cashflowFromInvestment;
+    @Noneable
+    private Long cashflowFromInvestment;
+
     @Json(name="cashflowFromFinancing")
-    private String cashflowFromFinancing;
+    @Noneable
+    private Long cashflowFromFinancing;
+
     @Json(name="proceedsFromRepaymentsOfShortTermDebt")
-    private String proceedsFromRepaymentsOfShortTermDebt;
+    @Noneable
+    private Long proceedsFromRepaymentsOfShortTermDebt;
+
     @Json(name="paymentsForRepurchaseOfCommonStock")
-    private String paymentsForRepurchaseOfCommonStock;
+    @Noneable
+    private Long paymentsForRepurchaseOfCommonStock;
+
     @Json(name="paymentsForRepurchaseOfEquity")
-    private String paymentsForRepurchaseOfEquity;
+    @Noneable
+    private Long paymentsForRepurchaseOfEquity;
+
     @Json(name="paymentsForRepurchaseOfPreferredStock")
-    private String paymentsForRepurchaseOfPreferredStock;
+    @Noneable
+    private Long paymentsForRepurchaseOfPreferredStock;
+
     @Json(name="dividendPayout")
-    private String dividendPayout;
+    @Noneable
+    private Long dividendPayout;
+
     @Json(name="dividendPayoutCommonStock")
-    private String dividendPayoutCommonStock;
+    @Noneable
+    private Long dividendPayoutCommonStock;
+
     @Json(name="dividendPayoutPreferredStock")
-    private String dividendPayoutPreferredStock;
+    @Noneable
+    private Long dividendPayoutPreferredStock;
+
     @Json(name="proceedsFromIssuanceOfCommonStock")
-    private String proceedsFromIssuanceOfCommonStock;
+    @Noneable
+    private Long proceedsFromIssuanceOfCommonStock;
+
     @Json(name="proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet")
-    private String proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet;
+    @Noneable
+    private Long proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet;
+
     @Json(name="proceedsFromIssuanceOfPreferredStock")
-    private String proceedsFromIssuanceOfPreferredStock;
+    @Noneable
+    private Long proceedsFromIssuanceOfPreferredStock;
+
     @Json(name="proceedsFromRepurchaseOfEquity")
-    private String proceedsFromRepurchaseOfEquity;
+    @Noneable
+    private Long proceedsFromRepurchaseOfEquity;
+
     @Json(name="proceedsFromSaleOfTreasuryStock")
-    private String proceedsFromSaleOfTreasuryStock;
+    @Noneable
+    private Long proceedsFromSaleOfTreasuryStock;
+
     @Json(name="changeInCashAndCashEquivalents")
-    private String changeInCashAndCashEquivalents;
+    @Noneable
+    private Long changeInCashAndCashEquivalents;
+
     @Json(name="changeInExchangeRate")
-    private String changeInExchangeRate;
+    @Noneable
+    private Long changeInExchangeRate;
+
     @Json(name="netIncome")
-    private String netIncome;
+    @Noneable
+    private Long netIncome;
 
     public String getFiscalDateEnding() {
         return fiscalDateEnding;
@@ -70,111 +125,111 @@ public class CashFlow {
         return reportedCurrency;
     }
 
-    public String getOperatingCashflow() {
+    public Long getOperatingCashflow() {
         return operatingCashflow;
     }
 
-    public String getPaymentsForOperatingActivities() {
+    public Long getPaymentsForOperatingActivities() {
         return paymentsForOperatingActivities;
     }
 
-    public String getProceedsFromOperatingActivities() {
+    public Long getProceedsFromOperatingActivities() {
         return proceedsFromOperatingActivities;
     }
 
-    public String getChangeInOperatingLiabilities() {
+    public Long getChangeInOperatingLiabilities() {
         return changeInOperatingLiabilities;
     }
 
-    public String getChangeInOperatingAssets() {
+    public Long getChangeInOperatingAssets() {
         return changeInOperatingAssets;
     }
 
-    public String getDepreciationDepletionAndAmortization() {
+    public Long getDepreciationDepletionAndAmortization() {
         return depreciationDepletionAndAmortization;
     }
 
-    public String getCapitalExpenditures() {
+    public Long getCapitalExpenditures() {
         return capitalExpenditures;
     }
 
-    public String getChangeInReceivables() {
+    public Long getChangeInReceivables() {
         return changeInReceivables;
     }
 
-    public String getChangeInInventory() {
+    public Long getChangeInInventory() {
         return changeInInventory;
     }
 
-    public String getProfitLoss() {
+    public Long getProfitLoss() {
         return profitLoss;
     }
 
-    public String getCashflowFromInvestment() {
+    public Long getCashflowFromInvestment() {
         return cashflowFromInvestment;
     }
 
-    public String getCashflowFromFinancing() {
+    public Long getCashflowFromFinancing() {
         return cashflowFromFinancing;
     }
 
-    public String getProceedsFromRepaymentsOfShortTermDebt() {
+    public Long getProceedsFromRepaymentsOfShortTermDebt() {
         return proceedsFromRepaymentsOfShortTermDebt;
     }
 
-    public String getPaymentsForRepurchaseOfCommonStock() {
+    public Long getPaymentsForRepurchaseOfCommonStock() {
         return paymentsForRepurchaseOfCommonStock;
     }
 
-    public String getPaymentsForRepurchaseOfEquity() {
+    public Long getPaymentsForRepurchaseOfEquity() {
         return paymentsForRepurchaseOfEquity;
     }
 
-    public String getPaymentsForRepurchaseOfPreferredStock() {
+    public Long getPaymentsForRepurchaseOfPreferredStock() {
         return paymentsForRepurchaseOfPreferredStock;
     }
 
-    public String getDividendPayout() {
+    public Long getDividendPayout() {
         return dividendPayout;
     }
 
-    public String getDividendPayoutCommonStock() {
+    public Long getDividendPayoutCommonStock() {
         return dividendPayoutCommonStock;
     }
 
-    public String getDividendPayoutPreferredStock() {
+    public Long getDividendPayoutPreferredStock() {
         return dividendPayoutPreferredStock;
     }
 
-    public String getProceedsFromIssuanceOfCommonStock() {
+    public Long getProceedsFromIssuanceOfCommonStock() {
         return proceedsFromIssuanceOfCommonStock;
     }
 
-    public String getProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet() {
+    public Long getProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet() {
         return proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet;
     }
 
-    public String getProceedsFromIssuanceOfPreferredStock() {
+    public Long getProceedsFromIssuanceOfPreferredStock() {
         return proceedsFromIssuanceOfPreferredStock;
     }
 
-    public String getProceedsFromRepurchaseOfEquity() {
+    public Long getProceedsFromRepurchaseOfEquity() {
         return proceedsFromRepurchaseOfEquity;
     }
 
-    public String getProceedsFromSaleOfTreasuryStock() {
+    public Long getProceedsFromSaleOfTreasuryStock() {
         return proceedsFromSaleOfTreasuryStock;
     }
 
-    public String getChangeInCashAndCashEquivalents() {
+    public Long getChangeInCashAndCashEquivalents() {
         return changeInCashAndCashEquivalents;
     }
 
-    public String getChangeInExchangeRate() {
+    public Long getChangeInExchangeRate() {
         return changeInExchangeRate;
     }
 
-    public String getNetIncome() {
+    public Long getNetIncome() {
         return netIncome;
     }
 

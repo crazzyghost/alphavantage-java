@@ -138,30 +138,30 @@ public class FundamentalDataResponseTest {
 
         assertEquals(incomeStatement.getFiscalDateEnding(), "2020-12-31");
         assertEquals(incomeStatement.getReportedCurrency(), "USD");
-        assertEquals(incomeStatement.getGrossProfit(), "35575000000");
-        assertEquals(incomeStatement.getTotalRevenue(), "73620000000");
-        assertEquals(incomeStatement.getCostOfRevenue(), "38046000000");
-        assertEquals(incomeStatement.getCostofGoodsAndServicesSold(), "439000000");
-        assertEquals(incomeStatement.getOperatingIncome(), "4609000000");
-        assertEquals(incomeStatement.getSellingGeneralAndAdministrative(), "23082000000");
-        assertEquals(incomeStatement.getResearchAndDevelopment(), "6333000000");
-        assertEquals(incomeStatement.getOperatingExpenses(), "30966000000");
-        assertEquals(incomeStatement.getNetInterestIncome(), "-1288000000");
-        assertEquals(incomeStatement.getInvestmentIncomeNet(), "None");
-        assertEquals(incomeStatement.getInterestExpense(), "1288000000");
-        assertEquals(incomeStatement.getInterestIncome(), "105000000");
-        assertEquals(incomeStatement.getNonInterestIncome(), "None");
-        assertEquals(incomeStatement.getOtherNonOperatingIncome(), "-861000000");
-        assertEquals(incomeStatement.getDepreciation(), "4227000000");
-        assertEquals(incomeStatement.getDepreciationAndAmortization(), "2468000000");
-        assertEquals(incomeStatement.getIncomeBeforeTax(), "4726000000");
-        assertEquals(incomeStatement.getIncomeTaxExpense(), "-864000000");
-        assertEquals(incomeStatement.getInterestAndDebtExpense(), "1288000000");
-        assertEquals(incomeStatement.getNetIncomeFromContinuingOperations(), "5501000000");
-        assertEquals(incomeStatement.getComprehensiveIncomeNetOfTax(), "4850000000");
-        assertEquals(incomeStatement.getEbit(), "6014000000");
-        assertEquals(incomeStatement.getEbitda(), "8482000000");
-        assertEquals(incomeStatement.getNetIncome(), "5590000000");
+        assertEquals(incomeStatement.getGrossProfit(), 35575000000L, 0.0);
+        assertEquals(incomeStatement.getTotalRevenue(), 73620000000L, 0.0);
+        assertEquals(incomeStatement.getCostOfRevenue(), 38046000000L, 0.0);
+        assertEquals(incomeStatement.getCostofGoodsAndServicesSold(), 439000000L, 0.0);
+        assertEquals(incomeStatement.getOperatingIncome(), 4609000000L, 0.0);
+        assertEquals(incomeStatement.getSellingGeneralAndAdministrative(), 23082000000L, 0.0);
+        assertEquals(incomeStatement.getResearchAndDevelopment(), 6333000000L, 0.0);
+        assertEquals(incomeStatement.getOperatingExpenses(), 30966000000L, 0.0);
+        assertEquals(incomeStatement.getNetInterestIncome(), -1288000000L, 0.0);
+        assertNull(incomeStatement.getInvestmentIncomeNet());
+        assertEquals(incomeStatement.getInterestExpense(), 1288000000L, 0.0);
+        assertEquals(incomeStatement.getInterestIncome(), 105000000L, 0.0);
+        assertNull(incomeStatement.getNonInterestIncome());
+        assertEquals(incomeStatement.getOtherNonOperatingIncome(), -861000000L, 0.0);
+        assertEquals(incomeStatement.getDepreciation(), 4227000000L, 0.0);
+        assertEquals(incomeStatement.getDepreciationAndAmortization(), 2468000000L, 0.0);
+        assertEquals(incomeStatement.getIncomeBeforeTax(), 4726000000L, 0.0);
+        assertEquals(incomeStatement.getIncomeTaxExpense(), -864000000L, 0.0);
+        assertEquals(incomeStatement.getInterestAndDebtExpense(), 1288000000L, 0.0);
+        assertEquals(incomeStatement.getNetIncomeFromContinuingOperations(), 5501000000L, 0.0);
+        assertEquals(incomeStatement.getComprehensiveIncomeNetOfTax(), 4850000000L, 0.0);
+        assertEquals(incomeStatement.getEbit(), 6014000000L, 0.0);
+        assertEquals(incomeStatement.getEbitda(), 8482000000L, 0.0);
+        assertEquals(incomeStatement.getNetIncome(), 5590000000L, 0.0);
     }
 
     @Test
@@ -201,38 +201,38 @@ public class FundamentalDataResponseTest {
 
         assertEquals(cashFlow.getFiscalDateEnding(), "2020-12-31");
         assertEquals(cashFlow.getReportedCurrency(), "USD");
-        assertEquals(cashFlow.getOperatingCashflow(), "18197000000");
-        assertEquals(cashFlow.getPaymentsForOperatingActivities(), "3406000000");
-        assertEquals(cashFlow.getProceedsFromOperatingActivities(), "None");
-        assertEquals(cashFlow.getChangeInOperatingLiabilities(), "138000000");
-        assertEquals(cashFlow.getChangeInOperatingAssets(), "-5088000000");
-        assertEquals(cashFlow.getDepreciationDepletionAndAmortization(), "6695000000");
-        assertEquals(cashFlow.getCapitalExpenditures(), "2618000000");
-        assertEquals(cashFlow.getChangeInReceivables(), "-5297000000");
-        assertEquals(cashFlow.getChangeInInventory(), "209000000");
-        assertEquals(cashFlow.getProfitLoss(), "5590000000");
-        assertEquals(cashFlow.getCashflowFromInvestment(), "-3028000000");
-        assertEquals(cashFlow.getCashflowFromFinancing(), "-9721000000");
-        assertEquals(cashFlow.getProceedsFromRepaymentsOfShortTermDebt(), "-853000000");
-        assertEquals(cashFlow.getPaymentsForRepurchaseOfCommonStock(), "None");
-        assertEquals(cashFlow.getPaymentsForRepurchaseOfEquity(), "None");
-        assertEquals(cashFlow.getPaymentsForRepurchaseOfPreferredStock(), "None");
-        assertEquals(cashFlow.getDividendPayout(), "5797000000");
-        assertEquals(cashFlow.getDividendPayoutCommonStock(), "5797000000");
-        assertEquals(cashFlow.getDividendPayoutPreferredStock(), "None");
+        assertEquals(cashFlow.getOperatingCashflow(), 18197000000L, 0.0);
+        assertEquals(cashFlow.getPaymentsForOperatingActivities(), 3406000000L, 0.0);
+        assertNull(cashFlow.getProceedsFromOperatingActivities());
+        assertEquals(cashFlow.getChangeInOperatingLiabilities(), 138000000L, 0.0);
+        assertEquals(cashFlow.getChangeInOperatingAssets(), -5088000000L, 0.0);
+        assertEquals(cashFlow.getDepreciationDepletionAndAmortization(), 6695000000L, 0.0);
+        assertEquals(cashFlow.getCapitalExpenditures(), 2618000000L, 0.0);
+        assertEquals(cashFlow.getChangeInReceivables(), -5297000000L, 0.0);
+        assertEquals(cashFlow.getChangeInInventory(), 209000000L, 0.0);
+        assertEquals(cashFlow.getProfitLoss(), 5590000000L, 0.0);
+        assertEquals(cashFlow.getCashflowFromInvestment(), -3028000000L, 0.0);
+        assertEquals(cashFlow.getCashflowFromFinancing(), -9721000000L, 0.0);
+        assertEquals(cashFlow.getProceedsFromRepaymentsOfShortTermDebt(), -853000000L, 0.0);
+        assertNull(cashFlow.getPaymentsForRepurchaseOfCommonStock());
+        assertNull(cashFlow.getPaymentsForRepurchaseOfEquity());
+        assertNull(cashFlow.getPaymentsForRepurchaseOfPreferredStock());
+        assertEquals(cashFlow.getDividendPayout(), 5797000000L, 0.0);
+        assertEquals(cashFlow.getDividendPayoutCommonStock(), 5797000000L, 0.0);
+        assertNull(cashFlow.getDividendPayoutPreferredStock());
 
-        assertEquals(cashFlow.getDividendPayout(), "5797000000");
-        assertEquals(cashFlow.getDividendPayoutCommonStock(), "5797000000");
-        assertEquals(cashFlow.getDividendPayoutPreferredStock(), "None");
-        assertEquals(cashFlow.getProceedsFromIssuanceOfCommonStock(), "None");
-        assertEquals(cashFlow.getProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet(), "10504000000");
-        assertEquals(cashFlow.getProceedsFromIssuanceOfPreferredStock(), "None");
+        assertEquals(cashFlow.getDividendPayout(), 5797000000L, 0.0);
+        assertEquals(cashFlow.getDividendPayoutCommonStock(), 5797000000L, 0.0);
+        assertNull(cashFlow.getDividendPayoutPreferredStock());
+        assertNull(cashFlow.getProceedsFromIssuanceOfCommonStock());
+        assertEquals(cashFlow.getProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet(), 10504000000L, 0.0);
+        assertNull(cashFlow.getProceedsFromIssuanceOfPreferredStock());
 
-        assertEquals(cashFlow.getProceedsFromRepurchaseOfEquity(), "-302000000");
-        assertEquals(cashFlow.getProceedsFromSaleOfTreasuryStock(), "None");
-        assertEquals(cashFlow.getChangeInCashAndCashEquivalents(), "5448000000");
-        assertEquals(cashFlow.getChangeInExchangeRate(), "None");
-        assertEquals(cashFlow.getNetIncome(), "5590000000");
+        assertEquals(cashFlow.getProceedsFromRepurchaseOfEquity(), -302000000L, 0.0);
+        assertNull(cashFlow.getProceedsFromSaleOfTreasuryStock());
+        assertEquals(cashFlow.getChangeInCashAndCashEquivalents(), 5448000000L, 0.0);
+        assertNull(cashFlow.getChangeInExchangeRate());
+        assertEquals(cashFlow.getNetIncome(), 5590000000L, 0.0);
 
     }
 

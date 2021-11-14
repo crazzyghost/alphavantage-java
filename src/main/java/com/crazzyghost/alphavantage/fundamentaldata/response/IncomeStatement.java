@@ -1,5 +1,6 @@
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
+import com.crazzyghost.alphavantage.parser.Noneable;
 import com.squareup.moshi.Json;
 
 public class IncomeStatement {
@@ -9,53 +10,77 @@ public class IncomeStatement {
     @Json(name="reportedCurrency")
     private String reportedCurrency;
     @Json(name="grossProfit")
-    private String grossProfit;
+    @Noneable
+    private Long grossProfit;
     @Json(name="totalRevenue")
-    private String totalRevenue;
+    @Noneable
+    private Long  totalRevenue;
     @Json(name="costOfRevenue")
-    private String costOfRevenue;
+    @Noneable
+    private Long  costOfRevenue;
     @Json(name="costofGoodsAndServicesSold")
-    private String costofGoodsAndServicesSold;
+    @Noneable
+    private Long  costofGoodsAndServicesSold;
     @Json(name="operatingIncome")
-    private String operatingIncome;
+    @Noneable
+    private Long  operatingIncome;
     @Json(name="sellingGeneralAndAdministrative")
-    private String sellingGeneralAndAdministrative;
+    @Noneable
+    private Long  sellingGeneralAndAdministrative;
     @Json(name="researchAndDevelopment")
-    private String researchAndDevelopment;
+    @Noneable
+    private Long  researchAndDevelopment;
     @Json(name="operatingExpenses")
-    private String operatingExpenses;
+    @Noneable
+    private Long  operatingExpenses;
     @Json(name="investmentIncomeNet")
-    private String investmentIncomeNet;
+    @Noneable
+    private Long  investmentIncomeNet;
     @Json(name="netInterestIncome")
-    private String netInterestIncome;
+    @Noneable
+    private Long  netInterestIncome;
     @Json(name="interestIncome")
-    private String interestIncome;
+    @Noneable
+    private Long  interestIncome;
     @Json(name="interestExpense")
-    private String interestExpense;
+    @Noneable
+    private Long  interestExpense;
     @Json(name="nonInterestIncome")
-    private String nonInterestIncome;
+    @Noneable
+    private Long  nonInterestIncome;
     @Json(name="otherNonOperatingIncome")
-    private String otherNonOperatingIncome;
+    @Noneable
+    private Long  otherNonOperatingIncome;
     @Json(name="depreciation")
-    private String depreciation;
+    @Noneable
+    private Long  depreciation;
     @Json(name="depreciationAndAmortization")
-    private String depreciationAndAmortization;
+    @Noneable
+    private Long  depreciationAndAmortization;
     @Json(name="incomeBeforeTax")
-    private String incomeBeforeTax;
+    @Noneable
+    private Long  incomeBeforeTax;
     @Json(name="incomeTaxExpense")
-    private String incomeTaxExpense;
+    @Noneable
+    private Long  incomeTaxExpense;
     @Json(name="interestAndDebtExpense")
-    private String interestAndDebtExpense;
+    @Noneable
+    private Long  interestAndDebtExpense;
     @Json(name="netIncomeFromContinuingOperations")
-    private String netIncomeFromContinuingOperations;
+    @Noneable
+    private Long  netIncomeFromContinuingOperations;
     @Json(name="comprehensiveIncomeNetOfTax")
-    private String comprehensiveIncomeNetOfTax;
+    @Noneable
+    private Long  comprehensiveIncomeNetOfTax;
     @Json(name="ebit")
-    private String ebit;
+    @Noneable
+    private Long  ebit;
     @Json(name="ebitda")
-    private String ebitda;
+    @Noneable
+    private Long  ebitda;
     @Json(name="netIncome")
-    private String netIncome;
+    @Noneable
+    private Long  netIncome;
 
     public String getFiscalDateEnding() {
         return fiscalDateEnding;
@@ -65,99 +90,99 @@ public class IncomeStatement {
         return reportedCurrency;
     }
 
-    public String getGrossProfit() {
+    public Long getGrossProfit() {
         return grossProfit;
     }
 
-    public String getTotalRevenue() {
+    public Long getTotalRevenue() {
         return totalRevenue;
     }
 
-    public String getCostOfRevenue() {
+    public Long getCostOfRevenue() {
         return costOfRevenue;
     }
 
-    public String getCostofGoodsAndServicesSold() {
+    public Long getCostofGoodsAndServicesSold() {
         return costofGoodsAndServicesSold;
     }
 
-    public String getOperatingIncome() {
+    public Long getOperatingIncome() {
         return operatingIncome;
     }
 
-    public String getSellingGeneralAndAdministrative() {
+    public Long getSellingGeneralAndAdministrative() {
         return sellingGeneralAndAdministrative;
     }
 
-    public String getResearchAndDevelopment() {
+    public Long getResearchAndDevelopment() {
         return researchAndDevelopment;
     }
 
-    public String getOperatingExpenses() {
+    public Long getOperatingExpenses() {
         return operatingExpenses;
     }
 
-    public String getInvestmentIncomeNet() {
+    public Long getInvestmentIncomeNet() {
         return investmentIncomeNet;
     }
 
-    public String getNetInterestIncome() {
+    public Long getNetInterestIncome() {
         return netInterestIncome;
     }
 
-    public String getInterestIncome() {
+    public Long getInterestIncome() {
         return interestIncome;
     }
 
-    public String getInterestExpense() {
+    public Long getInterestExpense() {
         return interestExpense;
     }
 
-    public String getNonInterestIncome() {
+    public Long getNonInterestIncome() {
         return nonInterestIncome;
     }
 
-    public String getOtherNonOperatingIncome() {
+    public Long getOtherNonOperatingIncome() {
         return otherNonOperatingIncome;
     }
 
-    public String getDepreciation() {
+    public Long getDepreciation() {
         return depreciation;
     }
 
-    public String getDepreciationAndAmortization() {
+    public Long getDepreciationAndAmortization() {
         return depreciationAndAmortization;
     }
 
-    public String getIncomeBeforeTax() {
+    public Long getIncomeBeforeTax() {
         return incomeBeforeTax;
     }
 
-    public String getIncomeTaxExpense() {
+    public Long getIncomeTaxExpense() {
         return incomeTaxExpense;
     }
 
-    public String getInterestAndDebtExpense() {
+    public Long getInterestAndDebtExpense() {
         return interestAndDebtExpense;
     }
 
-    public String getNetIncomeFromContinuingOperations() {
+    public Long getNetIncomeFromContinuingOperations() {
         return netIncomeFromContinuingOperations;
     }
 
-    public String getComprehensiveIncomeNetOfTax() {
+    public Long getComprehensiveIncomeNetOfTax() {
         return comprehensiveIncomeNetOfTax;
     }
 
-    public String getEbit() {
+    public Long getEbit() {
         return ebit;
     }
 
-    public String getEbitda() {
+    public Long getEbitda() {
         return ebitda;
     }
 
-    public String getNetIncome() {
+    public Long getNetIncome() {
         return netIncome;
     }
 
