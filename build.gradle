@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'java-library'
-    id 'maven'
+    id 'maven-library'
     id 'jacoco'
 }
 
