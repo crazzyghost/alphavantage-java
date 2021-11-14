@@ -3,7 +3,7 @@ package com.crazzyghost.alphavantage.forex.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 
-public class DailyRequest extends ForexRequest{
+public class DailyRequest extends ForexRequest {
 
     private Function function;
     private OutputSize outputSize;
