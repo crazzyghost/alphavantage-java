@@ -145,3 +145,4 @@ bin/**
 
 _config.yml
 site/**
+.python-version

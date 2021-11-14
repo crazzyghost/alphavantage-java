@@ -93,6 +93,7 @@ Here, we choose which data category/endpoint we want to access
 | Digital Currency Data     | `.crypto()`           |
 | Technical Indicator Data  | `.indicator()`        |
 | Sector Performance Data   | `.sector()`           |
+| Fundamental Data          | `.fundamentalData()`  |
 
 For example, to select the Stock Time Series:
 
