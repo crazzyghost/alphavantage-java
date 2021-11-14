@@ -31,7 +31,7 @@ public class FundamentalDataResponseTest {
 
     @Test
     public void testCompanyOverviewResponse() throws IOException {
-        CompanyOverviewResponse response = CompanyOverviewResponse.of(parseJSON("companyoverview", CompanyOverview.class));
+        CompanyOverviewResponse response = CompanyOverviewResponse.of(json("companyoverview"));
         CompanyOverview overview = response.getOverview();
         assertNull(response.getErrorMessage());
         assertEquals(overview.getSymbol(), "IBM");

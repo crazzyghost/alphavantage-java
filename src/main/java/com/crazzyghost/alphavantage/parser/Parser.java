@@ -5,9 +5,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.fundamentaldata.response.BalanceSheet;
 import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.JsonReader;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 
@@ -44,5 +42,12 @@ public abstract class Parser<T> {
         Type type = Types.newParameterizedType(List.class, klass);
         JsonAdapter<List<U>> adapter = moshi.adapter(type);
         return adapter.fromJsonValue(object);
+    }
+
+    public static String toJSON(Map<String, Object> data) throws IOException {
+        if(data == null) throw new IllegalArgumentException();
+        Moshi moshi = new Moshi.Builder().build();
+        Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
+        return moshi.adapter(type).toJson(data);
     }
 }

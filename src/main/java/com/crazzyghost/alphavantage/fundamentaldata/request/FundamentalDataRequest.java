@@ -44,7 +44,7 @@ public abstract class FundamentalDataRequest {
     public abstract static class Builder <T extends Builder<?>> {
 
         private String symbol;
-        private Function function;
+        public Function function;
 
         public T symbol(String symbol){
             this.symbol = symbol;

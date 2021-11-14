@@ -22,8 +22,9 @@
  */
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
-import com.crazzyghost.alphavantage.parser.SimpleParser;
+import com.crazzyghost.alphavantage.parser.Parser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +44,8 @@ public class CompanyOverviewResponse {
         this.errorMessage = null;
     }
 
-    public static CompanyOverviewResponse of(Object objectMap) {
-        SimpleParser<CompanyOverviewResponse, Object> parser = new CompanyOverviewParser();
+    public static CompanyOverviewResponse of(Map<String, Object> objectMap) {
+        Parser<CompanyOverviewResponse> parser = new CompanyOverviewParser();
         return parser.parse(objectMap);
     }
 
@@ -56,7 +57,7 @@ public class CompanyOverviewResponse {
         return overview;
     }
 
-    public static class CompanyOverviewParser extends SimpleParser<CompanyOverviewResponse, Object> {
+    public static class CompanyOverviewParser extends Parser<CompanyOverviewResponse> {
 
         @Override
         public CompanyOverviewResponse onParseError(String error) {
@@ -65,18 +66,19 @@ public class CompanyOverviewResponse {
 
         @Override
         @SuppressWarnings("unchecked")
-        public CompanyOverviewResponse parse(Object data) {
+        public CompanyOverviewResponse parse(Map<String, Object> data) {
+            List<String> keys = new ArrayList<>(data.keySet());
+            if (keys.isEmpty()) {
+                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+            }
             try {
-                CompanyOverview overview = (CompanyOverview)data;
+                //data doesn't have a Symbol key meaning an error was returned
+                Object symbol = data.getOrDefault("Symbol", null);
+                if (symbol == null) throw new ClassCastException();
+                CompanyOverview overview = Parser.parseJSON(Parser.toJSON(data), CompanyOverview.class);
                 return new CompanyOverviewResponse(overview);
-            } catch (ClassCastException e) {
-                Map<String, String> map = (Map<String, String>) data;
-                List<String> error = new ArrayList<>(map.keySet());
-                if (error.isEmpty()) {
-                    return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
-                } else {
-                    return onParseError(error.get(0));
-                }
+            } catch (ClassCastException | IOException e) {
+                return onParseError(data.get(keys.get(0)).toString());
             }
         }
     }
@@ -84,7 +86,7 @@ public class CompanyOverviewResponse {
     @Override
     public String toString() {
         return "CompanyOverviewResponse{" +
-                ", overview=" + overview +
+                "overview=" + overview +
                 ", errorMessage='" + errorMessage + '\'' +
                 '}';
     }

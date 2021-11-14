@@ -89,7 +89,7 @@ public class EarningsResponse {
                 List<AnnualEarning> annualReports = Parser.parseJSONList(object.get(keys.get(1)), AnnualEarning.class);
                 List<QuarterlyEarning> quarterlyReports = Parser.parseJSONList(object.get(keys.get(2)), QuarterlyEarning.class);
                 return new EarningsResponse(symbol, annualReports, quarterlyReports);
-            } catch (ClassCastException e) {
+            } catch (ClassCastException | IndexOutOfBoundsException e) {
                 return onParseError(object.get(keys.get(0)).toString());
             }
         }

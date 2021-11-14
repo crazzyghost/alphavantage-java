@@ -89,7 +89,7 @@ public class CashFlowResponse {
                 List<CashFlow> annualReports = Parser.parseJSONList(object.get(keys.get(1)), CashFlow.class);
                 List<CashFlow> quarterlyReports = Parser.parseJSONList(object.get(keys.get(2)), CashFlow.class);
                 return new CashFlowResponse(symbol, annualReports, quarterlyReports);
-            } catch (ClassCastException e) {
+            } catch (ClassCastException | IndexOutOfBoundsException e) {
                 return onParseError(object.get(keys.get(0)).toString());
             }
         }

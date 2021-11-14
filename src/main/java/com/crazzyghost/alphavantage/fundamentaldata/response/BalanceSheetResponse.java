@@ -22,16 +22,11 @@
  */
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
-import com.crazzyghost.alphavantage.parser.Parser;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.crazzyghost.alphavantage.parser.Parser;
 
 public class BalanceSheetResponse {
 
@@ -94,7 +89,7 @@ public class BalanceSheetResponse {
                 List<BalanceSheet> annualReports = Parser.parseJSONList(object.get(keys.get(1)), BalanceSheet.class);
                 List<BalanceSheet> quarterlyReports = Parser.parseJSONList(object.get(keys.get(2)), BalanceSheet.class);
                 return new BalanceSheetResponse(symbol, annualReports, quarterlyReports);
-            } catch (ClassCastException e) {
+            } catch (ClassCastException | IndexOutOfBoundsException e) {
                 return onParseError(object.get(keys.get(0)).toString());
             }
         }
