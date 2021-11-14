@@ -91,12 +91,7 @@ public final class FundamentalData implements Fetcher {
                     if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
                 } else {
                     try(ResponseBody body = response.body()){
-                        String jsonBody = body.string();
-//                        if (builder.function == Function.OVERVIEW) {
-//                            parseFundamentalDataResponse(null, Parser.parseJSON(jsonBody, CompanyOverview.class));
-//                        } else {
-                            parseFundamentalDataResponse(Parser.parseJSON(jsonBody), null);
-//                        }
+                        parseFundamentalDataResponse(Parser.parseJSON(body.string()));
                     }
                 }
             }
@@ -121,18 +116,13 @@ public final class FundamentalData implements Fetcher {
         this.failureCallback = null;
         okhttp3.OkHttpClient client = config.getOkHttpClient();
         try (Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()) {
-            String jsonBody = response.body().string();
-//            if (builder.function == Function.OVERVIEW) {
-//               parseFundamentalDataResponse(null, Parser.parseJSON(jsonBody, CompanyOverview.class));
-//            } else {
-                parseFundamentalDataResponse(Parser.parseJSON(jsonBody), null);
-//            }
+            parseFundamentalDataResponse(Parser.parseJSON(response.body().string()));
         } catch(IOException e) {
             throw new AlphaVantageException(e.getMessage());
         }
     }
 
-    private void parseFundamentalDataResponse(Map<String, Object> data, Object overviewData) {
+    private void parseFundamentalDataResponse(Map<String, Object> data) {
         switch (builder.function) {
             case OVERVIEW:
                 parseCompanyOverviewResponse(data);

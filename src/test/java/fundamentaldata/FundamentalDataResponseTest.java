@@ -191,10 +191,49 @@ public class FundamentalDataResponseTest {
     @Test
     public void testCashFlowResponse() throws IOException {
         CashFlowResponse response = CashFlowResponse.of(json("cashflow"));
-        assertEquals(response.getAnnualReports().size(), 5);
-        assertEquals(response.getQuarterlyReports().size(), 21);
+        assertEquals(response.getAnnualReports().size(), 2);
+        assertEquals(response.getQuarterlyReports().size(), 3);
         assertNull(response.getErrorMessage());
         assertEquals(response.getSymbol(), "IBM");
+
+        CashFlow cashFlow = response.getAnnualReports().get(0);
+        assertNotNull(cashFlow.toString());
+
+        assertEquals(cashFlow.getFiscalDateEnding(), "2020-12-31");
+        assertEquals(cashFlow.getReportedCurrency(), "USD");
+        assertEquals(cashFlow.getOperatingCashflow(), "18197000000");
+        assertEquals(cashFlow.getPaymentsForOperatingActivities(), "3406000000");
+        assertEquals(cashFlow.getProceedsFromOperatingActivities(), "None");
+        assertEquals(cashFlow.getChangeInOperatingLiabilities(), "138000000");
+        assertEquals(cashFlow.getChangeInOperatingAssets(), "-5088000000");
+        assertEquals(cashFlow.getDepreciationDepletionAndAmortization(), "6695000000");
+        assertEquals(cashFlow.getCapitalExpenditures(), "2618000000");
+        assertEquals(cashFlow.getChangeInReceivables(), "-5297000000");
+        assertEquals(cashFlow.getChangeInInventory(), "209000000");
+        assertEquals(cashFlow.getProfitLoss(), "5590000000");
+        assertEquals(cashFlow.getCashflowFromInvestment(), "-3028000000");
+        assertEquals(cashFlow.getCashflowFromFinancing(), "-9721000000");
+        assertEquals(cashFlow.getProceedsFromRepaymentsOfShortTermDebt(), "-853000000");
+        assertEquals(cashFlow.getPaymentsForRepurchaseOfCommonStock(), "None");
+        assertEquals(cashFlow.getPaymentsForRepurchaseOfEquity(), "None");
+        assertEquals(cashFlow.getPaymentsForRepurchaseOfPreferredStock(), "None");
+        assertEquals(cashFlow.getDividendPayout(), "5797000000");
+        assertEquals(cashFlow.getDividendPayoutCommonStock(), "5797000000");
+        assertEquals(cashFlow.getDividendPayoutPreferredStock(), "None");
+
+        assertEquals(cashFlow.getDividendPayout(), "5797000000");
+        assertEquals(cashFlow.getDividendPayoutCommonStock(), "5797000000");
+        assertEquals(cashFlow.getDividendPayoutPreferredStock(), "None");
+        assertEquals(cashFlow.getProceedsFromIssuanceOfCommonStock(), "None");
+        assertEquals(cashFlow.getProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet(), "10504000000");
+        assertEquals(cashFlow.getProceedsFromIssuanceOfPreferredStock(), "None");
+
+        assertEquals(cashFlow.getProceedsFromRepurchaseOfEquity(), "-302000000");
+        assertEquals(cashFlow.getProceedsFromSaleOfTreasuryStock(), "None");
+        assertEquals(cashFlow.getChangeInCashAndCashEquivalents(), "5448000000");
+        assertEquals(cashFlow.getChangeInExchangeRate(), "None");
+        assertEquals(cashFlow.getNetIncome(), "5590000000");
+
     }
 
     @Test
