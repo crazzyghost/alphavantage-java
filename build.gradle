@@ -1,13 +1,13 @@
 plugins {
     id 'java'
     id 'java-library'
-    id 'maven'
+    id 'maven-publish'
     id 'jacoco'
 }
 
 group = 'com.github.crazzyghost'
 
-version '1.5.0'
+version '1.6.0'
 
 sourceCompatibility = 1.8
 
