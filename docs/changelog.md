@@ -1,4 +1,7 @@
 # Changelog
+## v1.6.1 - 15-11-2021
+- Fix: [JitPack build failure](https://jitpack.io/com/github/crazzyghost/alphavantage-java/1.6.0/build.log)
+- Fix: BalanceSheet field types
 
 ## v1.6.0 - 14-11-2021
 
