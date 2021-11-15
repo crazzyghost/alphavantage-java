@@ -9,6 +9,16 @@ group = 'com.github.crazzyghost'
 
 version '1.6.1'
 
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+
 sourceCompatibility = 1.8
 
 repositories {
