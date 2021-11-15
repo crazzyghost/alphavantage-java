@@ -1,5 +1,7 @@
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
+import com.crazzyghost.alphavantage.parser.NoneableDouble;
+import com.crazzyghost.alphavantage.parser.NoneableLong;
 import com.squareup.moshi.Json;
 
 public class CompanyOverview {
@@ -13,6 +15,7 @@ public class CompanyOverview {
     @Json(name="Description")
     private String description;
     @Json(name="CIK")
+    @NoneableLong
     private Long cik;
     @Json(name="Exchange")
     private String exchange;
@@ -31,66 +34,97 @@ public class CompanyOverview {
     @Json(name="LatestQuarter")
     private String latestQuarter;
     @Json(name="MarketCapitalization")
+    @NoneableLong
     private Long marketCapitalization;
     @Json(name="EBITDA")
+    @NoneableLong
     private Long ebitda;
     @Json(name="PERatio")
+    @NoneableDouble
     private Double peRatio;
     @Json(name="PEGRatio")
+    @NoneableDouble
     private Double pegRatio;
     @Json(name="BookValue")
+    @NoneableDouble
     private Double bookValue;
     @Json(name="DividendPerShare")
+    @NoneableDouble
     private Double dividendPerShare;
     @Json(name="DividendYield")
+    @NoneableDouble
     private Double dividendYield;
     @Json(name="EPS")
+    @NoneableDouble
     private Double eps;
     @Json(name="RevenuePerShareTTM")
+    @NoneableDouble
     private Double revenuePerShareTTM;
     @Json(name="ProfitMargin")
+    @NoneableDouble
     private Double profitMargin;
     @Json(name="OperatingMarginTTM")
+    @NoneableDouble
     private Double operatingMarginTTM;
     @Json(name="ReturnOnAssetsTTM")
+    @NoneableDouble
     private Double returnOnAssetsTTM;
     @Json(name="ReturnOnEquityTTM")
+    @NoneableDouble
     private Double returnOnEquityTTM;
     @Json(name="RevenueTTM")
+    @NoneableLong
     private Long revenueTTM;
     @Json(name="GrossProfitTTM")
+    @NoneableLong
     private Long grossProfitTTM;
     @Json(name="DilutedEPSTTM")
+    @NoneableDouble
     private Double dilutedEpsTTM;
     @Json(name="QuarterlyEarningsGrowthYOY")
+    @NoneableDouble
     private Double quarterlyEarningsGrowthYOY;
     @Json(name="QuarterlyRevenueGrowthYOY")
+    @NoneableDouble
     private Double quarterlyRevenueGrowthYOY;
     @Json(name="AnalystTargetPrice")
+    @NoneableDouble
     private Double analystTargetPrice;
     @Json(name="TrailingPE")
+    @NoneableDouble
     private Double trailingPE;
     @Json(name="ForwardPE")
+    @NoneableDouble
     private Double forwardPE;
     @Json(name="PriceToSalesRatioTTM")
+    @NoneableDouble
     private Double priceToSaleRatioTTM;
     @Json(name="PriceToBookRatio")
+    @NoneableDouble
     private Double priceToBookRatio;
     @Json(name="EVToRevenue")
+    @NoneableDouble
     private Double evToRevenue;
     @Json(name="EVToEBITDA")
+    @NoneableDouble
     private Double evToEBITDA;
     @Json(name="Beta")
+    @NoneableDouble
     private Double beta;
     @Json(name="52WeekHigh")
+    @NoneableDouble
     private Double fiftyTwoWeekHigh;
     @Json(name="52WeekLow")
+    @NoneableDouble
     private Double fiftyTwoWeekLow;
     @Json(name="50DayMovingAverage")
+    @NoneableDouble
     private Double fiftyDayMovingAverage;
     @Json(name="200DayMovingAverage")
+    @NoneableDouble
     private Double twoHundredDayMovingAverage;
     @Json(name="SharesOutstanding")
+    @NoneableLong
     private Long sharesOutstanding;
     @Json(name="DividendDate")
     private String dividendDate;

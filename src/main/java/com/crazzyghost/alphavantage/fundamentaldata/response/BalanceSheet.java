@@ -22,7 +22,7 @@
  */
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
-import com.crazzyghost.alphavantage.parser.Noneable;
+import com.crazzyghost.alphavantage.parser.NoneableLong;
 import com.squareup.moshi.Json;
 
 public class BalanceSheet {
@@ -31,112 +31,112 @@ public class BalanceSheet {
     @Json(name = "reportedCurrency")
     private String reportedCurrency;
     @Json(name = "totalAssets")
-    @Noneable
+    @NoneableLong
     private Long totalAssets;
     @Json(name = "totalCurrentAssets")
-    @Noneable
+    @NoneableLong
     private Long totalCurrentAssets;
     @Json(name = "cashAndCashEquivalentsAtCarryingValue")
-    @Noneable
+    @NoneableLong
     private Long cashAndCashEquivalentsAtCarryingValue;
     @Json(name = "cashAndShortTermInvestments")
-    @Noneable
+    @NoneableLong
     private Long cashAndShortTermInvestments;
     @Json(name = "inventory")
-    @Noneable
+    @NoneableLong
     private Long inventory;
     @Json(name = "currentNetReceivables")
-    @Noneable
+    @NoneableLong
     private Long currentNetReceivables;
     @Json(name = "totalNonCurrentAssets")
-    @Noneable
+    @NoneableLong
     private Long totalNonCurrentAssets;
     @Json(name = "propertyPlantEquipment")
-    @Noneable
+    @NoneableLong
     private Long propertyPlantEquipment;
     @Json(name = "accumulatedDepreciationAmortizationPPE")
-    @Noneable
+    @NoneableLong
     private Long accumulatedDepreciationAmortizationPPE;
     @Json(name = "intangibleAssets")
-    @Noneable
+    @NoneableLong
     private Long intangibleAssets;
     @Json(name = "intangibleAssetsExcludingGoodwill")
-    @Noneable
+    @NoneableLong
     private Long intangibleAssetsExcludingGoodwill;
     @Json(name = "goodwill")
-    @Noneable
+    @NoneableLong
     private Long goodWill;
     @Json(name = "investments")
-    @Noneable
+    @NoneableLong
     private Long investments;
     @Json(name = "longTermInvestments")
-    @Noneable
+    @NoneableLong
     private Long longTermInvestments;
     @Json(name = "shortTermInvestments")
-    @Noneable
+    @NoneableLong
     private Long shortTermInvestments;
     @Json(name = "otherCurrentAssets")
-    @Noneable
+    @NoneableLong
     private Long otherCurrentAssets;
     @Json(name = "otherNonCurrrentAssets")
-    @Noneable
+    @NoneableLong
     private Long otherNonCurrentAssets;
     @Json(name = "totalLiabilities")
-    @Noneable
+    @NoneableLong
     private Long totalLiabilities;
     @Json(name = "totalCurrentLiabilities")
-    @Noneable
+    @NoneableLong
     private Long totalCurrentLiabilities;
     @Json(name = "currentAccountsPayable")
-    @Noneable
+    @NoneableLong
     private Long currentAccountsPayable;
     @Json(name = "deferredRevenue")
-    @Noneable
+    @NoneableLong
     private Long deferredRevenue;
     @Json(name = "currentDebt")
-    @Noneable
+    @NoneableLong
     private Long currentDebt;
     @Json(name = "shortTermDebt")
-    @Noneable
+    @NoneableLong
     private Long shortTermDebt;
     @Json(name = "totalNonCurrentLiabilities")
-    @Noneable
+    @NoneableLong
     private Long totalNonCurrentLiabilities;
     @Json(name = "capitalLeaseObligations")
-    @Noneable
+    @NoneableLong
     private Long capitalLeaseObligations;
     @Json(name = "longTermDebt")
-    @Noneable
+    @NoneableLong
     private Long longTermDebt;
     @Json(name = "currentLongTermDebt")
-    @Noneable
+    @NoneableLong
     private Long currentLongTermDebt;
     @Json(name = "longTermDebtNoncurrent")
-    @Noneable
+    @NoneableLong
     private Long longTermDebtNonCurrent;
     @Json(name = "shortLongTermDebtTotal")
-    @Noneable
+    @NoneableLong
     private Long shortLongTermDebtTotal;
     @Json(name = "otherCurrentLiabilities")
-    @Noneable
+    @NoneableLong
     private Long otherCurrentLiabilities;
     @Json(name = "otherNonCurrentLiabilities")
-    @Noneable
+    @NoneableLong
     private Long otherNonCurrentLiabilities;
     @Json(name = "totalShareholderEquity")
-    @Noneable
+    @NoneableLong
     private Long totalShareholderEquity;
     @Json(name = "treasuryStock")
-    @Noneable
+    @NoneableLong
     private Long treasuryStock;
     @Json(name = "retainedEarnings")
-    @Noneable
+    @NoneableLong
     private Long retainedEarnings;
     @Json(name = "commonStock")
-    @Noneable
+    @NoneableLong
     private Long commonStock;
     @Json(name = "commonStockSharesOutstanding")
-    @Noneable
+    @NoneableLong
     private Long commonStockSharesOutstanding;
 
     public String getFiscalDateEnding() {
