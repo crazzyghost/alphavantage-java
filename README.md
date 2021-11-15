@@ -3,6 +3,7 @@
     <a href="https://codecov.io/gh/crazzyghost/alphavantage-java"> <img src="https://codecov.io/gh/crazzyghost/alphavantage-java/branch/master/graph/badge.svg" /></a>
     <a href="https://jitpack.io/#crazzyghost/alphavantage-java"> <img src="https://jitpack.io/v/crazzyghost/alphavantage-java.svg" /></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg"/></a>
+    <a href="https://jitpack.io/v/crazzyghost/alphavantage-java/month"> <img src="https://jitpack.io/v/crazzyghost/alphavantage-java/month" /></a>
 </p>
 
 An easy to use, fluent Java wrapper for accessing the [AlphaVantage API](https://www.alphavantage.co/).
