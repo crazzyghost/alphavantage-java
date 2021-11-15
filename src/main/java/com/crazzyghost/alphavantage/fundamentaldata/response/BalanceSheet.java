@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
+import com.crazzyghost.alphavantage.parser.Noneable;
 import com.squareup.moshi.Json;
 
 public class BalanceSheet {
@@ -30,77 +31,113 @@ public class BalanceSheet {
     @Json(name = "reportedCurrency")
     private String reportedCurrency;
     @Json(name = "totalAssets")
-    private String totalAssets;
+    @Noneable
+    private Long totalAssets;
     @Json(name = "totalCurrentAssets")
-    private String totalCurrentAssets;
+    @Noneable
+    private Long totalCurrentAssets;
     @Json(name = "cashAndCashEquivalentsAtCarryingValue")
-    private String cashAndCashEquivalentsAtCarryingValue;
+    @Noneable
+    private Long cashAndCashEquivalentsAtCarryingValue;
     @Json(name = "cashAndShortTermInvestments")
-    private String cashAndShortTermInvestments;
+    @Noneable
+    private Long cashAndShortTermInvestments;
     @Json(name = "inventory")
-    private String inventory;
+    @Noneable
+    private Long inventory;
     @Json(name = "currentNetReceivables")
-    private String currentNetReceivables;
+    @Noneable
+    private Long currentNetReceivables;
     @Json(name = "totalNonCurrentAssets")
-    private String totalNonCurrentAssets;
+    @Noneable
+    private Long totalNonCurrentAssets;
     @Json(name = "propertyPlantEquipment")
-    private String propertyPlantEquipment;
+    @Noneable
+    private Long propertyPlantEquipment;
     @Json(name = "accumulatedDepreciationAmortizationPPE")
-    private String accumulatedDepreciationAmortizationPPE;
+    @Noneable
+    private Long accumulatedDepreciationAmortizationPPE;
     @Json(name = "intangibleAssets")
-    private String intangibleAssets;
+    @Noneable
+    private Long intangibleAssets;
     @Json(name = "intangibleAssetsExcludingGoodwill")
-    private String intangibleAssetsExcludingGoodwill;
+    @Noneable
+    private Long intangibleAssetsExcludingGoodwill;
     @Json(name = "goodwill")
-    private String goodWill;
+    @Noneable
+    private Long goodWill;
     @Json(name = "investments")
-    private String investments;
+    @Noneable
+    private Long investments;
     @Json(name = "longTermInvestments")
-    private String longTermInvestments;
+    @Noneable
+    private Long longTermInvestments;
     @Json(name = "shortTermInvestments")
-    private String shortTermInvestments;
+    @Noneable
+    private Long shortTermInvestments;
     @Json(name = "otherCurrentAssets")
-    private String otherCurrentAssets;
+    @Noneable
+    private Long otherCurrentAssets;
     @Json(name = "otherNonCurrrentAssets")
-    private String otherNonCurrentAssets;
+    @Noneable
+    private Long otherNonCurrentAssets;
     @Json(name = "totalLiabilities")
-    private String totalLiabilities;
+    @Noneable
+    private Long totalLiabilities;
     @Json(name = "totalCurrentLiabilities")
-    private String totalCurrentLiabilities;
+    @Noneable
+    private Long totalCurrentLiabilities;
     @Json(name = "currentAccountsPayable")
-    private String currentAccountsPayable;
+    @Noneable
+    private Long currentAccountsPayable;
     @Json(name = "deferredRevenue")
-    private String deferredRevenue;
+    @Noneable
+    private Long deferredRevenue;
     @Json(name = "currentDebt")
-    private String currentDebt;
+    @Noneable
+    private Long currentDebt;
     @Json(name = "shortTermDebt")
-    private String shortTermDebt;
+    @Noneable
+    private Long shortTermDebt;
     @Json(name = "totalNonCurrentLiabilities")
-    private String totalNonCurrentLiabilities;
+    @Noneable
+    private Long totalNonCurrentLiabilities;
     @Json(name = "capitalLeaseObligations")
-    private String capitalLeaseObligations;
+    @Noneable
+    private Long capitalLeaseObligations;
     @Json(name = "longTermDebt")
-    private String longTermDebt;
+    @Noneable
+    private Long longTermDebt;
     @Json(name = "currentLongTermDebt")
-    private String currentLongTermDebt;
+    @Noneable
+    private Long currentLongTermDebt;
     @Json(name = "longTermDebtNoncurrent")
-    private String longTermDebtNonCurrent;
+    @Noneable
+    private Long longTermDebtNonCurrent;
     @Json(name = "shortLongTermDebtTotal")
-    private String shortLongTermDebtTotal;
+    @Noneable
+    private Long shortLongTermDebtTotal;
     @Json(name = "otherCurrentLiabilities")
-    private String otherCurrentLiabilities;
+    @Noneable
+    private Long otherCurrentLiabilities;
     @Json(name = "otherNonCurrentLiabilities")
-    private String otherNonCurrentLiabilities;
+    @Noneable
+    private Long otherNonCurrentLiabilities;
     @Json(name = "totalShareholderEquity")
-    private String totalShareholderEquity;
+    @Noneable
+    private Long totalShareholderEquity;
     @Json(name = "treasuryStock")
-    private String treasuryStock;
+    @Noneable
+    private Long treasuryStock;
     @Json(name = "retainedEarnings")
-    private String retainedEarnings;
+    @Noneable
+    private Long retainedEarnings;
     @Json(name = "commonStock")
-    private String commonStock;
+    @Noneable
+    private Long commonStock;
     @Json(name = "commonStockSharesOutstanding")
-    private String commonStockSharesOutstanding;
+    @Noneable
+    private Long commonStockSharesOutstanding;
 
     public String getFiscalDateEnding() {
         return fiscalDateEnding;
@@ -110,147 +147,147 @@ public class BalanceSheet {
         return reportedCurrency;
     }
 
-    public String getTotalAssets() {
+    public Long getTotalAssets() {
         return totalAssets;
     }
 
-    public String getTotalCurrentAssets() {
+    public Long getTotalCurrentAssets() {
         return totalCurrentAssets;
     }
 
-    public String getCashAndCashEquivalentsAtCarryingValue() {
+    public Long getCashAndCashEquivalentsAtCarryingValue() {
         return cashAndCashEquivalentsAtCarryingValue;
     }
 
-    public String getCashAndShortTermInvestments() {
+    public Long getCashAndShortTermInvestments() {
         return cashAndShortTermInvestments;
     }
 
-    public String getInventory() {
+    public Long getInventory() {
         return inventory;
     }
 
-    public String getCurrentNetReceivables() {
+    public Long getCurrentNetReceivables() {
         return currentNetReceivables;
     }
 
-    public String getTotalNonCurrentAssets() {
+    public Long getTotalNonCurrentAssets() {
         return totalNonCurrentAssets;
     }
 
-    public String getPropertyPlantEquipment() {
+    public Long getPropertyPlantEquipment() {
         return propertyPlantEquipment;
     }
 
-    public String getAccumulatedDepreciationAmortizationPPE() {
+    public Long getAccumulatedDepreciationAmortizationPPE() {
         return accumulatedDepreciationAmortizationPPE;
     }
 
-    public String getIntangibleAssets() {
+    public Long getIntangibleAssets() {
         return intangibleAssets;
     }
 
-    public String getIntangibleAssetsExcludingGoodwill() {
+    public Long getIntangibleAssetsExcludingGoodwill() {
         return intangibleAssetsExcludingGoodwill;
     }
 
-    public String getGoodWill() {
+    public Long getGoodWill() {
         return goodWill;
     }
 
-    public String getInvestments() {
+    public Long getInvestments() {
         return investments;
     }
 
-    public String getLongTermInvestments() {
+    public Long getLongTermInvestments() {
         return longTermInvestments;
     }
 
-    public String getShortTermInvestments() {
+    public Long getShortTermInvestments() {
         return shortTermInvestments;
     }
 
-    public String getOtherCurrentAssets() {
+    public Long getOtherCurrentAssets() {
         return otherCurrentAssets;
     }
 
-    public String getOtherNonCurrentAssets() {
+    public Long getOtherNonCurrentAssets() {
         return otherNonCurrentAssets;
     }
 
-    public String getTotalLiabilities() {
+    public Long getTotalLiabilities() {
         return totalLiabilities;
     }
 
-    public String getTotalCurrentLiabilities() {
+    public Long getTotalCurrentLiabilities() {
         return totalCurrentLiabilities;
     }
 
-    public String getCurrentAccountsPayable() {
+    public Long getCurrentAccountsPayable() {
         return currentAccountsPayable;
     }
 
-    public String getDeferredRevenue() {
+    public Long getDeferredRevenue() {
         return deferredRevenue;
     }
 
-    public String getCurrentDebt() {
+    public Long getCurrentDebt() {
         return currentDebt;
     }
 
-    public String getShortTermDebt() {
+    public Long getShortTermDebt() {
         return shortTermDebt;
     }
 
-    public String getTotalNonCurrentLiabilities() {
+    public Long getTotalNonCurrentLiabilities() {
         return totalNonCurrentLiabilities;
     }
 
-    public String getCapitalLeaseObligations() {
+    public Long getCapitalLeaseObligations() {
         return capitalLeaseObligations;
     }
 
-    public String getLongTermDebt() {
+    public Long getLongTermDebt() {
         return longTermDebt;
     }
 
-    public String getCurrentLongTermDebt() {
+    public Long getCurrentLongTermDebt() {
         return currentLongTermDebt;
     }
 
-    public String getLongTermDebtNonCurrent() {
+    public Long getLongTermDebtNonCurrent() {
         return longTermDebtNonCurrent;
     }
 
-    public String getShortLongTermDebtTotal() {
+    public Long getShortLongTermDebtTotal() {
         return shortLongTermDebtTotal;
     }
 
-    public String getOtherCurrentLiabilities() {
+    public Long getOtherCurrentLiabilities() {
         return otherCurrentLiabilities;
     }
 
-    public String getOtherNonCurrentLiabilities() {
+    public Long getOtherNonCurrentLiabilities() {
         return otherNonCurrentLiabilities;
     }
 
-    public String getTotalShareholderEquity() {
+    public Long getTotalShareholderEquity() {
         return totalShareholderEquity;
     }
 
-    public String getTreasuryStock() {
+    public Long getTreasuryStock() {
         return treasuryStock;
     }
 
-    public String getRetainedEarnings() {
+    public Long getRetainedEarnings() {
         return retainedEarnings;
     }
 
-    public String getCommonStock() {
+    public Long getCommonStock() {
         return commonStock;
     }
 
-    public String getCommonStockSharesOutstanding() {
+    public Long getCommonStockSharesOutstanding() {
         return commonStockSharesOutstanding;
     }
 
