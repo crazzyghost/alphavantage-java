@@ -1,5 +1,6 @@
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
+import com.crazzyghost.alphavantage.parser.NoneableDouble;
 import com.squareup.moshi.Json;
 
 public class AnnualEarning {
@@ -7,6 +8,7 @@ public class AnnualEarning {
     @Json(name="fiscalDateEnding")
     private String fiscalDateEnding;
     @Json(name="reportedEPS")
+    @NoneableDouble
     private Double reportedEPS;
 
     public String getFiscalDateEnding() {

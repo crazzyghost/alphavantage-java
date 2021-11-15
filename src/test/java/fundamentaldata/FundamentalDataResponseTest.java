@@ -176,6 +176,7 @@ public class FundamentalDataResponseTest {
         assertNotNull(annualEarning.toString());
         assertEquals(annualEarning.getFiscalDateEnding(), "2020-12-31");
         assertEquals(annualEarning.getReportedEPS(), 8.67, 0.0);
+        assertNull(response.getAnnualReports().get(1).getReportedEPS());
 
         QuarterlyEarning quarterlyEarning = response.getQuarterlyReports().get(0);
         assertNotNull(quarterlyEarning.toString());

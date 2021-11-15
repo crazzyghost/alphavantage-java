@@ -3,15 +3,15 @@ package com.crazzyghost.alphavantage.parser;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
-public class NoneableAdapter {
+public class NoneableLongAdapter {
 
     @ToJson
-    public Long toJson(@Noneable Long l) {
+    public Long toJson(@NoneableLong Long l) {
         throw new UnsupportedOperationException();
     }
 
     @FromJson
-    @Noneable
+    @NoneableLong
     public Long fromJson(String s) {
         return s.equalsIgnoreCase("none") ? null: Long.valueOf(s);
     }

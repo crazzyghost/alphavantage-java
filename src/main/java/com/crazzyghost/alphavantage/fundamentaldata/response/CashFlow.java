@@ -1,6 +1,6 @@
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
-import com.crazzyghost.alphavantage.parser.Noneable;
+import com.crazzyghost.alphavantage.parser.NoneableLong;
 import com.squareup.moshi.Json;
 
 public class CashFlow {
@@ -10,111 +10,111 @@ public class CashFlow {
     private String reportedCurrency;
 
     @Json(name="operatingCashflow")
-    @Noneable
+    @NoneableLong
     private Long operatingCashflow;
 
     @Json(name="paymentsForOperatingActivities")
-    @Noneable
+    @NoneableLong
     private Long paymentsForOperatingActivities;
 
     @Json(name="proceedsFromOperatingActivities")
-    @Noneable
+    @NoneableLong
     private Long proceedsFromOperatingActivities;
 
     @Json(name="changeInOperatingLiabilities")
-    @Noneable
+    @NoneableLong
     private Long changeInOperatingLiabilities;
 
     @Json(name="changeInOperatingAssets")
-    @Noneable
+    @NoneableLong
     private Long changeInOperatingAssets;
 
     @Json(name="depreciationDepletionAndAmortization")
-    @Noneable
+    @NoneableLong
     private Long depreciationDepletionAndAmortization;
 
     @Json(name="capitalExpenditures")
-    @Noneable
+    @NoneableLong
     private Long capitalExpenditures;
 
     @Json(name="changeInReceivables")
-    @Noneable
+    @NoneableLong
     private Long changeInReceivables;
 
     @Json(name="changeInInventory")
-    @Noneable
+    @NoneableLong
     private Long changeInInventory;
 
     @Json(name="profitLoss")
-    @Noneable
+    @NoneableLong
     private Long profitLoss;
 
     @Json(name="cashflowFromInvestment")
-    @Noneable
+    @NoneableLong
     private Long cashflowFromInvestment;
 
     @Json(name="cashflowFromFinancing")
-    @Noneable
+    @NoneableLong
     private Long cashflowFromFinancing;
 
     @Json(name="proceedsFromRepaymentsOfShortTermDebt")
-    @Noneable
+    @NoneableLong
     private Long proceedsFromRepaymentsOfShortTermDebt;
 
     @Json(name="paymentsForRepurchaseOfCommonStock")
-    @Noneable
+    @NoneableLong
     private Long paymentsForRepurchaseOfCommonStock;
 
     @Json(name="paymentsForRepurchaseOfEquity")
-    @Noneable
+    @NoneableLong
     private Long paymentsForRepurchaseOfEquity;
 
     @Json(name="paymentsForRepurchaseOfPreferredStock")
-    @Noneable
+    @NoneableLong
     private Long paymentsForRepurchaseOfPreferredStock;
 
     @Json(name="dividendPayout")
-    @Noneable
+    @NoneableLong
     private Long dividendPayout;
 
     @Json(name="dividendPayoutCommonStock")
-    @Noneable
+    @NoneableLong
     private Long dividendPayoutCommonStock;
 
     @Json(name="dividendPayoutPreferredStock")
-    @Noneable
+    @NoneableLong
     private Long dividendPayoutPreferredStock;
 
     @Json(name="proceedsFromIssuanceOfCommonStock")
-    @Noneable
+    @NoneableLong
     private Long proceedsFromIssuanceOfCommonStock;
 
     @Json(name="proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet")
-    @Noneable
+    @NoneableLong
     private Long proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet;
 
     @Json(name="proceedsFromIssuanceOfPreferredStock")
-    @Noneable
+    @NoneableLong
     private Long proceedsFromIssuanceOfPreferredStock;
 
     @Json(name="proceedsFromRepurchaseOfEquity")
-    @Noneable
+    @NoneableLong
     private Long proceedsFromRepurchaseOfEquity;
 
     @Json(name="proceedsFromSaleOfTreasuryStock")
-    @Noneable
+    @NoneableLong
     private Long proceedsFromSaleOfTreasuryStock;
 
     @Json(name="changeInCashAndCashEquivalents")
-    @Noneable
+    @NoneableLong
     private Long changeInCashAndCashEquivalents;
 
     @Json(name="changeInExchangeRate")
-    @Noneable
+    @NoneableLong
     private Long changeInExchangeRate;
 
     @Json(name="netIncome")
-    @Noneable
+    @NoneableLong
     private Long netIncome;
 
     public String getFiscalDateEnding() {
