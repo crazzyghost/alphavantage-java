@@ -24,6 +24,7 @@ package com.crazzyghost.alphavantage.indicator;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
@@ -220,7 +221,7 @@ public final class Indicator implements Fetcher {
                 break;
         }
 
-        if(response.getErrorMessage() != null) {
+        if(Objects.nonNull(response) && Objects.nonNull(response.getErrorMessage())) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
@@ -264,7 +265,7 @@ public final class Indicator implements Fetcher {
                 break;
         }
 
-        if(response.getErrorMessage() != null) {
+        if(Objects.nonNull(response) && Objects.nonNull(response.getErrorMessage())) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
@@ -345,7 +346,7 @@ public final class Indicator implements Fetcher {
             default:
                 break;
         }
-        if(response.getErrorMessage() != null) {
+        if(Objects.nonNull(response) && Objects.nonNull(response.getErrorMessage())) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
@@ -402,7 +403,7 @@ public final class Indicator implements Fetcher {
             default:
                 break;
         }
-        if(response.getErrorMessage() != null) {
+        if(Objects.nonNull(response) && Objects.nonNull(response.getErrorMessage())) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
@@ -490,7 +491,7 @@ public final class Indicator implements Fetcher {
             default:
                 break;
         }
-        if(response.getErrorMessage() != null) {
+        if(Objects.nonNull(response) && Objects.nonNull(response.getErrorMessage())) {
             if(failureCallback != null)
                 failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }

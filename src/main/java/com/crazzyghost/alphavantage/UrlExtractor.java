@@ -64,7 +64,7 @@ public class UrlExtractor{
                         stringBuilder.append(value).append("&");
                     }
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    throw new AlphaVantageException(e.getLocalizedMessage());
                 }
             }
             cls = cls.getSuperclass();
