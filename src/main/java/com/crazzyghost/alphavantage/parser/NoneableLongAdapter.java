@@ -1,6 +1,5 @@
 package com.crazzyghost.alphavantage.parser;
 
-import com.crazzyghost.alphavantage.parser.util.ParserUtil;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
@@ -14,7 +13,7 @@ public class NoneableLongAdapter {
     @FromJson
     @NoneableLong
     public Long fromJson(String s) {
-        return ParserUtil.getNumberFromString(s, Long::parseLong);
+        return Parser.getNumberFromString(s, Long::parseLong);
     }
 
 }
