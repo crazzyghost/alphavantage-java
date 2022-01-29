@@ -13,7 +13,7 @@ public class NoneableDoubleAdapter {
     @FromJson
     @NoneableDouble
     public Double fromJson(String s) {
-        return s.equalsIgnoreCase("none") ? null: Double.valueOf(s);
+        return Parser.getNumberFromString(s, Double::parseDouble);
     }
 
 }

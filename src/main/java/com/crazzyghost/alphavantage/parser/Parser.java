@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * @author crazzyghost
@@ -61,5 +62,15 @@ public abstract class Parser<T> {
                 .build();
         Type type = Types.newParameterizedType(Map.class, String.class, Object.class);
         return moshi.adapter(type).toJson(data);
+    }
+
+    public static <N extends Number> N getNumberFromString(String s, Function<String, N> parser) {
+        N result = null;
+        try {
+            result = parser.apply(s);
+        } catch (NumberFormatException ex) {
+        }
+
+        return result;
     }
 }
