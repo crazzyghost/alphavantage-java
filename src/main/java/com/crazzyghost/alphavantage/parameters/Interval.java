@@ -2,7 +2,6 @@ package com.crazzyghost.alphavantage.parameters;
 
 public enum Interval {
 
-
     ONE_MIN("1min"),
     FIVE_MIN("5min") ,
     FIFTEEN_MIN("15min"),
@@ -10,9 +9,12 @@ public enum Interval {
     SIXTY_MIN("60min"),
     DAILY("daily"),
     WEEKLY("weekly"),
-    MONTHLY("monthly");
+    MONTHLY("monthly"),
+    QUARTERLY("quarterly"),
+    SEMI_ANNUAL("semiannual"),
+    ANNUAL("annual");
 
-    private String interval;
+    private final String interval;
 
     Interval(String interval){
         this.interval = interval;

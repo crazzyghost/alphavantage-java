@@ -5,7 +5,7 @@ public enum OutputSize {
     COMPACT("compact"),
     FULL("full");
 
-    private String outputSize;
+    private final String outputSize;
 
     OutputSize(String outputSize){
         this.outputSize = outputSize;
