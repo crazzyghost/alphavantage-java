@@ -30,9 +30,13 @@ import com.crazzyghost.alphavantage.parameters.Maturity;
 import java.util.Arrays;
 
 public class TreasuryYieldRequest extends EconomicIndicatorRequest {
+    private Interval interval;
+    private Maturity maturity;
 
     private TreasuryYieldRequest(Builder builder) {
         super(builder);
+        this.interval = builder.interval;
+        this.maturity = builder.maturity;
     }
 
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {

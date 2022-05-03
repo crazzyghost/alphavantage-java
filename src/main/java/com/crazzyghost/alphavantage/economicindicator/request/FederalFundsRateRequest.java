@@ -29,9 +29,10 @@ import com.crazzyghost.alphavantage.parameters.Interval;
 import java.util.Arrays;
 
 public class FederalFundsRateRequest extends EconomicIndicatorRequest {
-
+    private Interval interval;
     private FederalFundsRateRequest(Builder builder) {
         super(builder);
+        this.interval = builder.interval;
     }
 
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {

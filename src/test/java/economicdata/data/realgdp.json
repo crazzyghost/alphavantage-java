@@ -1,0 +1,15 @@
+{
+    "name": "Real Gross Domestic Product per Capita",
+    "interval": "quarterly",
+    "unit": "chained 2012 dollars",
+    "data": [
+        {
+            "date": "2022-01-01",
+            "value": "59312.0"
+        },
+        {
+            "date": "2021-10-01",
+            "value": "59553.0"
+        }
+    ]
+}

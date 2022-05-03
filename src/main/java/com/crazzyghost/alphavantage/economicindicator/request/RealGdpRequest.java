@@ -29,9 +29,11 @@ import com.crazzyghost.alphavantage.parameters.Interval;
 import java.util.Arrays;
 
 public class RealGdpRequest extends EconomicIndicatorRequest {
+    private Interval interval;
 
     private RealGdpRequest(Builder builder) {
         super(builder);
+        this.interval = builder.interval;
     }
 
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {

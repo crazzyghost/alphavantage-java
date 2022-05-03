@@ -28,6 +28,7 @@ import com.squareup.moshi.Json;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * EconomicIndicatorResponse
@@ -62,32 +63,16 @@ public class EconomicIndicatorResponse {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getInterval() {
         return interval;
-    }
-
-    public void setInterval(String interval) {
-        this.interval = interval;
     }
 
     public String getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
     public List<EconomicIndicatorUnit> getData() {
         return data;
-    }
-
-    public void setData(List<EconomicIndicatorUnit> data) {
-        this.data = data;
     }
 
     public String getErrorMessage() {
@@ -95,6 +80,7 @@ public class EconomicIndicatorResponse {
     }
 
     public static EconomicIndicatorResponse of(Map<String, Object> stringObjectMap) {
+        System.out.print(stringObjectMap);
         Parser<EconomicIndicatorResponse> parser = new EconomicIndicatorResponse.EconomicIndicatorParser();
         return parser.parse(stringObjectMap);
     }
@@ -110,11 +96,20 @@ public class EconomicIndicatorResponse {
         @SuppressWarnings("unchecked")
         public EconomicIndicatorResponse parse(Map<String, Object> data) {
             List<String> keys = new ArrayList<>(data.keySet());
-            try{
-                List<EconomicIndicatorUnit> unitList = Parser.parseJSONList(data.get("data"), EconomicIndicatorUnit.class);
+            try {
+                if (keys.isEmpty()) {
+                    return onParseError("Empty JSON response returned by the API.");
+                }
+
+                if (Objects.nonNull(data.getOrDefault("Information", null))) {
+                    throw new ClassCastException();
+                }
+
                 String name = String.valueOf(data.getOrDefault("name", ""));
                 String interval = String.valueOf(data.getOrDefault("interval", ""));;
                 String unit = String.valueOf(data.getOrDefault("unit", ""));;
+                List<EconomicIndicatorUnit> unitList = Parser.parseJSONList(data.get("data"),
+                        EconomicIndicatorUnit.class);
                 return new EconomicIndicatorResponse(name, interval, unit, unitList);
             }catch (ClassCastException | IndexOutOfBoundsException e) {
                 return onParseError(data.get(keys.get(0)).toString());
