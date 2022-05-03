@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.economicindicator.response;
 
+import com.crazzyghost.alphavantage.exchangerate.ExchangeRateResponse;
 import com.crazzyghost.alphavantage.parser.Parser;
 import com.squareup.moshi.Json;
 
@@ -88,6 +89,15 @@ public class EconomicIndicatorResponse {
 
     public void setData(List<EconomicIndicatorUnit> data) {
         this.data = data;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public static EconomicIndicatorResponse of(Map<String, Object> stringObjectMap) {
+        Parser<EconomicIndicatorResponse> parser = new EconomicIndicatorResponse.EconomicIndicatorParser();
+        return parser.parse(stringObjectMap);
     }
 
     public static class EconomicIndicatorParser extends Parser<EconomicIndicatorResponse> {

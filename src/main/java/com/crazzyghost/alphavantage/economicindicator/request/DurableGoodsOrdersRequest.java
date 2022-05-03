@@ -24,9 +24,9 @@ package com.crazzyghost.alphavantage.economicindicator.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
-public class DurablesGoodsOrdersRequest extends EconomicIndicatorRequest {
+public class DurableGoodsOrdersRequest extends EconomicIndicatorRequest {
 
-    private DurablesGoodsOrdersRequest(Builder builder) {
+    private DurableGoodsOrdersRequest(Builder builder) {
         super(builder);
     }
 
@@ -38,8 +38,8 @@ public class DurablesGoodsOrdersRequest extends EconomicIndicatorRequest {
         }
 
         @Override
-        public DurablesGoodsOrdersRequest build() {
-            return new DurablesGoodsOrdersRequest(this);
+        public DurableGoodsOrdersRequest build() {
+            return new DurableGoodsOrdersRequest(this);
         }
     }
 }

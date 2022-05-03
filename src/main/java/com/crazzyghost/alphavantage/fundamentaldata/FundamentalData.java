@@ -232,7 +232,7 @@ public final class FundamentalData implements Fetcher {
 
 
         /**
-         * Set the right builder and make a synchronous request using {@link Crypto#fetch()}
+         * Set the right builder and make a synchronous request using {@link FundamentalData#fetch()}
          * When calling this method, any async callbacks will be overwritten
          *
          * @return The api response
