@@ -22,7 +22,6 @@
  */
 package com.crazzyghost.alphavantage.economicindicator.response;
 
-import com.crazzyghost.alphavantage.exchangerate.ExchangeRateResponse;
 import com.crazzyghost.alphavantage.parser.Parser;
 import com.squareup.moshi.Json;
 

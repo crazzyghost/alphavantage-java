@@ -23,6 +23,7 @@
 package com.crazzyghost.alphavantage;
 
 import com.crazzyghost.alphavantage.cryptocurrency.Crypto;
+import com.crazzyghost.alphavantage.economicindicator.EconomicIndicator;
 import com.crazzyghost.alphavantage.exchangerate.ExchangeRate;
 import com.crazzyghost.alphavantage.forex.Forex;
 import com.crazzyghost.alphavantage.fundamentaldata.FundamentalData;
@@ -121,10 +122,19 @@ public class AlphaVantage {
     /**
      * Access to Fundamental Data.
      *
-     * @return A {@link FundamentalData} instance for access to Sector Performance Data
+     * @return A {@link FundamentalData} instance for access to Fundamental Data
      */
     public FundamentalData fundamentalData(){
         return new FundamentalData(config);
+    }
+
+    /**
+     * Access to Economic Indicators.
+     *
+     * @return A {@link EconomicIndicator} instance for access to Economic Indicators
+     */
+    public EconomicIndicator economicIndicator(){
+        return new EconomicIndicator(config);
     }
 
 }
