@@ -1,6 +1,6 @@
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
-import com.crazzyghost.alphavantage.parser.Noneable;
+import com.crazzyghost.alphavantage.parser.NoneableLong;
 import com.squareup.moshi.Json;
 
 public class IncomeStatement {
@@ -10,76 +10,76 @@ public class IncomeStatement {
     @Json(name="reportedCurrency")
     private String reportedCurrency;
     @Json(name="grossProfit")
-    @Noneable
+    @NoneableLong
     private Long grossProfit;
     @Json(name="totalRevenue")
-    @Noneable
+    @NoneableLong
     private Long  totalRevenue;
     @Json(name="costOfRevenue")
-    @Noneable
+    @NoneableLong
     private Long  costOfRevenue;
     @Json(name="costofGoodsAndServicesSold")
-    @Noneable
+    @NoneableLong
     private Long  costofGoodsAndServicesSold;
     @Json(name="operatingIncome")
-    @Noneable
+    @NoneableLong
     private Long  operatingIncome;
     @Json(name="sellingGeneralAndAdministrative")
-    @Noneable
+    @NoneableLong
     private Long  sellingGeneralAndAdministrative;
     @Json(name="researchAndDevelopment")
-    @Noneable
+    @NoneableLong
     private Long  researchAndDevelopment;
     @Json(name="operatingExpenses")
-    @Noneable
+    @NoneableLong
     private Long  operatingExpenses;
     @Json(name="investmentIncomeNet")
-    @Noneable
+    @NoneableLong
     private Long  investmentIncomeNet;
     @Json(name="netInterestIncome")
-    @Noneable
+    @NoneableLong
     private Long  netInterestIncome;
     @Json(name="interestIncome")
-    @Noneable
+    @NoneableLong
     private Long  interestIncome;
     @Json(name="interestExpense")
-    @Noneable
+    @NoneableLong
     private Long  interestExpense;
     @Json(name="nonInterestIncome")
-    @Noneable
+    @NoneableLong
     private Long  nonInterestIncome;
     @Json(name="otherNonOperatingIncome")
-    @Noneable
+    @NoneableLong
     private Long  otherNonOperatingIncome;
     @Json(name="depreciation")
-    @Noneable
+    @NoneableLong
     private Long  depreciation;
     @Json(name="depreciationAndAmortization")
-    @Noneable
+    @NoneableLong
     private Long  depreciationAndAmortization;
     @Json(name="incomeBeforeTax")
-    @Noneable
+    @NoneableLong
     private Long  incomeBeforeTax;
     @Json(name="incomeTaxExpense")
-    @Noneable
+    @NoneableLong
     private Long  incomeTaxExpense;
     @Json(name="interestAndDebtExpense")
-    @Noneable
+    @NoneableLong
     private Long  interestAndDebtExpense;
     @Json(name="netIncomeFromContinuingOperations")
-    @Noneable
+    @NoneableLong
     private Long  netIncomeFromContinuingOperations;
     @Json(name="comprehensiveIncomeNetOfTax")
-    @Noneable
+    @NoneableLong
     private Long  comprehensiveIncomeNetOfTax;
     @Json(name="ebit")
-    @Noneable
+    @NoneableLong
     private Long  ebit;
     @Json(name="ebitda")
-    @Noneable
+    @NoneableLong
     private Long  ebitda;
     @Json(name="netIncome")
-    @Noneable
+    @NoneableLong
     private Long  netIncome;
 
     public String getFiscalDateEnding() {

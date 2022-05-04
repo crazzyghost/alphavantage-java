@@ -35,7 +35,7 @@ public abstract class CryptoRequest {
     protected Function function;
     protected String symbol;
  
-    public CryptoRequest(Builder<?> builder){
+    protected CryptoRequest(Builder<?> builder){
         this.function = builder.function;
         this.symbol = builder.symbol;
     }

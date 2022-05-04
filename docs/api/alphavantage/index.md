@@ -24,6 +24,7 @@
 |[indicator]|`package alphavantage.indicator`|
 |[exchangerate]|`package alphavantage.exchangerate`|
 |[sector]|`package alphavantage.sector`|
+|[fundamentaldata]|`package alphavantage.fundamentaldata`|
 
 [TimeSeries]: index.md
 
@@ -38,3 +39,4 @@
 [forex]: ../forex/index.md
 [exchangerate]: ../exchangerate/index.md
 [sector]: ../sector/index.md
+[fundamentaldata]: ../fundamentaldata/index.md

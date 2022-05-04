@@ -33,7 +33,7 @@ import okhttp3.OkHttpClient;
  */
 public class Config {
 
-    public static String BASE_URL = "https://www.alphavantage.co/query?";
+    public static final String BASE_URL = "https://www.alphavantage.co/query?";
 
     private final String key;
     private final int timeOut;

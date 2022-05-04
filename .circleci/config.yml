@@ -4,7 +4,7 @@ orbs:
 jobs:
   build:
     docker:
-    - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk:8-jdk
     
     working_directory: ~/repo
 
@@ -59,7 +59,30 @@ jobs:
       - codecov/upload:
           file: ~/test-results/junit/*.xml
 
+      - run:
+          name: Build
+          command: gradle build
+
+      - persist_to_workspace:
+          root: .
+          paths: 
+            - build/*
+  sonar:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Analyze on SonarCloud
+          command: gradle build sonarqube
+
 workflows:
  workflow:
    jobs:
    - build
+   - sonar:
+       context: SonarCloud
+       requires:
+         - build

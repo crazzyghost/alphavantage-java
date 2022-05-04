@@ -133,9 +133,6 @@ gradle-app.setting
 
 .project
 .classpath
-gradlew
-gradlew.bat
-gradle
 # End of https://www.gitignore.io/api/java,gradle,intellij
 .idea/
 .vscode
@@ -145,3 +142,4 @@ bin/**
 
 _config.yml
 site/**
+.python-version

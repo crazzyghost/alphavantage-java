@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.6.1] - 15-11-2021
+### Fixes
+- [JitPack build failure](https://jitpack.io/com/github/crazzyghost/alphavantage-java/1.6.0/build.log)
+- BalanceSheet field types
+
+## [v1.6.0] - 14-11-2021
+### Added
+- Support for fundamental data 
+
+
 ## [v1.5.0] - 11-01-2021
 ### Added
 - Support for synchronous requests 
@@ -84,6 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tests for Time Series
 - README 
 
+[v1.6.0]: https://github.com/crazzyghost/alphavantage-java/compare/1.5.0...1.6.0
 [v1.5.0]: https://github.com/crazzyghost/alphavantage-java/compare/1.4.2...1.5.0
 [v1.4.2]: https://github.com/crazzyghost/alphavantage-java/compare/1.4.1...1.4.2
 [v1.4.1]: https://github.com/crazzyghost/alphavantage-java/compare/1.4.0...1.4.1

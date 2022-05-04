@@ -3,6 +3,14 @@
     <a href="https://codecov.io/gh/crazzyghost/alphavantage-java"> <img src="https://codecov.io/gh/crazzyghost/alphavantage-java/branch/master/graph/badge.svg" /></a>
     <a href="https://jitpack.io/#crazzyghost/alphavantage-java"> <img src="https://jitpack.io/v/crazzyghost/alphavantage-java.svg" /></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg"/></a>
+    <a href="https://jitpack.io/v/crazzyghost/alphavantage-java/month"> <img src="https://jitpack.io/v/crazzyghost/alphavantage-java/month" /></a>
+    <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=alert_status"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=alert_status" /></a>
+    <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=security_rating"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=security_rating" /></a>
+    <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=reliability_rating"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=reliability_rating" /></a>
+    <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=sqale_rating"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=sqale_rating" /></a>
+    <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=bugs"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=bugs" /></a>
+    <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=vulnerabilities"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=vulnerabilities" /></a>
+</p>
 </p>
 
 An easy to use, fluent Java wrapper for accessing the [AlphaVantage API](https://www.alphavantage.co/).
@@ -93,6 +101,7 @@ Here, we choose which data category/endpoint we want to access
 | Digital Currency Data     | `.crypto()`           |
 | Technical Indicator Data  | `.indicator()`        |
 | Sector Performance Data   | `.sector()`           |
+| Fundamental Data          | `.fundamentalData()`  |
 
 For example, to select the Stock Time Series:
 
