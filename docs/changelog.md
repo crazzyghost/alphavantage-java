@@ -1,4 +1,9 @@
 # Changelog
+## v1.7.0 - 04-05-2022
+- New: Support for economic indicators 
+
+## v1.6.2 - 29-01-2022
+- Fix: [Number parsing bug](https://github.com/crazzyghost/alphavantage-java/issues/23) 
 ## v1.6.1 - 15-11-2021
 - Fix: [JitPack build failure](https://jitpack.io/com/github/crazzyghost/alphavantage-java/1.6.0/build.log)
 - Fix: BalanceSheet field types
