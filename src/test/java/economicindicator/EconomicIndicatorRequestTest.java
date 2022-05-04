@@ -1,4 +1,4 @@
-package economicdata;
+package economicindicator;
 
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;

@@ -1,4 +1,4 @@
-package economicdata;
+package economicindicator;
 
 import com.crazzyghost.alphavantage.economicindicator.response.EconomicIndicatorResponse;
 import com.crazzyghost.alphavantage.economicindicator.response.EconomicIndicatorUnit;
@@ -16,7 +16,7 @@ import java.io.IOException;
 public class EconomicIndicatorResponseTest {
     @Before
     public void setUp() {
-        TestUtils.forDirectory("economicdata");
+        TestUtils.forDirectory("economicindicator");
     }
 
     @Test

@@ -1,0 +1,15 @@
+{
+  "name": "Advance Retail Sales: Retail Trade",
+  "interval": "monthly",
+  "unit": "millions of dollars",
+  "data": [
+    {
+      "date": "2022-03-01",
+      "value": "593300"
+    },
+    {
+      "date": "2022-02-01",
+      "value": "507990"
+    }
+  ]
+}
