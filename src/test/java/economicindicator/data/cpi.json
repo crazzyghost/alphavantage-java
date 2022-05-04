@@ -1,0 +1,15 @@
+{
+    "name": "Consumer Price Index for all Urban Consumers",
+    "interval": "monthly",
+    "unit": "index 1982-1984=100",
+    "data": [
+        {
+          "date": "2022-03-01",
+          "value": "287.504"
+        },
+        {
+          "date": "2022-02-01",
+          "value": "283.716"
+        }
+    ]
+}

@@ -2,7 +2,6 @@ package timeseries;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static util.TestUtils.errorMessage;
 import static util.TestUtils.stream;
 
 import java.io.IOException;

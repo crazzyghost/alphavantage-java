@@ -1,0 +1,15 @@
+{
+  "name": "Inflation - US Consumer Prices",
+  "interval": "annual",
+  "unit": "percent",
+  "data": [
+    {
+      "date": "2021-01-01",
+      "value": "4.69785886363739"
+    },
+    {
+      "date": "2020-01-01",
+      "value": "1.23358439630637"
+    }
+  ]
+}

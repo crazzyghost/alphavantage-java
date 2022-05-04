@@ -1,0 +1,15 @@
+{
+  "name": "10-Year Treasury Constant Maturity Rate",
+  "interval": "monthly",
+  "unit": "percent",
+  "data": [
+    {
+      "date": "2022-04-01",
+      "value": "2.75"
+    },
+    {
+      "date": "2022-03-01",
+      "value": "2.13"
+    }
+  ]
+}

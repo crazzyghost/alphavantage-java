@@ -5,7 +5,7 @@ public enum DataType {
     JSON("json"),
     CSV("csv");
 
-    private String dataType;
+    private final String dataType;
 
     DataType(String dataType){
         this.dataType = dataType;

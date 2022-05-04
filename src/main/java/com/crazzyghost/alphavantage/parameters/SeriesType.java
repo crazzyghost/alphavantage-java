@@ -6,7 +6,7 @@ public enum SeriesType {
     CLOSE("close"),
     LOW("low");
 
-    private String seriesType;
+    private final String seriesType;
 
     SeriesType(String seriesType){
         this.seriesType = seriesType;
