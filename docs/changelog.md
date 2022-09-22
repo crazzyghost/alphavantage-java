@@ -1,7 +1,7 @@
 # Changelog
-## v1.7.0 - 04-05-2022
+## v1.7.0 - 22-09-2022
 - New: Support for economic indicators 
-
+- Deprecated: `indicator` interface in favour of `technicalIndicator` for access to Technical Indicator data
 ## v1.6.2 - 29-01-2022
 - Fix: [Number parsing bug](https://github.com/crazzyghost/alphavantage-java/issues/23) 
 ## v1.6.1 - 15-11-2021
