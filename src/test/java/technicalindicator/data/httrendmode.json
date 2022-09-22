@@ -1,0 +1,18 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Hilbert Transform - Trend vs Cycle Mode (HT_TRENDMODE)",
+        "3: Last Refreshed": "2020-05-01",
+        "4: Interval": "weekly",
+        "5: Series Type": "close",
+        "6: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: HT_TRENDMODE": {
+        "2020-05-01": {
+            "TRENDMODE": "1"
+        },
+        "2020-04-24": {
+            "TRENDMODE": "1"
+        }
+    }
+}

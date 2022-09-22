@@ -29,6 +29,7 @@ import com.crazzyghost.alphavantage.forex.Forex;
 import com.crazzyghost.alphavantage.fundamentaldata.FundamentalData;
 import com.crazzyghost.alphavantage.indicator.Indicator;
 import com.crazzyghost.alphavantage.sector.Sector;
+import com.crazzyghost.alphavantage.technicalindicator.TechnicalIndicator;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
 
 /**
@@ -102,12 +103,26 @@ public class AlphaVantage {
     }
 
     /**
+     * @deprecated
+     * <p>use {@link AlphaVantage#technicalIndicator()} instead </p>
+     * 
      * Access to Technical Indicators.
      *
      * @return A {@link Indicator} instance for access to Technical Indicator Data
      */
+    @Deprecated
     public Indicator indicator(){
         return new Indicator(config);
+    }
+
+    /**
+     * Access to Technical Indicators.
+     *
+     * @return A {@link TechnicalIndicator} instance for access to Technical
+     *         Indicator Data
+     */
+    public TechnicalIndicator technicalIndicator() {
+        return new TechnicalIndicator(config);
     }
 
     /**

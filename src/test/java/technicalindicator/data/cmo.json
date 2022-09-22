@@ -1,0 +1,19 @@
+{
+    "Meta Data": {
+        "1: Symbol": "USDEUR",
+        "2: Indicator": "(CMO)",
+        "3: Last Refreshed": "2020-04-29",
+        "4: Interval": "weekly",
+        "5: Time Period": 10,
+        "6: Series Type": "open",
+        "7: Time Zone": "US/Eastern"
+    },
+    "Technical Analysis: CMO": {
+        "2020-04-29": {
+            "CMO": "0.9120"
+        },
+        "2020-04-24": {
+            "CMO": "0.9118"
+        }
+    }
+}

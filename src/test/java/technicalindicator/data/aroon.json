@@ -1,0 +1,20 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Aroon (AROON)",
+        "3: Last Refreshed": "2020-04-30",
+        "4: Interval": "daily",
+        "5: Time Period": 14,
+        "6: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: AROON": {
+        "2020-04-30": {
+            "Aroon Down": "50.0000",
+            "Aroon Up": "92.8571"
+        },
+        "2020-04-29": {
+            "Aroon Down": "57.1429",
+            "Aroon Up": "100.0000"
+        }
+    }
+}

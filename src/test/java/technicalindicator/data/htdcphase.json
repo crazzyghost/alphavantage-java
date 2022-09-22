@@ -1,0 +1,18 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Hilbert Transform - Dominant Cycle Phase (HT_DCPHASE)",
+        "3: Last Refreshed": "2020-05-01",
+        "4: Interval": "daily",
+        "5: Series Type": "close",
+        "6: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: HT_DCPHASE": {
+        "2020-05-01": {
+            "HT_DCPHASE": "204.3570"
+        },
+        "2020-04-30": {
+            "HT_DCPHASE": "203.5150"
+        }
+    }
+}
