@@ -19,6 +19,14 @@ publishing {
     }
 }
 
+tasks.jar {
+    manifest {
+        attributes(
+                "Automatic-Module-Name": "com.github.crazzyghost.alphavantage"
+        )
+    }
+}
+
 
 sourceCompatibility = 1.8
 
