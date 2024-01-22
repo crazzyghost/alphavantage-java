@@ -1,11 +1,10 @@
 package com.crazzyghost.alphavantage.technicalindicator.response;
 
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
 
 public abstract class SimpleTechnicalIndicatorResponse {
 

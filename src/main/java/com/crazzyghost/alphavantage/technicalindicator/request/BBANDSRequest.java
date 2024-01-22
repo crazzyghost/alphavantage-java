@@ -1,6 +1,5 @@
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
-import com.crazzyghost.alphavantage.technicalindicator.request.TechnicalIndicatorRequest;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;

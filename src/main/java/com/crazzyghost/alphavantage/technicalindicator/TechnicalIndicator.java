@@ -22,14 +22,12 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.Objects;
-
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
+import com.crazzyghost.alphavantage.parameters.*;
+import com.crazzyghost.alphavantage.parser.Parser;
 import com.crazzyghost.alphavantage.technicalindicator.request.*;
 import com.crazzyghost.alphavantage.technicalindicator.response.*;
 import com.crazzyghost.alphavantage.technicalindicator.response.ad.ADResponse;
@@ -85,16 +83,13 @@ import com.crazzyghost.alphavantage.technicalindicator.response.ultosc.ULTOSCRes
 import com.crazzyghost.alphavantage.technicalindicator.response.vwap.VWAPResponse;
 import com.crazzyghost.alphavantage.technicalindicator.response.willr.WILLRResponse;
 import com.crazzyghost.alphavantage.technicalindicator.response.wma.WMAResponse;
-import com.crazzyghost.alphavantage.parameters.DataType;
-import com.crazzyghost.alphavantage.parameters.Function;
-import com.crazzyghost.alphavantage.parameters.Interval;
-import com.crazzyghost.alphavantage.parameters.MAType;
-import com.crazzyghost.alphavantage.parameters.SeriesType;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 import okhttp3.Call;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Access to Technical TechnicalIndicator Data
