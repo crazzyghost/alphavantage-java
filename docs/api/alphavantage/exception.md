@@ -8,7 +8,7 @@ Exception class for the library.
 
 ### Constructors
 
-|Name|Summary|
-|----|-------|
-| [AlphavantageException](#) | `public AlphavantageException()` |
+| Name                       | Summary                                        |
+|----------------------------|------------------------------------------------|
+| [AlphavantageException](#) | `public AlphavantageException()`               |
 | [AlphavantageException](#) | `public AlphavantageException(String message)` |

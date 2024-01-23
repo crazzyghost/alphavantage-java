@@ -6,14 +6,14 @@
 
 ### Types
 
-|Name|Summary|
-|----|-------|
-|[BalanceSheetRequest]| `public class BalanceSheetRequest`|
-|[CashFlowRequest]| `public class CashFlowRequest`|
-|[CompanyOverviewRequest]| `public class CompanyOverviewRequest`|
-|[EarningsRequest]| `public class EarningsResponseRequest`|
-|[FundamentalDataRequest]| `public abstract class FundamentalDataRequest`|
-|[IncomeStatementRequest]| `public class IncomeStatementRequest`|
+| Name                     | Summary                                        |
+|--------------------------|------------------------------------------------|
+| [BalanceSheetRequest]    | `public class BalanceSheetRequest`             |
+| [CashFlowRequest]        | `public class CashFlowRequest`                 |
+| [CompanyOverviewRequest] | `public class CompanyOverviewRequest`          |
+| [EarningsRequest]        | `public class EarningsResponseRequest`         |
+| [FundamentalDataRequest] | `public abstract class FundamentalDataRequest` |
+| [IncomeStatementRequest] | `public class IncomeStatementRequest`          |
 
 [alphavantage]: ../alphavantage/index.md
 [fundamentaldata]: ./index.md

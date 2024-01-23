@@ -6,16 +6,16 @@
 
 ### Types
 
-|Name|Summary|
-|----|-------|
-|[Sector]| Access to Sector Performance Data. `class Sector`|
+| Name     | Summary                                           |
+|----------|---------------------------------------------------|
+| [Sector] | Access to Sector Performance Data. `class Sector` |
 
 ### Packages
 
-|Name|Summary|
-|----|-------|
-|[request]|`package alphavantage.sector.request`|
-|[response]|`package alphavantage.sector.response`|
+| Name       | Summary                                |
+|------------|----------------------------------------|
+| [request]  | `package alphavantage.sector.request`  |
+| [response] | `package alphavantage.sector.response` |
 
 [alphavantage]: ../alphavantage/index.md
 [Sector]: ./sector.md

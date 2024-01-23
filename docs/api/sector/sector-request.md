@@ -8,19 +8,19 @@ A Sector request
 
 ### Types
 
-|Name|Summary|
-|----|-------|
+| Name         | Summary                       |
+|--------------|-------------------------------|
 | [Builder](#) | `public static class Builder` |
 
 ### Constructors
 
-|Name|Summary|
-|----|-------|
+| Name                                 | Summary                                                |
+|--------------------------------------|--------------------------------------------------------|
 | [SectorRequest](./sector-request.md) | `private SectorRequest(SectorRequest.Builder builder)` |
 
 
 ### Properties
 
-|Name|Summary|
-|----|-------|
+| Name          | Summary                     |
+|---------------|-----------------------------|
 | [function](#) | `private Function function` |

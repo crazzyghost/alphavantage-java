@@ -1,22 +1,22 @@
 # alphavantage-java
 
-[alphavantage](../alphavantage/index.md) / [fundamentaldata](#)
+[alphavantage](../alphavantage/index.md) / [economicindicator](#)
 
-## Package alphavantage.fundamentaldata
+## Package alphavantage.economicindicator
 
 ### Types
 
-|Name|Summary|
-|----|-------|
-|[FundamentalData]| Access to Fundamental Data. `class FundamentalData`|
+| Name                | Summary                                                      |
+|---------------------|--------------------------------------------------------------|
+| [EconomicIndicator] | Access to Economic Indicator Data. `class EconomicIndicator` |
 
 ### Packages
 
-|Name|Summary|
-|----|-------|
-|[request]|`package alphavantage.fundamentaldata.request`|
-|[response]|`package alphavantage.fundamentaldata.response`|
+|Name| Summary                                          |
+|----|--------------------------------------------------|
+|[request]| `package alphavantage.economicindicator.request` |
+|[response]| `package alphavantage.economicindicator.response`  |
 
-[FundamentalData]: fundamentaldata.md
+[EconomicIndicator]: index.md
 [request]: request.md
 [response]: response.md
