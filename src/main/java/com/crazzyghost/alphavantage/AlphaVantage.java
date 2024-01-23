@@ -23,11 +23,13 @@
 package com.crazzyghost.alphavantage;
 
 import com.crazzyghost.alphavantage.cryptocurrency.Crypto;
+import com.crazzyghost.alphavantage.economicindicator.EconomicIndicator;
 import com.crazzyghost.alphavantage.exchangerate.ExchangeRate;
 import com.crazzyghost.alphavantage.forex.Forex;
 import com.crazzyghost.alphavantage.fundamentaldata.FundamentalData;
 import com.crazzyghost.alphavantage.indicator.Indicator;
 import com.crazzyghost.alphavantage.sector.Sector;
+import com.crazzyghost.alphavantage.technicalindicator.TechnicalIndicator;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
 
 /**
@@ -101,12 +103,26 @@ public class AlphaVantage {
     }
 
     /**
+     * @deprecated
+     * <p>use {@link AlphaVantage#technicalIndicator()} instead </p>
+     * 
      * Access to Technical Indicators.
      *
      * @return A {@link Indicator} instance for access to Technical Indicator Data
      */
+    @Deprecated
     public Indicator indicator(){
         return new Indicator(config);
+    }
+
+    /**
+     * Access to Technical Indicators.
+     *
+     * @return A {@link TechnicalIndicator} instance for access to Technical
+     *         Indicator Data
+     */
+    public TechnicalIndicator technicalIndicator() {
+        return new TechnicalIndicator(config);
     }
 
     /**
@@ -121,10 +137,19 @@ public class AlphaVantage {
     /**
      * Access to Fundamental Data.
      *
-     * @return A {@link FundamentalData} instance for access to Sector Performance Data
+     * @return A {@link FundamentalData} instance for access to Fundamental Data
      */
     public FundamentalData fundamentalData(){
         return new FundamentalData(config);
+    }
+
+    /**
+     * Access to Economic Indicators.
+     *
+     * @return A {@link EconomicIndicator} instance for access to Economic Indicators
+     */
+    public EconomicIndicator economicIndicator(){
+        return new EconomicIndicator(config);
     }
 
 }

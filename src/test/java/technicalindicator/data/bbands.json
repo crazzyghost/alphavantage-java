@@ -1,0 +1,26 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Bollinger Bands (BBANDS)",
+        "3: Last Refreshed": "2020-05-01",
+        "4: Interval": "weekly",
+        "5: Time Period": 5,
+        "6.1: Deviation multiplier for upper band": 3,
+        "6.2: Deviation multiplier for lower band": 3,
+        "6.3: MA Type": 0,
+        "7: Series Type": "close",
+        "8: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: BBANDS": {
+        "2020-05-01": {
+            "Real Upper Band": "138.2917",
+            "Real Lower Band": "99.5283",
+            "Real Middle Band": "118.9100"
+        },
+        "2020-04-24": {
+            "Real Upper Band": "138.5919",
+            "Real Lower Band": "93.6921",
+            "Real Middle Band": "116.1420"
+        }
+    }
+}

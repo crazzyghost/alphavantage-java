@@ -112,8 +112,7 @@ public class CryptoTest {
             .rating()
             .forSymbol("BTC")
             .onSuccess((RatingResponse e)->{
-                System.out.println("called"+e.toString());
-                
+
                 ref.set(e);
                 lock.countDown();
             })

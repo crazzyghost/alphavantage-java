@@ -8,7 +8,7 @@ plugins {
 
 group = 'com.github.crazzyghost'
 
-version '1.6.1'
+version '1.7.0'
 
 
 publishing {
@@ -16,6 +16,14 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
         }
+    }
+}
+
+tasks.jar {
+    manifest {
+        attributes(
+                "Automatic-Module-Name": "com.github.crazzyghost.alphavantage"
+        )
     }
 }
 

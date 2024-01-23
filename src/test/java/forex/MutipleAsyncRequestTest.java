@@ -122,9 +122,6 @@ public class MutipleAsyncRequestTest {
  
         lock.await();
         
-        System.out.println(monthlyRef.get().getMetaData().getInformation());
-        System.out.println(weeklyRef.get().getMetaData().getInformation());
-        System.out.println(dailyRef.get().getMetaData().getInformation());
         assertTrue(monthlyRef.get().getMetaData().getInformation().matches("Forex Monthly(.*)"));
         assertTrue(weeklyRef.get().getMetaData().getInformation().matches("Forex Weekly(.*)"));
         assertTrue(dailyRef.get().getMetaData().getInformation().matches("Forex Daily(.*)"));

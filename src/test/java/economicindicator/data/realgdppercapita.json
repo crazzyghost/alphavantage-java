@@ -1,0 +1,15 @@
+{
+  "name": "Real Gross Domestic Product",
+  "interval": "annual",
+  "unit": "billions of dollars",
+  "data": [
+    {
+      "date": "2021-01-01",
+      "value": "19427.287"
+    },
+    {
+      "date": "2020-01-01",
+      "value": "18384.687"
+    }
+  ]
+}

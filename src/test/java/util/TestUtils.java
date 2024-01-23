@@ -132,6 +132,15 @@ public class TestUtils {
         return Config.BASE_URL + "function=" + function + "&symbol="+ symbol +"&interval=weekly&datatype=json&apikey=demo";
     }
 
+    public static String getSimpleTechnicalIndicatorRequestUrl(String function){
+        return Config.BASE_URL + "function=" + function + "&symbol=IBM&interval=weekly&datatype=json&apikey=demo";
+    }
+
+    public static String getSimpleTechnicalIndicatorRequestUrl(String function, String symbol){
+        return Config.BASE_URL + "function=" + function + "&symbol="+ symbol +"&interval=weekly&datatype=json&apikey=demo";
+    }
+
+
     public static String getPeriodicSeriesUrl(String function){
        return Config.BASE_URL + "series_type=open&time_period=60&function=" + function + "&symbol=IBM&interval=weekly&datatype=json&apikey=demo";
     }

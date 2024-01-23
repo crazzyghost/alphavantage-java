@@ -99,9 +99,10 @@ Here, we choose which data category/endpoint we want to access
 | Forex Rate Data           | `.forex()`            |
 | Exchange Rate Data        | `.exchangeRate()`     |
 | Digital Currency Data     | `.crypto()`           |
-| Technical Indicator Data  | `.indicator()`        |
+| Technical Indicator Data  | `.technicalIndicator()`        |
 | Sector Performance Data   | `.sector()`           |
 | Fundamental Data          | `.fundamentalData()`  |
+| Economic Indicators       | `.economicIndicator()`  |
 
 For example, to select the Stock Time Series:
 

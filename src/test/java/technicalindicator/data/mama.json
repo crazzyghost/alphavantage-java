@@ -1,0 +1,22 @@
+{
+    "Meta Data": {
+        "1: Symbol": "GOOGL",
+        "2: Indicator": "MESA Adaptive Moving Average (MAMA)",
+        "3: Last Refreshed": "2020-04-29",
+        "4: Interval": "daily",
+        "5.1: Fast Limit": 0.1,
+        "5.2: Slow Limit": 0.1,
+        "6: Series Type": "close",
+        "7: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: MAMA": {
+        "2020-04-29": {
+            "MAMA": "1242.3874",
+            "FAMA": "1243.3415"
+        },
+        "2020-04-28": {
+            "MAMA": "1231.2993",
+            "FAMA": "1243.3917"
+        }
+    }
+}
