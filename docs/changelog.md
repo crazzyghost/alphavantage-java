@@ -1,4 +1,10 @@
 # Changelog
+## v1.7.0 - 23-01-2024
+- New: Support for economic indicators 
+- New: [Modularise library](https://github.com/crazzyghost/alphavantage-java/pull/26) 
+- Deprecated: `indicator` interface in favour of `technicalIndicator` for access to Technical Indicator data
+## v1.6.2 - 29-01-2022
+- Fix: [Number parsing bug](https://github.com/crazzyghost/alphavantage-java/issues/23) 
 ## v1.6.1 - 15-11-2021
 - Fix: [JitPack build failure](https://jitpack.io/com/github/crazzyghost/alphavantage-java/1.6.0/build.log)
 - Fix: BalanceSheet field types

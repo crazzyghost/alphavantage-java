@@ -1,0 +1,20 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Hilbert Transform - SineWave (HT_SINE)",
+        "3: Last Refreshed": "2020-05-01",
+        "4: Interval": "daily",
+        "5: Series Type": "close",
+        "6: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: HT_SINE": {
+        "2020-05-01": {
+            "LEAD SINE": "-0.9358",
+            "SINE": "-0.4124"
+        },
+        "2020-04-30": {
+            "LEAD SINE": "-0.9305",
+            "SINE": "-0.3990"
+        }
+    }
+}

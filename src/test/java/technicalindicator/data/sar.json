@@ -1,0 +1,19 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Parabolic SAR (SAR)",
+        "3: Last Refreshed": "2020-05-01",
+        "4: Interval": "weekly",
+        "5.1: Acceleration": 0.05,
+        "5.2: Maximum": 0.25,
+        "6: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: SAR": {
+        "2020-05-01": {
+            "SAR": "98.4484"
+        },
+        "2020-04-24": {
+            "SAR": "95.4782"
+        }
+    }
+}

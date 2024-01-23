@@ -1,2 +1,3 @@
 rootProject.name = 'alphavantage'
+System.setProperty("sonar.gradle.skipCompile", "true")
 

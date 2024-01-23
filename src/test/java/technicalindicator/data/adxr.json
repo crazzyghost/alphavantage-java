@@ -1,0 +1,18 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Average Directional Movement Index (ADXR)",
+        "3: Last Refreshed": "2020-04-29",
+        "4: Interval": "daily",
+        "5: Time Period": 10,
+        "6: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: ADXR": {
+        "2020-04-29": {
+            "ADXR": "17.3417"
+        },
+        "2020-04-28": {
+            "ADXR": "16.4304"
+        }
+    }
+}

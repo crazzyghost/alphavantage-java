@@ -28,7 +28,6 @@ import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.economicindicator.request.*;
 import com.crazzyghost.alphavantage.economicindicator.response.EconomicIndicatorResponse;
-import com.crazzyghost.alphavantage.fundamentaldata.FundamentalData;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.Maturity;
 import com.crazzyghost.alphavantage.parser.Parser;
@@ -88,7 +87,7 @@ public class EconomicIndicator implements Fetcher {
 
     /**
      * Make a blocking synchronous http request to fetch the data.
-     * This will be called by the {@link FundamentalData.RequestProxy#fetchSync()}.
+     * This will be called by the {@link EconomicIndicator.RequestProxy#fetchSync()}.
      *
      * Using this method will overwrite any async callback
      *

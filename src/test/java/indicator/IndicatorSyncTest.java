@@ -213,7 +213,6 @@ public class IndicatorSyncTest {
                 .seriesType(SeriesType.OPEN)
                 .timePeriod(60)
                 .fetchSync();
-        System.out.println(response.toString());
         assertTrue(response.toString().matches("(.*),indicatorUnits=2(.*)"));
         assertEquals(response.getIndicatorUnits().size(), 2);
     }

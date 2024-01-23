@@ -6,16 +6,16 @@
 
 ### Types
 
-|Name|Summary|
-|----|-------|
-|[Indicator]| Access to Technical Indicator Data. `class Indicator`|
+| Name        | Summary                                               |
+|-------------|-------------------------------------------------------|
+| [Indicator] | Access to Technical Indicator Data. `class Indicator` |
 
 ### Packages
 
-|Name|Summary|
-|----|-------|
-|[request]|`package alphavantage.indicator.request`|
-|[response]|`package alphavantage.indicator.response`|
+| Name       | Summary                                   |
+|------------|-------------------------------------------|
+| [request]  | `package alphavantage.indicator.request`  |
+| [response] | `package alphavantage.indicator.response` |
 
 [Indicator]: index.md
 [request]: index.md

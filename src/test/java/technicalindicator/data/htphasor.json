@@ -1,0 +1,20 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Hilbert Transform - Phasor Components (HT_PHASOR)",
+        "3: Last Refreshed": "2020-05-01",
+        "4: Interval": "weekly",
+        "5: Series Type": "close",
+        "6: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: HT_PHASOR": {
+        "2020-05-01": {
+            "PHASE": "-21.8410",
+            "QUADRATURE": "38.7063"
+        },
+        "2020-04-24": {
+            "PHASE": "-35.5257",
+            "QUADRATURE": "12.3469"
+        }
+    }
+}

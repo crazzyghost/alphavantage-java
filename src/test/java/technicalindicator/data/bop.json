@@ -1,0 +1,17 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "(BOP)",
+        "3: Last Refreshed": "2020-04-30 16:00:00",
+        "4: Interval": "15min",
+        "5: Time Zone": "US/Eastern"
+    },
+    "Technical Analysis: BOP": {
+        "2020-04-30 16:00": {
+            "BOP": "126.1365"
+        },
+        "2020-04-30 15:45": {
+            "BOP": "126.1717"
+        }
+    }
+}

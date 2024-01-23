@@ -4,11 +4,11 @@ repo_url: https://github.com/crazzyghost/alphavantage-java
 site_description: "Fluent Java wrapper for Alphavantage API"
 site_author: S. M. Sefa-Yeboah
 
-copyright: 'Copyright &copy; 2019 S. M. Sefa-Yeboah'
+copyright: 'Copyright &copy; 2022 S. M. Sefa-Yeboah'
 
 nav:
     - Overview: index.md
-    - "v1.6.0 API":
+    - "v1.7.0 API":
       - alphavantage: api/alphavantage/index.md
       - crypto: api/crypto/index.md
       - exchangerate: api/exchangerate/index.md
@@ -17,6 +17,7 @@ nav:
       - timeseries: api/timeseries/index.md
       - sector: api/sector/index.md
       - fundamentaldata: api/fundamentaldata/index.md
+      - economicindicator: api/economicindicator/index.md
     - Recipes:
       - Stock Time Series: timeseries.md
       - Forex (FX): forex.md
@@ -25,6 +26,7 @@ nav:
       - Technical Indicators: indicators.md
       - Sector Performances: sector.md
       - Fundamental Data: fundamentaldata.md
+      - Economic Indicators: economicindicator.md
     - Changelog: changelog.md
 theme:
   name: material

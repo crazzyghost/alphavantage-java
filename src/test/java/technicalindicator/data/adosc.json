@@ -1,0 +1,19 @@
+{
+    "Meta Data": {
+        "1: Symbol": "IBM",
+        "2: Indicator": "Chaikin A/D Oscillator (ADOSC)",
+        "3: Last Refreshed": "2020-05-01",
+        "4: Interval": "daily",
+        "5.1: FastK Period": 5,
+        "5.2: SlowK Period": 10,
+        "6: Time Zone": "US/Eastern Time"
+    },
+    "Technical Analysis: ADOSC": {
+        "2020-05-01": {
+            "ADOSC": "1528856.9997"
+        },
+        "2020-04-30": {
+            "ADOSC": "2708242.0301"
+        }
+    }
+}
