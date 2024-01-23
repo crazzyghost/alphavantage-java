@@ -168,7 +168,6 @@ public class TechnicalIndicatorRequestTest {
             .fastDMaType(MAType.MAMA)
             .forSymbol("IBM")
             .build();
-        System.out.println(UrlExtractor.extract(request));
         assertEquals(expected, UrlExtractor.extract(request) + "demo");
     }
 
@@ -249,7 +248,6 @@ public class TechnicalIndicatorRequestTest {
             .maximum(0.50)
             .forSymbol("IBM")
             .build();
-        System.out.println(UrlExtractor.extract(request));
         assertEquals(expected, UrlExtractor.extract(request) + "demo");
     }
 

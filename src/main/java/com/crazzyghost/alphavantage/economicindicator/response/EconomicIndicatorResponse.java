@@ -80,7 +80,6 @@ public class EconomicIndicatorResponse {
     }
 
     public static EconomicIndicatorResponse of(Map<String, Object> stringObjectMap) {
-        System.out.print(stringObjectMap);
         Parser<EconomicIndicatorResponse> parser = new EconomicIndicatorResponse.EconomicIndicatorParser();
         return parser.parse(stringObjectMap);
     }
