@@ -4,7 +4,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: cimg/openjdk:8.0
     
     working_directory: ~/repo
 
@@ -69,7 +69,7 @@ jobs:
             - build/*
   sonar:
     docker:
-      - image: circleci/openjdk:11-jdk
+      - image: cimg/openjdk:17.0
     steps:
       - checkout
       - attach_workspace:
