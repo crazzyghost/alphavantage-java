@@ -6,16 +6,16 @@
 
 ### Types
 
-|Name|Summary|
-|----|-------|
-|[ExchangeRate]| Access to Exchange Rate Data. `class ExchangeRate`|
+| Name           | Summary                                            |
+|----------------|----------------------------------------------------|
+| [ExchangeRate] | Access to Exchange Rate Data. `class ExchangeRate` |
 
 ### Packages
 
-|Name|Summary|
-|----|-------|
-|[request]|`package alphavantage.exchangerate.request`|
-|[response]|`package alphavantage.exchangerate.response`|
+| Name       | Summary                                      |
+|------------|----------------------------------------------|
+| [request]  | `package alphavantage.exchangerate.request`  |
+| [response] | `package alphavantage.exchangerate.response` |
 
 [ExchangeRate]: index.md
 [request]: index.md

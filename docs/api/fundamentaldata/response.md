@@ -6,19 +6,19 @@
 
 ### Types
 
-|Name|Summary|
-|----|-------|
-|[AnnualEarning]| `class AnnualEarning`|
-|[BalanceSheet]| `class BalanceSheet`|
-|[BalanceSheetResponse]| `class BalanceSheetResponse`|
-|[CashFlow]| `class CashFlow`|
-|[CashFlowResponse]| `class CashFlowResponse`|
-|[CompanyOverview]| `class CompanyOverview`|
-|[CompanyOverviewResponse]| `class CompanyOverviewResponse`|
-|[EarningsResponse]| `class EarningsResponse`|
-|[IncomeStatement]| `class IncomeStatement`|
-|[IncomeStatementResponse]| `class IncomeStatementResponse`|
-|[QuarterlyEarning]| `class QuarterlyEarning`|
+| Name                      | Summary                         |
+|---------------------------|---------------------------------|
+| [AnnualEarning]           | `class AnnualEarning`           |
+| [BalanceSheet]            | `class BalanceSheet`            |
+| [BalanceSheetResponse]    | `class BalanceSheetResponse`    |
+| [CashFlow]                | `class CashFlow`                |
+| [CashFlowResponse]        | `class CashFlowResponse`        |
+| [CompanyOverview]         | `class CompanyOverview`         |
+| [CompanyOverviewResponse] | `class CompanyOverviewResponse` |
+| [EarningsResponse]        | `class EarningsResponse`        |
+| [IncomeStatement]         | `class IncomeStatement`         |
+| [IncomeStatementResponse] | `class IncomeStatementResponse` |
+| [QuarterlyEarning]        | `class QuarterlyEarning`        |
 
 [alphavantage]: ../alphavantage/index.md
 [fundamentaldata]: ./index.md

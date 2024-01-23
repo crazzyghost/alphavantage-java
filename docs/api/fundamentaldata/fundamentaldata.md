@@ -8,19 +8,19 @@ Access to Fundamental Data
 
 ### Constructors
 
-|Name|Summary|
-|----|-------|
+| Name                                    | Summary                                 |
+|-----------------------------------------|-----------------------------------------|
 | [FundamentalData](./fundamentaldata.md) | `public FundamentalData(Config config)` |
 
 
 ### Properties
 
-|Name|Summary|
-|----|-------|
-| [config](#) | `private Config config` |
-| [builder](#) | `private FundamentaDataRequest.Builder builder` |
+| Name                 | Summary                                              |
+|----------------------|------------------------------------------------------|
+| [config](#)          | `private Config config`                              |
+| [builder](#)         | `private FundamentalDataRequest.Builder builder`     |
 | [successCallback](#) | `private Fetcher.SuccessCallback<?> successCallback` |
-| [failureCallback](#) | `private Fetcher.FailureCallback failureCallback` |
+| [failureCallback](#) | `private Fetcher.FailureCallback failureCallback`    |
 
 ### Methods
 

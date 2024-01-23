@@ -6,10 +6,10 @@
 
 ### Types
 
-|Name|Summary|
-|----|-------|
-|[SectorResponse]| A Sector performance response. `class SectorResponse`|
-|[SectorUnit]| A sector performance data structure. `class SectorUnit`|
+| Name             | Summary                                                 |
+|------------------|---------------------------------------------------------|
+| [SectorResponse] | A Sector performance response. `class SectorResponse`   |
+| [SectorUnit]     | A sector performance data structure. `class SectorUnit` |
 
 [alphavantage]: ../alphavantage/index.md
 [sector]: ./index.md

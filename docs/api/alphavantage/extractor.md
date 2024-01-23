@@ -8,12 +8,12 @@ Extracts a valid url from a request object. The request object should contain va
 
 ### Constructors
 
-|Name|Summary|
-|----|-------|
+| Name              | Summary                                              |
+|-------------------|------------------------------------------------------|
 | [UrlExtractor](#) | private default constructor `private UrlExtractor()` |
 
 ### Methods
 
-|Name|Summary|
-|----|-------|
+| Name         | Summary                                                                        |
+|--------------|--------------------------------------------------------------------------------|
 | [extract](#) | Get an API url from a request object. `public static String extract(Object o)` |

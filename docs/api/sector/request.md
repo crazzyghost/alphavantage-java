@@ -6,9 +6,9 @@
 
 ### Types
 
-|Name|Summary|
-|----|-------|
-|[SectorRequest]| A sector performance request. `class SectorRequest`|
+| Name            | Summary                                             |
+|-----------------|-----------------------------------------------------|
+| [SectorRequest] | A sector performance request. `class SectorRequest` |
 
 [sector]: ./index.md
 [SectorRequest]: ./sector-request.md

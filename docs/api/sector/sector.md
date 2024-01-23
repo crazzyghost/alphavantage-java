@@ -8,24 +8,24 @@ Access to Sector Performance Data
 
 ### Constructors
 
-|Name|Summary|
-|----|-------|
+| Name                  | Summary                        |
+|-----------------------|--------------------------------|
 | [Sector](./sector.md) | `public Sector(Config config)` |
 
 
 ### Properties
 
-|Name|Summary|
-|----|-------|
-| [config](#) | `private Config config` |
-| [builder](#) | `private SectorRequest.Builder builder` |
+| Name                 | Summary                                                           |
+|----------------------|-------------------------------------------------------------------|
+| [config](#)          | `private Config config`                                           |
+| [builder](#)         | `private SectorRequest.Builder builder`                           |
 | [successCallback](#) | `private Fetcher.SuccessCallback<SectorResponse> successCallback` |
-| [failureCallback](#) | `private Fetcher.FailureCallback failureCallback` |
+| [failureCallback](#) | `private Fetcher.FailureCallback failureCallback`                 |
 
 ### Methods
 
-|Name|Summary|
-|----|-------|
+| Name           | Summary                                                                     |
+|----------------|-----------------------------------------------------------------------------|
 | [onSuccess](#) | `public Sector onSuccess(Fetcher.SuccessCallback<SectorResponse> callback)` |
-| [onFailure](#) | `public Sector onFailure(Fetcher.FailureCallback callback)` |
-| [fetch](#) | `public void fetch()` |
+| [onFailure](#) | `public Sector onFailure(Fetcher.FailureCallback callback)`                 |
+| [fetch](#)     | `public void fetch()`                                                       |
