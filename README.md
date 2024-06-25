@@ -4,6 +4,7 @@
     <a href="https://jitpack.io/#crazzyghost/alphavantage-java"> <img src="https://jitpack.io/v/crazzyghost/alphavantage-java.svg" /></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg"/></a>
     <a href="https://jitpack.io/v/crazzyghost/alphavantage-java/month"> <img src="https://jitpack.io/v/crazzyghost/alphavantage-java/month" /></a>
+    <a href="https://hits.dwyl.com/crazzyghost/alphavantage-java.svg?style=flat&show=unique"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fhits.dwyl.com%2Fcrazzyghost%2Falphavantage-java.svg%3Fstyle%3Dflat-square%26show%3Dunique&color=green"></a>
     <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=alert_status"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=alert_status" /></a>
     <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=security_rating"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=security_rating" /></a>
     <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=reliability_rating"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=reliability_rating" /></a>
@@ -11,9 +12,8 @@
     <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=bugs"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=bugs" /></a>
     <a href="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=vulnerabilities"> <img src="https://sonarcloud.io/api/project_badges/measure?project=crazzyghost_alphavantage-java&metric=vulnerabilities" /></a>
 </p>
-</p>
 
-An easy to use, fluent Java wrapper for accessing the [AlphaVantage API](https://www.alphavantage.co/).
+An easy-to-use, fluent Java wrapper for accessing the [AlphaVantage API](https://www.alphavantage.co/).
 
 ## Getting Started
 
@@ -93,16 +93,16 @@ We're good to go.
 
 Here, we choose which data category/endpoint we want to access
 
-| Category                  |   Method              |
-| -------------             | ------------------    |
-| Stock Time Series Data    | `.timeSeries()`       |
-| Forex Rate Data           | `.forex()`            |
-| Exchange Rate Data        | `.exchangeRate()`     |
-| Digital Currency Data     | `.crypto()`           |
-| Technical Indicator Data  | `.technicalIndicator()`        |
-| Sector Performance Data   | `.sector()`           |
-| Fundamental Data          | `.fundamentalData()`  |
-| Economic Indicators       | `.economicIndicator()`  |
+| Category                 | Method                  |
+|--------------------------|-------------------------|
+| Stock Time Series Data   | `.timeSeries()`         |
+| Forex Rate Data          | `.forex()`              |
+| Exchange Rate Data       | `.exchangeRate()`       |
+| Digital Currency Data    | `.crypto()`             |
+| Technical Indicator Data | `.technicalIndicator()` |
+| Sector Performance Data  | `.sector()`             |
+| Fundamental Data         | `.fundamentalData()`    |
+| Economic Indicators      | `.economicIndicator()`  |
 
 For example, to select the Stock Time Series:
 
