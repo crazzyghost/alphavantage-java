@@ -105,7 +105,7 @@ public class TimeSeriesSyncTest {
     @Test
     public void testIntradaySync() throws IOException {
         mockInterceptor.addRule()
-            .get("https://www.alphavantage.co/query?interval=5min&outputsize=full&function=TIME_SERIES_INTRADAY&symbol=IBM&datatype=json&apikey=demo")
+            .get("https://www.alphavantage.co/query?interval=5min&outputsize=full&adjusted=false&extended_hours=false&function=TIME_SERIES_INTRADAY&symbol=IBM&datatype=json&apikey=demo")
             .respond(stream("intraday"));
         
         TimeSeries timeSeries = AlphaVantage.api().timeSeries();

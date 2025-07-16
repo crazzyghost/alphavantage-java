@@ -89,14 +89,14 @@ public class TimeSeriesRequestTest {
     
     @Test
     public void testIntraDayRequest() {
-        String expected = "https://www.alphavantage.co/query?interval=5min&outputsize=full&function=TIME_SERIES_INTRADAY&symbol=IBM&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?interval=5min&outputsize=full&adjusted=false&extended_hours=false&function=TIME_SERIES_INTRADAY&symbol=IBM&datatype=json&apikey=demo";
         TimeSeriesRequest request = new IntraDayRequest.Builder()
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .interval(Interval.FIVE_MIN) 
             .outputSize(OutputSize.FULL)   
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");   
+        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
