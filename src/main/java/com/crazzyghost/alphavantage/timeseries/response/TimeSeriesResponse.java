@@ -9,9 +9,9 @@ import com.crazzyghost.alphavantage.parser.Parser;
 
 public class TimeSeriesResponse {
 
-    private MetaData metaData;
-    private List<StockUnit> stockUnits;
-    private String errorMessage;
+    private final MetaData metaData;
+    private final List<StockUnit> stockUnits;
+    private final String errorMessage;
 
     private TimeSeriesResponse(MetaData metaData, List<StockUnit> stockUnits) {
         this.metaData = metaData;

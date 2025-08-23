@@ -149,5 +149,19 @@ public class TimeSeriesSyncTest {
         assertNull(response.getErrorMessage());
     }
 
+    @Test
+    public void testRealtimeBulkQuotesSync() throws IOException {
+        mockInterceptor.addRule()
+                .get("https://www.alphavantage.co/query?function=REALTIME_BULK_QUOTES&symbol=IBM&datatype=json&apikey=demo")
+                .respond(stream("realtimebulkquote"));
+
+        QuoteResponse response = AlphaVantage.api()
+                .timeSeries()
+                .quote()
+                .forSymbol("IBM")
+                .fetchSync();
+
+        assertNotNull(response);
+    }
 
 }

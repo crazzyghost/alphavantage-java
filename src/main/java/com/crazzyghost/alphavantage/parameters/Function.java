@@ -11,6 +11,7 @@ public enum Function {
     TIME_SERIES_MONTHLY,
     TIME_SERIES_MONTHLY_ADJUSTED,
     GLOBAL_QUOTE,
+    REALTIME_BULK_QUOTES,
     //Exchange Rate
     CURRENCY_EXCHANGE_RATE,
     //Forex (FX) Functions
