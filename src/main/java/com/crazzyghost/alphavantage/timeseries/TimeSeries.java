@@ -364,6 +364,37 @@ public final class TimeSeries implements Fetcher{
             ((IntraDayRequest.Builder)this.builder).interval(interval);
             return this;
         }
+
+        /**
+         * Adjust the timeseries output by historical split and dividend events
+         *
+         * @return
+         */
+        public IntraDayRequestProxy adjusted() {
+            ((IntraDayRequest.Builder) this.builder).adjusted();
+            return this;
+        }
+
+        /**
+         * Include extended and regular trading hours
+         *
+         * @return
+         */
+        public IntraDayRequestProxy extendedHours() {
+            ((IntraDayRequest.Builder) this.builder).extendedHours();
+            return this;
+        }
+
+        /**
+         * Query data in a specific month
+         *
+         * @param month
+         * @return
+         */
+        public IntraDayRequestProxy month(String month) {
+            ((IntraDayRequest.Builder) this.builder).month(month);
+            return this;
+        }
     }
 
     /**
