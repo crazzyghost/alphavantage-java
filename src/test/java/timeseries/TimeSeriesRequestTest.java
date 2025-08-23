@@ -7,12 +7,7 @@ import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
-import com.crazzyghost.alphavantage.timeseries.request.DailyRequest;
-import com.crazzyghost.alphavantage.timeseries.request.QuoteRequest;
-import com.crazzyghost.alphavantage.timeseries.request.IntraDayRequest;
-import com.crazzyghost.alphavantage.timeseries.request.MonthlyRequest;
-import com.crazzyghost.alphavantage.timeseries.request.TimeSeriesRequest;
-import com.crazzyghost.alphavantage.timeseries.request.WeeklyRequest;
+import com.crazzyghost.alphavantage.timeseries.request.*;
 
 import org.junit.Test;
 
@@ -147,6 +142,18 @@ public class TimeSeriesRequestTest {
             .build();
         assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");   
     }
+
+    @Test
+    public void testRealtimeBulkQuoteRequest() {
+        String expected = "https://www.alphavantage.co/query?function=REALTIME_BULK_QUOTES&symbol=IBM,MSFT&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new RealtimeBulkQuoteRequest.Builder()
+                .forSymbol("IBM")
+                .forSymbol("MSFT")
+                .dataType(DataType.JSON)
+                .build();
+        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
 
 
 }

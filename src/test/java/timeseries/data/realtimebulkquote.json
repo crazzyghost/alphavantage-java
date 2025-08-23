@@ -1,0 +1,51 @@
+{
+  "endpoint": "Realtime Bulk Quotes",
+  "message": "This is a premium endpoint. ***THE SAMPLE DATA SCHEMA BELOW IS ARTIFICIAL AND FOR ILLUSTRATION PURPOSES ONLY***. To access the actual data, please subscribe to any premium plan that mentions 'Realtime US Market Data' in its description at https://www.alphavantage.co/premium/ for your personal non-professional use. For professional/commercial use, please contact support at support@alphavantage.co.",
+  "data": [
+    {
+      "symbol": "MSFT",
+      "timestamp": "2024-10-18 19:59:55.291",
+      "open": "417.61",
+      "high": "419.649",
+      "low": "416.2601",
+      "close": "418.16",
+      "volume": "17145307",
+      "previous_close": "416.72",
+      "change": "1.44",
+      "change_percent": "0.3456",
+      "extended_hours_quote": "418.1",
+      "extended_hours_change": "-0.06",
+      "extended_hours_change_percent": "-0.01435"
+    },
+    {
+      "symbol": "AAPL",
+      "timestamp": "2024-10-18 19:59:50.451",
+      "open": "236.0",
+      "high": "236.05",
+      "low": "234.02",
+      "close": "235.0",
+      "volume": "46431470",
+      "previous_close": "232.15",
+      "change": "2.85",
+      "change_percent": "1.2277",
+      "extended_hours_quote": "234.83",
+      "extended_hours_change": "-0.17",
+      "extended_hours_change_percent": "-0.07234"
+    },
+    {
+      "symbol": "IBM",
+      "timestamp": "2024-10-18 19:54:00.879",
+      "open": "231.29",
+      "high": "232.6499",
+      "low": "230.17",
+      "close": "232.22",
+      "volume": "4715482",
+      "previous_close": "232.88",
+      "change": "-0.66",
+      "change_percent": "-0.2834",
+      "extended_hours_quote": "232.37",
+      "extended_hours_change": "0.15",
+      "extended_hours_change_percent": "0.06459"
+    }
+  ]
+}

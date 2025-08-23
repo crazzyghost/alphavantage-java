@@ -3,15 +3,15 @@ package com.crazzyghost.alphavantage.timeseries.response;
 
 public class StockUnit {
 
-    private double open;
-    private double high;
-    private double low;
-    private double close;
-    private double adjustedClose;
-    private long volume;
-    private double dividendAmount;
-    private double splitCoefficient;
-    private String dateTime;
+    private final double open;
+    private final double high;
+    private final double low;
+    private final double close;
+    private final double adjustedClose;
+    private final long volume;
+    private final double dividendAmount;
+    private final double splitCoefficient;
+    private final String dateTime;
 
 
     private StockUnit(Builder builder) {

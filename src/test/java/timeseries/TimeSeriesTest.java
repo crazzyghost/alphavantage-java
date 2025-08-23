@@ -11,6 +11,7 @@ import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
 import com.crazzyghost.alphavantage.timeseries.response.QuoteResponse;
+import com.crazzyghost.alphavantage.timeseries.response.RealtimeBulkQuoteResponse;
 import com.crazzyghost.alphavantage.timeseries.response.TimeSeriesResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Interval;
@@ -93,6 +94,10 @@ public class TimeSeriesTest {
             .respond(stream("globalquote"));
 
         mockInterceptor.addRule()
+                .get("https://www.alphavantage.co/query?function=REALTIME_BULK_QUOTES&symbol=IBM&datatype=json&apikey=demo")
+                .respond(stream("realtimebulkquote"));
+
+        mockInterceptor.addRule()
             .get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=AAPL&datatype=json&apikey=demo")
             .respond(errorMessage);
 
@@ -107,6 +112,14 @@ public class TimeSeriesTest {
         mockInterceptor.addRule()
             .get("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&datatype=json&apikey=demo")
             .respond(errorMessage);
+
+        mockInterceptor.addRule()
+                .get("https://www.alphavantage.co/query?function=REALTIME_BULK_QUOTES&symbol=GOOGL&datatype=json&apikey=demo")
+                .respond(errorMessage);
+
+        mockInterceptor.addRule()
+                .get("https://www.alphavantage.co/query?function=REALTIME_BULK_QUOTES&symbol=AAPL,MSFT&datatype=json&apikey=demo")
+                .respond(errorMessage);
 
 
     }
@@ -328,7 +341,10 @@ public class TimeSeriesTest {
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .interval(Interval.FIVE_MIN) 
-            .outputSize(OutputSize.FULL) 
+            .outputSize(OutputSize.FULL)
+            .extendedHours()
+            .adjusted()
+            .month("2023-10")
             .onSuccess((TimeSeriesResponse e) -> {
                 ref.set(e);
                 lock.countDown();
@@ -390,6 +406,62 @@ public class TimeSeriesTest {
             .onSuccess(e->lock.countDown())
             .fetch();
             lock.await();
+        assertNull(ref.get());
+
+    }
+
+    @Test
+    public void testRealtimeBulkQuote() throws InterruptedException {
+
+        final CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<RealtimeBulkQuoteResponse> ref = new AtomicReference<>();
+
+        AlphaVantage.api()
+                .timeSeries()
+                .realtimeBulkQuote()
+                .forSymbol("IBM")
+                .onSuccess(e -> {
+                    ref.set((RealtimeBulkQuoteResponse)e);
+                    lock.countDown();
+                })
+                .fetch();
+        lock.await();
+        assertNotNull(ref.get());
+
+    }
+
+
+    @Test
+    public void testRealtimeBulkQuoteError() throws InterruptedException {
+
+        final CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<RealtimeBulkQuoteResponse> ref = new AtomicReference<>();
+
+        AlphaVantage.api()
+                .timeSeries()
+                .realtimeBulkQuote()
+                .forSymbol("GOOGL")
+                .onFailure(e->lock.countDown())
+                .fetch();
+        lock.await();
+        assertNull(ref.get());
+
+    }
+
+    @Test
+    public void testRealtimeBulkQuoteErrorWithNoFailureCallback() throws InterruptedException {
+
+        final CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
+
+        AlphaVantage.api()
+                .timeSeries()
+                .realtimeBulkQuote()
+                .forSymbol("AAPL")
+                .forSymbol("MSFT")
+                .onSuccess(e->lock.countDown())
+                .fetch();
+        lock.await();
         assertNull(ref.get());
 
     }
