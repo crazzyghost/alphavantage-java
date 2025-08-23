@@ -100,6 +100,45 @@ public class TimeSeriesRequestTest {
     }
 
     @Test
+    public void testIntraDayRequestAdjusted() {
+        String expected = "https://www.alphavantage.co/query?interval=5min&outputsize=full&adjusted=true&extended_hours=false&function=TIME_SERIES_INTRADAY&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new IntraDayRequest.Builder()
+            .forSymbol("IBM")
+            .dataType(DataType.JSON)
+            .interval(Interval.FIVE_MIN)
+            .outputSize(OutputSize.FULL)
+            .adjusted()
+            .build();
+        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testIntraDayRequestExtendedHours() {
+        String expected = "https://www.alphavantage.co/query?interval=5min&outputsize=full&adjusted=false&extended_hours=true&function=TIME_SERIES_INTRADAY&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new IntraDayRequest.Builder()
+            .forSymbol("IBM")
+            .dataType(DataType.JSON)
+            .interval(Interval.FIVE_MIN)
+            .outputSize(OutputSize.FULL)
+            .extendedHours()
+            .build();
+        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testIntraDayRequestMonth() {
+        String expected = "https://www.alphavantage.co/query?interval=5min&outputsize=full&adjusted=false&extended_hours=false&month=2023-11&function=TIME_SERIES_INTRADAY&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new IntraDayRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .interval(Interval.FIVE_MIN)
+                .outputSize(OutputSize.FULL)
+                .month("2023-11")
+                .build();
+        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
     public void testGlobalQuoteRequest() {
         String expected = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&datatype=json&apikey=demo";
         TimeSeriesRequest request = new QuoteRequest.Builder()
