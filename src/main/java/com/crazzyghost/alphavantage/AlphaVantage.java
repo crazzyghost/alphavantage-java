@@ -28,6 +28,7 @@ import com.crazzyghost.alphavantage.exchangerate.ExchangeRate;
 import com.crazzyghost.alphavantage.forex.Forex;
 import com.crazzyghost.alphavantage.fundamentaldata.FundamentalData;
 import com.crazzyghost.alphavantage.indicator.Indicator;
+import com.crazzyghost.alphavantage.marketstatus.MarketStatus;
 import com.crazzyghost.alphavantage.sector.Sector;
 import com.crazzyghost.alphavantage.technicalindicator.TechnicalIndicator;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
@@ -37,18 +38,21 @@ import com.crazzyghost.alphavantage.timeseries.TimeSeries;
  * The API is accessed through this class.
  * Exposes a singleton instance for interaction
  *
- * @since 1.0.0
  * @author Sylvester Sefa-Yeboah
+ * @since 1.0.0
  */
 public class AlphaVantage {
 
     private static AlphaVantage INSTANCE;
     private Config config;
 
-    private AlphaVantage() { }
+    private AlphaVantage() {
+    }
 
-    /** Initialize the client with a {@link Config} instance */
-    public void init(Config config){
+    /**
+     * Initialize the client with a {@link Config} instance
+     */
+    public void init(Config config) {
         this.config = config;
     }
 
@@ -63,13 +67,13 @@ public class AlphaVantage {
         }
         return INSTANCE;
     }
-    
+
     /**
-     * Access to Time Series Data. All requests associated with Stock Time Series is accessed through this method. 
+     * Access to Time Series Data. All requests associated with Stock Time Series is accessed through this method.
      *
      * @return A {@link TimeSeries} instance for access to Time Series Data
      */
-    public TimeSeries timeSeries(){
+    public TimeSeries timeSeries() {
         return new TimeSeries(config);
     }
 
@@ -78,7 +82,7 @@ public class AlphaVantage {
      *
      * @return A {@link Forex} instance for access to FX data
      */
-    public Forex forex(){
+    public Forex forex() {
         return new Forex(config);
     }
 
@@ -98,20 +102,18 @@ public class AlphaVantage {
      *
      * @return A {@link Crypto} instance for access to Digital Currency Data
      */
-    public Crypto crypto(){
+    public Crypto crypto() {
         return new Crypto(config);
     }
 
     /**
-     * @deprecated
-     * <p>use {@link AlphaVantage#technicalIndicator()} instead </p>
-     * 
-     * Access to Technical Indicators.
-     *
      * @return A {@link Indicator} instance for access to Technical Indicator Data
+     * @deprecated <p>use {@link AlphaVantage#technicalIndicator()} instead </p>
+     * <p>
+     * Access to Technical Indicators.
      */
     @Deprecated
-    public Indicator indicator(){
+    public Indicator indicator() {
         return new Indicator(config);
     }
 
@@ -119,7 +121,7 @@ public class AlphaVantage {
      * Access to Technical Indicators.
      *
      * @return A {@link TechnicalIndicator} instance for access to Technical
-     *         Indicator Data
+     * Indicator Data
      */
     public TechnicalIndicator technicalIndicator() {
         return new TechnicalIndicator(config);
@@ -130,7 +132,7 @@ public class AlphaVantage {
      *
      * @return A {@link Sector} instance for access to Sector Performance Data
      */
-    public Sector sector(){
+    public Sector sector() {
         return new Sector(config);
     }
 
@@ -139,7 +141,7 @@ public class AlphaVantage {
      *
      * @return A {@link FundamentalData} instance for access to Fundamental Data
      */
-    public FundamentalData fundamentalData(){
+    public FundamentalData fundamentalData() {
         return new FundamentalData(config);
     }
 
@@ -148,8 +150,18 @@ public class AlphaVantage {
      *
      * @return A {@link EconomicIndicator} instance for access to Economic Indicators
      */
-    public EconomicIndicator economicIndicator(){
+    public EconomicIndicator economicIndicator() {
         return new EconomicIndicator(config);
     }
+
+    /**
+     * Access to Global Market Status.
+     *
+     * @return A {@link MarketStatus} instance for access to Global Market Status
+     */
+    public MarketStatus marketStatus() {
+        return new MarketStatus(config);
+    }
+
 
 }

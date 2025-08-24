@@ -221,8 +221,7 @@ public final class TimeSeries implements Fetcher{
      * @param data parsed JSON response
      */
     private void parseResponse(Map<String, Object> data){
-
-        switch(builder.function){
+        switch (builder.function) {
             case TIME_SERIES_DAILY:
             case TIME_SERIES_DAILY_ADJUSTED:
             case TIME_SERIES_MONTHLY:
@@ -324,7 +323,7 @@ public final class TimeSeries implements Fetcher{
          * @throws AlphaVantageException
          */
         public U fetchSync() throws AlphaVantageException {
-            SuccessCallback<U> callback = (e) -> setSyncResponse(e);
+            SuccessCallback<U> callback = this::setSyncResponse;
             TimeSeries.this.builder = this.builder;
             TimeSeries.this.fetchSync(callback);
             return this.syncResponse;
