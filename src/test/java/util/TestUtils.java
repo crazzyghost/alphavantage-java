@@ -117,7 +117,12 @@ public class TestUtils {
     public static String cryptoUrl(final String function, final String symbol){
         String sym = symbol == null ? "BTC" : symbol;
         return Config.BASE_URL + "market=CNY&function=DIGITAL_CURRENCY_"+ function.toUpperCase() + "&symbol=" + sym +"&apikey=demo";
-    };
+    }
+
+    public static String cryptoIntradayUrl(final String symbol){
+        String sym = symbol == null ? "BTC" : symbol;
+        return Config.BASE_URL + "market=CNY&function=CRYPTO_INTRADAY" + "&symbol=" + sym +"&apikey=demo";
+    }
 
     public static String cryptoRatingUrl(final String symbol){
         String sym = symbol == null ? "BTC" : symbol;

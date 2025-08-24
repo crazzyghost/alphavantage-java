@@ -29,98 +29,49 @@ package com.crazzyghost.alphavantage.cryptocurrency.response;
  * @since 1.0.0
  */
 public class CryptoUnit {
-
-    private final double open;
-    private final double close;
-    private final double high;
-    private final double low;
-    private final double openUSD;
-    private final double closeUSD;
-    private final double highUSD;
-    private final double lowUSD;
-    private final double volume;
-    private final double marketCap;
-    private final String date;
+    private final Double open;
+    private final Double close;
+    private final Double high;
+    private final Double low;
+    private final Double volume;
 
     public CryptoUnit(Builder builder) {
-        this.open       = builder.open;
-        this.close      = builder.close;
-        this.high       = builder.high;
-        this.low        = builder.low;
-        this.openUSD    = builder.openUSD;
-        this.closeUSD   = builder.closeUSD;
-        this.highUSD    = builder.highUSD;
-        this.lowUSD     = builder.lowUSD;
-        this.volume     = builder.volume;
-        this.marketCap  = builder.marketCap;
-        this.date       = builder.date;
+        this.open = builder.open;
+        this.close = builder.close;
+        this.high = builder.high;
+        this.low = builder.low;
+        this.volume = builder.volume;
     }
 
 
     public static class Builder {
+        private Double open;
+        private Double high;
+        private Double low;
+        private Double close;
+        private Double volume;
 
-        double open;
-        double high;
-        double low;
-        double close;
-        double openUSD;
-        double closeUSD;
-        double highUSD;
-        double lowUSD;
-        double volume;
-        double marketCap;
-        String date;
-
-        public Builder open(double open){
+        public Builder open(Double open){
             this.open = open;
             return this;
         }
 
-        public Builder high(double high){
+        public Builder high(Double high){
             this.high = high;
             return this;
         }
-        public Builder low(double low){
+        public Builder low(Double low){
             this.low = low;
             return this;
         }
 
-        public Builder close(double close){
+        public Builder close(Double close){
             this.close = close;
             return this;
         }
 
-        public Builder openUSD(double openUSD){
-            this.openUSD = openUSD;
-            return this;
-        }
-
-        public Builder highUSD(double highUSD){
-            this.highUSD = highUSD;
-            return this;
-        }
-        public Builder lowUSD(double lowUSD){
-            this.lowUSD = lowUSD;
-            return this;
-        }
-
-        public Builder closeUSD(double closeUSD){
-            this.closeUSD = closeUSD;
-            return this;
-        }
-
-        public Builder marketCap(double marketCap){
-            this.marketCap = marketCap;
-            return this;
-        }
-
-        public Builder volume(double volume){
+        public Builder volume(Double volume){
             this.volume = volume;
-            return this;
-        }
-
-        public Builder date(String date){
-            this.date = date;
             return this;
         }
 
@@ -130,64 +81,35 @@ public class CryptoUnit {
 
     }
 
-    public double getOpen() {
+    public Double getOpen() {
         return open;
     }
 
-    public double getClose() {
+    public Double getClose() {
         return close;
     }
 
-    public double getHigh() {
+    public Double getHigh() {
         return high;
     }
 
-    public double getLow() {
+    public Double getLow() {
         return low;
     }
 
-    public double getOpenUSD() {
-        return openUSD;
-    }
-
-    public double getCloseUSD() {
-        return closeUSD;
-    }
-
-    public double getHighUSD() {
-        return highUSD;
-    }
-
-    public double getLowUSD() {
-        return lowUSD;
-    }
-
-    public double getVolume() {
+    public Double getVolume() {
         return volume;
     }
 
-    public double getMarketCap() {
-        return marketCap;
-    }
-
-    public String getDate(){
-        return date;
-    }
 
     @Override
     public String toString() {
         return "\n" + "CryptoUnit {" +
-            "date=" + date +
-            ", close=" + close + 
-            ", closeUSD=" + closeUSD + 
-            ", high=" + high + 
-            ", highUSD=" + highUSD + 
-            ", low=" + low + 
-            ", lowUSD=" + lowUSD + 
-            ", marketCap=" + marketCap + 
-            ", open=" + open + 
-            ", openUSD=" + openUSD + 
-            ", volume=" + volume + 
+            ", close=" + close +
+            ", high=" + high +
+            ", low=" + low +
+            ", open=" + open +
+            ", volume=" + volume +
         "}";
     }
 

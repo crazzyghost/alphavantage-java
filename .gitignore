@@ -144,3 +144,5 @@ _config.yml
 site/**
 .python-version
 .java-version
+
+.DS_Store

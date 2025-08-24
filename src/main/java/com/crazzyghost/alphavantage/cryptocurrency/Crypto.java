@@ -28,6 +28,7 @@ import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.cryptocurrency.request.CryptoRequest;
 import com.crazzyghost.alphavantage.cryptocurrency.request.DigitalCurrencyRequest;
+import com.crazzyghost.alphavantage.cryptocurrency.request.IntradayRequest;
 import com.crazzyghost.alphavantage.cryptocurrency.request.RatingRequest;
 import com.crazzyghost.alphavantage.cryptocurrency.response.CryptoResponse;
 import com.crazzyghost.alphavantage.cryptocurrency.response.RatingResponse;
@@ -36,6 +37,7 @@ import com.crazzyghost.alphavantage.parser.Parser;
 import okhttp3.Call;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Map;
@@ -93,6 +95,15 @@ public final class Crypto implements Fetcher {
         return new RatingRequestProxy();
     }
 
+    /**
+     * Gives access monthly crypto currency data
+     *
+     * @return {@link MonthlyRequestProxy} instance
+     */
+    public IntradayRequestProxy intraday(){
+        return new IntradayRequestProxy();
+    }
+
     /** Fetches Crypto Currency data */
     @Override
     public void fetch() {
@@ -101,12 +112,12 @@ public final class Crypto implements Fetcher {
         
         config.getOkHttpClient().newCall(UrlExtractor.extract(builder.build(), config.getKey())).enqueue(new okhttp3.Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()) {
                     try (ResponseBody body = response.body()) {
                         parseCryptoResponse(Parser.parseJSON(body.string()));
@@ -151,16 +162,16 @@ public final class Crypto implements Fetcher {
      * @param data parsed JSON response
      */
     private void parseCryptoResponse(Map<String, Object> data) {
-
         switch (builder.function) {
             case CRYPTO_RATING:
                 parseRatingResponse(data);
                 break;
+            case CRYPTO_INTRADAY:
             case DIGITAL_CURRENCY_DAILY:
             case DIGITAL_CURRENCY_MONTHLY:
             case DIGITAL_CURRENCY_WEEKLY:
                 parseDigitalCurrencyResponse(data);
-                /* falls through */
+                break;
             default:
                 break;
         }
@@ -174,7 +185,7 @@ public final class Crypto implements Fetcher {
      */
     @SuppressWarnings("unchecked")
     private void parseDigitalCurrencyResponse(Map<String, Object> data){
-        CryptoResponse response = CryptoResponse.of(data, ((DigitalCurrencyRequest.Builder)builder).getMarket());
+        CryptoResponse response = CryptoResponse.of(data);
         if(response.getErrorMessage() != null && failureCallback != null) {
             failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
         }
@@ -222,6 +233,11 @@ public final class Crypto implements Fetcher {
             return (T)this;
         }
 
+        public T market(String symbol) {
+            this.builder.market(symbol);
+            return (T)this;
+        }
+
         public T onSuccess(SuccessCallback<?> callback) {
             Crypto.this.successCallback = callback;
             return (T)this;
@@ -260,48 +276,31 @@ public final class Crypto implements Fetcher {
 
     /** Proxy for building a DailyRequest */
     public class DailyRequestProxy extends RequestProxy<DailyRequestProxy, CryptoResponse> {
-
         public DailyRequestProxy() {
             super();
-            builder = new DigitalCurrencyRequest.Builder();
-            builder = builder.function(Function.DIGITAL_CURRENCY_DAILY);
+            builder = new DigitalCurrencyRequest.Builder().function(Function.DIGITAL_CURRENCY_DAILY);
         }
- 
-        public DailyRequestProxy market(String market) {
-            ((DigitalCurrencyRequest.Builder)builder).market(market);
-            return this;
-        }
-
     }
 
     /** Proxy for building a WeeklyRequest */
     public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy, CryptoResponse> {
-
         public WeeklyRequestProxy() {
-            builder = new DigitalCurrencyRequest.Builder();
-            builder = builder.function(Function.DIGITAL_CURRENCY_WEEKLY);
+            builder = new DigitalCurrencyRequest.Builder().function(Function.DIGITAL_CURRENCY_WEEKLY);
         }
-
-        public WeeklyRequestProxy market(String market) {
-            ((DigitalCurrencyRequest.Builder)builder).market(market);
-            return this;
-        }
-
     }
 
     /** Proxy for building a MonthlyRequest */
     public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy, CryptoResponse> {
-
         public MonthlyRequestProxy() {
-            builder = new DigitalCurrencyRequest.Builder();
-            builder = builder.function(Function.DIGITAL_CURRENCY_MONTHLY);
+            builder = new DigitalCurrencyRequest.Builder().function(Function.DIGITAL_CURRENCY_MONTHLY);
         }
+    }
 
-        public MonthlyRequestProxy market(String market) {
-            ((DigitalCurrencyRequest.Builder)builder).market(market);
-            return this;
+    /** Proxy for building a MonthlyRequest */
+    public class IntradayRequestProxy extends RequestProxy<IntradayRequestProxy, CryptoResponse> {
+        public IntradayRequestProxy() {
+            builder = new IntradayRequest.Builder();
         }
-
     }
 
     /** Proxy for building a {@link RatingRequest} */
