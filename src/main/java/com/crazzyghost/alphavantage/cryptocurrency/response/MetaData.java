@@ -22,6 +22,9 @@
  */
 package com.crazzyghost.alphavantage.cryptocurrency.response;
 
+import com.crazzyghost.alphavantage.parameters.Interval;
+import com.crazzyghost.alphavantage.parameters.OutputSize;
+
 /**
  * Crypto Currency MetaData
  *
@@ -29,7 +32,6 @@ package com.crazzyghost.alphavantage.cryptocurrency.response;
  * @since 1.0.0
  */
 public class MetaData {
-
     private final String information;
     private final String digitalCurrencyCode;
     private final String digitalCurrencyName;
@@ -37,28 +39,28 @@ public class MetaData {
     private final String marketName;
     private final String lastRefreshed;
     private final String timeZone;
+    private final String interval;
+    private final String outputSize;
 
-    public MetaData(
-        String information,
-        String digitalCurrencyCode,
-        String digitalCurrencyName,
-        String marketCode,
-        String marketName,
-        String lastRefreshed,
-        String timeZone
-    ) {
-        this.information = information;
-        this.digitalCurrencyCode = digitalCurrencyCode;
-        this.digitalCurrencyName = digitalCurrencyName;
-        this.marketCode = marketCode;
-        this.marketName = marketName;
-        this.lastRefreshed = lastRefreshed;
-        this.timeZone = timeZone;
+    private MetaData(Builder builder) {
+        this.information = builder.information;
+        this.digitalCurrencyCode = builder.digitalCurrencyCode;
+        this.digitalCurrencyName = builder.digitalCurrencyName;
+        this.marketCode = builder.marketCode;
+        this.marketName = builder.marketName;
+        this.lastRefreshed = builder.lastRefreshed;
+        this.timeZone = builder.timeZone;
+        this.interval = builder.interval;
+        this.outputSize = builder.outputSize;
     }
 
 
-    public static MetaData empty(){
-        return new MetaData("","","","", "", "", "");
+    public static MetaData empty() {
+        return new MetaData(new Builder());
+    }
+
+    public static Builder builder(){
+        return new Builder();
     }
 
     public String getDigitalCurrencyCode() {
@@ -72,7 +74,7 @@ public class MetaData {
     public String getInformation() {
         return information;
     }
-    
+
     public String getLastRefreshed() {
         return lastRefreshed;
     }
@@ -84,11 +86,80 @@ public class MetaData {
     public String getMarketCode() {
         return marketCode;
     }
-    
+
     public String getMarketName() {
         return marketName;
     }
-    
+
+    public String getInterval() {
+        return interval;
+    }
+
+    public String getOutputSize() {
+        return outputSize;
+    }
+
+    public static class Builder {
+        private String information;
+        private String digitalCurrencyCode;
+        private String digitalCurrencyName;
+        private String marketCode;
+        private String marketName;
+        private String lastRefreshed;
+        private String timeZone;
+        private String interval;
+        private String outputSize;
+
+        public Builder information(String information) {
+            this.information = information;
+            return this;
+        }
+
+        public Builder digitalCurrencyCode(String digitalCurrencyCode) {
+            this.digitalCurrencyCode = digitalCurrencyCode;
+            return this;
+        }
+
+        public Builder digitalCurrencyName(String digitalCurrencyName) {
+            this.digitalCurrencyName = digitalCurrencyName;
+            return this;
+        }
+
+        public Builder marketCode(String marketCode) {
+            this.marketCode = marketCode;
+            return this;
+        }
+
+        public Builder marketName(String marketName) {
+            this.marketName = marketName;
+            return this;
+        }
+
+        public Builder lastRefreshed(String lastRefreshed) {
+            this.lastRefreshed = lastRefreshed;
+            return this;
+        }
+
+        public Builder timeZone(String timeZone) {
+            this.timeZone = timeZone;
+            return this;
+        }
+
+        public Builder interval(String interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder outputSize(String outputSize) {
+            this.outputSize = outputSize;
+            return this;
+        }
+
+        public MetaData build() {
+            return new MetaData(this);
+        }
+    }
+
 
     @Override
     public String toString() {
@@ -100,6 +171,8 @@ public class MetaData {
                 ", marketName='" + marketName + '\'' +
                 ", lastRefreshed='" + lastRefreshed + '\'' +
                 ", timeZone='" + timeZone + '\'' +
+                ", interval=" + interval +
+                ", outputSize=" + outputSize +
                 '}';
     }
 }

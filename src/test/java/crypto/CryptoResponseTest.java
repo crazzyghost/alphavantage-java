@@ -26,9 +26,9 @@ public class CryptoResponseTest {
 
     @Test
     public void testDigitalCurrencyResponse() throws IOException {
-        CryptoResponse response = CryptoResponse.of(json("daily"), "CNY");
+        CryptoResponse response = CryptoResponse.of(json("daily"));
         assertNotNull(response.getMetaData());
-        assertEquals(response.getCryptoUnits().size(), 2);
+        assertEquals(response.getCryptoUnits().size(), 3);
         assertTrue(response.toString().matches("(.*), errorMessage='null'(.*)"));
         assertNotEquals(response.getMetaData().getDigitalCurrencyCode(), "");
         assertNotEquals(response.getMetaData().getDigitalCurrencyName(), "");
@@ -42,7 +42,7 @@ public class CryptoResponseTest {
 
     @Test
     public void testDigitalCurrencyResponseError() throws IOException {
-        CryptoResponse response = CryptoResponse.of(error(), "CNY");
+        CryptoResponse response = CryptoResponse.of(error());
         assertNotNull(response.getErrorMessage());
         assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
     }
@@ -71,7 +71,7 @@ public class CryptoResponseTest {
 
     @Test
     public void testEmptyCryptoResponseError() throws IOException {
-        CryptoResponse response = CryptoResponse.of(empty(), "CNY");
+        CryptoResponse response = CryptoResponse.of(empty());
         assertNotNull(response.getErrorMessage());
         assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
     }

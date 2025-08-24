@@ -32,29 +32,37 @@ import com.crazzyghost.alphavantage.parameters.Function;
  */
 public abstract class CryptoRequest {
 
-    protected Function function;
-    protected String symbol;
- 
-    protected CryptoRequest(Builder<?> builder){
+    private final String market;
+    private final Function function;
+    private final String symbol;
+
+    protected CryptoRequest(Builder<?> builder) {
         this.function = builder.function;
         this.symbol = builder.symbol;
+        this.market = builder.market;
     }
 
-    public abstract static class Builder<T extends Builder<?>>{
+    public abstract static class Builder<T extends Builder<?>> {
 
         public Function function;
         protected String symbol;
+        protected String market;
 
-        public T function(Function function){
+        public T function(Function function) {
             this.function = function;
             return (T) this;
         }
 
-        public T symbol(String symbol){
+        public T symbol(String symbol) {
             this.symbol = symbol;
             return (T) this;
         }
-      
+
+        public T market(String market) {
+            this.market = market;
+            return (T) this;
+        }
+
         public abstract CryptoRequest build();
     }
 

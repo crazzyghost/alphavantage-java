@@ -2,10 +2,7 @@ package crypto;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static util.TestUtils.cryptoRatingUrl;
-import static util.TestUtils.cryptoUrl;
-import static util.TestUtils.errorMessage;
-import static util.TestUtils.stream;
+import static util.TestUtils.*;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -63,6 +60,7 @@ public class CryptoTest {
         mockInterceptor.addRule().get(cryptoUrl("daily", "LTC")).respond(errorMessage);
         mockInterceptor.addRule().get(cryptoUrl("weekly", "BTC")).respond(stream("weekly"));
         mockInterceptor.addRule().get(cryptoUrl("monthly", "BTC")).respond(stream("monthly"));
+        mockInterceptor.addRule().get(cryptoIntradayUrl("BTC")).respond(stream("intraday"));
 
     }
 
@@ -246,6 +244,25 @@ public class CryptoTest {
                 lock.countDown();
             })
             .fetch();
+        lock.await();
+        assertNotNull(ref.get());
+    }
+
+    @Test
+    public void testIntraday() throws InterruptedException {
+        final CountDownLatch lock = new CountDownLatch(1);
+        AtomicReference<CryptoResponse> ref = new AtomicReference<>();
+
+        AlphaVantage.api()
+                .crypto()
+                .intraday()
+                .forSymbol("BTC")
+                .market("CNY")
+                .onSuccess((CryptoResponse e)->{
+                    ref.set(e);
+                    lock.countDown();
+                })
+                .fetch();
         lock.await();
         assertNotNull(ref.get());
     }

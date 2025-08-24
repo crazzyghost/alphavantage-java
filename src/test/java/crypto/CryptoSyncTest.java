@@ -1,9 +1,7 @@
 package crypto;
 
 import static org.junit.Assert.assertNull;
-import static util.TestUtils.cryptoRatingUrl;
-import static util.TestUtils.cryptoUrl;
-import static util.TestUtils.stream;
+import static util.TestUtils.*;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -55,6 +53,7 @@ public class CryptoSyncTest {
         mockInterceptor.addRule().get(cryptoUrl("daily", "BTC")).respond(stream("daily"));
         mockInterceptor.addRule().get(cryptoUrl("weekly", "BTC")).respond(stream("weekly"));
         mockInterceptor.addRule().get(cryptoUrl("monthly", "BTC")).respond(stream("monthly"));
+        mockInterceptor.addRule().get(cryptoIntradayUrl("BTC")).respond(stream("intraday"));
 
     }
 
@@ -119,6 +118,18 @@ public class CryptoSyncTest {
             .market("CNY")
             .fetchSync();
         
+        assertNull(response.getErrorMessage());
+    }
+
+    @Test
+    public void testIntraday() throws InterruptedException {
+
+        Crypto crypto = AlphaVantage.api().crypto();
+        Crypto.IntradayRequestProxy requestProxy = crypto.intraday();
+        CryptoResponse response = requestProxy.forSymbol("BTC")
+                .market("CNY")
+                .fetchSync();
+
         assertNull(response.getErrorMessage());
     }
 
