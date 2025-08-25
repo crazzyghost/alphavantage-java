@@ -29,6 +29,7 @@ import com.crazzyghost.alphavantage.forex.Forex;
 import com.crazzyghost.alphavantage.fundamentaldata.FundamentalData;
 import com.crazzyghost.alphavantage.indicator.Indicator;
 import com.crazzyghost.alphavantage.marketstatus.MarketStatus;
+import com.crazzyghost.alphavantage.search.Search;
 import com.crazzyghost.alphavantage.sector.Sector;
 import com.crazzyghost.alphavantage.technicalindicator.TechnicalIndicator;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
@@ -161,6 +162,15 @@ public class AlphaVantage {
      */
     public MarketStatus marketStatus() {
         return new MarketStatus(config);
+    }
+
+    /**
+     * Access to Symbol Search.
+     *
+     * @return A {@link Search} instance for access to symbol searching
+     */
+    public Search search() {
+        return new Search(config);
     }
 
 

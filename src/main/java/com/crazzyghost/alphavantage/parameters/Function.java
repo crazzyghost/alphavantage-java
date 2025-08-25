@@ -13,6 +13,7 @@ public enum Function {
     GLOBAL_QUOTE,
     REALTIME_BULK_QUOTES,
     MARKET_STATUS,
+    SYMBOL_SEARCH,
     //Exchange Rate
     CURRENCY_EXCHANGE_RATE,
     //Forex (FX) Functions
