@@ -230,6 +230,10 @@ public class TestUtils {
         return Config.BASE_URL + "fastperiod=3&slowperiod=10&function=ADOSC&symbol="+ sym +"&interval=daily&datatype=json&apikey=demo";    
     }
 
+    public static String marketStatusUrl() {
+        return  Config.BASE_URL + "function=MARKET_STATUS&apikey=demo";
+    }
+
 
 }
 
