@@ -234,6 +234,18 @@ public class TestUtils {
         return  Config.BASE_URL + "function=MARKET_STATUS&apikey=demo";
     }
 
+    public static String searchUrl(final String keywords) {
+        final StringBuilder builder = new StringBuilder()
+                .append(Config.BASE_URL)
+                .append("function=SYMBOL_SEARCH");
+
+        if (keywords != null && !keywords.isEmpty()) {
+            builder.append("&keywords=").append(keywords);
+        }
+        builder.append("&apikey=demo");
+        return builder.toString();
+    }
+
 
 }
 
