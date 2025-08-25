@@ -4,6 +4,7 @@ import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.UrlExtractor;
+import com.crazzyghost.alphavantage.marketstatus.Market;
 import com.crazzyghost.alphavantage.marketstatus.MarketStatus;
 import com.crazzyghost.alphavantage.marketstatus.MarketStatusRequest;
 import com.crazzyghost.alphavantage.marketstatus.MarketStatusResponse;
@@ -17,6 +18,7 @@ import org.junit.Test;
 import util.TestUtils;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -62,6 +64,17 @@ public class MarketStatusTest {
     @Test
     public void testResponse() throws IOException {
         MarketStatusResponse response = MarketStatusResponse.of(json("data"));
+        List<Market> markets = response.getMarkets();
+
+        Market market = markets.get(0);
+        assertEquals("market_type mismatch", "Equity", market.getMarketType());
+        assertEquals("region mismatch", "United States", market.getRegion());
+        assertEquals("primary_exchanges mismatch", "NASDAQ, NYSE, AMEX, BATS", market.getPrimaryExchanges());
+        assertEquals("local_open mismatch", "09:30", market.getLocalOpen());
+        assertEquals("local_close mismatch", "16:15", market.getLocalClose());
+        assertEquals("current_status mismatch", "closed", market.getCurrentStatus());
+        assertEquals("notes mismatch", "", market.getNotes());
+
         assertTrue(response.toString().matches("(.*), errorMessage='null'(.*)"));
     }
 

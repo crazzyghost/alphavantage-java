@@ -5,7 +5,7 @@ import com.crazzyghost.alphavantage.parameters.Function;
 public class MarketStatusRequest {
     private final Function function;
 
-    public MarketStatusRequest(Builder builder) {
+    private MarketStatusRequest(Builder builder) {
         this.function = builder.function;
     }
 

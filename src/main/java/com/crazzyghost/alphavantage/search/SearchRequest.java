@@ -6,7 +6,7 @@ public class SearchRequest {
     private final Function function;
     private final String keywords;
 
-    public SearchRequest(Builder builder) {
+    private SearchRequest(Builder builder) {
         this.function = builder.function;
         this.keywords = builder.keywords;
     }

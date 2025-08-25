@@ -4,7 +4,8 @@ import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.UrlExtractor;
-import com.crazzyghost.alphavantage.marketstatus.MarketStatus;
+import com.crazzyghost.alphavantage.search.Match;
+import com.crazzyghost.alphavantage.search.Search;
 import com.crazzyghost.alphavantage.search.SearchRequest;
 import com.crazzyghost.alphavantage.search.SearchResponse;
 import okhttp3.OkHttpClient;
@@ -63,6 +64,18 @@ public class SearchTest {
     @Test
     public void testResponse() throws IOException {
         SearchResponse response = SearchResponse.of(json("data"));
+
+        Match match = response.getBestMatches().get(0);
+        assertEquals("TSCO.LON", match.getSymbol());
+        assertEquals("Tesco PLC", match.getName());
+        assertEquals("Equity", match.getType());
+        assertEquals("United Kingdom", match.getRegion());
+        assertEquals("08:00", match.getMarketOpen());
+        assertEquals("16:30", match.getMarketClose());
+        assertEquals("UTC+01", match.getTimezone());
+        assertEquals("GBX", match.getCurrency());
+        assertEquals("0.7273", match.getMatchScore());
+
         assertTrue(response.toString().matches("(.*), errorMessage='null'(.*)"));
     }
 
@@ -82,18 +95,18 @@ public class SearchTest {
 
     @Test(expected = AlphaVantageException.class)
     public void testConfigNotSet() {
-        new MarketStatus(null)
+        new Search(null)
                 .fetch();
     }
 
     @Test(expected = AlphaVantageException.class)
     public void testConfigKeyNotSet() {
-        new MarketStatus(Config.builder().build())
+        new Search(Config.builder().build())
                 .fetch();
     }
 
     @Test
-    public void testMarketStatus() throws InterruptedException, IOException {
+    public void testSearch() throws InterruptedException, IOException {
         mockInterceptor.addRule().get(searchUrl("tesco")).respond(stream("data"));
 
         CountDownLatch lock = new CountDownLatch(1);
@@ -113,7 +126,7 @@ public class SearchTest {
     }
 
     @Test
-    public void testMarketStatusError() throws InterruptedException {
+    public void testSearchError() throws InterruptedException {
         mockInterceptor.addRule().get(searchUrl("")).respond(errorMessage);
 
         CountDownLatch lock = new CountDownLatch(1);
@@ -132,7 +145,7 @@ public class SearchTest {
     }
 
     @Test
-    public void testMarketStatusUnsuccessful() throws InterruptedException {
+    public void testSearchUnsuccessful() throws InterruptedException {
         mockInterceptor.addRule().get(searchUrl("x.905")).respond(errorMessage).code(400);
 
         CountDownLatch lock = new CountDownLatch(1);
@@ -152,7 +165,7 @@ public class SearchTest {
     }
 
     @Test
-    public void testMarketStatusFailure() throws InterruptedException {
+    public void testSearchFailure() throws InterruptedException {
         mockInterceptor.addRule().get(searchUrl("CIDR.BLOCK.50")).delay(6000).respond(errorMessage);
 
         CountDownLatch lock = new CountDownLatch(1);
