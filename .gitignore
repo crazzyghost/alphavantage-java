@@ -142,7 +142,9 @@ bin/**
 
 _config.yml
 site/**
+docs/api/**
 .python-version
 .java-version
 
 .DS_Store
+.spec

@@ -1,15 +1,12 @@
-!!! warning "Deprecated"
-    `.indicator()` is deprecated. Use [`.technicalIndicator()`](technicalindicator.md) instead — see the [Technical Indicators](technicalindicator.md) recipe.
-
 !!! note
-    All Indicator Response provide a `getIndicatorUnits()` method to acess technical indicator data and `getMetaData()` to access metadata information
+    All Indicator Response provide a `getIndicatorUnits()` method to access technical indicator data and `getMetaData()` to access metadata information
 
 ## SMA
 
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .sma()
         .forSymbol("AAPL")
         .interval(Interval.WEEKLY)
@@ -21,7 +18,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .sma()
         .forSymbol("AAPL")
         .interval(Interval.WEEKLY)
@@ -39,7 +36,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .ema()
         .forSymbol("AAPL")
         .interval(Interval.WEEKLY)
@@ -51,7 +48,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .ema()
         .forSymbol("AAPL")
         .interval(Interval.WEEKLY)
@@ -69,7 +66,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .wma()
         .forSymbol("AAPL")
         .interval(Interval.WEEKLY)
@@ -81,7 +78,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .wma()
         .forSymbol("AAPL")
         .interval(Interval.WEEKLY)
@@ -99,7 +96,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .dema()
         .forSymbol("AAPL")
         .interval(Interval.WEEKLY)
@@ -111,7 +108,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .dema()
         .forSymbol("AAPL")
         .interval(Interval.WEEKLY)
@@ -129,7 +126,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .tema()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -141,7 +138,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .tema()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -159,7 +156,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .trima()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -171,7 +168,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .trima()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -189,7 +186,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .kama()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -201,7 +198,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .kama()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -219,7 +216,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .mama()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -232,7 +229,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .mama()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -251,7 +248,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .vwap()
         .interval(Interval.WEEKLY)
         .forSymbol("AAPL")
@@ -261,7 +258,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .vwap()
         .interval(Interval.WEEKLY)
         .forSymbol("AAPL")
@@ -277,7 +274,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .t3()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -289,7 +286,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .t3()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -307,7 +304,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .macd()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -321,7 +318,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .macd()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -341,7 +338,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .macdext()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -358,7 +355,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .macdext()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -381,7 +378,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .stoch()
         .interval(Interval.SIXTY_MIN)
         .fastKPeriod(5)
@@ -396,7 +393,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .stoch()
         .interval(Interval.SIXTY_MIN)
         .fastKPeriod(5)
@@ -417,7 +414,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .stochf()
         .interval(Interval.SIXTY_MIN)
         .fastKPeriod(5)
@@ -430,7 +427,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .stochf()
         .interval(Interval.SIXTY_MIN)
         .fastKPeriod(5)
@@ -449,7 +446,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .rsi()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -461,7 +458,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .rsi()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -479,7 +476,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .stochrsi()
         .interval(Interval.SIXTY_MIN)
         .fastKPeriod(5)
@@ -494,7 +491,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .stochrsi()
         .interval(Interval.SIXTY_MIN)
         .fastKPeriod(5)
@@ -515,7 +512,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .willr()
         .interval(Interval.DAILY)
         .timePeriod(60)
@@ -526,7 +523,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .willr()
         .interval(Interval.DAILY)
         .timePeriod(60)
@@ -543,7 +540,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .adx()
         .interval(Interval.DAILY)
         .timePeriod(60)
@@ -554,7 +551,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .adx()
         .interval(Interval.DAILY)
         .timePeriod(60)
@@ -571,7 +568,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .adxr()
         .interval(Interval.DAILY)
         .timePeriod(60)
@@ -582,7 +579,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .adxr()
         .interval(Interval.DAILY)
         .timePeriod(60)
@@ -599,7 +596,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .ppo()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -613,7 +610,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .ppo()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -633,7 +630,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .apo()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -647,7 +644,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .apo()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -667,7 +664,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .mom()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -679,7 +676,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .mom()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -697,7 +694,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .bop()
         .interval(Interval.WEEKLY)
         .forSymbol("AAPL")
@@ -707,7 +704,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .bop()
         .interval(Interval.WEEKLY)
         .forSymbol("AAPL")
@@ -723,7 +720,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .cci()
         .interval(Interval.DAILY)
         .timePeriod(60)
@@ -734,7 +731,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .cci()
         .interval(Interval.DAILY)
         .timePeriod(60)
@@ -751,7 +748,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .cmo()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -763,7 +760,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .cmo()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -781,7 +778,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .roc()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -793,7 +790,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .roc()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -811,7 +808,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .rocr()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -823,7 +820,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .rocr()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -841,7 +838,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .aroon()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -852,7 +849,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .aroon()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -869,7 +866,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .aroonosc()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -880,7 +877,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .aroonosc()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -897,7 +894,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .mfi()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -908,7 +905,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .mfi()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -925,7 +922,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .trix()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -936,7 +933,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .trix()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -953,7 +950,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .ultosc()
         .interval(Interval.SIXTY_MIN)
         .timePeriod1(7)
@@ -966,7 +963,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .ultosc()
         .interval(Interval.SIXTY_MIN)
         .timePeriod1(7)
@@ -985,7 +982,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .dx()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -996,7 +993,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .dx()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1013,7 +1010,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .minusdi()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1024,7 +1021,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .minusdi()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1041,7 +1038,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .plusdi()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1052,7 +1049,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .plusdi()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1069,7 +1066,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .minusdm()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1080,7 +1077,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .minusdm()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1097,7 +1094,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .plusdm()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1108,7 +1105,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .plusdm()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1125,7 +1122,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .bbands()
         .interval(Interval.DAILY)
         .timePeriod(60)
@@ -1140,7 +1137,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .bbands()
         .interval(Interval.DAILY)
         .timePeriod(60)
@@ -1161,7 +1158,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .midpoint()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -1173,7 +1170,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .midpoint()
         .interval(Interval.WEEKLY)
         .seriesType(SeriesType.OPEN)
@@ -1191,7 +1188,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .midprice()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1202,7 +1199,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .midprice()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1219,7 +1216,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .sar()
         .interval(Interval.DAILY)
         .acceleration(0.02)
@@ -1231,7 +1228,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .sar()
         .interval(Interval.DAILY)
         .acceleration(0.02)
@@ -1249,7 +1246,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .trange()
         .interval(Interval.WEEKLY)
         .forSymbol("AAPL")
@@ -1259,7 +1256,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .trange()
         .interval(Interval.WEEKLY)
         .forSymbol("AAPL")
@@ -1275,7 +1272,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .atr()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1286,7 +1283,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .atr()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1303,7 +1300,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .natr()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1314,7 +1311,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .natr()
         .interval(Interval.WEEKLY)
         .timePeriod(60)
@@ -1331,7 +1328,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .ad()
         .interval(Interval.WEEKLY)
         .forSymbol("AAPL")
@@ -1341,7 +1338,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .ad()
         .interval(Interval.WEEKLY)
         .forSymbol("AAPL")
@@ -1357,7 +1354,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .adosc()
         .interval(Interval.WEEKLY)
         .fastPeriod(3)
@@ -1369,7 +1366,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .adosc()
         .interval(Interval.WEEKLY)
         .fastPeriod(3)
@@ -1387,7 +1384,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .obv()
         .interval(Interval.WEEKLY)
         .forSymbol("AAPL")
@@ -1397,7 +1394,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .obv()
         .interval(Interval.WEEKLY)
         .forSymbol("AAPL")
@@ -1413,7 +1410,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .httrendline()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1424,7 +1421,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .httrendline()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1441,7 +1438,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .htsine()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1452,7 +1449,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .htsine()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1469,7 +1466,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .httrendmode()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1480,7 +1477,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .httrendmode()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1497,7 +1494,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .htdcperiod()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1508,7 +1505,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .htdcperiod()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1525,7 +1522,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .htdcphase()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1536,7 +1533,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .htdcphase()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1553,7 +1550,7 @@
 === ":material-language-java: Java"
     ```java
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .htphasor()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)
@@ -1564,7 +1561,7 @@
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     AlphaVantage.api()
-        .indicator()
+        .technicalIndicator()
         .htphasor()
         .interval(Interval.DAILY)
         .seriesType(SeriesType.OPEN)

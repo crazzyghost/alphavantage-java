@@ -101,17 +101,18 @@ Here, we choose which data category/endpoint we want to access
 !!! info
     Each of category is exposed through a method call in the instantiated wrapper.
 
-| Category                 | Method               |
-|--------------------------|----------------------|
-| Stock Time Series Data   | `.timeSeries()`      |
-| Forex Rate Data          | `.forex()`           |
-| Exchange Rate Data       | `.exchangeRate()`    |
-| Digital Currency Data    | `.crypto()`          |
-| Technical Indicator Data | `.indicator()`       |
-| Sector Performance Data  | `.sector()`          |
-| Fundamental Data         | `.fundamentalData()` |
-| Global Market Status     | `.marketStatus()`    |
-| Ticker/Symbol Search     | `.search()`          |
+| Category                 | Method                  |
+|--------------------------|-------------------------|
+| Stock Time Series Data   | `.timeSeries()`         |
+| Forex Rate Data          | `.forex()`              |
+| Exchange Rate Data       | `.exchangeRate()`       |
+| Digital Currency Data    | `.crypto()`             |
+| Technical Indicator Data | [`.technicalIndicator()`](technicalindicator.md) |
+| Sector Performance Data  | `.sector()`              |
+| Fundamental Data         | `.fundamentalData()`    |
+| Economic Indicators      | `.economicIndicator()`  |
+| Global Market Status     | `.marketStatus()`       |
+| Ticker/Symbol Search     | `.search()`             |
 
 For example, to select the Stock Time Series:
 
@@ -156,7 +157,7 @@ To handle responses add the `onSuccess()` or `onFailure()` async callbacks. Star
 === ":material-language-java: Java"
     ```java
     public void handleSuccess(TimeSeriesResponse response) {
-        plotGraph(reponse.getStockUnits());
+        plotGraph(response.getStockUnits());
     }
     public void handleFailure(AlphaVantageException error) {
         /* uh-oh! */
@@ -169,13 +170,13 @@ To handle responses add the `onSuccess()` or `onFailure()` async callbacks. Star
         .interval(Interval.FIVE_MIN)
         .outputSize(OutputSize.FULL)
         .onSuccess(e->handleSuccess(e))
-        .onFailure(e->hanldeFailure(e))
+        .onFailure(e->handleFailure(e))
         ...
     ```
 === ":material-language-kotlin: Kotlin"
     ```kotlin
     fun handleSuccess(response:TimeSeriesResponse) {
-        plotGraph(reponse.getStockUnits())
+        plotGraph(response.getStockUnits())
     }
     fun handleFailure(error:AlphaVantageException) {
         /* uh-oh! */
@@ -188,7 +189,7 @@ To handle responses add the `onSuccess()` or `onFailure()` async callbacks. Star
         .interval(Interval.FIVE_MIN)
         .outputSize(OutputSize.FULL)
         .onSuccess({ e-> handleSuccess(e) })
-        .onFailure({ e-> hanldeFailure(e) })            
+        .onFailure({ e-> handleFailure(e) })            
         ...
     ```
 
@@ -209,12 +210,12 @@ When you are okay with setting the parameters call the `fetch()` method. Simple!
         .interval(Interval.FIVE_MIN)
         .outputSize(OutputSize.FULL)
         .onSuccess(e->handleSuccess(e))
-        .onFailure(e->hanldeFailure(e))
+        .onFailure(e->handleFailure(e))
         .fetch();
     ```
 
 === ":material-language-kotlin: Kotlin"
-    ```java
+    ```kotlin
     AlphaVantage.api()
         .timeSeries()
         .intraday()
@@ -222,7 +223,7 @@ When you are okay with setting the parameters call the `fetch()` method. Simple!
         .interval(Interval.FIVE_MIN)
         .outputSize(OutputSize.FULL)
         .onSuccess({ e-> handleSuccess(e) })
-        .onFailure({ e-> hanldeFailure(e) })
+        .onFailure({ e-> handleFailure(e) })
         .fetch()
     ```
 From v1.5.0 up, you can also use the synchronous fetch method by calling the `fetchSync()` method without callback handlers.
