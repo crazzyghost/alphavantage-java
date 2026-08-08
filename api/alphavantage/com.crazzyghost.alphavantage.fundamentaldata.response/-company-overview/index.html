@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CompanyOverview</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    alphavantage
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+1.8.0        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":/javaMain">java</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":/javaMain"
+                                       data-filter=":/javaMain"/>
+                                <span class="checkbox--icon"></span>
+                                java
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+                <a class="navigation-controls--btn navigation-controls--btn_homepage" id="homepage-link"
+                   href="https://crazzyghost.github.io/alphavantage-java/"></a>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    alphavantage
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="alphavantage::com.crazzyghost.alphavantage.fundamentaldata.response/CompanyOverview///PointingToDeclaration//-1170581573">
+  <div class="breadcrumbs"><a href="../../../index.html">alphavantage</a><span class="delimiter">/</span><a href="../index.html">com.crazzyghost.alphavantage.fundamentaldata.response</a><span class="delimiter">/</span><span class="current">CompanyOverview</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Company</span><wbr></wbr><span><span>Overview</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">CompanyOverview</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="123717988%2FConstructors%2F-1170581573" anchor-label="CompanyOverview" id="123717988%2FConstructors%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-company-overview.html"><span>Company</span><wbr></wbr><span><span>Overview</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="123717988%2FConstructors%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="-company-overview.html"><span class="token function">CompanyOverview</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-1702589146%2FProperties%2F-1170581573" anchor-label="address" id="-1702589146%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1702589146%2FProperties%2F-1170581573"><span><span>address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1702589146%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Address&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1702589146%2FProperties%2F-1170581573">address</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-271007446%2FProperties%2F-1170581573" anchor-label="analystTargetPrice" id="-271007446%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-271007446%2FProperties%2F-1170581573"><span>analyst</span><wbr></wbr><span>Target</span><wbr></wbr><span><span>Price</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-271007446%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;AnalystTargetPrice&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-271007446%2FProperties%2F-1170581573">analystTargetPrice</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-366863280%2FProperties%2F-1170581573" anchor-label="assetType" id="-366863280%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-366863280%2FProperties%2F-1170581573"><span>asset</span><wbr></wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-366863280%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;AssetType&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-366863280%2FProperties%2F-1170581573">assetType</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-156342768%2FProperties%2F-1170581573" anchor-label="beta" id="-156342768%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-156342768%2FProperties%2F-1170581573"><span><span>beta</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-156342768%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Beta&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-156342768%2FProperties%2F-1170581573">beta</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1969296466%2FProperties%2F-1170581573" anchor-label="bookValue" id="1969296466%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1969296466%2FProperties%2F-1170581573"><span>book</span><wbr></wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1969296466%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;BookValue&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#1969296466%2FProperties%2F-1170581573">bookValue</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1712718859%2FProperties%2F-1170581573" anchor-label="cik" id="-1712718859%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1712718859%2FProperties%2F-1170581573"><span><span>cik</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1712718859%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;CIK&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="index.html#-1712718859%2FProperties%2F-1170581573">cik</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-450638908%2FProperties%2F-1170581573" anchor-label="country" id="-450638908%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-450638908%2FProperties%2F-1170581573"><span><span>country</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-450638908%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Country&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-450638908%2FProperties%2F-1170581573">country</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="16296335%2FProperties%2F-1170581573" anchor-label="currency" id="16296335%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#16296335%2FProperties%2F-1170581573"><span><span>currency</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="16296335%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Currency&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#16296335%2FProperties%2F-1170581573">currency</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1900775326%2FProperties%2F-1170581573" anchor-label="description" id="1900775326%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1900775326%2FProperties%2F-1170581573"><span><span>description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1900775326%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Description&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1900775326%2FProperties%2F-1170581573">description</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1684395120%2FProperties%2F-1170581573" anchor-label="dilutedEpsTTM" id="-1684395120%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1684395120%2FProperties%2F-1170581573"><span>diluted</span><wbr></wbr><span>Eps</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1684395120%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;DilutedEPSTTM&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-1684395120%2FProperties%2F-1170581573">dilutedEpsTTM</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1822827875%2FProperties%2F-1170581573" anchor-label="dividendDate" id="1822827875%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1822827875%2FProperties%2F-1170581573"><span>dividend</span><wbr></wbr><span><span>Date</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1822827875%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;DividendDate&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1822827875%2FProperties%2F-1170581573">dividendDate</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1844907825%2FProperties%2F-1170581573" anchor-label="dividendPerShare" id="-1844907825%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1844907825%2FProperties%2F-1170581573"><span>dividend</span><wbr></wbr><span>Per</span><wbr></wbr><span><span>Share</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1844907825%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;DividendPerShare&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-1844907825%2FProperties%2F-1170581573">dividendPerShare</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="928976316%2FProperties%2F-1170581573" anchor-label="dividendYield" id="928976316%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#928976316%2FProperties%2F-1170581573"><span>dividend</span><wbr></wbr><span><span>Yield</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="928976316%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;DividendYield&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#928976316%2FProperties%2F-1170581573">dividendYield</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1999423525%2FProperties%2F-1170581573" anchor-label="ebitda" id="-1999423525%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1999423525%2FProperties%2F-1170581573"><span><span>ebitda</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1999423525%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;EBITDA&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="index.html#-1999423525%2FProperties%2F-1170581573">ebitda</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="462297330%2FProperties%2F-1170581573" anchor-label="eps" id="462297330%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#462297330%2FProperties%2F-1170581573"><span><span>eps</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="462297330%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;EPS&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#462297330%2FProperties%2F-1170581573">eps</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1717811663%2FProperties%2F-1170581573" anchor-label="evToEBITDA" id="1717811663%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1717811663%2FProperties%2F-1170581573"><span>ev</span><wbr></wbr><span>To</span><wbr></wbr><span><span>EBITDA</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1717811663%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;EVToEBITDA&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#1717811663%2FProperties%2F-1170581573">evToEBITDA</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1933422250%2FProperties%2F-1170581573" anchor-label="evToRevenue" id="1933422250%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1933422250%2FProperties%2F-1170581573"><span>ev</span><wbr></wbr><span>To</span><wbr></wbr><span><span>Revenue</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1933422250%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;EVToRevenue&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#1933422250%2FProperties%2F-1170581573">evToRevenue</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1876992957%2FProperties%2F-1170581573" anchor-label="exchange" id="1876992957%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1876992957%2FProperties%2F-1170581573"><span><span>exchange</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1876992957%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Exchange&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1876992957%2FProperties%2F-1170581573">exchange</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="135129008%2FProperties%2F-1170581573" anchor-label="exDividendDate" id="135129008%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#135129008%2FProperties%2F-1170581573"><span>ex</span><wbr></wbr><span>Dividend</span><wbr></wbr><span><span>Date</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="135129008%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;ExDividendDate&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#135129008%2FProperties%2F-1170581573">exDividendDate</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2066645345%2FProperties%2F-1170581573" anchor-label="fiftyDayMovingAverage" id="-2066645345%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2066645345%2FProperties%2F-1170581573"><span>fifty</span><wbr></wbr><span>Day</span><wbr></wbr><span>Moving</span><wbr></wbr><span><span>Average</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2066645345%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;50DayMovingAverage&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-2066645345%2FProperties%2F-1170581573">fiftyDayMovingAverage</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-919318650%2FProperties%2F-1170581573" anchor-label="fiftyTwoWeekHigh" id="-919318650%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-919318650%2FProperties%2F-1170581573"><span>fifty</span><wbr></wbr><span>Two</span><wbr></wbr><span>Week</span><wbr></wbr><span><span>High</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-919318650%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;52WeekHigh&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-919318650%2FProperties%2F-1170581573">fiftyTwoWeekHigh</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1021462110%2FProperties%2F-1170581573" anchor-label="fiftyTwoWeekLow" id="1021462110%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1021462110%2FProperties%2F-1170581573"><span>fifty</span><wbr></wbr><span>Two</span><wbr></wbr><span>Week</span><wbr></wbr><span><span>Low</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1021462110%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;52WeekLow&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#1021462110%2FProperties%2F-1170581573">fiftyTwoWeekLow</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1469965030%2FProperties%2F-1170581573" anchor-label="fiscalYearEnd" id="-1469965030%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1469965030%2FProperties%2F-1170581573"><span>fiscal</span><wbr></wbr><span>Year</span><wbr></wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1469965030%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;FiscalYearEnd&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1469965030%2FProperties%2F-1170581573">fiscalYearEnd</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1196832480%2FProperties%2F-1170581573" anchor-label="forwardPE" id="-1196832480%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1196832480%2FProperties%2F-1170581573"><span>forward</span><wbr></wbr><span><span>PE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1196832480%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;ForwardPE&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-1196832480%2FProperties%2F-1170581573">forwardPE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1161301317%2FProperties%2F-1170581573" anchor-label="grossProfitTTM" id="-1161301317%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1161301317%2FProperties%2F-1170581573"><span>gross</span><wbr></wbr><span>Profit</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1161301317%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;GrossProfitTTM&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="index.html#-1161301317%2FProperties%2F-1170581573">grossProfitTTM</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1527056482%2FProperties%2F-1170581573" anchor-label="industry" id="1527056482%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1527056482%2FProperties%2F-1170581573"><span><span>industry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1527056482%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Industry&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1527056482%2FProperties%2F-1170581573">industry</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="695296853%2FProperties%2F-1170581573" anchor-label="latestQuarter" id="695296853%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#695296853%2FProperties%2F-1170581573"><span>latest</span><wbr></wbr><span><span>Quarter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="695296853%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;LatestQuarter&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#695296853%2FProperties%2F-1170581573">latestQuarter</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1311888808%2FProperties%2F-1170581573" anchor-label="marketCapitalization" id="1311888808%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1311888808%2FProperties%2F-1170581573"><span>market</span><wbr></wbr><span><span>Capitalization</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1311888808%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;MarketCapitalization&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="index.html#1311888808%2FProperties%2F-1170581573">marketCapitalization</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1722362411%2FProperties%2F-1170581573" anchor-label="name" id="-1722362411%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1722362411%2FProperties%2F-1170581573"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1722362411%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Name&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1722362411%2FProperties%2F-1170581573">name</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-498844318%2FProperties%2F-1170581573" anchor-label="operatingMarginTTM" id="-498844318%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-498844318%2FProperties%2F-1170581573"><span>operating</span><wbr></wbr><span>Margin</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-498844318%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;OperatingMarginTTM&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-498844318%2FProperties%2F-1170581573">operatingMarginTTM</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="727902343%2FProperties%2F-1170581573" anchor-label="pegRatio" id="727902343%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#727902343%2FProperties%2F-1170581573"><span>peg</span><wbr></wbr><span><span>Ratio</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="727902343%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;PEGRatio&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#727902343%2FProperties%2F-1170581573">pegRatio</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1216458684%2FProperties%2F-1170581573" anchor-label="peRatio" id="-1216458684%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1216458684%2FProperties%2F-1170581573"><span>pe</span><wbr></wbr><span><span>Ratio</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1216458684%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;PERatio&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-1216458684%2FProperties%2F-1170581573">peRatio</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="698486242%2FProperties%2F-1170581573" anchor-label="priceToBookRatio" id="698486242%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#698486242%2FProperties%2F-1170581573"><span>price</span><wbr></wbr><span>To</span><wbr></wbr><span>Book</span><wbr></wbr><span><span>Ratio</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="698486242%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;PriceToBookRatio&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#698486242%2FProperties%2F-1170581573">priceToBookRatio</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-285027155%2FProperties%2F-1170581573" anchor-label="priceToSaleRatioTTM" id="-285027155%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-285027155%2FProperties%2F-1170581573"><span>price</span><wbr></wbr><span>To</span><wbr></wbr><span>Sale</span><wbr></wbr><span>Ratio</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-285027155%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;PriceToSalesRatioTTM&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-285027155%2FProperties%2F-1170581573">priceToSaleRatioTTM</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1323075118%2FProperties%2F-1170581573" anchor-label="profitMargin" id="1323075118%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1323075118%2FProperties%2F-1170581573"><span>profit</span><wbr></wbr><span><span>Margin</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1323075118%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;ProfitMargin&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#1323075118%2FProperties%2F-1170581573">profitMargin</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="765449478%2FProperties%2F-1170581573" anchor-label="quarterlyEarningsGrowthYOY" id="765449478%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#765449478%2FProperties%2F-1170581573"><span>quarterly</span><wbr></wbr><span>Earnings</span><wbr></wbr><span>Growth</span><wbr></wbr><span><span>YOY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="765449478%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;QuarterlyEarningsGrowthYOY&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#765449478%2FProperties%2F-1170581573">quarterlyEarningsGrowthYOY</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2065050625%2FProperties%2F-1170581573" anchor-label="quarterlyRevenueGrowthYOY" id="2065050625%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2065050625%2FProperties%2F-1170581573"><span>quarterly</span><wbr></wbr><span>Revenue</span><wbr></wbr><span>Growth</span><wbr></wbr><span><span>YOY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2065050625%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;QuarterlyRevenueGrowthYOY&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#2065050625%2FProperties%2F-1170581573">quarterlyRevenueGrowthYOY</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-476850753%2FProperties%2F-1170581573" anchor-label="returnOnAssetsTTM" id="-476850753%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-476850753%2FProperties%2F-1170581573"><span>return</span><wbr></wbr><span>On</span><wbr></wbr><span>Assets</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-476850753%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;ReturnOnAssetsTTM&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-476850753%2FProperties%2F-1170581573">returnOnAssetsTTM</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="944138753%2FProperties%2F-1170581573" anchor-label="returnOnEquityTTM" id="944138753%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#944138753%2FProperties%2F-1170581573"><span>return</span><wbr></wbr><span>On</span><wbr></wbr><span>Equity</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="944138753%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;ReturnOnEquityTTM&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#944138753%2FProperties%2F-1170581573">returnOnEquityTTM</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1138130031%2FProperties%2F-1170581573" anchor-label="revenuePerShareTTM" id="-1138130031%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1138130031%2FProperties%2F-1170581573"><span>revenue</span><wbr></wbr><span>Per</span><wbr></wbr><span>Share</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1138130031%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;RevenuePerShareTTM&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-1138130031%2FProperties%2F-1170581573">revenuePerShareTTM</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1598415697%2FProperties%2F-1170581573" anchor-label="revenueTTM" id="-1598415697%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1598415697%2FProperties%2F-1170581573"><span>revenue</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1598415697%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;RevenueTTM&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="index.html#-1598415697%2FProperties%2F-1170581573">revenueTTM</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1302270106%2FProperties%2F-1170581573" anchor-label="sector" id="1302270106%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1302270106%2FProperties%2F-1170581573"><span><span>sector</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1302270106%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Sector&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1302270106%2FProperties%2F-1170581573">sector</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1254442860%2FProperties%2F-1170581573" anchor-label="sharesOutstanding" id="-1254442860%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1254442860%2FProperties%2F-1170581573"><span>shares</span><wbr></wbr><span><span>Outstanding</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1254442860%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;SharesOutstanding&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="index.html#-1254442860%2FProperties%2F-1170581573">sharesOutstanding</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-26153304%2FProperties%2F-1170581573" anchor-label="symbol" id="-26153304%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-26153304%2FProperties%2F-1170581573"><span><span>symbol</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-26153304%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Symbol&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-26153304%2FProperties%2F-1170581573">symbol</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2072952369%2FProperties%2F-1170581573" anchor-label="trailingPE" id="-2072952369%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2072952369%2FProperties%2F-1170581573"><span>trailing</span><wbr></wbr><span><span>PE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2072952369%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;TrailingPE&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#-2072952369%2FProperties%2F-1170581573">trailingPE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2088990027%2FProperties%2F-1170581573" anchor-label="twoHundredDayMovingAverage" id="2088990027%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2088990027%2FProperties%2F-1170581573"><span>two</span><wbr></wbr><span>Hundred</span><wbr></wbr><span>Day</span><wbr></wbr><span>Moving</span><wbr></wbr><span><span>Average</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2088990027%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation builtin">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;200DayMovingAverage&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="index.html#2088990027%2FProperties%2F-1170581573">twoHundredDayMovingAverage</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-2073712190%2FFunctions%2F-1170581573" anchor-label="getAddress" id="-2073712190%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-address.html"><span>get</span><wbr></wbr><span><span>Address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2073712190%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-address.html"><span class="token function">getAddress</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-575739122%2FFunctions%2F-1170581573" anchor-label="getAnalystTargetPrice" id="-575739122%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-analyst-target-price.html"><span>get</span><wbr></wbr><span>Analyst</span><wbr></wbr><span>Target</span><wbr></wbr><span><span>Price</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-575739122%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-analyst-target-price.html"><span class="token function">getAnalystTargetPrice</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-533822996%2FFunctions%2F-1170581573" anchor-label="getAssetType" id="-533822996%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-asset-type.html"><span>get</span><wbr></wbr><span>Asset</span><wbr></wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-533822996%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-asset-type.html"><span class="token function">getAssetType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1147662068%2FFunctions%2F-1170581573" anchor-label="getBeta" id="1147662068%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-beta.html"><span>get</span><wbr></wbr><span><span>Beta</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1147662068%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-beta.html"><span class="token function">getBeta</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1802336750%2FFunctions%2F-1170581573" anchor-label="getBookValue" id="1802336750%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-book-value.html"><span>get</span><wbr></wbr><span>Book</span><wbr></wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1802336750%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-book-value.html"><span class="token function">getBookValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="786254481%2FFunctions%2F-1170581573" anchor-label="getCIK" id="786254481%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-c-i-k.html"><span>get</span><wbr></wbr><span><span>CIK</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="786254481%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-c-i-k.html"><span class="token function">getCIK</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-821761952%2FFunctions%2F-1170581573" anchor-label="getCountry" id="-821761952%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-country.html"><span>get</span><wbr></wbr><span><span>Country</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-821761952%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-country.html"><span class="token function">getCountry</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1396383859%2FFunctions%2F-1170581573" anchor-label="getCurrency" id="1396383859%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-currency.html"><span>get</span><wbr></wbr><span><span>Currency</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1396383859%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-currency.html"><span class="token function">getCurrency</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="366278202%2FFunctions%2F-1170581573" anchor-label="getDescription" id="366278202%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-description.html"><span>get</span><wbr></wbr><span><span>Description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="366278202%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-description.html"><span class="token function">getDescription</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1132618540%2FFunctions%2F-1170581573" anchor-label="getDilutedEpsTTM" id="1132618540%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-diluted-eps-t-t-m.html"><span>get</span><wbr></wbr><span>Diluted</span><wbr></wbr><span>Eps</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1132618540%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-diluted-eps-t-t-m.html"><span class="token function">getDilutedEpsTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1498057287%2FFunctions%2F-1170581573" anchor-label="getDividendDate" id="1498057287%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-dividend-date.html"><span>get</span><wbr></wbr><span>Dividend</span><wbr></wbr><span><span>Date</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1498057287%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-dividend-date.html"><span class="token function">getDividendDate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="443040691%2FFunctions%2F-1170581573" anchor-label="getDividendPerShare" id="443040691%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-dividend-per-share.html"><span>get</span><wbr></wbr><span>Dividend</span><wbr></wbr><span>Per</span><wbr></wbr><span><span>Share</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="443040691%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-dividend-per-share.html"><span class="token function">getDividendPerShare</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-548977320%2FFunctions%2F-1170581573" anchor-label="getDividendYield" id="-548977320%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-dividend-yield.html"><span>get</span><wbr></wbr><span>Dividend</span><wbr></wbr><span><span>Yield</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-548977320%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-dividend-yield.html"><span class="token function">getDividendYield</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1890669601%2FFunctions%2F-1170581573" anchor-label="getEBITDA" id="-1890669601%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-e-b-i-t-d-a.html"><span>get</span><wbr></wbr><span><span>EBITDA</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1890669601%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-e-b-i-t-d-a.html"><span class="token function">getEBITDA</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1333696626%2FFunctions%2F-1170581573" anchor-label="getEPS" id="-1333696626%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-e-p-s.html"><span>get</span><wbr></wbr><span><span>EPS</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1333696626%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-e-p-s.html"><span class="token function">getEPS</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="837027763%2FFunctions%2F-1170581573" anchor-label="getEvToEBITDA" id="837027763%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-ev-to-e-b-i-t-d-a.html"><span>get</span><wbr></wbr><span>Ev</span><wbr></wbr><span>To</span><wbr></wbr><span><span>EBITDA</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="837027763%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-ev-to-e-b-i-t-d-a.html"><span class="token function">getEvToEBITDA</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="398925126%2FFunctions%2F-1170581573" anchor-label="getEvToRevenue" id="398925126%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-ev-to-revenue.html"><span>get</span><wbr></wbr><span>Ev</span><wbr></wbr><span>To</span><wbr></wbr><span><span>Revenue</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="398925126%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-ev-to-revenue.html"><span class="token function">getEvToRevenue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1037886815%2FFunctions%2F-1170581573" anchor-label="getExchange" id="-1037886815%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-exchange.html"><span>get</span><wbr></wbr><span><span>Exchange</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1037886815%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-exchange.html"><span class="token function">getExchange</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1563206548%2FFunctions%2F-1170581573" anchor-label="getExDividendDate" id="1563206548%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-ex-dividend-date.html"><span>get</span><wbr></wbr><span>Ex</span><wbr></wbr><span>Dividend</span><wbr></wbr><span><span>Date</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1563206548%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-ex-dividend-date.html"><span class="token function">getExDividendDate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-767141317%2FFunctions%2F-1170581573" anchor-label="getFiftyDayMovingAverage" id="-767141317%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-fifty-day-moving-average.html"><span>get</span><wbr></wbr><span>Fifty</span><wbr></wbr><span>Day</span><wbr></wbr><span>Moving</span><wbr></wbr><span><span>Average</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-767141317%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-fifty-day-moving-average.html"><span class="token function">getFiftyDayMovingAverage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1368629866%2FFunctions%2F-1170581573" anchor-label="getFiftyTwoWeekHigh" id="1368629866%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-fifty-two-week-high.html"><span>get</span><wbr></wbr><span>Fifty</span><wbr></wbr><span>Two</span><wbr></wbr><span>Week</span><wbr></wbr><span><span>High</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1368629866%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-fifty-two-week-high.html"><span class="token function">getFiftyTwoWeekHigh</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1952774406%2FFunctions%2F-1170581573" anchor-label="getFiftyTwoWeekLow" id="-1952774406%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-fifty-two-week-low.html"><span>get</span><wbr></wbr><span>Fifty</span><wbr></wbr><span>Two</span><wbr></wbr><span>Week</span><wbr></wbr><span><span>Low</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1952774406%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-fifty-two-week-low.html"><span class="token function">getFiftyTwoWeekLow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1347048630%2FFunctions%2F-1170581573" anchor-label="getFiscalYearEnd" id="1347048630%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-fiscal-year-end.html"><span>get</span><wbr></wbr><span>Fiscal</span><wbr></wbr><span>Year</span><wbr></wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1347048630%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-fiscal-year-end.html"><span class="token function">getFiscalYearEnd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1363792196%2FFunctions%2F-1170581573" anchor-label="getForwardPE" id="-1363792196%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-forward-p-e.html"><span>get</span><wbr></wbr><span>Forward</span><wbr></wbr><span><span>PE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1363792196%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-forward-p-e.html"><span class="token function">getForwardPE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="266776223%2FFunctions%2F-1170581573" anchor-label="getGrossProfitTTM" id="266776223%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-gross-profit-t-t-m.html"><span>get</span><wbr></wbr><span>Gross</span><wbr></wbr><span>Profit</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="266776223%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-gross-profit-t-t-m.html"><span class="token function">getGrossProfitTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1387823290%2FFunctions%2F-1170581573" anchor-label="getIndustry" id="-1387823290%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-industry.html"><span>get</span><wbr></wbr><span><span>Industry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1387823290%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-industry.html"><span class="token function">getIndustry</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-782656783%2FFunctions%2F-1170581573" anchor-label="getLatestQuarter" id="-782656783%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-latest-quarter.html"><span>get</span><wbr></wbr><span>Latest</span><wbr></wbr><span><span>Quarter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-782656783%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-latest-quarter.html"><span class="token function">getLatestQuarter</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="522524300%2FFunctions%2F-1170581573" anchor-label="getMarketCapitalization" id="522524300%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-market-capitalization.html"><span>get</span><wbr></wbr><span>Market</span><wbr></wbr><span><span>Capitalization</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="522524300%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-market-capitalization.html"><span class="token function">getMarketCapitalization</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-418357575%2FFunctions%2F-1170581573" anchor-label="getName" id="-418357575%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-name.html"><span>get</span><wbr></wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-418357575%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-name.html"><span class="token function">getName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-803575994%2FFunctions%2F-1170581573" anchor-label="getOperatingMarginTTM" id="-803575994%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-operating-margin-t-t-m.html"><span>get</span><wbr></wbr><span>Operating</span><wbr></wbr><span>Margin</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-803575994%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-operating-margin-t-t-m.html"><span class="token function">getOperatingMarginTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-628860053%2FFunctions%2F-1170581573" anchor-label="getPEGRatio" id="-628860053%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-p-e-g-ratio.html"><span>get</span><wbr></wbr><span><span>PEGRatio</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-628860053%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-p-e-g-ratio.html"><span class="token function">getPEGRatio</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="71722176%2FFunctions%2F-1170581573" anchor-label="getPERatio" id="71722176%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-p-e-ratio.html"><span>get</span><wbr></wbr><span><span>PERatio</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="71722176%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-p-e-ratio.html"><span class="token function">getPERatio</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1308532538%2FFunctions%2F-1170581573" anchor-label="getPriceToBookRatio" id="-1308532538%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-price-to-book-ratio.html"><span>get</span><wbr></wbr><span>Price</span><wbr></wbr><span>To</span><wbr></wbr><span>Book</span><wbr></wbr><span><span>Ratio</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1308532538%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-price-to-book-ratio.html"><span class="token function">getPriceToBookRatio</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1141774519%2FFunctions%2F-1170581573" anchor-label="getPriceToSaleRatioTTM" id="-1141774519%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-price-to-sale-ratio-t-t-m.html"><span>get</span><wbr></wbr><span>Price</span><wbr></wbr><span>To</span><wbr></wbr><span>Sale</span><wbr></wbr><span>Ratio</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1141774519%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-price-to-sale-ratio-t-t-m.html"><span class="token function">getPriceToSaleRatioTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="998304530%2FFunctions%2F-1170581573" anchor-label="getProfitMargin" id="998304530%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-profit-margin.html"><span>get</span><wbr></wbr><span>Profit</span><wbr></wbr><span><span>Margin</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="998304530%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-profit-margin.html"><span class="token function">getProfitMargin</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-399516950%2FFunctions%2F-1170581573" anchor-label="getQuarterlyEarningsGrowthYOY" id="-399516950%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-quarterly-earnings-growth-y-o-y.html"><span>get</span><wbr></wbr><span>Quarterly</span><wbr></wbr><span>Earnings</span><wbr></wbr><span>Growth</span><wbr></wbr><span><span>YOY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-399516950%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-quarterly-earnings-growth-y-o-y.html"><span class="token function">getQuarterlyEarningsGrowthYOY</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="87808413%2FFunctions%2F-1170581573" anchor-label="getQuarterlyRevenueGrowthYOY" id="87808413%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-quarterly-revenue-growth-y-o-y.html"><span>get</span><wbr></wbr><span>Quarterly</span><wbr></wbr><span>Revenue</span><wbr></wbr><span>Growth</span><wbr></wbr><span><span>YOY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="87808413%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-quarterly-revenue-growth-y-o-y.html"><span class="token function">getQuarterlyRevenueGrowthYOY</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1730076507%2FFunctions%2F-1170581573" anchor-label="getReturnOnAssetsTTM" id="1730076507%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-return-on-assets-t-t-m.html"><span>get</span><wbr></wbr><span>Return</span><wbr></wbr><span>On</span><wbr></wbr><span>Assets</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1730076507%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-return-on-assets-t-t-m.html"><span class="token function">getReturnOnAssetsTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1143901283%2FFunctions%2F-1170581573" anchor-label="getReturnOnEquityTTM" id="-1143901283%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-return-on-equity-t-t-m.html"><span>get</span><wbr></wbr><span>Return</span><wbr></wbr><span>On</span><wbr></wbr><span>Equity</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1143901283%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-return-on-equity-t-t-m.html"><span class="token function">getReturnOnEquityTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1442861707%2FFunctions%2F-1170581573" anchor-label="getRevenuePerShareTTM" id="-1442861707%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-revenue-per-share-t-t-m.html"><span>get</span><wbr></wbr><span>Revenue</span><wbr></wbr><span>Per</span><wbr></wbr><span>Share</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1442861707%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-revenue-per-share-t-t-m.html"><span class="token function">getRevenuePerShareTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1815767699%2FFunctions%2F-1170581573" anchor-label="getRevenueTTM" id="1815767699%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-revenue-t-t-m.html"><span>get</span><wbr></wbr><span>Revenue</span><wbr></wbr><span><span>TTM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1815767699%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-revenue-t-t-m.html"><span class="token function">getRevenueTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="320467070%2FFunctions%2F-1170581573" anchor-label="getSector" id="320467070%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-sector.html"><span>get</span><wbr></wbr><span><span>Sector</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="320467070%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-sector.html"><span class="token function">getSector</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="952484400%2FFunctions%2F-1170581573" anchor-label="getSharesOutstanding" id="952484400%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-shares-outstanding.html"><span>get</span><wbr></wbr><span>Shares</span><wbr></wbr><span><span>Outstanding</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="952484400%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-shares-outstanding.html"><span class="token function">getSharesOutstanding</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1007956340%2FFunctions%2F-1170581573" anchor-label="getSymbol" id="-1007956340%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-symbol.html"><span>get</span><wbr></wbr><span><span>Symbol</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1007956340%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-symbol.html"><span class="token function">getSymbol</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1341231027%2FFunctions%2F-1170581573" anchor-label="getTrailingPE" id="1341231027%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-trailing-p-e.html"><span>get</span><wbr></wbr><span>Trailing</span><wbr></wbr><span><span>PE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1341231027%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-trailing-p-e.html"><span class="token function">getTrailingPE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="924023599%2FFunctions%2F-1170581573" anchor-label="getTwoHundredDayMovingAverage" id="924023599%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-two-hundred-day-moving-average.html"><span>get</span><wbr></wbr><span>Two</span><wbr></wbr><span>Hundred</span><wbr></wbr><span>Day</span><wbr></wbr><span>Moving</span><wbr></wbr><span><span>Average</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="924023599%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-two-hundred-day-moving-average.html"><span class="token function">getTwoHundredDayMovingAverage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1585517460%2FFunctions%2F-1170581573" anchor-label="toString" id="1585517460%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr></wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1585517460%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

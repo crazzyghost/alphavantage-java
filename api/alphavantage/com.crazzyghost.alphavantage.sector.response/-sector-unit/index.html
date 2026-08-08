@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SectorUnit</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    alphavantage
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+1.8.0        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":/javaMain">java</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":/javaMain"
+                                       data-filter=":/javaMain"/>
+                                <span class="checkbox--icon"></span>
+                                java
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+                <a class="navigation-controls--btn navigation-controls--btn_homepage" id="homepage-link"
+                   href="https://crazzyghost.github.io/alphavantage-java/"></a>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    alphavantage
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="alphavantage::com.crazzyghost.alphavantage.sector.response/SectorUnit///PointingToDeclaration//-1170581573">
+  <div class="breadcrumbs"><a href="../../../index.html">alphavantage</a><span class="delimiter">/</span><a href="../index.html">com.crazzyghost.alphavantage.sector.response</a><span class="delimiter">/</span><span class="current">SectorUnit</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Sector</span><wbr></wbr><span><span>Unit</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="index.html">SectorUnit</a></div><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">crazzyghost</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.4.0 A sector performance data structure</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-2006735430%2FConstructors%2F-1170581573" anchor-label="SectorUnit" id="-2006735430%2FConstructors%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-sector-unit.html"><span>Sector</span><wbr></wbr><span><span>Unit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2006735430%2FConstructors%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="-sector-unit.html"><span class="token function">SectorUnit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> informationTechnology<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> consumerDiscretionary<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> healthCare<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> communicationServices<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> realEstate<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> utilities<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> financials<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> materials<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> industrials<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> consumerStaples<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> energy</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="399142717%2FProperties%2F-1170581573" anchor-label="communicationServices" id="399142717%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#399142717%2FProperties%2F-1170581573"><span>communication</span><wbr></wbr><span><span>Services</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="399142717%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#399142717%2FProperties%2F-1170581573">communicationServices</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-626204453%2FProperties%2F-1170581573" anchor-label="consumerDiscretionary" id="-626204453%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-626204453%2FProperties%2F-1170581573"><span>consumer</span><wbr></wbr><span><span>Discretionary</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-626204453%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-626204453%2FProperties%2F-1170581573">consumerDiscretionary</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1461466013%2FProperties%2F-1170581573" anchor-label="consumerStaples" id="1461466013%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1461466013%2FProperties%2F-1170581573"><span>consumer</span><wbr></wbr><span><span>Staples</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1461466013%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1461466013%2FProperties%2F-1170581573">consumerStaples</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="904874337%2FProperties%2F-1170581573" anchor-label="energy" id="904874337%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#904874337%2FProperties%2F-1170581573"><span><span>energy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="904874337%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#904874337%2FProperties%2F-1170581573">energy</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1098266849%2FProperties%2F-1170581573" anchor-label="financials" id="-1098266849%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1098266849%2FProperties%2F-1170581573"><span><span>financials</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1098266849%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1098266849%2FProperties%2F-1170581573">financials</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1428790788%2FProperties%2F-1170581573" anchor-label="healthCare" id="-1428790788%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1428790788%2FProperties%2F-1170581573"><span>health</span><wbr></wbr><span><span>Care</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1428790788%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1428790788%2FProperties%2F-1170581573">healthCare</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1285184457%2FProperties%2F-1170581573" anchor-label="industrials" id="-1285184457%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1285184457%2FProperties%2F-1170581573"><span><span>industrials</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1285184457%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1285184457%2FProperties%2F-1170581573">industrials</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1727358279%2FProperties%2F-1170581573" anchor-label="informationTechnology" id="-1727358279%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1727358279%2FProperties%2F-1170581573"><span>information</span><wbr></wbr><span><span>Technology</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1727358279%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1727358279%2FProperties%2F-1170581573">informationTechnology</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-232006043%2FProperties%2F-1170581573" anchor-label="materials" id="-232006043%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-232006043%2FProperties%2F-1170581573"><span><span>materials</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-232006043%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-232006043%2FProperties%2F-1170581573">materials</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="988371359%2FProperties%2F-1170581573" anchor-label="realEstate" id="988371359%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#988371359%2FProperties%2F-1170581573"><span>real</span><wbr></wbr><span><span>Estate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="988371359%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#988371359%2FProperties%2F-1170581573">realEstate</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1608172217%2FProperties%2F-1170581573" anchor-label="utilities" id="-1608172217%2FProperties%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1608172217%2FProperties%2F-1170581573"><span><span>utilities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1608172217%2FProperties%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1608172217%2FProperties%2F-1170581573">utilities</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-312308469%2FFunctions%2F-1170581573" anchor-label="getCommunicationServices" id="-312308469%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-communication-services.html"><span>get</span><wbr></wbr><span>Communication</span><wbr></wbr><span><span>Services</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-312308469%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-communication-services.html"><span class="token function">getCommunicationServices</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1337655639%2FFunctions%2F-1170581573" anchor-label="getConsumerDiscretionary" id="-1337655639%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-consumer-discretionary.html"><span>get</span><wbr></wbr><span>Consumer</span><wbr></wbr><span><span>Discretionary</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1337655639%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-consumer-discretionary.html"><span class="token function">getConsumerDiscretionary</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-782613525%2FFunctions%2F-1170581573" anchor-label="getConsumerStaples" id="-782613525%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-consumer-staples.html"><span>get</span><wbr></wbr><span>Consumer</span><wbr></wbr><span><span>Staples</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-782613525%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-consumer-staples.html"><span class="token function">getConsumerStaples</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="539298131%2FFunctions%2F-1170581573" anchor-label="getEnergy" id="539298131%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-energy.html"><span>get</span><wbr></wbr><span><span>Energy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="539298131%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-energy.html"><span class="token function">getEnergy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="387595793%2FFunctions%2F-1170581573" anchor-label="getFinancials" id="387595793%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-financials.html"><span>get</span><wbr></wbr><span><span>Financials</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="387595793%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-financials.html"><span class="token function">getFinancials</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="57071854%2FFunctions%2F-1170581573" anchor-label="getHealthCare" id="57071854%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-health-care.html"><span>get</span><wbr></wbr><span>Health</span><wbr></wbr><span><span>Care</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="57071854%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-health-care.html"><span class="token function">getHealthCare</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1826884485%2FFunctions%2F-1170581573" anchor-label="getIndustrials" id="1826884485%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-industrials.html"><span>get</span><wbr></wbr><span><span>Industrials</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1826884485%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-industrials.html"><span class="token function">getIndustrials</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1856157831%2FFunctions%2F-1170581573" anchor-label="getInformationTechnology" id="1856157831%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-information-technology.html"><span>get</span><wbr></wbr><span>Information</span><wbr></wbr><span><span>Technology</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1856157831%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-information-technology.html"><span class="token function">getInformationTechnology</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="924303667%2FFunctions%2F-1170581573" anchor-label="getMaterials" id="924303667%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-materials.html"><span>get</span><wbr></wbr><span><span>Materials</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="924303667%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-materials.html"><span class="token function">getMaterials</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1820733295%2FFunctions%2F-1170581573" anchor-label="getRealEstate" id="-1820733295%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-real-estate.html"><span>get</span><wbr></wbr><span>Real</span><wbr></wbr><span><span>Estate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1820733295%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-real-estate.html"><span class="token function">getRealEstate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-451862507%2FFunctions%2F-1170581573" anchor-label="getUtilities" id="-451862507%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-utilities.html"><span>get</span><wbr></wbr><span><span>Utilities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-451862507%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-utilities.html"><span class="token function">getUtilities</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="403699453%2FFunctions%2F-1170581573" anchor-label="toString" id="403699453%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr></wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="403699453%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

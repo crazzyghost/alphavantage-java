@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TimeSeries</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    alphavantage
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+1.8.0        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":/javaMain">java</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":/javaMain"
+                                       data-filter=":/javaMain"/>
+                                <span class="checkbox--icon"></span>
+                                java
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+                <a class="navigation-controls--btn navigation-controls--btn_homepage" id="homepage-link"
+                   href="https://crazzyghost.github.io/alphavantage-java/"></a>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    alphavantage
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="alphavantage::com.crazzyghost.alphavantage.timeseries/TimeSeries///PointingToDeclaration//-1170581573">
+  <div class="breadcrumbs"><a href="../../../index.html">alphavantage</a><span class="delimiter">/</span><a href="../index.html">com.crazzyghost.alphavantage.timeseries</a><span class="delimiter">/</span><span class="current">TimeSeries</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Time</span><wbr></wbr><span><span>Series</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="index.html">TimeSeries</a><span class="token keyword"> implements </span><a href="../../com.crazzyghost.alphavantage/-fetcher/index.html">Fetcher</a></div><p class="paragraph">Access to Stock Time Series Data</p><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">crazzyghost</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.0.0</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="1304366407%2FConstructors%2F-1170581573" anchor-label="TimeSeries" id="1304366407%2FConstructors%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-time-series.html"><span>Time</span><wbr></wbr><span><span>Series</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1304366407%2FConstructors%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="-time-series.html"><span class="token function">TimeSeries</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.crazzyghost.alphavantage/-config/index.html">Config</a> config</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-764325277%2FClasslikes%2F-1170581573" anchor-label="DailyRequestProxy" id="-764325277%2FClasslikes%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-daily-request-proxy/index.html"><span>Daily</span><wbr></wbr><span>Request</span><wbr></wbr><span><span>Proxy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-764325277%2FClasslikes%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-daily-request-proxy/index.html">DailyRequestProxy</a><span class="token keyword"> extends </span><a href="-request-proxy/index.html">TimeSeries.RequestProxy</a><span class="token operator">&lt;</span><a href="-daily-request-proxy/index.html">TimeSeries.DailyRequestProxy</a><span class="token punctuation">, </span><a href="../../com.crazzyghost.alphavantage.timeseries.response/-time-series-response/index.html">TimeSeriesResponse</a><span class="token operator">&gt;</span></div><div class="brief ">Proxy for building a <a href="../../com.crazzyghost.alphavantage.timeseries.request/-daily-request/index.html">DailyRequest</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1974421405%2FClasslikes%2F-1170581573" anchor-label="GlobalQuoteRequestProxy" id="-1974421405%2FClasslikes%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-global-quote-request-proxy/index.html"><span>Global</span><wbr></wbr><span>Quote</span><wbr></wbr><span>Request</span><wbr></wbr><span><span>Proxy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1974421405%2FClasslikes%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-global-quote-request-proxy/index.html">GlobalQuoteRequestProxy</a><span class="token keyword"> extends </span><a href="-request-proxy/index.html">TimeSeries.RequestProxy</a><span class="token operator">&lt;</span><a href="-global-quote-request-proxy/index.html">TimeSeries.GlobalQuoteRequestProxy</a><span class="token punctuation">, </span><a href="../../com.crazzyghost.alphavantage.timeseries.response/-quote-response/index.html">QuoteResponse</a><span class="token operator">&gt;</span></div><div class="brief ">Proxy for building a <a href="../../com.crazzyghost.alphavantage.timeseries.request/-quote-request/index.html">QuoteRequest</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1029585686%2FClasslikes%2F-1170581573" anchor-label="IntraDayRequestProxy" id="-1029585686%2FClasslikes%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-intra-day-request-proxy/index.html"><span>Intra</span><wbr></wbr><span>Day</span><wbr></wbr><span>Request</span><wbr></wbr><span><span>Proxy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1029585686%2FClasslikes%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-intra-day-request-proxy/index.html">IntraDayRequestProxy</a><span class="token keyword"> extends </span><a href="-request-proxy/index.html">TimeSeries.RequestProxy</a><span class="token operator">&lt;</span><a href="-intra-day-request-proxy/index.html">TimeSeries.IntraDayRequestProxy</a><span class="token punctuation">, </span><a href="../../com.crazzyghost.alphavantage.timeseries.response/-time-series-response/index.html">TimeSeriesResponse</a><span class="token operator">&gt;</span></div><div class="brief ">Proxy for building an <a href="../../com.crazzyghost.alphavantage.timeseries.request/-intra-day-request/index.html">IntraDayRequest</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1321266799%2FClasslikes%2F-1170581573" anchor-label="MonthlyRequestProxy" id="1321266799%2FClasslikes%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-monthly-request-proxy/index.html"><span>Monthly</span><wbr></wbr><span>Request</span><wbr></wbr><span><span>Proxy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1321266799%2FClasslikes%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-monthly-request-proxy/index.html">MonthlyRequestProxy</a><span class="token keyword"> extends </span><a href="-request-proxy/index.html">TimeSeries.RequestProxy</a><span class="token operator">&lt;</span><a href="-monthly-request-proxy/index.html">TimeSeries.MonthlyRequestProxy</a><span class="token punctuation">, </span><a href="../../com.crazzyghost.alphavantage.timeseries.response/-time-series-response/index.html">TimeSeriesResponse</a><span class="token operator">&gt;</span></div><div class="brief ">Proxy for building a <a href="../../com.crazzyghost.alphavantage.timeseries.request/-monthly-request/index.html">MonthlyRequest</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1477358045%2FClasslikes%2F-1170581573" anchor-label="RealtimeBulkQuoteRequestProxy" id="1477358045%2FClasslikes%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-realtime-bulk-quote-request-proxy/index.html"><span>Realtime</span><wbr></wbr><span>Bulk</span><wbr></wbr><span>Quote</span><wbr></wbr><span>Request</span><wbr></wbr><span><span>Proxy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1477358045%2FClasslikes%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-realtime-bulk-quote-request-proxy/index.html">RealtimeBulkQuoteRequestProxy</a><span class="token keyword"> extends </span><a href="-request-proxy/index.html">TimeSeries.RequestProxy</a><span class="token operator">&lt;</span><a href="-realtime-bulk-quote-request-proxy/index.html">TimeSeries.RealtimeBulkQuoteRequestProxy</a><span class="token punctuation">, </span><a href="../../com.crazzyghost.alphavantage.timeseries.response/-realtime-bulk-quote-response/index.html">RealtimeBulkQuoteResponse</a><span class="token operator">&gt;</span></div><div class="brief ">Proxy for building a <a href="../../com.crazzyghost.alphavantage.timeseries.request/-realtime-bulk-quote-request/index.html">RealtimeBulkQuoteRequest</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1163159720%2FClasslikes%2F-1170581573" anchor-label="RequestProxy" id="1163159720%2FClasslikes%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-request-proxy/index.html"><span>Request</span><wbr></wbr><span><span>Proxy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1163159720%2FClasslikes%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-request-proxy/index.html">RequestProxy</a><span class="token operator">&lt;</span>T<span class="token keyword"> extends </span><a href="-request-proxy/index.html">TimeSeries.RequestProxy</a><span class="token operator">&lt;</span><span class="token keyword">? extends </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html">Object</a><span class="token punctuation">, </span><a href="-request-proxy/index.html">U</a><span class="token operator">&gt;</span><span class="token punctuation">, </span>U<span class="token operator">&gt;</span></div><div class="brief ">An abstract proxy for building requests.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1100612647%2FClasslikes%2F-1170581573" anchor-label="WeeklyRequestProxy" id="1100612647%2FClasslikes%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-weekly-request-proxy/index.html"><span>Weekly</span><wbr></wbr><span>Request</span><wbr></wbr><span><span>Proxy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1100612647%2FClasslikes%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-weekly-request-proxy/index.html">WeeklyRequestProxy</a><span class="token keyword"> extends </span><a href="-request-proxy/index.html">TimeSeries.RequestProxy</a><span class="token operator">&lt;</span><a href="-weekly-request-proxy/index.html">TimeSeries.WeeklyRequestProxy</a><span class="token punctuation">, </span><a href="../../com.crazzyghost.alphavantage.timeseries.response/-time-series-response/index.html">TimeSeriesResponse</a><span class="token operator">&gt;</span></div><div class="brief ">Proxy for building a <a href="../../com.crazzyghost.alphavantage.timeseries.request/-weekly-request/index.html">WeeklyRequest</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="828233199%2FFunctions%2F-1170581573" anchor-label="daily" id="828233199%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="daily.html"><span><span>daily</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="828233199%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="-daily-request-proxy/index.html">TimeSeries.DailyRequestProxy</a> <a href="daily.html"><span class="token function">daily</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Access daily stock time series data</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="229241966%2FFunctions%2F-1170581573" anchor-label="fetch" id="229241966%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="fetch.html"><span><span>fetch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="229241966%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="fetch.html"><span class="token function">fetch</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Fetch Stock Time Series data</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1186107124%2FFunctions%2F-1170581573" anchor-label="intraday" id="1186107124%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="intraday.html"><span><span>intraday</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1186107124%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="-intra-day-request-proxy/index.html">TimeSeries.IntraDayRequestProxy</a> <a href="intraday.html"><span class="token function">intraday</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Access intraday stock time series data</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1259364421%2FFunctions%2F-1170581573" anchor-label="monthly" id="-1259364421%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="monthly.html"><span><span>monthly</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1259364421%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="-monthly-request-proxy/index.html">TimeSeries.MonthlyRequestProxy</a> <a href="monthly.html"><span class="token function">monthly</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Access monthly stock time series data</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1093362964%2FFunctions%2F-1170581573" anchor-label="quote" id="-1093362964%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="quote.html"><span><span>quote</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1093362964%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="-global-quote-request-proxy/index.html">TimeSeries.GlobalQuoteRequestProxy</a> <a href="quote.html"><span class="token function">quote</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Access global quote data</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="262992617%2FFunctions%2F-1170581573" anchor-label="realtimeBulkQuote" id="262992617%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="realtime-bulk-quote.html"><span>realtime</span><wbr></wbr><span>Bulk</span><wbr></wbr><span><span>Quote</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="262992617%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="-realtime-bulk-quote-request-proxy/index.html">TimeSeries.RealtimeBulkQuoteRequestProxy</a> <a href="realtime-bulk-quote.html"><span class="token function">realtimeBulkQuote</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Access realtime bulk quote data</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1939544465%2FFunctions%2F-1170581573" anchor-label="weekly" id="1939544465%2FFunctions%2F-1170581573" data-filterable-set=":/javaMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/javaMain" data-filterable-set=":/javaMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="weekly.html"><span><span>weekly</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1939544465%2FFunctions%2F-1170581573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="-weekly-request-proxy/index.html">TimeSeries.WeeklyRequestProxy</a> <a href="weekly.html"><span class="token function">weekly</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Access weekly stock time series data</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
