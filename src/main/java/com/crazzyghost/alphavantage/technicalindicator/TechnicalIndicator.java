@@ -92,9 +92,16 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Access to Technical TechnicalIndicator Data
- * 
- * @author crazzyghost
+ * Access to the technical indicator endpoints — moving averages, oscillators,
+ * momentum, volatility, cycle and Hilbert transform studies — each exposed as a
+ * request proxy that is built up fluently and then fetched.
+ * <p>
+ * This facade supersedes the older
+ * {@link com.crazzyghost.alphavantage.indicator.Indicator}, whose accessor
+ * {@code AlphaVantage.indicator()} is deprecated in favour of
+ * {@code AlphaVantage.technicalIndicator()}.
+ *
+ * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
 public final class TechnicalIndicator implements Fetcher {
@@ -109,7 +116,8 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Fetch Technical TechnicalIndicator Data
+     * Fetches technical indicator data asynchronously, dispatching the parsed
+     * response to the callback registered on the request proxy.
      */
     @Override
     public void fetch() {
@@ -139,22 +147,17 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Make a blocking synchronous http request to fetch the data.
-     * This will be called by the
-     * {@link SimpleTechnicalIndicatorRequestProxy#fetchSync()}.
+     * Makes a blocking synchronous http request to fetch the data.
+     * This is called by {@link SimpleTechnicalIndicatorRequestProxy#fetchSync()}.
      * <p>
-     * On Android this will throw NetworkOnMainThreadException. In that case you
-     * should handle this on
-     * another thread
-     * </p>
-     * 
+     * On Android this will throw {@code NetworkOnMainThreadException}. In that case
+     * the call should be made on another thread.
      * <p>
-     * Using this method will overwrite any async callback
-     * </p>
-     * 
+     * Using this method will overwrite any async callback.
+     *
+     * @param successCallback internally used {@link SuccessCallback} that receives the parsed response
+     * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.4.1
-     * @param successCallback internally used {@link SuccessCallback}
-     * @throws AlphaVantageException exception thrown
      */
     private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
 
@@ -835,12 +838,11 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * An base proxy for building requests. Adds the functionality of adding
-     * callbacks and a terminal method for
-     * fetching data.
-     * 
-     * @param <T> A Concrete {@link SimpleTechnicalIndicatorRequestProxy}
-     *            Implementation
+     * A base proxy for building requests. Adds the functionality of adding
+     * callbacks and a terminal method for fetching data.
+     *
+     * @param <T> a concrete {@link SimpleTechnicalIndicatorRequestProxy} implementation
+     * @param <U> the response type that implementation's terminal fetch returns
      */
     @SuppressWarnings("unchecked")
     public class SimpleTechnicalIndicatorRequestProxy<T extends SimpleTechnicalIndicatorRequestProxy<?, U>, U> {
@@ -888,23 +890,22 @@ public final class TechnicalIndicator implements Fetcher {
         }
 
         /**
-         * Set the response during a synchronous call
-         * 
-         * @param response
+         * Sets the response received during a synchronous call.
+         *
+         * @param response the parsed response to hand back to {@link #fetchSync()}
          */
         private void setSyncResponse(U response) {
             this.syncResponse = response;
         }
 
         /**
-         * Set the right builder and make a synchronous request using
-         * {@link TechnicalIndicator#fetch()}
+         * Sets the right builder and makes a synchronous request using
+         * {@link TechnicalIndicator#fetch()}.
          * <p>
-         * When calling this method, any async callbacks will be overwritten
-         * </p>
-         * 
-         * @return The api response
-         * @throws AlphaVantageException
+         * When calling this method, any async callbacks will be overwritten.
+         *
+         * @return the api response
+         * @throws AlphaVantageException if the request fails or the response cannot be read
          */
         public U fetchSync() throws AlphaVantageException {
             SuccessCallback<U> callback = (e) -> setSyncResponse(e);

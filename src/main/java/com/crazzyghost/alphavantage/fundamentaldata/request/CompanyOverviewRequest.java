@@ -25,7 +25,8 @@ package com.crazzyghost.alphavantage.fundamentaldata.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * Company Overview Request
+ * A request for the {@code OVERVIEW} endpoint, which returns a company profile and
+ * its headline valuation, profitability and dividend ratios in a single record.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.6.0

@@ -33,7 +33,9 @@ import com.crazzyghost.alphavantage.parser.DefaultParser;
 import com.crazzyghost.alphavantage.parser.Parser;
 
 /**
- * Crypto Currency Response
+ * A digital currency time series response, holding the series as a list of
+ * {@link CryptoUnit} bars alongside its {@link MetaData}, or an error message if the
+ * API rejected the request.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0

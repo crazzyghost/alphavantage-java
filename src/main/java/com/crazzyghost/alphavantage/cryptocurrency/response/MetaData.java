@@ -26,7 +26,10 @@ import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 
 /**
- * Crypto Currency MetaData
+ * The header block Alpha Vantage returns alongside a digital currency time series:
+ * which currency and market the data covers, when it was last refreshed, and the
+ * time zone, interval and output size it was served under. Fields that do not apply
+ * to the requested endpoint come back empty rather than absent.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0

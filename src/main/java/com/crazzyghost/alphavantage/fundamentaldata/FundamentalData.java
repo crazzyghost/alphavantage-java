@@ -37,7 +37,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Access to Fundamental Data
+ * Access to Fundamental Data.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.6.0
@@ -96,14 +96,14 @@ public final class FundamentalData implements Fetcher {
     }
 
     /**
-     * Make a blocking synchronous http request to fetch the data.
-     * This will be called by the {@link FundamentalData.RequestProxy#fetchSync()}.
+     * Makes a blocking synchronous http request to fetch the data.
+     * This is called by {@link FundamentalData.RequestProxy#fetchSync()}.
+     * <p>
+     * Using this method will overwrite any async callback.
      *
-     * Using this method will overwrite any async callback
-     *
+     * @param successCallback internally used {@link SuccessCallback} that receives the parsed response
+     * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.6.0
-     * @param successCallback internally used {@link SuccessCallback}
-     * @throws AlphaVantageException exception thrown
      */
     private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
 
@@ -229,11 +229,13 @@ public final class FundamentalData implements Fetcher {
 
 
         /**
-         * Set the right builder and make a synchronous request using {@link FundamentalData#fetch()}
-         * When calling this method, any async callbacks will be overwritten
+         * Sets the right builder and makes a synchronous request using
+         * {@link FundamentalData#fetch()}.
+         * <p>
+         * When calling this method, any async callbacks will be overwritten.
          *
-         * @return The api response
-         * @throws AlphaVantageException exception during call
+         * @return the api response
+         * @throws AlphaVantageException if the request fails or the response cannot be read
          */
         public ProxyResponse fetchSync() throws AlphaVantageException {
             SuccessCallback<ProxyResponse> callback = this::setSyncResponse;
@@ -244,35 +246,35 @@ public final class FundamentalData implements Fetcher {
 
     }
 
-    /** Proxy class for building an IncomeStatementRequests **/
+    /** Proxy class for building an {@link IncomeStatementRequest}. */
     public class IncomeStatementRequestProxy extends RequestProxy<IncomeStatementRequestProxy, IncomeStatementResponse> {
         public IncomeStatementRequestProxy() {
             builder = new IncomeStatementRequest.Builder();
         }
     }
 
-    /** Proxy class for building an BalanceSheet **/
+    /** Proxy class for building a {@link BalanceSheetRequest}. */
     public class BalanceSheetRequestProxy extends RequestProxy<BalanceSheetRequestProxy, BalanceSheetResponse> {
         public BalanceSheetRequestProxy() {
             builder = new BalanceSheetRequest.Builder();
         }
     }
 
-    /** Proxy class for building an CashFlow **/
+    /** Proxy class for building a {@link CashFlowRequest}. */
     public class CashFlowRequestProxy extends RequestProxy<CashFlowRequestProxy, CashFlowResponse> {
         public CashFlowRequestProxy() {
             builder = new CashFlowRequest.Builder();
         }
     }
 
-    /** Proxy class for building an Earnings **/
+    /** Proxy class for building an {@link EarningsRequest}. */
     public class EarningsRequestProxy extends RequestProxy<EarningsRequestProxy, EarningsResponse> {
         public EarningsRequestProxy() {
             builder = new EarningsRequest.Builder();
         }
     }
 
-    /** Proxy class for building an CompanyOverview **/
+    /** Proxy class for building a {@link CompanyOverviewRequest}. */
     public class CompanyOverViewRequestProxy extends RequestProxy<CompanyOverViewRequestProxy, CompanyOverviewResponse> {
         public CompanyOverViewRequestProxy() {
             builder = new CompanyOverviewRequest.Builder();

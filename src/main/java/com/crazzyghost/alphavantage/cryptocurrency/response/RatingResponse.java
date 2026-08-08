@@ -29,7 +29,8 @@ import java.util.Map;
 import com.crazzyghost.alphavantage.parser.Parser;
 
 /**
- * Crypto Currency Rating Response
+ * The FCAS health index rating for a digital currency, or an error message if the
+ * API rejected the request.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0

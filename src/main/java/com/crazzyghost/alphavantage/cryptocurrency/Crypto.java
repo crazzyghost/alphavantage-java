@@ -43,7 +43,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Access to Crypto Currency Data
+ * Access to Crypto Currency Data.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0
@@ -60,51 +60,51 @@ public final class Crypto implements Fetcher {
     }
 
     /**
-     * Access daily crypto currency data
+     * Accesses daily crypto currency data.
      *
-     * @return {@link DailyRequestProxy} instance
+     * @return a {@link DailyRequestProxy} instance
      */
     public DailyRequestProxy daily(){
         return new DailyRequestProxy();
     }
 
     /**
-     * Gives access weekly crypto currency data
+     * Accesses weekly crypto currency data.
      *
-     * @return {@link WeeklyRequestProxy} instance
+     * @return a {@link WeeklyRequestProxy} instance
      */
     public WeeklyRequestProxy weekly(){
         return new WeeklyRequestProxy();
     }
 
     /**
-     * Gives access monthly crypto currency data
+     * Accesses monthly crypto currency data.
      *
-     * @return {@link MonthlyRequestProxy} instance
+     * @return a {@link MonthlyRequestProxy} instance
      */
     public MonthlyRequestProxy monthly(){
         return new MonthlyRequestProxy();
     }
 
     /**
-     * Gives access crypto currency health index data
+     * Accesses crypto currency health index data.
      *
-     * @return {@link RatingRequestProxy} instance
+     * @return a {@link RatingRequestProxy} instance
      */
     public RatingRequestProxy rating(){
         return new RatingRequestProxy();
     }
 
     /**
-     * Gives access monthly crypto currency data
+     * Accesses intraday crypto currency data.
      *
-     * @return {@link MonthlyRequestProxy} instance
+     * @return an {@link IntradayRequestProxy} instance
      */
     public IntradayRequestProxy intraday(){
         return new IntradayRequestProxy();
     }
 
-    /** Fetches Crypto Currency data */
+    /** Fetches crypto currency data asynchronously, dispatching the parsed response to the registered callback. */
     @Override
     public void fetch() {
 
@@ -132,14 +132,14 @@ public final class Crypto implements Fetcher {
     }
 
     /**
-     * Make a blocking synchronous http request to fetch the data.
-     * This will be called by the {@link RequestProxy#fetchSync()}. 
+     * Makes a blocking synchronous http request to fetch the data.
+     * This is called by {@link RequestProxy#fetchSync()}.
+     * <p>
+     * Using this method will overwrite any async callback.
      *
-     * Using this method will overwrite any async callback
-     *
+     * @param successCallback internally used {@link SuccessCallback} that receives the parsed response
+     * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.5.0
-     * @param successCallback internally used {@link SuccessCallback}
-     * @throws AlphaVantageException exception thrown
      */
     private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
 
@@ -157,7 +157,8 @@ public final class Crypto implements Fetcher {
 
 
     /**
-     * Parses a JSON response to a {@link CryptoResponse} or {@link RatingResponse} object
+     * Parses a JSON response into a {@link CryptoResponse} or a {@link RatingResponse},
+     * depending on the function the request was built for.
      *
      * @param data parsed JSON response
      */
@@ -179,7 +180,7 @@ public final class Crypto implements Fetcher {
 
 
     /**
-     * Parses Digital Currency Data
+     * Parses digital currency data and dispatches it to the registered callback.
      *
      * @param data parsed JSON data
      */
@@ -195,7 +196,7 @@ public final class Crypto implements Fetcher {
     }
 
     /**
-     * Parses Health Index Data
+     * Parses crypto health index data and dispatches it to the registered callback.
      *
      * @param data parsed JSON data
      */
@@ -218,7 +219,8 @@ public final class Crypto implements Fetcher {
      * Adds the functionality of adding callbacks and a terminal method
      * for fetching data.
      *
-     * @param <T> A Concrete {@link RequestProxy} Implementation
+     * @param <T> a concrete {@link RequestProxy} implementation
+     * @param <U> the response type this proxy's terminal fetch returns
      */
     @SuppressWarnings("unchecked")
     public abstract class RequestProxy<T extends RequestProxy<?, U>, U> {
@@ -259,11 +261,13 @@ public final class Crypto implements Fetcher {
 
 
         /**
-         * Set the right builder and make a synchronous request using {@link Crypto#fetch()}
-         * When calling this method, any async callbacks will be overwritten
+         * Sets the right builder and makes a synchronous request using
+         * {@link Crypto#fetch()}.
+         * <p>
+         * When calling this method, any async callbacks will be overwritten.
          *
-         * @return The api response
-         * @throws AlphaVantageException exception during call
+         * @return the api response
+         * @throws AlphaVantageException if the request fails or the response cannot be read
          */
         public U fetchSync() throws AlphaVantageException {
             SuccessCallback<U> callback = this::setSyncResponse;
@@ -274,7 +278,7 @@ public final class Crypto implements Fetcher {
 
     }
 
-    /** Proxy for building a DailyRequest */
+    /** Proxy for building a daily {@link DigitalCurrencyRequest}. */
     public class DailyRequestProxy extends RequestProxy<DailyRequestProxy, CryptoResponse> {
         public DailyRequestProxy() {
             super();
@@ -282,28 +286,28 @@ public final class Crypto implements Fetcher {
         }
     }
 
-    /** Proxy for building a WeeklyRequest */
+    /** Proxy for building a weekly {@link DigitalCurrencyRequest}. */
     public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy, CryptoResponse> {
         public WeeklyRequestProxy() {
             builder = new DigitalCurrencyRequest.Builder().function(Function.DIGITAL_CURRENCY_WEEKLY);
         }
     }
 
-    /** Proxy for building a MonthlyRequest */
+    /** Proxy for building a monthly {@link DigitalCurrencyRequest}. */
     public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy, CryptoResponse> {
         public MonthlyRequestProxy() {
             builder = new DigitalCurrencyRequest.Builder().function(Function.DIGITAL_CURRENCY_MONTHLY);
         }
     }
 
-    /** Proxy for building a MonthlyRequest */
+    /** Proxy for building an {@link IntradayRequest}. */
     public class IntradayRequestProxy extends RequestProxy<IntradayRequestProxy, CryptoResponse> {
         public IntradayRequestProxy() {
             builder = new IntradayRequest.Builder();
         }
     }
 
-    /** Proxy for building a {@link RatingRequest} */
+    /** Proxy for building a {@link RatingRequest}. */
     public class RatingRequestProxy extends RequestProxy<RatingRequestProxy, RatingResponse> {
         public  RatingRequestProxy(){
             builder = new RatingRequest.Builder();

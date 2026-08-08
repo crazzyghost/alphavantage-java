@@ -31,7 +31,9 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * EconomicIndicatorResponse
+ * An economic indicator series: the indicator's name, the interval and unit its
+ * values are reported in, and the observations themselves as a list of
+ * {@link EconomicIndicatorUnit}.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0

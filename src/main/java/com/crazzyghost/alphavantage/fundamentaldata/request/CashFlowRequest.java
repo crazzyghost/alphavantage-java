@@ -25,7 +25,9 @@ package com.crazzyghost.alphavantage.fundamentaldata.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * Cash Flow Request
+ * A request for the {@code CASH_FLOW} endpoint, which returns a company's annual
+ * and quarterly cash flow statements, split into operating, investing and
+ * financing activity.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.6.0

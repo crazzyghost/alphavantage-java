@@ -25,7 +25,8 @@ package com.crazzyghost.alphavantage.cryptocurrency.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * Base Crypto Currency Request
+ * The parameters every crypto currency request carries: the digital currency
+ * symbol, the market to price it in, and the Alpha Vantage function to call.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0

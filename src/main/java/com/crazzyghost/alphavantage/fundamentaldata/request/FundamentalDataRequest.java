@@ -25,7 +25,8 @@ package com.crazzyghost.alphavantage.fundamentaldata.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * Base Fundamental Data Request
+ * The parameters every fundamental data request carries: the ticker symbol to
+ * report on, and the Alpha Vantage function that selects which report is returned.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.6.0

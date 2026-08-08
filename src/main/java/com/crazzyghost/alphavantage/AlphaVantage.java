@@ -51,16 +51,18 @@ public class AlphaVantage {
     }
 
     /**
-     * Initialize the client with a {@link Config} instance
+     * Initializes the client with a {@link Config} instance.
+     *
+     * @param config the configuration the api instance uses for every subsequent request
      */
     public void init(Config config) {
         this.config = config;
     }
 
     /**
-     * Access the client interface
+     * Accesses the client interface.
      *
-     * @return Singleton instance of {@link AlphaVantage}
+     * @return the singleton {@link AlphaVantage} instance
      */
     public static AlphaVantage api() {
         if (INSTANCE == null) {
@@ -108,10 +110,10 @@ public class AlphaVantage {
     }
 
     /**
-     * @return A {@link Indicator} instance for access to Technical Indicator Data
-     * @deprecated <p>use {@link AlphaVantage#technicalIndicator()} instead </p>
-     * <p>
      * Access to Technical Indicators.
+     *
+     * @return an {@link Indicator} instance for access to Technical Indicator Data
+     * @deprecated use {@link AlphaVantage#technicalIndicator()} instead
      */
     @Deprecated
     public Indicator indicator() {

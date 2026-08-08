@@ -38,7 +38,10 @@ import okhttp3.ResponseBody;
 import java.io.IOException;
 
 /**
- * EconomicIndicator
+ * Access to the US economic indicator endpoints — real GDP and GDP per capita,
+ * treasury yield, federal funds rate, CPI and inflation, consumer sentiment,
+ * retail sales, durable goods orders, unemployment and non-farm payroll — each
+ * exposed as a request proxy that is built up fluently and then fetched.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0
@@ -86,13 +89,14 @@ public class EconomicIndicator implements Fetcher {
     }
 
     /**
-     * Make a blocking synchronous http request to fetch the data.
-     * This will be called by the {@link EconomicIndicator.RequestProxy#fetchSync()}.
+     * Makes a blocking synchronous http request to fetch the data.
+     * This is called by {@link EconomicIndicator.RequestProxy#fetchSync()}.
+     * <p>
+     * Using this method will overwrite any async callback.
      *
-     * Using this method will overwrite any async callback
-     *
+     * @return the economic indicator series returned by the API
+     * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.7.0
-     * @throws AlphaVantageException exception thrown
      */
     private EconomicIndicatorResponse fetchSync() throws AlphaVantageException {
 
@@ -177,11 +181,13 @@ public class EconomicIndicator implements Fetcher {
         }
 
         /**
-         * Set the right builder and make a synchronous request using {@link EconomicIndicator#fetch()}
-         * When calling this method, any async callbacks will be overwritten
+         * Sets the right builder and makes a synchronous request using
+         * {@link EconomicIndicator#fetch()}.
+         * <p>
+         * When calling this method, any async callbacks will be overwritten.
          *
-         * @return The api response
-         * @throws AlphaVantageException exception during call
+         * @return the api response
+         * @throws AlphaVantageException if the request fails or the response cannot be read
          */
         public EconomicIndicatorResponse fetchSync() throws AlphaVantageException {
             EconomicIndicator.this.builder = this.builder;

@@ -26,7 +26,10 @@ import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * EconomicIndicatorRequest
+ * The parameters every economic indicator request carries: the Alpha Vantage
+ * function that selects the indicator, and the data type the series is returned in.
+ * Subclasses add the parameters their indicator supports, such as interval or
+ * maturity.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0

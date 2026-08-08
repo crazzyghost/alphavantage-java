@@ -23,7 +23,9 @@
 package com.crazzyghost.alphavantage.cryptocurrency.request;
 
 /**
- * Crypto Currency Request
+ * A request for a digital currency time series. The caller picks the cadence by
+ * setting the function on the builder, so the same request type serves the daily,
+ * weekly, monthly and intraday endpoints.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0

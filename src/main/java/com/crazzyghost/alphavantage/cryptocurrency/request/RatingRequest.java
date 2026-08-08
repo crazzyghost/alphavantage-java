@@ -25,7 +25,9 @@ package com.crazzyghost.alphavantage.cryptocurrency.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * Crypto Rating Request
+ * A request for the {@code CRYPTO_RATING} endpoint, which reports the FCAS health
+ * index for a digital currency. The builder fixes the function, so only the symbol
+ * needs setting.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0

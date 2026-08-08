@@ -26,10 +26,11 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 /**
- * Allows you to set the library configuration parameters.
+ * Holds the library configuration parameters: the api key every request is signed
+ * with, and the http client and timeout used to make those requests.
  *
- * @since 1.0.0
  * @author Sylvester Sefa-Yeboah
+ * @since 1.0.0
  */
 public class Config {
 
@@ -59,16 +60,16 @@ public class Config {
     }
 
     /**
-     * Get a builder instance
+     * Gets a builder instance.
      *
-     * @return {@link Builder}
+     * @return a new {@link Builder}
      */
     public static Builder builder(){
         return new Builder();
     }
 
     /**
-     * Configure a default http client for the library
+     * Configures a default http client for the library.
      *
      * @param timeOut connect timeout
      * @return a default HTTP client for fetching data
@@ -80,11 +81,12 @@ public class Config {
     }
 
     /**
-     * Make sure the config is not null and is with an api key
+     * Checks that a config instance is neither null nor missing its api key, and
+     * throws if it is. Called before every request so a misconfigured client fails
+     * with a clear message rather than an unauthorized response.
      *
-     * @since 1.4.0
      * @param config config instance
-     * Check if a config instance is null or has an empty key
+     * @since 1.4.0
      */
     public static void checkNotNullOrKeyEmpty(Config config) {
         if (config == null) throw new AlphaVantageException("Config not set");

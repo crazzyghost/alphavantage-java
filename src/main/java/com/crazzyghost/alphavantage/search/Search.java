@@ -37,7 +37,9 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 /**
- * Symbol Search
+ * Access to the {@code SYMBOL_SEARCH} endpoint, which matches a free-text keyword
+ * against the symbols and names Alpha Vantage covers and returns the best matches
+ * ranked by relevance.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.8.0
@@ -63,7 +65,7 @@ public final class Search implements Fetcher {
      * Handles request success
      *
      * @param callback successful fetch handler
-     * @return current instance of {@link SearchResponse}
+     * @return this instance, for method chaining
      */
     public Search onSuccess(SuccessCallback<SearchResponse> callback) {
         this.successCallback = callback;
@@ -74,7 +76,7 @@ public final class Search implements Fetcher {
      * Handles request failure
      *
      * @param callback failed fetch handler
-     * @return current instance of {@link SearchResponse}
+     * @return this instance, for method chaining
      */
     public Search onFailure(FailureCallback callback) {
         this.failureCallback = callback;
@@ -83,11 +85,12 @@ public final class Search implements Fetcher {
 
 
     /**
-     * Make a blocking synchronous http request to fetch the data.
+     * Makes a blocking synchronous http request to fetch the data.
      * <p>
-     * Using this method will overwrite any async callback
+     * Using this method will overwrite any async callback.
      *
-     * @throws AlphaVantageException exception thrown
+     * @return the keyword matches returned by the API
+     * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.8.0
      */
     public SearchResponse fetchSync() throws AlphaVantageException {

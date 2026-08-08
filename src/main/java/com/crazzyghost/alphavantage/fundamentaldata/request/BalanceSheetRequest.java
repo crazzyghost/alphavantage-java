@@ -25,7 +25,9 @@ package com.crazzyghost.alphavantage.fundamentaldata.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * Balance Sheet Request
+ * A request for the {@code BALANCE_SHEET} endpoint, which returns a company's
+ * annual and quarterly balance sheets — assets, liabilities and shareholder equity
+ * as reported to the SEC.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.6.0

@@ -23,7 +23,8 @@
 package com.crazzyghost.alphavantage.cryptocurrency.response;
 
 /**
- * Crypto Currency Unit
+ * One open-high-low-close-volume bar of a digital currency time series, priced in
+ * the market the request asked for. Any field the API omitted is {@code null}.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0

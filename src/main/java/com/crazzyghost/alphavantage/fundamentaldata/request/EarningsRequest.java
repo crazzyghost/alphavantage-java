@@ -25,7 +25,9 @@ package com.crazzyghost.alphavantage.fundamentaldata.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * Earnings Request
+ * A request for the {@code EARNINGS} endpoint, which returns a company's annual
+ * and quarterly earnings history, including reported versus estimated EPS and the
+ * resulting surprise.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.6.0

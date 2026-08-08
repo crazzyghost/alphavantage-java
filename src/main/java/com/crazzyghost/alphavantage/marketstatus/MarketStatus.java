@@ -37,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 /**
- * Access to Global Market Status
+ * Access to Global Market Status.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.8.0
@@ -58,7 +58,7 @@ public final class MarketStatus implements Fetcher {
      * Handles request success
      *
      * @param callback successful fetch handler
-     * @return current instance of {@link MarketStatusResponse}
+     * @return this instance, for method chaining
      */
     public MarketStatus onSuccess(SuccessCallback<MarketStatusResponse> callback) {
         this.successCallback = callback;
@@ -69,7 +69,7 @@ public final class MarketStatus implements Fetcher {
      * Handles request failure
      *
      * @param callback failed fetch handler
-     * @return current instance of {@link MarketStatusResponse}
+     * @return this instance, for method chaining
      */
     public MarketStatus onFailure(FailureCallback callback) {
         this.failureCallback = callback;
@@ -78,11 +78,12 @@ public final class MarketStatus implements Fetcher {
 
 
     /**
-     * Make a blocking synchronous http request to fetch the data.
+     * Makes a blocking synchronous http request to fetch the data.
      * <p>
-     * Using this method will overwrite any async callback
+     * Using this method will overwrite any async callback.
      *
-     * @throws AlphaVantageException exception thrown
+     * @return the global market status data returned by the API
+     * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.8.0
      */
     public MarketStatusResponse fetchSync() throws AlphaVantageException {

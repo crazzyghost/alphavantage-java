@@ -25,7 +25,9 @@ package com.crazzyghost.alphavantage.economicindicator.response;
 import com.squareup.moshi.Json;
 
 /**
- * EconomicIndicatorUnit Response
+ * A single observation in an economic indicator series: the date it was recorded
+ * and its value, in whatever unit the enclosing
+ * {@link EconomicIndicatorResponse} reports.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0
