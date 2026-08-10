@@ -24,19 +24,38 @@ package com.crazzyghost.alphavantage.economicindicator.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
+/**
+ * A request to {@code DURABLES}, which returns the monthly manufacturers' new
+ * orders for durable goods in the United States.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class DurableGoodsOrdersRequest extends EconomicIndicatorRequest {
 
     private DurableGoodsOrdersRequest(Builder builder) {
         super(builder);
     }
 
+    /**
+     * Assembles a request for the durable goods orders series. Carries no
+     * parameters beyond those inherited from {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
 
+        /**
+         * Creates a builder for the {@code DURABLES} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.DURABLES);
         }
 
+        /**
+         * Assembles the parameters set so far into a durable goods orders request.
+         *
+         * @return a request for the durable goods orders series
+         */
         @Override
         public DurableGoodsOrdersRequest build() {
             return new DurableGoodsOrdersRequest(this);

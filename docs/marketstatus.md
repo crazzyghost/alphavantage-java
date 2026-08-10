@@ -1,15 +1,15 @@
 ## Market Status
 
-=== "Java"
+=== ":material-language-java: Java"
     ```java
-    Alphavantage.api()
+    AlphaVantage.api()
         .marketStatus()
         .onSuccess(response -> onData(response))
         .fetch();
     ```
-=== "Kotlin"
+=== ":material-language-kotlin: Kotlin"
     ```kotlin
-    Alphavantage.api()
+    AlphaVantage.api()
         .marketStatus()
         .onSuccess { response -> onData(response) }
         .fetch()
@@ -20,7 +20,7 @@
 
 ### Response
 
-=== "Java"
+=== ":material-language-java: Java"
     ```java
     public void onData(MarketStatusResponse response){
         response.getMarkets().forEach(market -> {
@@ -34,7 +34,7 @@
         });
     }
     ```
-=== "Kotlin"
+=== ":material-language-kotlin: Kotlin"
     ```kotlin
     fun onData(response: MarketStatusResponse) {
         response.markets.forEach { market ->

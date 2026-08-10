@@ -4,7 +4,7 @@ repo_url: https://github.com/crazzyghost/alphavantage-java
 site_description: "Fluent Java wrapper for Alphavantage API"
 site_author: S. M. Sefa-Yeboah
 
-copyright: 'Copyright &copy; 2022 S. M. Sefa-Yeboah'
+copyright: 'Copyright &copy; 2026 S. M. Sefa-Yeboah'
 
 theme:
   name: material
@@ -53,69 +53,14 @@ markdown_extensions:
 
 nav:
   - Overview: index.md
-  - "v1.8.0 API":
-      - alphavantage: api/alphavantage/index.md
-      - Crypto Currencies:
-          - api/cryptocurrency/index.md
-          - Crypto: api/cryptocurrency/crypto.md
-          - Request:
-              - api/cryptocurrency/request/index.md
-              - CryptoRequest:
-                  - api/cryptocurrency/request/crypto-request/index.md
-                  - Builder: api/cryptocurrency/request/crypto-request/builder.md
-              - DigitalCurrencyRequest:
-                  - api/cryptocurrency/request/digital-currency-request/index.md
-                  - Builder: api/cryptocurrency/request/digital-currency-request/builder.md
-              - IntradayRequest:
-                  - api/cryptocurrency/request/intraday-request/index.md
-                  - Builder: api/cryptocurrency/request/intraday-request/builder.md
-          - Response:
-              - api/cryptocurrency/response/index.md
-              - CryptoResponse:
-                  - api/cryptocurrency/response/crypto-response/index.md
-              - CryptoUnit:
-                  - api/cryptocurrency/response/crypto-unit/index.md
-                  - Builder: api/cryptocurrency/response/crypto-unit/builder.md
-              - MetaData:
-                  - api/cryptocurrency/response/meta-data/index.md
-                  - Builder: api/cryptocurrency/response/meta-data/builder.md
-      - exchangerate: api/exchangerate/index.md
-      - forex: api/forex/index.md
-      - indicator: api/indicator/index.md
-      - timeseries: api/timeseries/index.md
-      - sector: api/sector/index.md
-      - fundamentaldata: api/fundamentaldata/index.md
-      - economicindicator: api/economicindicator/index.md
-      - Global Market Status:
-          - api/marketstatus/index.md
-          - MarketStatus: api/marketstatus/marketstatus.md
-          - Request:
-              - api/marketstatus/request/index.md
-              - MarketStatusRequest:
-                  - api/marketstatus/request/market-status-request/index.md
-                  - Builder: api/marketstatus/request/market-status-request/builder.md
-          - Response:
-              - api/marketstatus/response/index.md
-              - MarketStatusResponse: api/marketstatus/response/market-status-response.md
-              - Market: api/marketstatus/response/market.md
-      - Ticker/Symbol Search:
-          - api/search/index.md
-          - Search: api/search/search.md
-          - Request:
-              - api/search/request/index.md
-              - SearchRequest:
-                  - api/search/request/search-request/index.md
-                  - Builder: api/search/request/search-request/builder.md
-          - Response:
-              - api/search/response/index.md
-              - SearchResponse: api/search/response/search-response.md
-              - Match: api/search/response/match.md
+  - API: api/index.html
   - Recipes:
       - Stock Time Series: timeseries.md
       - Forex (FX): forex.md
       - Crypto Currencies: crypto.md
       - Exchange Rates: exchangerate.md
-      - Technical Indicators: indicators.md
+      - Technical Indicators: technicalindicator.md
+      - Technical Indicators (Legacy): indicators.md
       - Sector Performances: sector.md
       - Fundamental Data: fundamentaldata.md
       - Economic Indicators: economicindicator.md

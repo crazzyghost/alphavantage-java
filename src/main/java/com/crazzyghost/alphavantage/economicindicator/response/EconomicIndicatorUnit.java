@@ -25,7 +25,9 @@ package com.crazzyghost.alphavantage.economicindicator.response;
 import com.squareup.moshi.Json;
 
 /**
- * EconomicIndicatorUnit Response
+ * A single observation in an economic indicator series: the date it was recorded
+ * and its value, in whatever unit the enclosing
+ * {@link EconomicIndicatorResponse} reports.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0
@@ -37,15 +39,31 @@ public class EconomicIndicatorUnit {
     @Json(name = "value")
     private Double value;
 
+    /**
+     * Creates an observation.
+     *
+     * @param date  the date the observation was recorded
+     * @param value the observed value
+     */
     public EconomicIndicatorUnit(String date, Double value) {
         this.date = date;
         this.value = value;
     }
 
+    /**
+     * Gets the date this observation was recorded.
+     *
+     * @return the observation date
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * Gets the value recorded for this observation.
+     *
+     * @return the observed value
+     */
     public Double getValue() {
         return value;
     }

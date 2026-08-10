@@ -28,6 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The {@code EARNINGS} endpoint's response: a company's annual and quarterly
+ * earnings history, or the error returned in their place.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class EarningsResponse {
 
     private final String symbol;
@@ -49,27 +56,57 @@ public class EarningsResponse {
         this.errorMessage = null;
     }
 
+    /**
+     * Parses a raw {@code EARNINGS} API response into an
+     * {@code EarningsResponse}.
+     *
+     * @param  objectMap the parsed JSON response body
+     * @return the parsed response, or an error response if parsing fails
+     */
     public static EarningsResponse of(Map<String, Object> objectMap) {
         Parser<EarningsResponse> parser = new EarningParser();
         return parser.parse(objectMap);
     }
 
+    /**
+     * Returns the error message returned by the API, if the request failed.
+     *
+     * @return the error message, or {@code null} if the request succeeded
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Returns the ticker symbol this response is for.
+     *
+     * @return the ticker symbol, or {@code null} if the request failed
+     */
     public String getSymbol() {
         return symbol;
     }
 
+    /**
+     * Returns the company's annual earnings history, most recent first.
+     *
+     * @return the annual earnings reports, or an empty list if the request
+     *         failed
+     */
     public List<AnnualEarning> getAnnualReports() {
         return annualReports;
     }
 
+    /**
+     * Returns the company's quarterly earnings history, most recent first.
+     *
+     * @return the quarterly earnings reports, or an empty list if the
+     *         request failed
+     */
     public List<QuarterlyEarning> getQuarterlyReports() {
         return quarterlyReports;
     }
 
+    /** Parses a raw {@code EARNINGS} API response into an {@link EarningsResponse}. */
     public static class EarningParser extends Parser<EarningsResponse> {
 
         @Override

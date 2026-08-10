@@ -25,19 +25,33 @@ package com.crazzyghost.alphavantage.fundamentaldata.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * Earnings Request
+ * A request for the {@code EARNINGS} endpoint, which returns a company's annual
+ * and quarterly earnings history, including reported versus estimated EPS and the
+ * resulting surprise.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.6.0
  */
 public class EarningsRequest extends FundamentalDataRequest {
 
+    /**
+     * Creates a request from the given builder's current state.
+     *
+     * @param builder the builder to copy the symbol from
+     */
     protected EarningsRequest(Builder builder) { super(builder); }
 
+    /** Builds an {@link EarningsRequest}. */
     public static class Builder extends FundamentalDataRequest.Builder<Builder> {
 
+        /** Creates a builder preset to the {@code EARNINGS} function. */
         public Builder() { this.function(Function.EARNINGS); }
 
+        /**
+         * Builds the earnings request from this builder's current state.
+         *
+         * @return the built earnings request
+         */
         @Override
         public EarningsRequest build() {
             return new EarningsRequest(this);

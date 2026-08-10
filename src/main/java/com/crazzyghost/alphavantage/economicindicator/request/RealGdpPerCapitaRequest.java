@@ -24,19 +24,39 @@ package com.crazzyghost.alphavantage.economicindicator.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
+/**
+ * A request to {@code REAL_GDP_PER_CAPITA}, which returns the quarterly real GDP
+ * per capita of the United States.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class RealGdpPerCapitaRequest extends EconomicIndicatorRequest {
 
     private RealGdpPerCapitaRequest(Builder builder) {
         super(builder);
     }
 
+    /**
+     * Assembles a request for the real GDP per capita series. The series is
+     * fixed at quarterly cadence, so this builder carries no parameters beyond
+     * those inherited from {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
 
+        /**
+         * Creates a builder for the {@code REAL_GDP_PER_CAPITA} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.REAL_GDP_PER_CAPITA);
         }
 
+        /**
+         * Assembles the parameters set so far into a real GDP per capita request.
+         *
+         * @return a request for the real GDP per capita series
+         */
         @Override
         public RealGdpPerCapitaRequest build() {
             return new RealGdpPerCapitaRequest(this);

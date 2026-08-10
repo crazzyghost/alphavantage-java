@@ -25,7 +25,9 @@ package com.crazzyghost.alphavantage.fundamentaldata.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * Cash Flow Request
+ * A request for the {@code CASH_FLOW} endpoint, which returns a company's annual
+ * and quarterly cash flow statements, split into operating, investing and
+ * financing activity.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.6.0
@@ -36,10 +38,17 @@ public class CashFlowRequest extends FundamentalDataRequest {
         super(builder);
     }
 
+    /** Builds a {@link CashFlowRequest}. */
     public static class Builder extends FundamentalDataRequest.Builder<Builder> {
 
+        /** Creates a builder preset to the {@code CASH_FLOW} function. */
         public Builder() { this.function(Function.CASH_FLOW); }
 
+        /**
+         * Builds the cash flow request from this builder's current state.
+         *
+         * @return the built cash flow request
+         */
         @Override
         public CashFlowRequest build() {
             return new CashFlowRequest(this);

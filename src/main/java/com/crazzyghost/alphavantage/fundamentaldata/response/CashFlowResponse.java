@@ -28,6 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The {@code CASH_FLOW} endpoint's response: a company's annual and
+ * quarterly cash flow statements, or the error returned in their place.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class CashFlowResponse {
 
     private final String symbol;
@@ -49,27 +56,58 @@ public class CashFlowResponse {
         this.errorMessage = null;
     }
 
+    /**
+     * Parses a raw {@code CASH_FLOW} API response into a
+     * {@code CashFlowResponse}.
+     *
+     * @param  objectMap the parsed JSON response body
+     * @return the parsed response, or an error response if parsing fails
+     */
     public static CashFlowResponse of(Map<String, Object> objectMap) {
         Parser<CashFlowResponse> parser = new CashFlowParser();
         return parser.parse(objectMap);
     }
 
+    /**
+     * Returns the error message returned by the API, if the request failed.
+     *
+     * @return the error message, or {@code null} if the request succeeded
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Returns the ticker symbol this response is for.
+     *
+     * @return the ticker symbol, or {@code null} if the request failed
+     */
     public String getSymbol() {
         return symbol;
     }
 
+    /**
+     * Returns the company's annual cash flow statements, most recent first.
+     *
+     * @return the annual cash flow reports, or an empty list if the request
+     *         failed
+     */
     public List<CashFlow> getAnnualReports() {
         return annualReports;
     }
 
+    /**
+     * Returns the company's quarterly cash flow statements, most recent
+     * first.
+     *
+     * @return the quarterly cash flow reports, or an empty list if the
+     *         request failed
+     */
     public List<CashFlow> getQuarterlyReports() {
         return quarterlyReports;
     }
 
+    /** Parses a raw {@code CASH_FLOW} API response into a {@link CashFlowResponse}. */
     public static class CashFlowParser extends Parser<CashFlowResponse> {
 
         @Override

@@ -92,9 +92,16 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Access to Technical TechnicalIndicator Data
- * 
- * @author crazzyghost
+ * Access to the technical indicator endpoints — moving averages, oscillators,
+ * momentum, volatility, cycle and Hilbert transform studies — each exposed as a
+ * request proxy that is built up fluently and then fetched.
+ * <p>
+ * This facade supersedes the older
+ * {@link com.crazzyghost.alphavantage.indicator.Indicator}, whose accessor
+ * {@code AlphaVantage.indicator()} is deprecated in favour of
+ * {@code AlphaVantage.technicalIndicator()}.
+ *
+ * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
 public final class TechnicalIndicator implements Fetcher {
@@ -109,7 +116,8 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Fetch Technical TechnicalIndicator Data
+     * Fetches technical indicator data asynchronously, dispatching the parsed
+     * response to the callback registered on the request proxy.
      */
     @Override
     public void fetch() {
@@ -139,22 +147,17 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Make a blocking synchronous http request to fetch the data.
-     * This will be called by the
-     * {@link SimpleTechnicalIndicatorRequestProxy#fetchSync()}.
+     * Makes a blocking synchronous http request to fetch the data.
+     * This is called by {@link SimpleTechnicalIndicatorRequestProxy#fetchSync()}.
      * <p>
-     * On Android this will throw NetworkOnMainThreadException. In that case you
-     * should handle this on
-     * another thread
-     * </p>
-     * 
+     * On Android this will throw {@code NetworkOnMainThreadException}. In that case
+     * the call should be made on another thread.
      * <p>
-     * Using this method will overwrite any async callback
-     * </p>
-     * 
+     * Using this method will overwrite any async callback.
+     *
+     * @param successCallback internally used {@link SuccessCallback} that receives the parsed response
+     * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.4.1
-     * @param successCallback internally used {@link SuccessCallback}
-     * @throws AlphaVantageException exception thrown
      */
     private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
 
@@ -622,225 +625,600 @@ public final class TechnicalIndicator implements Fetcher {
 
     }
 
+    /**
+     * Exposes the simple moving average ({@code SMA}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code SMA}
+     */
     public PeriodicSeriesRequestProxy<SMAResponse> sma() {
         return new PeriodicSeriesRequestProxy<>(Function.SMA);
     }
 
+    /**
+     * Exposes the exponential moving average ({@code EMA}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code EMA}
+     */
     public PeriodicSeriesRequestProxy<EMAResponse> ema() {
         return new PeriodicSeriesRequestProxy<>(Function.EMA);
     }
 
+    /**
+     * Exposes the weighted moving average ({@code WMA}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code WMA}
+     */
     public PeriodicSeriesRequestProxy<WMAResponse> wma() {
         return new PeriodicSeriesRequestProxy<>(Function.WMA);
     }
 
+    /**
+     * Exposes the double exponential moving average ({@code DEMA}). See
+     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code DEMA}
+     */
     public PeriodicSeriesRequestProxy<DEMAResponse> dema() {
         return new PeriodicSeriesRequestProxy<>(Function.DEMA);
     }
 
+    /**
+     * Exposes the triple exponential moving average ({@code TEMA}). See
+     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code TEMA}
+     */
     public PeriodicSeriesRequestProxy<TEMAResponse> tema() {
         return new PeriodicSeriesRequestProxy<>(Function.TEMA);
     }
 
+    /**
+     * Exposes the triangular moving average ({@code TRIMA}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code TRIMA}
+     */
     public PeriodicSeriesRequestProxy<TRIMAResponse> trima() {
         return new PeriodicSeriesRequestProxy<>(Function.TRIMA);
     }
 
+    /**
+     * Exposes the Kaufman adaptive moving average ({@code KAMA}). See
+     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code KAMA}
+     */
     public PeriodicSeriesRequestProxy<KAMAResponse> kama() {
         return new PeriodicSeriesRequestProxy<>(Function.KAMA);
     }
 
+    /**
+     * Exposes the MESA adaptive moving average ({@code MAMA}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.MAMARequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code MAMA}
+     */
     public MAMARequestProxy mama() {
         return new MAMARequestProxy();
     }
 
+    /**
+     * Exposes T3, Tillson's triple exponential moving average ({@code T3}).
+     * See {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code T3}
+     */
     public PeriodicSeriesRequestProxy<T3Response> t3() {
         return new PeriodicSeriesRequestProxy<>(Function.T3);
     }
 
+    /**
+     * Exposes the volume weighted average price ({@code VWAP}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code VWAP}
+     */
     public SimpleTechnicalIndicatorRequestProxy<?, VWAPResponse> vwap() {
         return new SimpleTechnicalIndicatorRequestProxy<>(Function.VWAP);
     }
 
+    /**
+     * Exposes moving average convergence / divergence ({@code MACD}). See
+     * {@link com.crazzyghost.alphavantage.technicalindicator.request.MACDRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code MACD}
+     */
     public MACDRequestProxy macd() {
         return new MACDRequestProxy();
     }
 
+    /**
+     * Exposes MACD with controllable moving-average type ({@code MACDEXT}).
+     * See {@link com.crazzyghost.alphavantage.technicalindicator.request.MACDEXTRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code MACDEXT}
+     */
     public MACDEXTRequestProxy macdext() {
         return new MACDEXTRequestProxy();
     }
 
+    /**
+     * Exposes the stochastic oscillator ({@code STOCH}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.STOCHRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code STOCH}
+     */
     public STOCHRequestProxy stoch() {
         return new STOCHRequestProxy();
     }
 
+    /**
+     * Exposes the stochastic fast oscillator ({@code STOCHF}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.STOCHFRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code STOCHF}
+     */
     public STOCHFRequestProxy stochf() {
         return new STOCHFRequestProxy();
     }
 
+    /**
+     * Exposes the relative strength index ({@code RSI}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code RSI}
+     */
     public PeriodicSeriesRequestProxy<RSIResponse> rsi() {
         return new PeriodicSeriesRequestProxy<>(Function.RSI);
     }
 
+    /**
+     * Exposes the stochastic relative strength index ({@code STOCHRSI}).
+     * See {@link com.crazzyghost.alphavantage.technicalindicator.request.STOCHRSIRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code STOCHRSI}
+     */
     public STOCHRSIRequestProxy stochrsi() {
         return new STOCHRSIRequestProxy();
     }
 
+    /**
+     * Exposes Williams' %R ({@code WILLR}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code WILLR}
+     */
     public PeriodicRequestProxy<WILLRResponse> willr() {
         return new PeriodicRequestProxy<>(Function.WILLR);
     }
 
+    /**
+     * Exposes the average directional movement index ({@code ADX}). See
+     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code ADX}
+     */
     public PeriodicRequestProxy<ADXResponse> adx() {
         return new PeriodicRequestProxy<>(Function.ADX);
     }
 
+    /**
+     * Exposes the average directional movement index rating ({@code ADXR}).
+     * See {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code ADXR}
+     */
     public PeriodicRequestProxy<ADXRResponse> adxr() {
         return new PeriodicRequestProxy<>(Function.ADXR);
     }
 
+    /**
+     * Exposes the absolute price oscillator ({@code APO}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PriceOscillatorRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code APO}
+     */
     public PriceOscillatorRequestProxy<APOResponse> apo() {
         return new PriceOscillatorRequestProxy<>(Function.APO);
     }
 
+    /**
+     * Exposes the percentage price oscillator ({@code PPO}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PriceOscillatorRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code PPO}
+     */
     public PriceOscillatorRequestProxy<PPOResponse> ppo() {
         return new PriceOscillatorRequestProxy<>(Function.PPO);
     }
 
+    /**
+     * Exposes momentum ({@code MOM}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code MOM}
+     */
     public PeriodicSeriesRequestProxy<MOMResponse> mom() {
         return new PeriodicSeriesRequestProxy<>(Function.MOM);
     }
 
+    /**
+     * Exposes the balance of power ({@code BOP}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code BOP}
+     */
     public SimpleTechnicalIndicatorRequestProxy<?, BOPResponse> bop() {
         return new SimpleTechnicalIndicatorRequestProxy<>(Function.BOP);
     }
 
+    /**
+     * Exposes the commodity channel index ({@code CCI}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code CCI}
+     */
     public PeriodicRequestProxy<CCIResponse> cci() {
         return new PeriodicRequestProxy<>(Function.CCI);
     }
 
+    /**
+     * Exposes the Chande momentum oscillator ({@code CMO}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code CMO}
+     */
     public PeriodicSeriesRequestProxy<CMOResponse> cmo() {
         return new PeriodicSeriesRequestProxy<>(Function.CMO);
     }
 
+    /**
+     * Exposes the rate of change ({@code ROC}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code ROC}
+     */
     public PeriodicSeriesRequestProxy<ROCResponse> roc() {
         return new PeriodicSeriesRequestProxy<>(Function.ROC);
     }
 
+    /**
+     * Exposes the rate of change ratio ({@code ROCR}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code ROCR}
+     */
     public PeriodicSeriesRequestProxy<ROCRResponse> rocr() {
         return new PeriodicSeriesRequestProxy<>(Function.ROCR);
     }
 
+    /**
+     * Exposes the Aroon indicator ({@code AROON}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code AROON}
+     */
     public PeriodicRequestProxy<AROONResponse> aroon() {
         return new PeriodicRequestProxy<>(Function.AROON);
     }
 
+    /**
+     * Exposes the Aroon oscillator ({@code AROONOSC}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code AROONOSC}
+     */
     public PeriodicRequestProxy<AROONOSCResponse> aroonosc() {
         return new PeriodicRequestProxy<>(Function.AROONOSC);
     }
 
+    /**
+     * Exposes the money flow index ({@code MFI}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code MFI}
+     */
     public PeriodicRequestProxy<MFIResponse> mfi() {
         return new PeriodicRequestProxy<>(Function.MFI);
     }
 
+    /**
+     * Exposes the 1-day rate of change of a triple exponentially smoothed
+     * moving average ({@code TRIX}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code TRIX}
+     */
     public PeriodicSeriesRequestProxy<TRIXResponse> trix() {
         return new PeriodicSeriesRequestProxy<>(Function.TRIX);
     }
 
+    /**
+     * Exposes the ultimate oscillator ({@code ULTOSC}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.ULTOSCRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code ULTOSC}
+     */
     public ULTOSCRequestProxy ultosc() {
         return new ULTOSCRequestProxy();
     }
 
+    /**
+     * Exposes the directional movement index ({@code DX}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code DX}
+     */
     public PeriodicRequestProxy<DXResponse> dx() {
         return new PeriodicRequestProxy<>(Function.DX);
     }
 
+    /**
+     * Exposes the minus directional indicator ({@code MINUS_DI}). See
+     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code MINUS_DI}
+     */
     public PeriodicRequestProxy<MINUSDIResponse> minusdi() {
         return new PeriodicRequestProxy<>(Function.MINUS_DI);
     }
 
+    /**
+     * Exposes the plus directional indicator ({@code PLUS_DI}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code PLUS_DI}
+     */
     public PeriodicRequestProxy<PLUSDIResponse> plusdi() {
         return new PeriodicRequestProxy<>(Function.PLUS_DI);
     }
 
+    /**
+     * Exposes the minus directional movement ({@code MINUS_DM}). See
+     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code MINUS_DM}
+     */
     public PeriodicRequestProxy<MINUSDMResponse> minusdm() {
         return new PeriodicRequestProxy<>(Function.MINUS_DM);
     }
 
+    /**
+     * Exposes the plus directional movement ({@code PLUS_DM}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code PLUS_DM}
+     */
     public PeriodicRequestProxy<PLUSDMResponse> plusdm() {
         return new PeriodicRequestProxy<>(Function.PLUS_DM);
     }
 
+    /**
+     * Exposes Bollinger Bands ({@code BBANDS}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.BBANDSRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code BBANDS}
+     */
     public BBANDSRequestProxy bbands() {
         return new BBANDSRequestProxy();
     }
 
+    /**
+     * Exposes the midpoint ({@code MIDPOINT}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code MIDPOINT}
+     */
     public PeriodicSeriesRequestProxy<MIDPOINTResponse> midpoint() {
         return new PeriodicSeriesRequestProxy<>(Function.MIDPOINT);
     }
 
+    /**
+     * Exposes the midprice ({@code MIDPRICE}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code MIDPRICE}
+     */
     public PeriodicRequestProxy<MIDPRICEResponse> midprice() {
         return new PeriodicRequestProxy<>(Function.MIDPRICE);
     }
 
+    /**
+     * Exposes the parabolic SAR ({@code SAR}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SARRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code SAR}
+     */
     public SARRequestProxy sar() {
         return new SARRequestProxy();
     }
 
+    /**
+     * Exposes the true range ({@code TRANGE}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code TRANGE}
+     */
     public SimpleTechnicalIndicatorRequestProxy<?, TRANGEResponse> trange() {
         return new SimpleTechnicalIndicatorRequestProxy<>(Function.TRANGE);
     }
 
+    /**
+     * Exposes the average true range ({@code ATR}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code ATR}
+     */
     public PeriodicRequestProxy<ATRResponse> atr() {
         return new PeriodicRequestProxy<>(Function.ATR);
     }
 
+    /**
+     * Exposes the normalized average true range ({@code NATR}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code NATR}
+     */
     public PeriodicRequestProxy<NATRResponse> natr() {
         return new PeriodicRequestProxy<>(Function.NATR);
     }
 
+    /**
+     * Exposes the Chaikin A/D line ({@code AD}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code AD}
+     */
     public SimpleTechnicalIndicatorRequestProxy<?, ADResponse> ad() {
         return new SimpleTechnicalIndicatorRequestProxy<>(Function.AD);
     }
 
+    /**
+     * Exposes the Chaikin A/D oscillator ({@code ADOSC}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.ADOSCRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code ADOSC}
+     */
     public ADOSCRequestProxy adosc() {
         return new ADOSCRequestProxy();
     }
 
+    /**
+     * Exposes on balance volume ({@code OBV}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code OBV}
+     */
     public SimpleTechnicalIndicatorRequestProxy<?, OBVResponse> obv() {
         return new SimpleTechnicalIndicatorRequestProxy<>(Function.OBV);
     }
 
+    /**
+     * Exposes the Hilbert transform instantaneous trendline
+     * ({@code HT_TRENDLINE}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code HT_TRENDLINE}
+     */
     public SeriesRequestProxy<HTTRENDLINEResponse> httrendline() {
         return new SeriesRequestProxy<>(Function.HT_TRENDLINE);
     }
 
+    /**
+     * Exposes the Hilbert transform sine wave ({@code HT_SINE}). See
+     * {@link com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code HT_SINE}
+     */
     public SeriesRequestProxy<HTSINEResponse> htsine() {
         return new SeriesRequestProxy<>(Function.HT_SINE);
     }
 
+    /**
+     * Exposes the Hilbert transform trend vs cycle mode
+     * ({@code HT_TRENDMODE}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code HT_TRENDMODE}
+     */
     public SeriesRequestProxy<HTTRENDMODEResponse> httrendmode() {
         return new SeriesRequestProxy<>(Function.HT_TRENDMODE);
     }
 
+    /**
+     * Exposes the Hilbert transform dominant cycle phase
+     * ({@code HT_DCPHASE}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code HT_DCPHASE}
+     */
     public SeriesRequestProxy<HTDCPHASEResponse> htdcphase() {
         return new SeriesRequestProxy<>(Function.HT_DCPHASE);
     }
 
+    /**
+     * Exposes the Hilbert transform dominant cycle period
+     * ({@code HT_DCPERIOD}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code HT_DCPERIOD}
+     */
     public SeriesRequestProxy<HTDCPERIODResponse> htdcperiod() {
         return new SeriesRequestProxy<>(Function.HT_DCPERIOD);
     }
 
+    /**
+     * Exposes the Hilbert transform phasor components ({@code HT_PHASOR}).
+     * See {@link com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
+     * for the parameter contract.
+     *
+     * @return a request proxy for {@code HT_PHASOR}
+     */
     public SeriesRequestProxy<HTPHASORResponse> htphasor() {
         return new SeriesRequestProxy<>(Function.HT_PHASOR);
     }
 
     /**
-     * An base proxy for building requests. Adds the functionality of adding
-     * callbacks and a terminal method for
-     * fetching data.
-     * 
-     * @param <T> A Concrete {@link SimpleTechnicalIndicatorRequestProxy}
-     *            Implementation
+     * A base proxy for building requests. Adds the functionality of adding
+     * callbacks and a terminal method for fetching data.
+     *
+     * @param <T> a concrete {@link SimpleTechnicalIndicatorRequestProxy} implementation
+     * @param <U> the response type that implementation's terminal fetch returns
      */
     @SuppressWarnings("unchecked")
     public class SimpleTechnicalIndicatorRequestProxy<T extends SimpleTechnicalIndicatorRequestProxy<?, U>, U> {
@@ -888,23 +1266,22 @@ public final class TechnicalIndicator implements Fetcher {
         }
 
         /**
-         * Set the response during a synchronous call
-         * 
-         * @param response
+         * Sets the response received during a synchronous call.
+         *
+         * @param response the parsed response to hand back to {@link #fetchSync()}
          */
         private void setSyncResponse(U response) {
             this.syncResponse = response;
         }
 
         /**
-         * Set the right builder and make a synchronous request using
-         * {@link TechnicalIndicator#fetch()}
+         * Sets the right builder and makes a synchronous request using
+         * {@link TechnicalIndicator#fetch()}.
          * <p>
-         * When calling this method, any async callbacks will be overwritten
-         * </p>
-         * 
-         * @return The api response
-         * @throws AlphaVantageException
+         * When calling this method, any async callbacks will be overwritten.
+         *
+         * @return the api response
+         * @throws AlphaVantageException if the request fails or the response cannot be read
          */
         public U fetchSync() throws AlphaVantageException {
             SuccessCallback<U> callback = (e) -> setSyncResponse(e);

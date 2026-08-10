@@ -37,8 +37,9 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * Access to Sector Performance Data
- * @author crazzyghost
+ * Access to Sector Performance Data.
+ *
+ * @author Sylvester Sefa-Yeboah
  * @since 1.4.0
  */
 public final class Sector implements Fetcher {
@@ -54,9 +55,10 @@ public final class Sector implements Fetcher {
     }
 
     /**
-     * Set the success callback
+     * Sets the success callback.
+     *
      * @param callback successful fetch handler
-     * @return current instance of {@link SectorResponse}
+     * @return this instance, for method chaining
      */
     public Sector onSuccess(Fetcher.SuccessCallback<SectorResponse> callback){
         this.successCallback = callback;
@@ -64,25 +66,27 @@ public final class Sector implements Fetcher {
     }
 
     /**
-     * Set the failure callback
+     * Sets the failure callback.
+     *
      * @param callback failed fetch handler
-     * @return current instance of {@link SectorResponse}
+     * @return this instance, for method chaining
      */
     public Sector onFailure(Fetcher.FailureCallback callback){
         this.failureCallback= callback;
         return this;
     }
 
-     /**
-     * Make a blocking synchronous http request to fetch the data.
+    /**
+     * Makes a blocking synchronous http request to fetch the data.
      * <p>
-     * On Android this will throw NetworkOnMainThreadException. In that case you should handle this on
-     * another thread
-     * </p>
-     * 
-     * <p>Using this method will overwrite any async callback</p>
+     * On Android this will throw {@code NetworkOnMainThreadException}. In that case
+     * the call should be made on another thread.
+     * <p>
+     * Using this method will overwrite any async callback.
+     *
+     * @return the sector performance data returned by the API
+     * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.4.1
-     * @throws AlphaVantageException exception thrown
      */
     public SectorResponse fetchSync() throws AlphaVantageException {
         

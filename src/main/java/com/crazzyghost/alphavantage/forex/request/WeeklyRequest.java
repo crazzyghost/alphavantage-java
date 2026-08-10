@@ -1,7 +1,43 @@
+/*
+ *
+ * Copyright (c) 2025 Sylvester Sefa-Yeboah
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.crazzyghost.alphavantage.forex.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
+/**
+ * A request to {@code FX_WEEKLY}, which condenses a currency pair's history into one
+ * open-high-low-close bar per week.
+ * <p>
+ * Each bar spans a trading week and is dated by the last trading day in it, so the most
+ * recent bar covers the week still in progress and keeps moving until that week ends.
+ * <p>
+ * Beyond the currency pair and data type inherited from {@link ForexRequest}, this
+ * cadence takes no parameters: {@code FX_WEEKLY} has neither an output size nor an
+ * interval, and always returns the pair's whole weekly history.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.0.0
+ */
 public class WeeklyRequest extends ForexRequest{
 
     private Function function;
@@ -12,12 +48,26 @@ public class WeeklyRequest extends ForexRequest{
     }
 
 
+    /**
+     * Assembles a request for weekly bars.
+     * <p>
+     * It adds no setters of its own, since the currency pair and data type inherited
+     * from {@link ForexRequest.Builder} are everything {@code FX_WEEKLY} accepts.
+     */
     public static class Builder extends ForexRequest.Builder<Builder> {
 
+        /**
+         * Creates a builder for the {@code FX_WEEKLY} endpoint.
+         */
         public Builder(){
             super();
         }
 
+        /**
+         * Assembles the currency pair set so far into a weekly request.
+         *
+         * @return a request for the configured pair's weekly bars
+         */
         @Override
         public WeeklyRequest build() {
             return new WeeklyRequest(this);

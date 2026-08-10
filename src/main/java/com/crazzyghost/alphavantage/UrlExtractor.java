@@ -28,21 +28,22 @@ import okhttp3.Request;
 
 
 /**
- * Extracts a valid url from a request object. The request object should contain valid 
- * api endpoint parameters
+ * Extracts a valid url from a request object. The request object should contain
+ * valid api endpoint parameters.
  *
- * @since 1.0.0
  * @author Sylvester Sefa-Yeboah
+ * @since 1.0.0
  */
 public class UrlExtractor{
 
     private UrlExtractor(){}
     
     /**
-     * Get an API url from a request object
+     * Gets the query-string portion of an API url from a request object, by reading
+     * the object's non-null fields as endpoint parameters.
      *
      * @param object a request object with the valid API parameters
-     * @return valid API url
+     * @return the query-string portion of an API url, ready for the api key to be appended
      */
     public static String extract(Object object){
 
@@ -75,11 +76,11 @@ public class UrlExtractor{
     }
 
     /**
-     * Build an http request with the parameters and the api key
+     * Builds an http request from a request object's parameters and the api key.
      *
      * @param request any endpoint request object
      * @param apiKey Alphavantage API key
-     * @return
+     * @return a request targeting {@link Config#BASE_URL} with the extracted parameters and key
      */
     public static Request extract(Object request, String apiKey){
         return new Request.Builder().url(Config.BASE_URL + UrlExtractor.extract(request) + apiKey).build();

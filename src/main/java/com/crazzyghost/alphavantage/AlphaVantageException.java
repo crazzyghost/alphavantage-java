@@ -23,9 +23,12 @@
 package com.crazzyghost.alphavantage;
 
 /**
- * Exception class for the library
- * @since 1.0.0
+ * The unchecked exception every failure in this library surfaces as, whether the
+ * request could not be made, the response could not be read, or the API itself
+ * returned an error message.
+ *
  * @author Sylvester Sefa-Yeboah
+ * @since 1.0.0
  */
 public class AlphaVantageException extends RuntimeException {
 

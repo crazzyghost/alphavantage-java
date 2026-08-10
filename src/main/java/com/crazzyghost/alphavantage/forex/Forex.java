@@ -39,8 +39,9 @@ import okhttp3.ResponseBody;
 import java.io.IOException;
 
 /**
- * Access to Stock Time Series Data
- * @author crazzyghost
+ * Access to Foreign Exchange Time Series Data.
+ *
+ * @author Sylvester Sefa-Yeboah
  * @since 1.0.0
  */
 public final class Forex implements Fetcher {
@@ -55,39 +56,44 @@ public final class Forex implements Fetcher {
     }
 
     /**
-     * Access monthly stock time series data
-     * @return {@link WeeklyRequestProxy} instance
+     * Accesses weekly foreign exchange time series data.
+     *
+     * @return a {@link WeeklyRequestProxy} instance
      */
     public WeeklyRequestProxy weekly(){
         return new WeeklyRequestProxy();
     }
 
     /**
-     * Access monthly stock time series data
-     * @return {@link DailyRequestProxy} instance
+     * Accesses daily foreign exchange time series data.
+     *
+     * @return a {@link DailyRequestProxy} instance
      */
     public DailyRequestProxy daily(){
         return new DailyRequestProxy();
     }
 
     /**
-     * Access monthly stock time series data
-     * @return {@link IntraDayRequestProxy} instance
+     * Accesses intraday foreign exchange time series data.
+     *
+     * @return an {@link IntraDayRequestProxy} instance
      */
     public IntraDayRequestProxy intraday(){
         return new IntraDayRequestProxy();
     }
 
     /**
-     * Access monthly stock time series data
-     * @return {@link MonthlyRequestProxy} instance
+     * Accesses monthly foreign exchange time series data.
+     *
+     * @return a {@link MonthlyRequestProxy} instance
      */
     public MonthlyRequestProxy monthly(){
         return new MonthlyRequestProxy();
     }
 
     /**
-     * Fetch Foreign Exchange data
+     * Fetches foreign exchange data asynchronously, dispatching the result to the
+     * callback registered on the request proxy.
      */
     @Override
     public void fetch(){
@@ -118,17 +124,17 @@ public final class Forex implements Fetcher {
     }
 
     /**
-     * Make a blocking synchronous http request to fetch the data.
-     * This will be called by the {@link RequestProxy#fetchSync()}. 
+     * Makes a blocking synchronous http request to fetch the data.
+     * This is called by {@link RequestProxy#fetchSync()}.
      * <p>
-     * On Android this will throw NetworkOnMainThreadException. In that case you should handle this on
-     * another thread
-     * </p>
-     * 
-     * <p>Using this method will overwrite any async callback</p>
+     * On Android this will throw {@code NetworkOnMainThreadException}. In that case
+     * the call should be made on another thread.
+     * <p>
+     * Using this method will overwrite any async callback.
+     *
+     * @param successCallback internally used {@link SuccessCallback} that receives the parsed response
+     * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.4.1
-     * @param successCallback internally used {@link SuccessCallback}
-     * @throws AlphaVantageException exception thrown
      */
     private void fetchSync(SuccessCallback<ForexResponse> successCallback) throws AlphaVantageException {
 
@@ -147,10 +153,11 @@ public final class Forex implements Fetcher {
 
 
     /**
-     * An abstract proxy for building requests. Adds the functionality of adding callbacks and a terminal method for 
-     * fetching data.
-     * @param <T> A Concrete {@link RequestProxy} Implementation
-     */    
+     * An abstract proxy for building requests. Adds the functionality of adding
+     * callbacks and a terminal method for fetching data.
+     *
+     * @param <T> a concrete {@link RequestProxy} implementation
+     */
     @SuppressWarnings("unchecked")
     public abstract class RequestProxy<T extends RequestProxy<?>> {
 
@@ -195,8 +202,9 @@ public final class Forex implements Fetcher {
         }
 
         /**
-         * Set the reponse during a synchronous call
-         * @param response
+         * Sets the response received during a synchronous call.
+         *
+         * @param response the parsed response to hand back to {@link #fetchSync()}
          */
         public void setSyncResponse(ForexResponse response) {
             this.syncResponse = response;
@@ -204,10 +212,13 @@ public final class Forex implements Fetcher {
 
 
         /**
-         * Set the right builder and make a synchronous request using {@link Forex#fetch()}
-         * <p>When calling this method, any async callbacks will be overwritten</p>
-         * @return The api response
-         * @throws AlphaVantageException
+         * Sets the right builder and makes a synchronous request using
+         * {@link Forex#fetch()}.
+         * <p>
+         * When calling this method, any async callbacks will be overwritten.
+         *
+         * @return the api response
+         * @throws AlphaVantageException if the request fails or the response cannot be read
          */
         public ForexResponse fetchSync() throws AlphaVantageException {
             SuccessCallback<ForexResponse> callback = (e) -> setSyncResponse(e);
@@ -219,7 +230,7 @@ public final class Forex implements Fetcher {
     }
 
     /**
-     * Proxy for building a {@link DailyRequest}
+     * Proxy for building a {@link DailyRequest}.
      */
     public class DailyRequestProxy extends RequestProxy<DailyRequestProxy>{
 
@@ -235,8 +246,8 @@ public final class Forex implements Fetcher {
 
     }
 
-     /**
-     * Proxy for building a {@link IntraDayRequest}
+    /**
+     * Proxy for building an {@link IntraDayRequest}.
      */
     public class IntraDayRequestProxy extends RequestProxy<IntraDayRequestProxy>{
 
@@ -257,7 +268,7 @@ public final class Forex implements Fetcher {
     }
     
     /**
-     * Proxy for building a {@link WeeklyRequest}
+     * Proxy for building a {@link WeeklyRequest}.
      */
     public class WeeklyRequestProxy extends RequestProxy<WeeklyRequestProxy>{
 
@@ -267,8 +278,8 @@ public final class Forex implements Fetcher {
         }
     }
 
-     /**
-     * Proxy for building a {@link MonthlyRequest}
+    /**
+     * Proxy for building a {@link MonthlyRequest}.
      */
     public class MonthlyRequestProxy extends RequestProxy<MonthlyRequestProxy>{
 
