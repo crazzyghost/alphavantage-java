@@ -72,9 +72,6 @@ jobs:
       - image: cimg/openjdk:21.0.12
     steps:
       - checkout
-      - run:
-          name: Fetch full git history for SonarCloud
-          command: git fetch --unshallow || true
       - attach_workspace:
           at: .
       - run:
