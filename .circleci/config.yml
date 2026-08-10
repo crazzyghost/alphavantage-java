@@ -4,8 +4,8 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/openjdk:8.0.312
-    
+      - image: cimg/openjdk:17.0.6
+
     working_directory: ~/repo
 
     environment:
@@ -23,7 +23,7 @@ jobs:
 
       - run:
           name: install-gradle-dependencies
-          command: gradle dependencies
+          command: ./gradlew dependencies
 
       - save_cache:
           paths:
@@ -33,10 +33,10 @@ jobs:
       # run tests!
       - run:
           name: Run tests
-          command: gradle test
+          command: ./gradlew test
       - run:
           name: Run Code Coverage
-          command: gradle jacocoTestReport
+          command: ./gradlew jacocoTestReport
 
       - run:
           name: Save test results
@@ -69,14 +69,14 @@ jobs:
             - build/*
   sonar:
     docker:
-      - image: cimg/openjdk:17.0.6
+      - image: cimg/openjdk:21.0.12
     steps:
       - checkout
       - attach_workspace:
           at: .
       - run:
           name: Analyze on SonarCloud
-          command: gradle build sonarqube
+          command: ./gradlew build sonarqube
 
 workflows:
  workflow:
