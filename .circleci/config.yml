@@ -17,7 +17,7 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
+            - v1-dependencies-{{ checksum "build.gradle" }}
           # fallback to using the latest cache if no exact match is found
           # - v1-dependencies-
 
@@ -27,7 +27,7 @@ jobs:
 
       - save_cache:
           paths:
-          - ~/.gradle
+            - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # run tests!
@@ -47,15 +47,15 @@ jobs:
       - run:
           name: Save coverage report
           command: |
-              find . -type f -regex ".*/build/reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+            find . -type f -regex ".*/build/reports/.*xml" -exec cp {} ~/test-results/junit/ \;
           when: always
 
       - store_test_results:
           path: ~/test-results
-      
+
       - store_artifacts:
-          path: ~/test-results/junit    
-      
+          path: ~/test-results/junit
+
       - codecov/upload:
           file: ~/test-results/junit/*.xml
 
@@ -65,13 +65,16 @@ jobs:
 
       - persist_to_workspace:
           root: .
-          paths: 
+          paths:
             - build/*
   sonar:
     docker:
       - image: cimg/openjdk:21.0.12
     steps:
       - checkout
+      - run:
+          name: Fetch full git history for SonarCloud
+          command: git fetch --unshallow || true
       - attach_workspace:
           at: .
       - run:
@@ -79,10 +82,10 @@ jobs:
           command: ./gradlew build sonarqube
 
 workflows:
- workflow:
-   jobs:
-   - build
-   - sonar:
-       context: SonarCloud
-       requires:
-         - build
+  workflow:
+    jobs:
+      - build
+      - sonar:
+          context: SonarCloud
+          requires:
+            - build
