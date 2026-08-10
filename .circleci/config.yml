@@ -4,7 +4,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/openjdk:8.0.312
+      - image: cimg/openjdk:17.0.6
     
     working_directory: ~/repo
 
