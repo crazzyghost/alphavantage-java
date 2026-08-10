@@ -23,7 +23,7 @@ jobs:
 
       - run:
           name: install-gradle-dependencies
-          command: gradle dependencies
+          command: ./gradlew dependencies
 
       - save_cache:
           paths:
@@ -33,10 +33,10 @@ jobs:
       # run tests!
       - run:
           name: Run tests
-          command: gradle test
+          command: ./gradlew test
       - run:
           name: Run Code Coverage
-          command: gradle jacocoTestReport
+          command: ./gradlew jacocoTestReport
 
       - run:
           name: Save test results
@@ -76,7 +76,7 @@ jobs:
           at: .
       - run:
           name: Analyze on SonarCloud
-          command: gradle build sonarqube
+          command: ./gradlew build sonarqube
 
 workflows:
  workflow:
