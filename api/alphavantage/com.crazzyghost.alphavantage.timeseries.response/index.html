@@ -109,6 +109,7 @@
   <div class="breadcrumbs"><a href="../../index.html">alphavantage</a><span class="delimiter">/</span><span class="current">com.crazzyghost.alphavantage.timeseries.response</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><p class="paragraph">The deserialized responses for Alpha Vantage's stock time series endpoints. </p><p class="paragraph"><a href="-time-series-response/index.html">com.crazzyghost.alphavantage.timeseries.response.TimeSeriesResponse</a> holds a ticker's price series as a list of <a href="-stock-unit/index.html">com.crazzyghost.alphavantage.timeseries.response.StockUnit</a> open-high-low-close-volume bars alongside its <a href="-meta-data/index.html">com.crazzyghost.alphavantage.timeseries.response.MetaData</a> header — every cadence answers with this same shape. The two snapshot endpoints answer with <a href="-quote-response/index.html">com.crazzyghost.alphavantage.timeseries.response.QuoteResponse</a> for a single ticker and <a href="-realtime-bulk-quote-response/index.html">com.crazzyghost.alphavantage.timeseries.response.RealtimeBulkQuoteResponse</a>, a list of <a href="-realtime-bulk-quote/index.html">com.crazzyghost.alphavantage.timeseries.response.RealtimeBulkQuote</a>, for many tickers instead.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
@@ -125,7 +126,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-meta-data/index.html">MetaData</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-meta-data/index.html">MetaData</a></div><div class="brief ">The header Alpha Vantage returns above a stock time series: which ticker it covers, how recently it was refreshed, and how it was sampled.</div></div></div>
                 </div>
               </div>
             </div>
@@ -140,7 +141,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-quote-response/index.html">QuoteResponse</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-quote-response/index.html">QuoteResponse</a></div><div class="brief ">A single ticker's latest quote, or the message Alpha Vantage returned in place of one.</div></div></div>
                 </div>
               </div>
             </div>
@@ -155,7 +156,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-realtime-bulk-quote/index.html">RealtimeBulkQuote</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-realtime-bulk-quote/index.html">RealtimeBulkQuote</a></div><div class="brief ">One ticker's snapshot within a bulk quote answer.</div></div></div>
                 </div>
               </div>
             </div>
@@ -170,7 +171,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-realtime-bulk-quote-response/index.html">RealtimeBulkQuoteResponse</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-realtime-bulk-quote-response/index.html">RealtimeBulkQuoteResponse</a></div><div class="brief ">Snapshots for the tickers a bulk quote request asked about, or the message Alpha Vantage returned in place of them.</div></div></div>
                 </div>
               </div>
             </div>
@@ -185,7 +186,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-stock-unit/index.html">StockUnit</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-stock-unit/index.html">StockUnit</a></div><div class="brief ">One open-high-low-close-volume bar of a stock time series, covering whichever span the requested cadence samples at — minutes, a day, a week or a month.</div></div></div>
                 </div>
               </div>
             </div>
@@ -200,7 +201,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-time-series-response/index.html">TimeSeriesResponse</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-time-series-response/index.html">TimeSeriesResponse</a></div><div class="brief ">A ticker's price series, or the message Alpha Vantage returned in place of one.</div></div></div>
                 </div>
               </div>
             </div>

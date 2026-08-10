@@ -109,6 +109,7 @@
   <div class="breadcrumbs"><a href="../../index.html">alphavantage</a><span class="delimiter">/</span><span class="current">com.crazzyghost.alphavantage.technicalindicator.request</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><p class="paragraph">Fluent request builders for Alpha Vantage's technical indicator endpoints. </p><p class="paragraph"><a href="-technical-indicator-request/index.html">com.crazzyghost.alphavantage.technicalindicator.request.TechnicalIndicatorRequest</a> holds the function, symbol, interval and data type every indicator shares. Concrete subclasses add whatever further parameters their indicator requires: <a href="-periodic-request/index.html">com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest</a> and <a href="-periodic-series-request/index.html">com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest</a> add a time period, and <a href="-series-request/index.html">com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest</a> adds a price series field, covering most indicators between them, while <a href="-simple-technical-indicator-request/index.html">com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest</a> needs neither and bespoke multi-parameter indicators such as <a href="-b-b-a-n-d-s-request/index.html">com.crazzyghost.alphavantage.technicalindicator.request.BBANDSRequest</a>, <a href="-m-a-c-d-request/index.html">com.crazzyghost.alphavantage.technicalindicator.request.MACDRequest</a> and <a href="-s-t-o-c-h-request/index.html">com.crazzyghost.alphavantage.technicalindicator.request.STOCHRequest</a> each define their own. Reached through <a href="../com.crazzyghost.alphavantage.technicalindicator/-technical-indicator/index.html">com.crazzyghost.alphavantage.technicalindicator.TechnicalIndicator</a>.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
@@ -125,7 +126,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-a-d-o-s-c-request/index.html">ADOSCRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-a-d-o-s-c-request/index.html">ADOSCRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for the Chaikin A/D oscillator (<code class="lang-java">ADOSC</code>), the MACD of the Chaikin accumulation/distribution line using a fast and slow EMA period.</div></div></div>
                 </div>
               </div>
             </div>
@@ -140,7 +141,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-b-b-a-n-d-s-request/index.html">BBANDSRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-b-b-a-n-d-s-request/index.html">BBANDSRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for Bollinger Bands (<code class="lang-java">BBANDS</code>), an upper and lower volatility band plotted a configurable number of standard deviations above and below a moving average of a price series.</div></div></div>
                 </div>
               </div>
             </div>
@@ -155,7 +156,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-m-a-c-d-e-x-t-request/index.html">MACDEXTRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-m-a-c-d-e-x-t-request/index.html">MACDEXTRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for MACD with controllable moving-average type (<code class="lang-java">MACDEXT</code>), a variant of <a href="-m-a-c-d-request/index.html">MACD</a> that lets the fast, slow, and signal components each use a different moving-average type instead of the fixed EMA the plain <code class="lang-java">MACD</code> function uses.</div></div></div>
                 </div>
               </div>
             </div>
@@ -170,7 +171,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-m-a-c-d-request/index.html">MACDRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-m-a-c-d-request/index.html">MACDRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for moving average convergence / divergence (<code class="lang-java">MACD</code>), the difference between a fast and slow EMA of a price series, together with a signal line that is itself an EMA of that difference.</div></div></div>
                 </div>
               </div>
             </div>
@@ -185,7 +186,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-m-a-m-a-request/index.html">MAMARequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-m-a-m-a-request/index.html">MAMARequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for the MESA adaptive moving average (<code class="lang-java">MAMA</code>), an adaptive moving average that adjusts its own smoothing speed to price movement using the Hilbert transform, reported alongside its slower-following companion, FAMA.</div></div></div>
                 </div>
               </div>
             </div>
@@ -200,7 +201,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-periodic-request/index.html">PeriodicRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-periodic-request/index.html">PeriodicRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for indicators that operate on a rolling time period but not on a specific price series field, such as <code class="lang-java">WILLR</code>, <code class="lang-java">ADX</code>, or <code class="lang-java">CCI</code>, which are computed directly from an instrument's high, low, and close rather than from a chosen <code class="lang-java">series_type</code>.</div></div></div>
                 </div>
               </div>
             </div>
@@ -215,7 +216,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-periodic-series-request/index.html">PeriodicSeriesRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-periodic-series-request/index.html">PeriodicSeriesRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for indicators computed over a rolling time period applied to a chosen price series field, such as <code class="lang-java">SMA</code>, <code class="lang-java">EMA</code>, or <code class="lang-java">RSI</code>.</div></div></div>
                 </div>
               </div>
             </div>
@@ -230,7 +231,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-price-oscillator-request/index.html">PriceOscillatorRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-price-oscillator-request/index.html">PriceOscillatorRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for the two price-oscillator indicators, <code class="lang-java">APO</code> and <code class="lang-java">PPO</code>, which measure the difference between a fast and a slow moving average of a price series.</div></div></div>
                 </div>
               </div>
             </div>
@@ -245,7 +246,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-s-a-r-request/index.html">SARRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-s-a-r-request/index.html">SARRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for the parabolic SAR (<code class="lang-java">SAR</code>), a trend-following stop and reversal indicator that trails price and accelerates toward it over time.</div></div></div>
                 </div>
               </div>
             </div>
@@ -260,7 +261,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-series-request/index.html">SeriesRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-series-request/index.html">SeriesRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for indicators computed from a chosen price series field but without a rolling time-period parameter, namely the Hilbert transform studies (<code class="lang-java">HT_TRENDLINE</code>, <code class="lang-java">HT_SINE</code>, <code class="lang-java">HT_TRENDMODE</code>, <code class="lang-java">HT_DCPERIOD</code>, <code class="lang-java">HT_DCPHASE</code>, <code class="lang-java">HT_PHASOR</code>).</div></div></div>
                 </div>
               </div>
             </div>
@@ -275,7 +276,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-simple-technical-indicator-request/index.html">SimpleTechnicalIndicatorRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-simple-technical-indicator-request/index.html">SimpleTechnicalIndicatorRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for indicators that take no parameters beyond the shared <code class="lang-java">function</code>, <code class="lang-java">symbol</code>, <code class="lang-java">interval</code>, and <code class="lang-java">datatype</code>, such as <code class="lang-java">VWAP</code>, <code class="lang-java">BOP</code>, <code class="lang-java">TRANGE</code>, <code class="lang-java">AD</code>, and <code class="lang-java">OBV</code>.</div></div></div>
                 </div>
               </div>
             </div>
@@ -290,7 +291,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-s-t-o-c-h-f-request/index.html">STOCHFRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-s-t-o-c-h-f-request/index.html">STOCHFRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for the stochastic fast oscillator (<code class="lang-java">STOCHF</code>), the unsmoothed counterpart of <a href="-s-t-o-c-h-request/index.html">STOCH</a> that reports raw <code class="lang-java">%K</code> and a lightly smoothed <code class="lang-java">%D</code> without the slow %K stage.</div></div></div>
                 </div>
               </div>
             </div>
@@ -305,7 +306,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-s-t-o-c-h-request/index.html">STOCHRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-s-t-o-c-h-request/index.html">STOCHRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for the stochastic oscillator (<code class="lang-java">STOCH</code>), which compares a closing price to its recent high-low range and reports a smoothed <code class="lang-java">%K</code> and <code class="lang-java">%D</code> line.</div></div></div>
                 </div>
               </div>
             </div>
@@ -320,7 +321,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-s-t-o-c-h-r-s-i-request/index.html">STOCHRSIRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-s-t-o-c-h-r-s-i-request/index.html">STOCHRSIRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for the stochastic relative strength index (<code class="lang-java">STOCHRSI</code>), which applies the <a href="-s-t-o-c-h-request/index.html">stochastic oscillator</a>'s %K/%D calculation to RSI values instead of price, producing a more sensitive overbought/oversold reading than RSI alone.</div></div></div>
                 </div>
               </div>
             </div>
@@ -335,7 +336,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Base request for every technical indicator endpoint, carrying the parameters (<code class="lang-java">function</code>, <code class="lang-java">symbol</code>, <code class="lang-java">interval</code>, <code class="lang-java">datatype</code>) that all indicators share.</div></div></div>
                 </div>
               </div>
             </div>
@@ -350,7 +351,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-u-l-t-o-s-c-request/index.html">ULTOSCRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-u-l-t-o-s-c-request/index.html">ULTOSCRequest</a><span class="token keyword"> extends </span><a href="-technical-indicator-request/index.html">TechnicalIndicatorRequest</a></div><div class="brief ">Request for the ultimate oscillator (<code class="lang-java">ULTOSC</code>), a momentum oscillator that combines buying pressure across three time periods to reduce the false-divergence signals a single-period oscillator produces.</div></div></div>
                 </div>
               </div>
             </div>

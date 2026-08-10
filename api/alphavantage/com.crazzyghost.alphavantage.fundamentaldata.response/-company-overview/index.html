@@ -109,7 +109,7 @@
   <div class="breadcrumbs"><a href="../../../index.html">alphavantage</a><span class="delimiter">/</span><a href="../index.html">com.crazzyghost.alphavantage.fundamentaldata.response</a><span class="delimiter">/</span><span class="current">CompanyOverview</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Company</span><wbr></wbr><span><span>Overview</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">CompanyOverview</a></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">CompanyOverview</a></div><p class="paragraph">A company profile and its headline valuation, profitability, dividend and price-performance metrics, as returned by the <code class="lang-java">OVERVIEW</code> endpoint. </p><p class="paragraph"> Unlike <a href="../-balance-sheet/index.html">BalanceSheet</a>, <a href="../-cash-flow/index.html">CashFlow</a> and <a href="../-income-statement/index.html">IncomeStatement</a>, this record mixes point-in-time reference data (name, sector, exchange) with metrics computed as of the data provider's last refresh — trailing twelve month (&quot;TTM&quot;) ratios and moving averages are not tied to a single fiscal period the way a balance sheet line item is. A ratio or metric the provider has not yet computed, for example because the company has not filed the underlying financials, comes back as <code class="lang-java">null</code> rather than zero; see <a href="../../com.crazzyghost.alphavantage.parser/-noneable-long/index.html">NoneableLong</a> and <a href="../../com.crazzyghost.alphavantage.parser/-noneable-double/index.html">NoneableDouble</a> for why that distinction survives JSON parsing.</p><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">Sylvester Sefa-Yeboah</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.7.0</p></span></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -839,7 +839,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-address.html"><span class="token function">getAddress</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-address.html"><span class="token function">getAddress</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the company's registered address.</div></div></div>
                 </div>
               </div>
             </div>
@@ -854,7 +854,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-analyst-target-price.html"><span class="token function">getAnalystTargetPrice</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-analyst-target-price.html"><span class="token function">getAnalystTargetPrice</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the mean analyst price target.</div></div></div>
                 </div>
               </div>
             </div>
@@ -869,7 +869,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-asset-type.html"><span class="token function">getAssetType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-asset-type.html"><span class="token function">getAssetType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the type of security, for example <code class="lang-java">Common Stock</code>.</div></div></div>
                 </div>
               </div>
             </div>
@@ -884,7 +884,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-beta.html"><span class="token function">getBeta</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-beta.html"><span class="token function">getBeta</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns beta: the security's price volatility relative to the broader market, where <code class="lang-java">1.0</code> moves in line with the market.</div></div></div>
                 </div>
               </div>
             </div>
@@ -899,7 +899,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-book-value.html"><span class="token function">getBookValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-book-value.html"><span class="token function">getBookValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns book value per share: shareholder equity divided by shares outstanding.</div></div></div>
                 </div>
               </div>
             </div>
@@ -914,7 +914,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-c-i-k.html"><span class="token function">getCIK</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-c-i-k.html"><span class="token function">getCIK</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the SEC Central Index Key (CIK) that uniquely identifies this filer in EDGAR.</div></div></div>
                 </div>
               </div>
             </div>
@@ -929,7 +929,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-country.html"><span class="token function">getCountry</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-country.html"><span class="token function">getCountry</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the country the company is headquartered or incorporated in.</div></div></div>
                 </div>
               </div>
             </div>
@@ -944,7 +944,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-currency.html"><span class="token function">getCurrency</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-currency.html"><span class="token function">getCurrency</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the ISO currency code the company reports its financials in, for example <code class="lang-java">USD</code>.</div></div></div>
                 </div>
               </div>
             </div>
@@ -959,7 +959,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-description.html"><span class="token function">getDescription</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-description.html"><span class="token function">getDescription</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns a prose summary of the company's business.</div></div></div>
                 </div>
               </div>
             </div>
@@ -974,7 +974,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-diluted-eps-t-t-m.html"><span class="token function">getDilutedEpsTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-diluted-eps-t-t-m.html"><span class="token function">getDilutedEpsTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns trailing twelve-month diluted earnings per share, which accounts for the dilutive effect of convertible securities and options.</div></div></div>
                 </div>
               </div>
             </div>
@@ -989,7 +989,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-dividend-date.html"><span class="token function">getDividendDate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-dividend-date.html"><span class="token function">getDividendDate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the date the most recent dividend was (or will be) paid.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1004,7 +1004,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-dividend-per-share.html"><span class="token function">getDividendPerShare</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-dividend-per-share.html"><span class="token function">getDividendPerShare</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the most recent annualized dividend per share.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1019,7 +1019,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-dividend-yield.html"><span class="token function">getDividendYield</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-dividend-yield.html"><span class="token function">getDividendYield</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns dividend yield: annual dividend per share divided by share price.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1034,7 +1034,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-e-b-i-t-d-a.html"><span class="token function">getEBITDA</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-e-b-i-t-d-a.html"><span class="token function">getEBITDA</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns trailing earnings before interest, taxes, depreciation and amortization (EBITDA).</div></div></div>
                 </div>
               </div>
             </div>
@@ -1049,7 +1049,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-e-p-s.html"><span class="token function">getEPS</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-e-p-s.html"><span class="token function">getEPS</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns trailing twelve-month earnings per share (EPS).</div></div></div>
                 </div>
               </div>
             </div>
@@ -1064,7 +1064,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-ev-to-e-b-i-t-d-a.html"><span class="token function">getEvToEBITDA</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-ev-to-e-b-i-t-d-a.html"><span class="token function">getEvToEBITDA</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns enterprise value to EBITDA: enterprise value (market capitalization plus net debt) divided by EBITDA.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1079,7 +1079,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-ev-to-revenue.html"><span class="token function">getEvToRevenue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-ev-to-revenue.html"><span class="token function">getEvToRevenue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns enterprise value to revenue: enterprise value (market capitalization plus net debt) divided by revenue.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1094,7 +1094,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-exchange.html"><span class="token function">getExchange</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-exchange.html"><span class="token function">getExchange</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the exchange the security is listed on, for example <code class="lang-java">NASDAQ</code>.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1109,7 +1109,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-ex-dividend-date.html"><span class="token function">getExDividendDate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-ex-dividend-date.html"><span class="token function">getExDividendDate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the ex-dividend date: the first trading day a buyer no longer receives the most recently declared dividend.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1124,7 +1124,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-fifty-day-moving-average.html"><span class="token function">getFiftyDayMovingAverage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-fifty-day-moving-average.html"><span class="token function">getFiftyDayMovingAverage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the 50-day simple moving average of the closing price.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1139,7 +1139,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-fifty-two-week-high.html"><span class="token function">getFiftyTwoWeekHigh</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-fifty-two-week-high.html"><span class="token function">getFiftyTwoWeekHigh</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the highest closing price over the trailing 52 weeks.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1154,7 +1154,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-fifty-two-week-low.html"><span class="token function">getFiftyTwoWeekLow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-fifty-two-week-low.html"><span class="token function">getFiftyTwoWeekLow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the lowest closing price over the trailing 52 weeks.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1169,7 +1169,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-fiscal-year-end.html"><span class="token function">getFiscalYearEnd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-fiscal-year-end.html"><span class="token function">getFiscalYearEnd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the month the company's fiscal year ends in, for example <code class="lang-java">December</code>.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1184,7 +1184,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-forward-p-e.html"><span class="token function">getForwardPE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-forward-p-e.html"><span class="token function">getForwardPE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the forward price-to-earnings ratio, computed from projected next-twelve-months earnings.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1199,7 +1199,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-gross-profit-t-t-m.html"><span class="token function">getGrossProfitTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-gross-profit-t-t-m.html"><span class="token function">getGrossProfitTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns trailing twelve-month gross profit.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1214,7 +1214,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-industry.html"><span class="token function">getIndustry</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-industry.html"><span class="token function">getIndustry</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the company's specific industry classification, a finer-grained category than <a href="get-sector.html">getSector</a>.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1229,7 +1229,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-latest-quarter.html"><span class="token function">getLatestQuarter</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-latest-quarter.html"><span class="token function">getLatestQuarter</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the end date of the most recent fiscal quarter the company has reported financials for.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1244,7 +1244,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-market-capitalization.html"><span class="token function">getMarketCapitalization</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-market-capitalization.html"><span class="token function">getMarketCapitalization</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns market capitalization: share price multiplied by shares outstanding.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1259,7 +1259,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-name.html"><span class="token function">getName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-name.html"><span class="token function">getName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the company's registered name.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1274,7 +1274,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-operating-margin-t-t-m.html"><span class="token function">getOperatingMarginTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-operating-margin-t-t-m.html"><span class="token function">getOperatingMarginTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns trailing twelve-month operating margin: operating income divided by revenue.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1289,7 +1289,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-p-e-g-ratio.html"><span class="token function">getPEGRatio</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-p-e-g-ratio.html"><span class="token function">getPEGRatio</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the price/earnings-to-growth (PEG) ratio: the P/E ratio divided by expected earnings growth.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1304,7 +1304,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-p-e-ratio.html"><span class="token function">getPERatio</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-p-e-ratio.html"><span class="token function">getPERatio</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the price-to-earnings (P/E) ratio: share price divided by earnings per share.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1319,7 +1319,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-price-to-book-ratio.html"><span class="token function">getPriceToBookRatio</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-price-to-book-ratio.html"><span class="token function">getPriceToBookRatio</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the price-to-book ratio: share price divided by book value per share.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1334,7 +1334,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-price-to-sale-ratio-t-t-m.html"><span class="token function">getPriceToSaleRatioTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-price-to-sale-ratio-t-t-m.html"><span class="token function">getPriceToSaleRatioTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns trailing twelve-month price-to-sales ratio: market capitalization divided by revenue.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1349,7 +1349,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-profit-margin.html"><span class="token function">getProfitMargin</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-profit-margin.html"><span class="token function">getProfitMargin</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns profit margin: net income divided by revenue.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1364,7 +1364,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-quarterly-earnings-growth-y-o-y.html"><span class="token function">getQuarterlyEarningsGrowthYOY</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-quarterly-earnings-growth-y-o-y.html"><span class="token function">getQuarterlyEarningsGrowthYOY</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns quarterly earnings growth, year over year.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1379,7 +1379,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-quarterly-revenue-growth-y-o-y.html"><span class="token function">getQuarterlyRevenueGrowthYOY</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-quarterly-revenue-growth-y-o-y.html"><span class="token function">getQuarterlyRevenueGrowthYOY</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns quarterly revenue growth, year over year.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1394,7 +1394,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-return-on-assets-t-t-m.html"><span class="token function">getReturnOnAssetsTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-return-on-assets-t-t-m.html"><span class="token function">getReturnOnAssetsTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns trailing twelve-month return on assets: net income divided by total assets.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1409,7 +1409,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-return-on-equity-t-t-m.html"><span class="token function">getReturnOnEquityTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-return-on-equity-t-t-m.html"><span class="token function">getReturnOnEquityTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns trailing twelve-month return on equity: net income divided by shareholder equity.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1424,7 +1424,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-revenue-per-share-t-t-m.html"><span class="token function">getRevenuePerShareTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-revenue-per-share-t-t-m.html"><span class="token function">getRevenuePerShareTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns trailing twelve-month revenue per share.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1439,7 +1439,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-revenue-t-t-m.html"><span class="token function">getRevenueTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-revenue-t-t-m.html"><span class="token function">getRevenueTTM</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns trailing twelve-month total revenue.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1454,7 +1454,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-sector.html"><span class="token function">getSector</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-sector.html"><span class="token function">getSector</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the company's broad economic sector, for example <code class="lang-java">TECHNOLOGY</code>.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1469,7 +1469,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-shares-outstanding.html"><span class="token function">getSharesOutstanding</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-shares-outstanding.html"><span class="token function">getSharesOutstanding</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the number of shares currently outstanding.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1484,7 +1484,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-symbol.html"><span class="token function">getSymbol</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-symbol.html"><span class="token function">getSymbol</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the ticker symbol.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1499,7 +1499,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-trailing-p-e.html"><span class="token function">getTrailingPE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-trailing-p-e.html"><span class="token function">getTrailingPE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the trailing price-to-earnings ratio, computed from the last twelve months of reported earnings.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1514,7 +1514,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-two-hundred-day-moving-average.html"><span class="token function">getTwoHundredDayMovingAverage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-two-hundred-day-moving-average.html"><span class="token function">getTwoHundredDayMovingAverage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the 200-day simple moving average of the closing price.</div></div></div>
                 </div>
               </div>
             </div>

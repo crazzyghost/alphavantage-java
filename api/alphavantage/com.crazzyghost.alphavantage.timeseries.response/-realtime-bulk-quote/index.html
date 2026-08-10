@@ -109,7 +109,7 @@
   <div class="breadcrumbs"><a href="../../../index.html">alphavantage</a><span class="delimiter">/</span><a href="../index.html">com.crazzyghost.alphavantage.timeseries.response</a><span class="delimiter">/</span><span class="current">RealtimeBulkQuote</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Realtime</span><wbr></wbr><span>Bulk</span><wbr></wbr><span><span>Quote</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">RealtimeBulkQuote</a></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">RealtimeBulkQuote</a></div><p class="paragraph">One ticker's snapshot within a bulk quote answer. </p><p class="paragraph"> It reports the same latest trading day as <a href="../-quote-response/index.html">QuoteResponse</a> does for a single ticker, and adds what that endpoint has no equivalent of: an extended-hours quote and the move it represents, covering the pre-market and after-hours sessions. </p><p class="paragraph"> Every numeric field is a boxed type, which matters. Alpha Vantage does not pad its answer out to the tickers that were asked for, and a snapshot it has only partial data for comes back with the missing fields absent rather than zeroed — so any of these getters can return <code class="lang-java">null</code>, and the extended-hours three routinely do outside those sessions. Read them defensively rather than unboxing straight into a primitive. </p><p class="paragraph"> Unlike the fields of the older response types, these are mapped by name from the payload's snake_case keys rather than read positionally out of a numbered map.</p><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">Sylvester Sefa-Yeboah</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.8.0</p></span></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -344,7 +344,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-change.html"><span class="token function">getChange</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-change.html"><span class="token function">getChange</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets how far <a href="get-close.html">getClose</a> has moved from the previous close, signed so that a negative value is a fall.</div></div></div>
                 </div>
               </div>
             </div>
@@ -359,7 +359,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-change-percent.html"><span class="token function">getChangePercent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-change-percent.html"><span class="token function">getChangePercent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the same move as <a href="get-change.html">getChange</a> expressed against the previous close, in percentage points rather than as a fraction: a value of <code class="lang-java">1.5</code> means the price rose 1.5%.</div></div></div>
                 </div>
               </div>
             </div>
@@ -374,7 +374,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-close.html"><span class="token function">getClose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-close.html"><span class="token function">getClose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the latest regular-session price.</div></div></div>
                 </div>
               </div>
             </div>
@@ -389,7 +389,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-extended-hours-change.html"><span class="token function">getExtendedHoursChange</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-extended-hours-change.html"><span class="token function">getExtendedHoursChange</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets how far the extended-hours price has moved from the regular session's close, signed so that a negative value is a fall.</div></div></div>
                 </div>
               </div>
             </div>
@@ -404,7 +404,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-extended-hours-change-percent.html"><span class="token function">getExtendedHoursChangePercent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-extended-hours-change-percent.html"><span class="token function">getExtendedHoursChangePercent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the same move as <a href="get-extended-hours-change.html">getExtendedHoursChange</a> expressed against the regular session's close, in percentage points rather than as a fraction.</div></div></div>
                 </div>
               </div>
             </div>
@@ -419,7 +419,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-extended-hours-quote.html"><span class="token function">getExtendedHoursQuote</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-extended-hours-quote.html"><span class="token function">getExtendedHoursQuote</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the latest price from the pre-market or after-hours session, which is what a ticker is trading at outside regular hours while <a href="get-close.html">getClose</a> sits still.</div></div></div>
                 </div>
               </div>
             </div>
@@ -434,7 +434,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-high.html"><span class="token function">getHigh</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-high.html"><span class="token function">getHigh</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the highest price reached during the latest trading day.</div></div></div>
                 </div>
               </div>
             </div>
@@ -449,7 +449,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-low.html"><span class="token function">getLow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-low.html"><span class="token function">getLow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the lowest price reached during the latest trading day.</div></div></div>
                 </div>
               </div>
             </div>
@@ -464,7 +464,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-open.html"><span class="token function">getOpen</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-open.html"><span class="token function">getOpen</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the price at which the latest trading day opened.</div></div></div>
                 </div>
               </div>
             </div>
@@ -479,7 +479,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-previous-close.html"><span class="token function">getPreviousClose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html">Double</a> <a href="get-previous-close.html"><span class="token function">getPreviousClose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the price at which the trading day before the latest one closed.</div></div></div>
                 </div>
               </div>
             </div>
@@ -494,7 +494,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-symbol.html"><span class="token function">getSymbol</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-symbol.html"><span class="token function">getSymbol</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the ticker this snapshot covers.</div></div></div>
                 </div>
               </div>
             </div>
@@ -509,7 +509,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-timestamp.html"><span class="token function">getTimestamp</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html">String</a> <a href="get-timestamp.html"><span class="token function">getTimestamp</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the moment this snapshot was taken, which is the freshness of the quote rather than the day it covers.</div></div></div>
                 </div>
               </div>
             </div>
@@ -524,7 +524,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-volume.html"><span class="token function">getVolume</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Long.html">Long</a> <a href="get-volume.html"><span class="token function">getVolume</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets how many shares changed hands over the latest trading day.</div></div></div>
                 </div>
               </div>
             </div>

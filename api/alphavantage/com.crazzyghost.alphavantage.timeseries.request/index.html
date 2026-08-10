@@ -109,6 +109,7 @@
   <div class="breadcrumbs"><a href="../../index.html">alphavantage</a><span class="delimiter">/</span><span class="current">com.crazzyghost.alphavantage.timeseries.request</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><p class="paragraph">Fluent request builders for Alpha Vantage's stock time series endpoints. </p><p class="paragraph"><a href="-time-series-request/index.html">com.crazzyghost.alphavantage.timeseries.request.TimeSeriesRequest</a> holds the ticker, endpoint function and response format every request shares. Four subclasses — <a href="-intra-day-request/index.html">com.crazzyghost.alphavantage.timeseries.request.IntraDayRequest</a>, <a href="-daily-request/index.html">com.crazzyghost.alphavantage.timeseries.request.DailyRequest</a>, <a href="-weekly-request/index.html">com.crazzyghost.alphavantage.timeseries.request.WeeklyRequest</a> and <a href="-monthly-request/index.html">com.crazzyghost.alphavantage.timeseries.request.MonthlyRequest</a> — sample a ticker's price history at a fixed cadence, while <a href="-quote-request/index.html">com.crazzyghost.alphavantage.timeseries.request.QuoteRequest</a> and <a href="-realtime-bulk-quote-request/index.html">com.crazzyghost.alphavantage.timeseries.request.RealtimeBulkQuoteRequest</a> ask for a single current snapshot instead, for one ticker and for many respectively. Reached through <a href="../com.crazzyghost.alphavantage.timeseries/-time-series/index.html">com.crazzyghost.alphavantage.timeseries.TimeSeries</a>.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
@@ -125,7 +126,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-daily-request/index.html">DailyRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-daily-request/index.html">DailyRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div><div class="brief ">A request to <code class="lang-java">TIME_SERIES_DAILY</code>, which returns one open-high-low-close-volume bar per trading day for a ticker, going back twenty years or more.</div></div></div>
                 </div>
               </div>
             </div>
@@ -140,7 +141,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-intra-day-request/index.html">IntraDayRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-intra-day-request/index.html">IntraDayRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div><div class="brief ">A request to <code class="lang-java">TIME_SERIES_INTRADAY</code>, which returns open-high-low-close-volume bars sampled within the trading day at an <a href="../com.crazzyghost.alphavantage.parameters/-interval/index.html">Interval</a> the caller picks.</div></div></div>
                 </div>
               </div>
             </div>
@@ -155,7 +156,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-monthly-request/index.html">MonthlyRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-monthly-request/index.html">MonthlyRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div><div class="brief ">A request to <code class="lang-java">TIME_SERIES_MONTHLY</code>, which returns one open-high-low-close-volume bar per month for a ticker.</div></div></div>
                 </div>
               </div>
             </div>
@@ -170,7 +171,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-quote-request/index.html">QuoteRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-quote-request/index.html">QuoteRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div><div class="brief ">A request to <code class="lang-java">GLOBAL_QUOTE</code>, which returns the latest price and trading day for a single ticker rather than a series.</div></div></div>
                 </div>
               </div>
             </div>
@@ -185,7 +186,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-realtime-bulk-quote-request/index.html">RealtimeBulkQuoteRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-realtime-bulk-quote-request/index.html">RealtimeBulkQuoteRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div><div class="brief ">A request to <code class="lang-java">REALTIME_BULK_QUOTES</code>, which returns a current snapshot for many tickers in a single call, up to a hundred of them.</div></div></div>
                 </div>
               </div>
             </div>
@@ -200,7 +201,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div><div class="brief ">The parameters every stock time series request carries: which endpoint to call, which ticker to call it for, and the format the API should answer in.</div></div></div>
                 </div>
               </div>
             </div>
@@ -215,7 +216,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-weekly-request/index.html">WeeklyRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/javaMain"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-weekly-request/index.html">WeeklyRequest</a><span class="token keyword"> extends </span><a href="-time-series-request/index.html">TimeSeriesRequest</a></div><div class="brief ">A request to <code class="lang-java">TIME_SERIES_WEEKLY</code>, which returns one open-high-low-close-volume bar per trading week for a ticker.</div></div></div>
                 </div>
               </div>
             </div>
