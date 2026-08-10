@@ -72,6 +72,10 @@ jobs:
       - image: cimg/openjdk:21.0.12
     steps:
       - checkout
+      - run:
+          name: Disable blobless clone and fetch full history
+          command: |
+            git fetch --no-filter --refetch
       - attach_workspace:
           at: .
       - run:
