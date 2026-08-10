@@ -58,18 +58,42 @@ public class CryptoResponse {
         this.errorMessage = errorMessage;
     }
 
+    /**
+     * Returns the series of OHLCV bars for this response.
+     *
+     * @return the bars in the order the API returned them, or an empty list if
+     *         the request failed
+     */
     public List<CryptoUnit> getCryptoUnits() {
         return cryptoUnits;
     }
 
+    /**
+     * Returns the header metadata describing this series.
+     *
+     * @return the response's metadata, or an empty {@link MetaData} if the
+     *         request failed
+     */
     public MetaData getMetaData() {
         return metaData;
     }
 
+    /**
+     * Returns the error message the API returned, if the request failed.
+     *
+     * @return the error message, or {@code null} if the request succeeded
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Parses a raw JSON response from a digital currency time series endpoint.
+     *
+     * @param stringObjectMap the response body, decoded from JSON
+     * @return the parsed response, or one carrying an error message if parsing
+     *         failed
+     */
     public static CryptoResponse of(Map<String, Object> stringObjectMap) {
         Parser<CryptoResponse> parser = new CryptoParser();
         return parser.parse(stringObjectMap);

@@ -33,14 +33,27 @@ import com.crazzyghost.alphavantage.parameters.Function;
  */
 public class CompanyOverviewRequest extends FundamentalDataRequest {
 
+    /**
+     * Creates a request from the given builder's current state.
+     *
+     * @param builder the builder to copy the symbol from
+     */
     public CompanyOverviewRequest(Builder builder) {
         super(builder);
     }
 
+    /** Builds a {@link CompanyOverviewRequest}. */
     public static class Builder extends FundamentalDataRequest.Builder<Builder> {
 
+        /** Creates a builder preset to the {@code OVERVIEW} function. */
         public Builder() { this.function(Function.OVERVIEW); }
 
+        /**
+         * Builds the company overview request from this builder's current
+         * state.
+         *
+         * @return the built company overview request
+         */
         @Override
         public CompanyOverviewRequest build() {
             return new CompanyOverviewRequest(this);

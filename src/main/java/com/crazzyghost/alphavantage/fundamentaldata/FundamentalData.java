@@ -49,29 +49,68 @@ public final class FundamentalData implements Fetcher {
     private Fetcher.SuccessCallback<?> successCallback;
     private Fetcher.FailureCallback failureCallback;
 
+    /**
+     * Creates access to Fundamental Data using the given configuration.
+     *
+     * @param config the shared library configuration, providing the API key
+     *               and HTTP client
+     */
     public FundamentalData(Config config) { this.config = config; }
 
 
+    /**
+     * Starts building a request for the {@code INCOME_STATEMENT} endpoint.
+     *
+     * @return a new income statement request proxy
+     */
     public IncomeStatementRequestProxy incomeStatement() {
         return new IncomeStatementRequestProxy();
     }
 
+    /**
+     * Starts building a request for the {@code BALANCE_SHEET} endpoint.
+     *
+     * @return a new balance sheet request proxy
+     */
     public BalanceSheetRequestProxy balanceSheet() {
         return new BalanceSheetRequestProxy();
     }
 
+    /**
+     * Starts building a request for the {@code CASH_FLOW} endpoint.
+     *
+     * @return a new cash flow request proxy
+     */
     public CashFlowRequestProxy cashFlow() {
         return new CashFlowRequestProxy();
     }
 
+    /**
+     * Starts building a request for the {@code EARNINGS} endpoint.
+     *
+     * @return a new earnings request proxy
+     */
     public EarningsRequestProxy earnings() {
         return new EarningsRequestProxy();
     }
 
+    /**
+     * Starts building a request for the {@code OVERVIEW} endpoint.
+     *
+     * @return a new company overview request proxy
+     */
     public CompanyOverViewRequestProxy companyOverview() {
         return new CompanyOverViewRequestProxy();
     }
 
+    /**
+     * Makes an asynchronous http request to fetch the data, using the
+     * builder and callbacks most recently set through a
+     * {@link RequestProxy}.
+     * <p>
+     * The {@link SuccessCallback} or {@link FailureCallback} previously
+     * registered on the proxy is invoked once the response arrives.
+     */
     @Override
     public void fetch() {
         Config.checkNotNullOrKeyEmpty(config);
@@ -196,33 +235,76 @@ public final class FundamentalData implements Fetcher {
         }
     }
 
+    /**
+     * Base class for the fluent, per-endpoint request proxies returned by
+     * {@link FundamentalData}'s accessor methods (for example
+     * {@link #incomeStatement()}), sharing the symbol/callback wiring and
+     * fetch logic common to all of them.
+     *
+     * @param <Proxy>         the concrete proxy subtype, for fluent method
+     *                        chaining
+     * @param <ProxyResponse> the response type this proxy's endpoint returns
+     */
     @SuppressWarnings("unchecked")
     public abstract class RequestProxy<Proxy extends RequestProxy<?, ProxyResponse>, ProxyResponse> {
+        /** The request builder this proxy delegates symbol/parameter changes to. */
         protected FundamentalDataRequest.Builder<?> builder;
+        /** The response received by the most recent {@link #fetchSync()} call. */
         protected ProxyResponse syncResponse;
 
         private RequestProxy() {}
 
+        /**
+         * Sets the ticker symbol to request data for.
+         *
+         * @param  symbol the ticker symbol
+         * @return this proxy, for chaining
+         */
         public Proxy forSymbol(String symbol) {
             this.builder.symbol(symbol);
             return (Proxy) this;
         }
 
+        /**
+         * Registers the callback invoked with the parsed response when an
+         * asynchronous {@link #fetch()} succeeds.
+         *
+         * @param  callback the success callback
+         * @return this proxy, for chaining
+         */
         public Proxy onSuccess(SuccessCallback<?> callback) {
             FundamentalData.this.successCallback = callback;
             return (Proxy)this;
         }
 
+        /**
+         * Registers the callback invoked when an asynchronous {@link #fetch()}
+         * fails.
+         *
+         * @param  callback the failure callback
+         * @return this proxy, for chaining
+         */
         public Proxy onFailure(FailureCallback callback) {
             FundamentalData.this.failureCallback = callback;
             return (Proxy)this;
         }
 
+        /**
+         * Makes an asynchronous http request to fetch the data built by this
+         * proxy, invoking whichever of {@link #onSuccess(SuccessCallback)}
+         * and {@link #onFailure(FailureCallback)} was registered.
+         */
         public void fetch() {
             FundamentalData.this.builder = this.builder;
             FundamentalData.this.fetch();
         }
 
+        /**
+         * Stores the response received by {@link #fetchSync()}'s internal
+         * callback, so it can be returned to the caller.
+         *
+         * @param response the parsed synchronous response
+         */
         public void setSyncResponse(ProxyResponse response) {
             this.syncResponse = response;
         }
@@ -248,6 +330,7 @@ public final class FundamentalData implements Fetcher {
 
     /** Proxy class for building an {@link IncomeStatementRequest}. */
     public class IncomeStatementRequestProxy extends RequestProxy<IncomeStatementRequestProxy, IncomeStatementResponse> {
+        /** Creates a proxy backed by a new {@link IncomeStatementRequest.Builder}. */
         public IncomeStatementRequestProxy() {
             builder = new IncomeStatementRequest.Builder();
         }
@@ -255,6 +338,7 @@ public final class FundamentalData implements Fetcher {
 
     /** Proxy class for building a {@link BalanceSheetRequest}. */
     public class BalanceSheetRequestProxy extends RequestProxy<BalanceSheetRequestProxy, BalanceSheetResponse> {
+        /** Creates a proxy backed by a new {@link BalanceSheetRequest.Builder}. */
         public BalanceSheetRequestProxy() {
             builder = new BalanceSheetRequest.Builder();
         }
@@ -262,6 +346,7 @@ public final class FundamentalData implements Fetcher {
 
     /** Proxy class for building a {@link CashFlowRequest}. */
     public class CashFlowRequestProxy extends RequestProxy<CashFlowRequestProxy, CashFlowResponse> {
+        /** Creates a proxy backed by a new {@link CashFlowRequest.Builder}. */
         public CashFlowRequestProxy() {
             builder = new CashFlowRequest.Builder();
         }
@@ -269,6 +354,7 @@ public final class FundamentalData implements Fetcher {
 
     /** Proxy class for building an {@link EarningsRequest}. */
     public class EarningsRequestProxy extends RequestProxy<EarningsRequestProxy, EarningsResponse> {
+        /** Creates a proxy backed by a new {@link EarningsRequest.Builder}. */
         public EarningsRequestProxy() {
             builder = new EarningsRequest.Builder();
         }
@@ -276,6 +362,7 @@ public final class FundamentalData implements Fetcher {
 
     /** Proxy class for building a {@link CompanyOverviewRequest}. */
     public class CompanyOverViewRequestProxy extends RequestProxy<CompanyOverViewRequestProxy, CompanyOverviewResponse> {
+        /** Creates a proxy backed by a new {@link CompanyOverviewRequest.Builder}. */
         public CompanyOverViewRequestProxy() {
             builder = new CompanyOverviewRequest.Builder();
         }

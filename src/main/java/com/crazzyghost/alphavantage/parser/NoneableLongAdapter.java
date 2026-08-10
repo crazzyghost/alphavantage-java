@@ -26,13 +26,45 @@ package com.crazzyghost.alphavantage.parser;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
+/**
+ * Moshi (de)serialization adapter for {@link Long} fields annotated
+ * {@link NoneableLong}, registered on every {@code Moshi.Builder} {@link Parser}
+ * constructs.
+ * <p>
+ * {@link #fromJson(String)} parses Alpha Vantage's numeric-or-{@code "None"} string
+ * convention; {@link #toJson(Long)} is unimplemented, since this library only reads
+ * Alpha Vantage responses and never serializes a {@code Noneable}-typed field back to
+ * JSON.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class NoneableLongAdapter {
 
+    /**
+     * Always throws. This library only reads Alpha Vantage responses; it never
+     * serializes a {@link NoneableLong}-annotated field back to JSON, so this side
+     * of the adapter has no implementation.
+     *
+     * @param l the value that would be serialized
+     * @return never returns
+     * @throws UnsupportedOperationException always
+     */
     @ToJson
     public Long toJson(@NoneableLong Long l) {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Parses a JSON string field into a {@code Long}, per Alpha Vantage's
+     * numeric-or-{@code "None"} convention: a valid numeric string becomes its
+     * {@code Long} value, and any other string — including the literal
+     * {@code "None"} Alpha Vantage sends for an unavailable field — becomes
+     * {@code null}.
+     *
+     * @param s the raw JSON string value
+     * @return the parsed value, or {@code null} if {@code s} is not a valid number
+     */
     @FromJson
     @NoneableLong
     public Long fromJson(String s) {

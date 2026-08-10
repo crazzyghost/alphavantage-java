@@ -24,19 +24,38 @@ package com.crazzyghost.alphavantage.economicindicator.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
+/**
+ * A request to {@code NONFARM_PAYROLL}, which returns the monthly total nonfarm
+ * payroll of the United States, a key indicator of overall employment.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class NonFarmPayrollRequest extends EconomicIndicatorRequest {
 
     private NonFarmPayrollRequest(Builder builder) {
         super(builder);
     }
 
+    /**
+     * Assembles a request for the nonfarm payroll series. Carries no parameters
+     * beyond those inherited from {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
 
+        /**
+         * Creates a builder for the {@code NONFARM_PAYROLL} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.NONFARM_PAYROLL);
         }
 
+        /**
+         * Assembles the parameters set so far into a nonfarm payroll request.
+         *
+         * @return a request for the nonfarm payroll series
+         */
         @Override
         public NonFarmPayrollRequest build() {
             return new NonFarmPayrollRequest(this);

@@ -33,30 +33,63 @@ import com.crazzyghost.alphavantage.parameters.Function;
  */
 public abstract class FundamentalDataRequest {
 
+    /** The Alpha Vantage function that selects which report is returned. */
     protected Function function;
+    /** The ticker symbol to request data for. */
     protected String symbol;
 
+    /**
+     * Creates a request from the given builder's current state.
+     *
+     * @param builder the builder to copy the symbol and function from
+     */
     protected FundamentalDataRequest(Builder<?> builder) {
         this.function = builder.function;
         this.symbol = builder.symbol;
     }
 
 
+    /**
+     * Base builder shared by every fundamental data request, carrying the
+     * ticker symbol and the Alpha Vantage function to request.
+     *
+     * @param <T> the concrete builder subtype, for fluent method chaining
+     */
     public abstract static class Builder <T extends Builder<?>> {
 
         private String symbol;
+        /** The Alpha Vantage function that selects which report is returned. */
         public Function function;
 
+        /**
+         * Sets the ticker symbol to request data for.
+         *
+         * @param  symbol the ticker symbol
+         * @return this builder, for chaining
+         */
         public T symbol(String symbol){
             this.symbol = symbol;
             return (T) this;
         }
 
+        /**
+         * Sets the Alpha Vantage function that selects which report is
+         * returned. Concrete subclasses set this themselves and do not
+         * expose it for further changes.
+         *
+         * @param  function the Alpha Vantage function code
+         * @return this builder, for chaining
+         */
         public T function(Function function){
             this.function = function;
             return (T) this;
         }
 
+        /**
+         * Builds the request from this builder's current state.
+         *
+         * @return the built request
+         */
         public abstract FundamentalDataRequest build();
 
     }

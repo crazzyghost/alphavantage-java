@@ -38,10 +38,17 @@ public class BalanceSheetRequest extends FundamentalDataRequest {
         super(builder);
     }
 
+    /** Builds a {@link BalanceSheetRequest}. */
     public static class Builder extends FundamentalDataRequest.Builder<Builder> {
 
+        /** Creates a builder preset to the {@code BALANCE_SHEET} function. */
         public Builder() { this.function(Function.BALANCE_SHEET); }
 
+        /**
+         * Builds the balance sheet request from this builder's current state.
+         *
+         * @return the built balance sheet request
+         */
         @Override
         public BalanceSheetRequest build() {
             return new BalanceSheetRequest(this);

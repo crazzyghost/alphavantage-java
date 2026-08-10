@@ -39,15 +39,31 @@ public class EconomicIndicatorUnit {
     @Json(name = "value")
     private Double value;
 
+    /**
+     * Creates an observation.
+     *
+     * @param date  the date the observation was recorded
+     * @param value the observed value
+     */
     public EconomicIndicatorUnit(String date, Double value) {
         this.date = date;
         this.value = value;
     }
 
+    /**
+     * Gets the date this observation was recorded.
+     *
+     * @return the observation date
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * Gets the value recorded for this observation.
+     *
+     * @return the observed value
+     */
     public Double getValue() {
         return value;
     }

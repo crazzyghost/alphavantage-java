@@ -43,27 +43,60 @@ public abstract class CryptoRequest {
         this.market = builder.market;
     }
 
+    /**
+     * Collects the parameters shared by every crypto currency request and
+     * assembles them into a {@link CryptoRequest}.
+     *
+     * @param <T> the concrete builder subtype, so setters can be chained without
+     *            casting
+     */
     public abstract static class Builder<T extends Builder<?>> {
 
+        /** The Alpha Vantage function this request calls, fixed by each subclass. */
         public Function function;
+        /** The digital currency symbol to fetch, for example {@code BTC}. */
         protected String symbol;
+        /** The market to price {@link #symbol} in, for example {@code USD} or {@code CNY}. */
         protected String market;
 
+        /**
+         * Sets the Alpha Vantage function this request calls.
+         *
+         * @param function the function code
+         * @return this builder, for method chaining
+         */
         public T function(Function function) {
             this.function = function;
             return (T) this;
         }
 
+        /**
+         * Sets the digital currency to fetch data for.
+         *
+         * @param symbol the digital currency symbol, for example {@code BTC}
+         * @return this builder, for method chaining
+         */
         public T symbol(String symbol) {
             this.symbol = symbol;
             return (T) this;
         }
 
+        /**
+         * Sets the market to price the digital currency in.
+         *
+         * @param market the market currency code, for example {@code USD} or {@code CNY}
+         * @return this builder, for method chaining
+         */
         public T market(String market) {
             this.market = market;
             return (T) this;
         }
 
+        /**
+         * Assembles the parameters set so far into a request.
+         *
+         * @return a new request carrying this builder's parameters
+         */
         public abstract CryptoRequest build();
     }
 

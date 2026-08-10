@@ -38,10 +38,23 @@ public class RatingRequest extends CryptoRequest {
         super(builder);
     }
 
+    /**
+     * Collects a caller's digital currency symbol and assembles it into a
+     * {@link RatingRequest}.
+     * <p>
+     * The function is pinned to {@link Function#CRYPTO_RATING} on construction,
+     * so the symbol is the only parameter a caller supplies.
+     */
     public static class Builder extends CryptoRequest.Builder<Builder> {
 
+        /** Creates a builder for the {@code CRYPTO_RATING} endpoint. */
         public Builder() { this.function(Function.CRYPTO_RATING); }
 
+        /**
+         * Assembles the parameters set so far into a request.
+         *
+         * @return a new request carrying this builder's parameters
+         */
         @Override
         public CryptoRequest build() {
             return new RatingRequest(this);

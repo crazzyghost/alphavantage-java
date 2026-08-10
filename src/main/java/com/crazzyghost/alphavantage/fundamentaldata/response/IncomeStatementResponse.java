@@ -28,6 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The {@code INCOME_STATEMENT} endpoint's response: a company's annual and
+ * quarterly income statements, or the error returned in their place.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class IncomeStatementResponse {
 
     private final String symbol;
@@ -49,27 +56,57 @@ public class IncomeStatementResponse {
         this.errorMessage = null;
     }
 
+    /**
+     * Parses a raw {@code INCOME_STATEMENT} API response into an
+     * {@code IncomeStatementResponse}.
+     *
+     * @param  objectMap the parsed JSON response body
+     * @return the parsed response, or an error response if parsing fails
+     */
     public static IncomeStatementResponse of(Map<String, Object> objectMap) {
         Parser<IncomeStatementResponse> parser = new IncomeStatementParser();
         return parser.parse(objectMap);
     }
 
+    /**
+     * Returns the error message returned by the API, if the request failed.
+     *
+     * @return the error message, or {@code null} if the request succeeded
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Returns the ticker symbol this response is for.
+     *
+     * @return the ticker symbol, or {@code null} if the request failed
+     */
     public String getSymbol() {
         return symbol;
     }
 
+    /**
+     * Returns the company's annual income statements, most recent first.
+     *
+     * @return the annual income statement reports, or an empty list if the
+     *         request failed
+     */
     public List<IncomeStatement> getAnnualReports() {
         return annualReports;
     }
 
+    /**
+     * Returns the company's quarterly income statements, most recent first.
+     *
+     * @return the quarterly income statement reports, or an empty list if
+     *         the request failed
+     */
     public List<IncomeStatement> getQuarterlyReports() {
         return quarterlyReports;
     }
 
+    /** Parses a raw {@code INCOME_STATEMENT} API response into an {@link IncomeStatementResponse}. */
     public static class IncomeStatementParser extends Parser<IncomeStatementResponse> {
 
         @Override

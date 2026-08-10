@@ -49,6 +49,20 @@ public class RatingResponse {
 
     private String errorMessage;
 
+    /**
+     * Creates a rating response from its already-parsed FCAS fields.
+     *
+     * @param symbol              the digital currency's symbol
+     * @param name                the digital currency's full name
+     * @param fcasRating          the categorical FCAS grade
+     * @param fcasScore           the numeric FCAS score
+     * @param developerScore      the developer-activity component score
+     * @param marketMaturityScore the market-maturity component score
+     * @param utilityScore        the utility component score
+     * @param lastRefreshed       the date the rating was last refreshed
+     * @param timeZone            the time zone {@code lastRefreshed} is
+     *                            expressed in
+     */
     public RatingResponse(
         String symbol,
         String name,
@@ -75,6 +89,13 @@ public class RatingResponse {
         this.errorMessage = errorMessage;
     }
 
+    /**
+     * Parses a raw JSON response from the {@code CRYPTO_RATING} endpoint.
+     *
+     * @param stringObjectMap the response body, decoded from JSON
+     * @return the parsed rating, or one carrying an error message if parsing
+     *         failed
+     */
     public static RatingResponse of(Map<String, Object> stringObjectMap){
         Parser<RatingResponse> parser = new RatingParser();
         return parser.parse(stringObjectMap);
@@ -116,42 +137,105 @@ public class RatingResponse {
 
     }
 
+    /**
+     * Returns the error message the API returned, if the request failed.
+     *
+     * @return the error message, or {@code null} if the request succeeded
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Returns the digital currency's symbol.
+     *
+     * @return the digital currency symbol this rating was requested for
+     */
     public String getSymbol() {
         return symbol;
     }
 
+    /**
+     * Returns the digital currency's full name.
+     *
+     * @return the digital currency name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the FCAS (Fundamental Crypto Asset Score) categorical grade, for
+     * example {@code "Attractive"} or {@code "Caution"}. This is Alpha Vantage's
+     * proprietary crypto health index rating, licensed from Flipside Crypto; the
+     * grade is derived from the {@link #getFcasScore() FCAS score}.
+     *
+     * @return the categorical FCAS grade
+     */
     public String getFcasRating() {
         return fcasRating;
     }
 
+    /**
+     * Returns the numeric FCAS (Fundamental Crypto Asset Score), on a scale of
+     * 0 to 1000. This combines the {@link #getDeveloperScore() developer},
+     * {@link #getMarketMaturityScore() market maturity} and
+     * {@link #getUtilityScore() utility} component scores into a single measure
+     * of a digital currency's fundamental health.
+     *
+     * @return the numeric FCAS score
+     */
     public String getFcasScore() {
         return fcasScore;
     }
 
+    /**
+     * Returns the developer-activity component of the FCAS score, on a scale of
+     * 0 to 1000, reflecting code contribution and developer community
+     * involvement.
+     *
+     * @return the developer score
+     */
     public String getDeveloperScore() {
         return developerScore;
     }
 
+    /**
+     * Returns the market-maturity component of the FCAS score, on a scale of 0
+     * to 1000, reflecting market-related fundamentals such as liquidity and
+     * trading activity.
+     *
+     * @return the market maturity score
+     */
     public String getMarketMaturityScore() {
         return marketMaturityScore;
     }
 
+    /**
+     * Returns the utility component of the FCAS score, on a scale of 0 to 1000,
+     * reflecting user activity and network utilization.
+     *
+     * @return the utility score
+     */
     public String getUtilityScore() {
         return utilityScore;
     }
 
+    /**
+     * Returns the date the rating was last refreshed.
+     *
+     * @return the last-refreshed date, in the time zone given by
+     *         {@link #getTimeZone()}
+     */
     public String getLastRefreshed() {
         return lastRefreshed;
     }
 
+    /**
+     * Returns the time zone {@link #getLastRefreshed()} is expressed in.
+     *
+     * @return the time zone name
+     */
     public String getTimeZone() {
         return timeZone;
     }

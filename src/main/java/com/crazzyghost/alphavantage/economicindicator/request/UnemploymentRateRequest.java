@@ -24,19 +24,38 @@ package com.crazzyghost.alphavantage.economicindicator.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
+/**
+ * A request to {@code UNEMPLOYMENT}, which returns the monthly unemployment
+ * rate of the United States.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class UnemploymentRateRequest extends EconomicIndicatorRequest {
 
     private UnemploymentRateRequest(Builder builder) {
         super(builder);
     }
 
+    /**
+     * Assembles a request for the unemployment rate series. Carries no
+     * parameters beyond those inherited from {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
 
+        /**
+         * Creates a builder for the {@code UNEMPLOYMENT} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.UNEMPLOYMENT);
         }
 
+        /**
+         * Assembles the parameters set so far into an unemployment rate request.
+         *
+         * @return a request for the unemployment rate series
+         */
         @Override
         public UnemploymentRateRequest build() {
             return new UnemploymentRateRequest(this);

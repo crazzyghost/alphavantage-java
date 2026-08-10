@@ -28,6 +28,13 @@ import java.util.Map;
 
 import com.crazzyghost.alphavantage.parser.Parser;
 
+/**
+ * The {@code BALANCE_SHEET} endpoint's response: a company's annual and
+ * quarterly balance sheets, or the error returned in their place.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class BalanceSheetResponse {
 
     private final String symbol;
@@ -49,27 +56,57 @@ public class BalanceSheetResponse {
         this.errorMessage = null;
     }
 
+    /**
+     * Parses a raw {@code BALANCE_SHEET} API response into a
+     * {@code BalanceSheetResponse}.
+     *
+     * @param  objectMap the parsed JSON response body
+     * @return the parsed response, or an error response if parsing fails
+     */
     public static BalanceSheetResponse of(Map<String, Object> objectMap) {
         Parser<BalanceSheetResponse> parser = new BalanceSheetParser();
         return parser.parse(objectMap);
     }
 
+    /**
+     * Returns the error message returned by the API, if the request failed.
+     *
+     * @return the error message, or {@code null} if the request succeeded
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Returns the ticker symbol this response is for.
+     *
+     * @return the ticker symbol, or {@code null} if the request failed
+     */
     public String getSymbol() {
         return symbol;
     }
 
+    /**
+     * Returns the company's annual balance sheets, most recent first.
+     *
+     * @return the annual balance sheet reports, or an empty list if the
+     *         request failed
+     */
     public List<BalanceSheet> getAnnualReports() {
         return annualReports;
     }
 
+    /**
+     * Returns the company's quarterly balance sheets, most recent first.
+     *
+     * @return the quarterly balance sheet reports, or an empty list if the
+     *         request failed
+     */
     public List<BalanceSheet> getQuarterlyReports() {
         return quarterlyReports;
     }
 
+    /** Parses a raw {@code BALANCE_SHEET} API response into a {@link BalanceSheetResponse}. */
     public static class BalanceSheetParser extends Parser<BalanceSheetResponse> {
 
         @Override

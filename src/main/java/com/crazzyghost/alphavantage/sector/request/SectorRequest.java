@@ -40,14 +40,26 @@ public final class SectorRequest {
         this.function = builder.function;
     }
 
+    /**
+     * Builds a {@link SectorRequest}.
+     */
     public static class Builder {
 
         private Function function;
 
+        /**
+         * Creates a builder with {@link Function#SECTOR} preset as the function,
+         * the only function this request supports.
+         */
         public Builder(){
             this.function = Function.SECTOR;
         }
 
+        /**
+         * Builds the request from this builder's current state.
+         *
+         * @return a new {@code SectorRequest}
+         */
         public SectorRequest build(){
             return new SectorRequest(this);
         }

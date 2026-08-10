@@ -24,19 +24,39 @@ package com.crazzyghost.alphavantage.economicindicator.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
+/**
+ * A request to {@code CONSUMER_SENTIMENT}, which returns the monthly consumer
+ * sentiment and confidence index of the United States, as measured by the
+ * University of Michigan's Surveys of Consumers.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class ConsumerSentimentRequest extends EconomicIndicatorRequest {
 
     private ConsumerSentimentRequest(Builder builder) {
         super(builder);
     }
 
+    /**
+     * Assembles a request for the consumer sentiment series. Carries no
+     * parameters beyond those inherited from {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
 
+        /**
+         * Creates a builder for the {@code CONSUMER_SENTIMENT} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.CONSUMER_SENTIMENT);
         }
 
+        /**
+         * Assembles the parameters set so far into a consumer sentiment request.
+         *
+         * @return a request for the consumer sentiment series
+         */
         @Override
         public ConsumerSentimentRequest build() {
             return new ConsumerSentimentRequest(this);

@@ -34,12 +34,25 @@ import com.crazzyghost.alphavantage.parameters.Function;
  */
 public class IncomeStatementRequest extends FundamentalDataRequest {
 
+    /**
+     * Creates a request from the given builder's current state.
+     *
+     * @param builder the builder to copy the symbol from
+     */
     protected IncomeStatementRequest(Builder builder) { super(builder); }
 
+    /** Builds an {@link IncomeStatementRequest}. */
     public static class Builder extends FundamentalDataRequest.Builder<Builder> {
 
+        /** Creates a builder preset to the {@code INCOME_STATEMENT} function. */
         public Builder() { this.function(Function.INCOME_STATEMENT); }
 
+        /**
+         * Builds the income statement request from this builder's current
+         * state.
+         *
+         * @return the built income statement request
+         */
         @Override
         public IncomeStatementRequest build() {
             return new IncomeStatementRequest(this);

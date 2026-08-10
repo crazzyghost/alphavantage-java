@@ -44,16 +44,32 @@ public final class SectorUnit {
     private String consumerStaples;
     private String energy;
 
+    /**
+     * Creates the performance breakdown for a single time window, one
+     * percentage-change string per sector, exactly as the API returns them.
+     *
+     * @param informationTechnology the change for the Information Technology sector
+     * @param consumerDiscretionary the change for the Consumer Discretionary sector
+     * @param healthCare the change for the Health Care sector
+     * @param communicationServices the change for the Communication Services sector
+     * @param realEstate the change for the Real Estate sector
+     * @param utilities the change for the Utilities sector
+     * @param financials the change for the Financials sector
+     * @param materials the change for the Materials sector
+     * @param industrials the change for the Industrials sector
+     * @param consumerStaples the change for the Consumer Staples sector
+     * @param energy the change for the Energy sector
+     */
     public SectorUnit(
-        String informationTechnology, 
-        String consumerDiscretionary, 
+        String informationTechnology,
+        String consumerDiscretionary,
         String healthCare,
-        String communicationServices, 
-        String realEstate, 
-        String utilities, 
-        String financials, 
+        String communicationServices,
+        String realEstate,
+        String utilities,
+        String financials,
         String materials,
-        String industrials, 
+        String industrials,
         String consumerStaples,
         String energy
     ) {
@@ -70,46 +86,101 @@ public final class SectorUnit {
         this.energy = energy;
     }
 
+    /**
+     * Returns the change for the Information Technology sector.
+     *
+     * @return the change for the Information Technology sector
+     */
     public String getInformationTechnology() {
         return informationTechnology;
     }
-    
+
+    /**
+     * Returns the change for the Consumer Discretionary sector.
+     *
+     * @return the change for the Consumer Discretionary sector
+     */
     public String getConsumerDiscretionary() {
         return consumerDiscretionary;
     }
 
+    /**
+     * Returns the change for the Health Care sector.
+     *
+     * @return the change for the Health Care sector
+     */
     public String getHealthCare() {
         return healthCare;
     }
 
+    /**
+     * Returns the change for the Communication Services sector.
+     *
+     * @return the change for the Communication Services sector
+     */
     public String getCommunicationServices() {
         return communicationServices;
     }
 
+    /**
+     * Returns the change for the Real Estate sector.
+     *
+     * @return the change for the Real Estate sector
+     */
     public String getRealEstate() {
         return realEstate;
     }
 
+    /**
+     * Returns the change for the Utilities sector.
+     *
+     * @return the change for the Utilities sector
+     */
     public String getUtilities() {
         return utilities;
     }
 
+    /**
+     * Returns the change for the Financials sector.
+     *
+     * @return the change for the Financials sector
+     */
     public String getFinancials() {
         return financials;
     }
 
+    /**
+     * Returns the change for the Materials sector.
+     *
+     * @return the change for the Materials sector
+     */
     public String getMaterials() {
         return materials;
     }
 
+    /**
+     * Returns the change for the Industrials sector.
+     *
+     * @return the change for the Industrials sector
+     */
     public String getIndustrials() {
         return industrials;
     }
 
+    /**
+     * Returns the change for the Consumer Staples sector.
+     *
+     * @return the change for the Consumer Staples sector
+     */
     public String getConsumerStaples() {
         return consumerStaples;
     }
 
+    /**
+     * Returns the change for the Energy sector.
+     *
+     * @return the change for the Energy sector
+     */
     public String getEnergy() {
         return energy;
     }

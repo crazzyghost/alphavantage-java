@@ -28,6 +28,13 @@ import com.crazzyghost.alphavantage.parameters.Interval;
 
 import java.util.Arrays;
 
+/**
+ * A request to {@code FEDERAL_FUNDS_RATE}, which returns the daily, weekly, and
+ * monthly federal funds rate (interest rate) of the United States.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class FederalFundsRateRequest extends EconomicIndicatorRequest {
     private Interval interval;
     private FederalFundsRateRequest(Builder builder) {
@@ -35,14 +42,32 @@ public class FederalFundsRateRequest extends EconomicIndicatorRequest {
         this.interval = builder.interval;
     }
 
+    /**
+     * Assembles a request for the federal funds rate series, adding the
+     * reporting interval to the parameters inherited from
+     * {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
         Interval interval;
 
+        /**
+         * Creates a builder for the {@code FEDERAL_FUNDS_RATE} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.FEDERAL_FUNDS_RATE);
         }
 
+        /**
+         * Sets the reporting interval for the series.
+         *
+         * @param interval the reporting interval; must be {@link Interval#DAILY},
+         *                 {@link Interval#WEEKLY}, or {@link Interval#MONTHLY}
+         * @return this builder, for method chaining
+         * @throws AlphaVantageException if {@code interval} is not
+         *                                {@link Interval#DAILY}, {@link Interval#WEEKLY},
+         *                                or {@link Interval#MONTHLY}
+         */
         public Builder interval(Interval interval) {
             if (!Arrays.asList(Interval.DAILY, Interval.WEEKLY, Interval.MONTHLY).contains(interval)) {
                 throw new AlphaVantageException("accepted interval values for FEDERAL_FUNDS_RATE are Interval.DAILY, Interval.WEEKLY, Interval.MONTHLY");
@@ -51,6 +76,11 @@ public class FederalFundsRateRequest extends EconomicIndicatorRequest {
             return this;
         }
 
+        /**
+         * Assembles the parameters set so far into a federal funds rate request.
+         *
+         * @return a request for the federal funds rate series
+         */
         @Override
         public FederalFundsRateRequest build() {
             return new FederalFundsRateRequest(this);

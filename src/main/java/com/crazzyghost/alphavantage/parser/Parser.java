@@ -46,9 +46,33 @@ import java.util.function.Function;
  */
 public abstract class Parser<T> {
 
+    /**
+     * Produces the value this parser returns in place of a response object when the
+     * reply cannot be parsed, for example an empty or unrecognizable JSON body.
+     *
+     * @param error a description of what went wrong
+     * @return the fallback value for a failed parse
+     */
     public abstract T onParseError(String error);
+
+    /**
+     * Maps the decoded JSON body of an Alpha Vantage reply to a response object.
+     *
+     * @param object the decoded JSON body, as returned by {@link #parseJSON(String)}
+     * @return the parsed response
+     */
     public abstract T parse(Map<String, Object> object);
 
+    /**
+     * Decodes a raw JSON response body into a generic {@code String}-keyed map,
+     * with the {@link NoneableDouble}/{@link NoneableLong} adapters registered so
+     * numeric-or-{@code "None"} fields decode correctly.
+     *
+     * @param responseBody the raw JSON response body
+     * @return the decoded JSON, as a map from each top-level key to its value
+     * @throws IOException if the response body is not well-formed JSON
+     * @throws IllegalArgumentException if {@code responseBody} is {@code null}
+     */
     public static Map<String, Object> parseJSON(String responseBody) throws IOException {
         if(responseBody == null) throw new IllegalArgumentException();
         Moshi moshi = new Moshi.Builder()
@@ -60,6 +84,18 @@ public abstract class Parser<T> {
         return adapter.fromJson(responseBody);
     }
 
+    /**
+     * Decodes a raw JSON response body directly into an instance of {@code c}, with
+     * the {@link NoneableDouble}/{@link NoneableLong} adapters registered so
+     * numeric-or-{@code "None"} fields decode correctly.
+     *
+     * @param <U> the type to decode the response body into
+     * @param responseBody the raw JSON response body
+     * @param c the class to decode the response body into
+     * @return the decoded object
+     * @throws IOException if the response body is not well-formed JSON
+     * @throws IllegalArgumentException if {@code responseBody} is {@code null}
+     */
     public static <U> U parseJSON(String responseBody, Class<U> c) throws IOException {
         if(responseBody == null) throw new IllegalArgumentException();
         Moshi moshi = new Moshi.Builder()
@@ -71,6 +107,18 @@ public abstract class Parser<T> {
         return adapter.fromJson(responseBody);
     }
 
+    /**
+     * Converts an already-decoded JSON value, typically a {@code List} produced by
+     * {@link #parseJSON(String)}, into a {@code List} of {@code klass} instances,
+     * with the {@link NoneableDouble}/{@link NoneableLong} adapters registered so
+     * numeric-or-{@code "None"} fields decode correctly.
+     *
+     * @param <U> the element type to decode each list entry into
+     * @param object the already-decoded JSON value, expected to be a {@code List}
+     * @param klass the class to decode each element into
+     * @return the decoded list
+     * @throws IllegalArgumentException if {@code object} is {@code null}
+     */
     public static <U> List<U> parseJSONList(Object object, Class<U> klass) {
         if(object == null) throw new IllegalArgumentException();
         Moshi moshi = new Moshi.Builder()
@@ -82,6 +130,19 @@ public abstract class Parser<T> {
         return adapter.fromJsonValue(object);
     }
 
+    /**
+     * Encodes a {@code String}-keyed map back into a JSON string, with the
+     * {@link NoneableDouble}/{@link NoneableLong} adapters registered.
+     * <p>
+     * Since neither adapter implements its {@code toJson} side (see
+     * {@link NoneableDoubleAdapter#toJson(Double)}), {@code data} must not contain a
+     * value that would route through one of them.
+     *
+     * @param data the map to encode
+     * @return the JSON-encoded map
+     * @throws IOException if the map cannot be encoded
+     * @throws IllegalArgumentException if {@code data} is {@code null}
+     */
     public static String toJSON(Map<String, Object> data) throws IOException {
         if(data == null) throw new IllegalArgumentException();
         Moshi moshi = new Moshi.Builder()

@@ -35,28 +35,67 @@ import com.crazzyghost.alphavantage.parameters.Function;
  * @since 1.7.0
  */
 public abstract class EconomicIndicatorRequest {
+    /** The Alpha Vantage function selecting which economic indicator this request targets. */
     protected Function function;
+    /** The format the API replies in, sent as the {@code datatype} parameter. */
     protected DataType dataType;
 
+    /**
+     * Copies the shared parameters out of a builder.
+     *
+     * @param builder the builder holding the parameters to copy
+     */
     protected EconomicIndicatorRequest(Builder<?> builder) {
         this.function = builder.function;
         this.dataType = builder.dataType;
     }
 
+    /**
+     * Collects the parameters shared by every economic indicator request.
+     * <p>
+     * Each setter returns the concrete subclass builder rather than this base type, so
+     * that setting a shared parameter part-way through a chain does not cut off access
+     * to the indicator-specific setters that follow it.
+     *
+     * @param <T> the concrete builder type the shared setters return
+     */
     public abstract static class Builder <T extends Builder<?>> {
+        /** The Alpha Vantage function this request calls, set via {@link #function(Function)}. */
         public Function function;
+        /** The response format, set via {@link #dataType(DataType)}. Defaults to {@link DataType#JSON}. */
         public DataType dataType = DataType.JSON;
 
+        /**
+         * Sets the format the API replies in. Defaults to {@link DataType#JSON}, which
+         * is what this library's response parsers read.
+         *
+         * @param dataType the response format
+         * @return this builder, for method chaining
+         */
         public T dataType(DataType dataType){
             this.dataType = dataType;
             return (T) this;
         }
 
+        /**
+         * Sets the Alpha Vantage function this request calls. Subclasses pin this to
+         * their own indicator's function in their constructor, so callers do not
+         * normally need to call this directly.
+         *
+         * @param function the indicator function to request
+         * @return this builder, for method chaining
+         */
         public T function(Function function){
             this.function = function;
             return (T) this;
         }
 
+        /**
+         * Assembles the parameters set so far into a request for this builder's
+         * indicator.
+         *
+         * @return a request carrying this builder's parameters
+         */
         public abstract EconomicIndicatorRequest build();
 
     }

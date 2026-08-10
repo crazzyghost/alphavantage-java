@@ -61,38 +61,87 @@ public class EconomicIndicatorResponse {
         this.errorMessage = errorMessage;
     }
 
+    /**
+     * Gets the name of this economic indicator, for example {@code "Real Gross Domestic Product"}.
+     *
+     * @return the indicator's display name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the interval this series is reported at, for example {@code "quarterly"}.
+     *
+     * @return the reporting interval
+     */
     public String getInterval() {
         return interval;
     }
 
+    /**
+     * Gets the unit this series' values are reported in, for example {@code "billions of dollars"}.
+     *
+     * @return the value unit
+     */
     public String getUnit() {
         return unit;
     }
 
+    /**
+     * Gets the observations in this series, ordered as returned by the API.
+     *
+     * @return the list of date/value observations
+     */
     public List<EconomicIndicatorUnit> getData() {
         return data;
     }
 
+    /**
+     * Gets the error message returned by the API, if the request failed.
+     *
+     * @return the error message, or {@code null} if the request succeeded
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Parses a raw JSON map into an {@link EconomicIndicatorResponse}.
+     *
+     * @param stringObjectMap the decoded JSON response body
+     * @return the parsed response, or an error response if parsing fails
+     */
     public static EconomicIndicatorResponse of(Map<String, Object> stringObjectMap) {
         Parser<EconomicIndicatorResponse> parser = new EconomicIndicatorResponse.EconomicIndicatorParser();
         return parser.parse(stringObjectMap);
     }
 
+    /**
+     * Reads an {@link EconomicIndicatorResponse} out of a decoded JSON map.
+     */
     public static class EconomicIndicatorParser extends Parser<EconomicIndicatorResponse> {
 
+        /**
+         * Wraps a parse failure in an {@link EconomicIndicatorResponse} carrying the
+         * error message instead of throwing.
+         *
+         * @param error the error message to carry
+         * @return a response whose {@link #getErrorMessage()} returns {@code error}
+         */
         @Override
         public EconomicIndicatorResponse onParseError(String error) {
             return new EconomicIndicatorResponse(error);
         }
 
+        /**
+         * Reads the indicator's name, interval, unit, and observations out of a
+         * decoded JSON map.
+         *
+         * @param data the decoded JSON response body
+         * @return the parsed response, or an error response if the map does not
+         *         match the expected shape
+         */
         @Override
         @SuppressWarnings("unchecked")
         public EconomicIndicatorResponse parse(Map<String, Object> data) {

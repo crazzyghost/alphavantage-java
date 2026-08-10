@@ -7,42 +7,106 @@ import java.util.Map;
 import com.crazzyghost.alphavantage.parser.DefaultParser;
 import com.crazzyghost.alphavantage.parser.Parser;
 
+/**
+ * Response for the stochastic oscillator ({@code STOCH}), which compares a
+ * closing price to its recent high-low range and reports a smoothed %K and
+ * %D line.
+ * <p>
+ * {@code STOCH} does not extend one of the package's shared response
+ * bases: its two-line reading needs {@link STOCHIndicatorUnit} rather than
+ * the single-value {@code SimpleIndicatorUnit} the shared bases
+ * use.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.1.0
+ * @deprecated Replaced by {@link com.crazzyghost.alphavantage.technicalindicator.response.stoch.STOCHResponse}
+ */
+@Deprecated
 public class STOCHResponse {
+
+    /** The response's metadata, echoing the request's parameters. */
     private MetaData metaData;
+
+    /** The indicator's %K/%D readings, one unit per date in the requested series. */
     private List<STOCHIndicatorUnit> indicatorUnits;
+
+    /** The API's error message, or {@code null} if the request succeeded. */
     private String errorMessage;
 
+    /**
+     * Creates a successful response.
+     *
+     * @param indicatorUnits the parsed STOCH readings
+     * @param metaData       the parsed response metadata
+     */
     private STOCHResponse(List<STOCHIndicatorUnit> indicatorUnits, MetaData metaData){
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
     }
 
+    /**
+     * Creates a failed response.
+     *
+     * @param errorMessage the API's error message
+     */
     private STOCHResponse(String errorMessage){
         this.metaData = new MetaData();
         this.indicatorUnits = new ArrayList<>();
         this.errorMessage = errorMessage;
     }
 
+    /**
+     * Returns the API's error message.
+     *
+     * @return the error message, or {@code null} if the request succeeded
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Returns the indicator's %K/%D readings.
+     *
+     * @return the indicator values, one unit per date in the requested series
+     */
     public List<STOCHIndicatorUnit> getIndicatorUnits() {
         return indicatorUnits;
     }
    
+    /**
+     * Returns the response's metadata.
+     *
+     * @return the response metadata
+     */
     public MetaData getMetaData() {
         return metaData;
     }
     
+    /**
+     * Parses a raw API response into a {@link STOCHResponse}.
+     *
+     * @param stringObjectMap the raw parsed JSON response
+     * @return the parsed response
+     */
     public static STOCHResponse of(Map<String, Object> stringObjectMap){
         Parser<STOCHResponse> parser = new STOCHParser();
         return parser.parse(stringObjectMap);
     }
 
+    /**
+     * Parser for {@link STOCHResponse}.
+     */
     public static class STOCHParser extends DefaultParser<STOCHResponse> {
 
+        /**
+         * Parses the API's raw metadata and per-date indicator maps into a
+         * successful response.
+         *
+         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param indicatorData the raw per-date indicator value entries
+         * @return the parsed response
+         */
         @Override
         public STOCHResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
             MetaData metaData = new MetaData(
@@ -73,6 +137,12 @@ public class STOCHResponse {
 
         }
 
+        /**
+         * Builds a failed response from a parse error.
+         *
+         * @param error the error message
+         * @return the failed response
+         */
         @Override
         public STOCHResponse onParseError(String error) {
            return new STOCHResponse(error);
@@ -91,19 +161,56 @@ public class STOCHResponse {
                 '}';
     }
 
+    /**
+     * Metadata describing the request that produced a {@link STOCHResponse},
+     * echoed back by the API alongside the indicator values themselves.
+     */
     public static class MetaData {
 
+        /** The requested symbol. */
         private String symbol;
+
+        /** The name of the indicator, as reported by the API. */
         private String indicator;
+
+        /** The timestamp of the most recent data point. */
         private String lastRefreshed;
+
+        /** The requested time interval between data points. */
         private String interval;
+
+        /** The requested raw %K look-back period. */
         private double fastKPeriod;
+
+        /** The requested slow %K smoothing period. */
         private double slowKPeriod;
+
+        /** The requested moving-average type used to smooth slow %K, as its wire value. */
         private double slowKMaType;
+
+        /** The requested slow %D smoothing period. */
         private double slowDPeriod;
+
+        /** The requested moving-average type used to smooth slow %D, as its wire value. */
         private double slowDMaType;
+
+        /** The time zone the response's timestamps are expressed in. */
         private String timeZone;
         
+        /**
+         * Creates a populated metadata instance.
+         *
+         * @param symbol        the requested symbol
+         * @param indicator     the indicator's name, as reported by the API
+         * @param lastRefreshed the timestamp of the most recent data point
+         * @param interval      the requested time interval between data points
+         * @param fastKPeriod   the requested raw %K look-back period
+         * @param slowKPeriod   the requested slow %K smoothing period
+         * @param slowKMaType   the requested slow %K moving-average type's wire value
+         * @param slowDPeriod   the requested slow %D smoothing period
+         * @param slowDMaType   the requested slow %D moving-average type's wire value
+         * @param timeZone      the time zone the response's timestamps are expressed in
+         */
         public MetaData(
             String symbol, 
             String indicator, 
@@ -128,46 +235,99 @@ public class STOCHResponse {
             this.timeZone = timeZone;
         }
         
+        /**
+         * Creates an empty metadata instance, used for failed responses.
+         */
         public MetaData(){
             this("", "", "", "", 5, 3, 0, 3, 0, "");
         }
 
+        /**
+         * Returns the requested symbol.
+         *
+         * @return the symbol
+         */
         public String getSymbol() {
             return symbol;
         }
 
+        /**
+         * Returns the indicator's name, as reported by the API.
+         *
+         * @return the indicator name
+         */
         public String getIndicator() {
             return indicator;
         }
 
+        /**
+         * Returns the timestamp of the most recent data point.
+         *
+         * @return the last-refreshed timestamp
+         */
         public String getLastRefreshed() {
             return lastRefreshed;
         }
 
+        /**
+         * Returns the requested time interval between data points.
+         *
+         * @return the interval
+         */
         public String getInterval() {
             return interval;
         }
  
+        /**
+         * Returns the requested raw %K look-back period.
+         *
+         * @return the fast %K period
+         */
         public double getFastKPeriod() {
             return fastKPeriod;
         }
 
+        /**
+         * Returns the requested slow %K smoothing period.
+         *
+         * @return the slow %K period
+         */
         public double getSlowKPeriod() {
             return slowKPeriod;
         }
 
+        /**
+         * Returns the requested slow %K moving-average type's wire value.
+         *
+         * @return the {@link com.crazzyghost.alphavantage.parameters.MAType} wire value
+         */
         public double getSlowKMaType() {
             return slowKMaType;
         }
 
+        /**
+         * Returns the requested slow %D smoothing period.
+         *
+         * @return the slow %D period
+         */
         public double getSlowDPeriod() {
             return slowDPeriod;
         }
 
+        /**
+         * Returns the requested slow %D moving-average type's wire value.
+         *
+         * @return the {@link com.crazzyghost.alphavantage.parameters.MAType} wire value
+         */
         public double getSlowDMaType() {
             return slowDMaType;
         }
 
+        /**
+         * Returns the time zone the response's timestamps are expressed in.
+         *
+         * @return the time zone
+         */
         public String getTimeZone() {
             return timeZone;
         }
