@@ -69,7 +69,7 @@ jobs:
             - build/*
   sonar:
     docker:
-      - image: cimg/openjdk:21
+      - image: cimg/openjdk:21.0.12
     steps:
       - checkout
       - attach_workspace:
