@@ -28,6 +28,13 @@ import com.crazzyghost.alphavantage.parameters.Interval;
 
 import java.util.Arrays;
 
+/**
+ * A request to {@code CPI}, which returns the monthly and semiannual consumer
+ * price index (CPI) of the United States.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class CpiRequest extends EconomicIndicatorRequest {
     private Interval interval;
 
@@ -36,14 +43,30 @@ public class CpiRequest extends EconomicIndicatorRequest {
         this.interval = builder.interval;
     }
 
+    /**
+     * Assembles a request for the CPI series, adding the reporting interval to
+     * the parameters inherited from {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
         Interval interval;
 
+        /**
+         * Creates a builder for the {@code CPI} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.CPI);
         }
 
+        /**
+         * Sets the reporting interval for the series.
+         *
+         * @param interval the reporting interval; must be {@link Interval#MONTHLY}
+         *                 or {@link Interval#SEMI_ANNUAL}
+         * @return this builder, for method chaining
+         * @throws AlphaVantageException if {@code interval} is not
+         *                                {@link Interval#MONTHLY} or {@link Interval#SEMI_ANNUAL}
+         */
         public Builder interval(Interval interval) {
             if (!Arrays.asList(Interval.MONTHLY, Interval.SEMI_ANNUAL).contains(interval)) {
                 throw new AlphaVantageException("accepted interval values for CPI are Interval.MONTHLY, Interval.SEMI_ANNUAL");
@@ -52,6 +75,11 @@ public class CpiRequest extends EconomicIndicatorRequest {
             return this;
         }
 
+        /**
+         * Assembles the parameters set so far into a CPI request.
+         *
+         * @return a request for the CPI series
+         */
         @Override
         public CpiRequest build() {
             return new CpiRequest(this);

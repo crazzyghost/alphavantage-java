@@ -8,29 +8,23 @@ dataType: DataType.JSON
 
 ### Intraday
 
-=== "Java"
+=== ":material-language-java: Java"
     ```java
-    Alphavantage.api()
+    AlphaVantage.api()
         .crypto()
         .intraday()
         .forSymbol("BTC")
         .market("USD")
-        .interval(Interval.FIVE_MIN)
-        .outputSize(OutputSize.FULL)
-        .dataType(DataType.JSON)
         .onSuccess(e -> onData(e.getCryptoUnits()))
         .fetch();
     ```
-=== "Kotlin"
+=== ":material-language-kotlin: Kotlin"
     ```kotlin
-    Alphavantage.api()
+    AlphaVantage.api()
         .crypto()
         .intraday()
         .forSymbol("BTC")
         .market("USD")
-        .interval(Interval.FIVE_MIN)
-        .outputSize(OutputSize.FULL)
-        .dataType(DataType.JSON)
         .onSuccess { e -> onData(e.cryptoUnits) }
         .fetch()
     ```
@@ -40,9 +34,9 @@ dataType: DataType.JSON
 
 ### Daily
 
-=== "Java"
+=== ":material-language-java: Java"
     ```java
-    Alphavantage.api()
+    AlphaVantage.api()
         .crypto()
         .daily()
         .forSymbol("BTC")
@@ -50,9 +44,9 @@ dataType: DataType.JSON
         .onSuccess(e -> onData(e.getCryptoUnits()))
         .fetch();
     ```
-=== "Kotlin"
+=== ":material-language-kotlin: Kotlin"
     ```kotlin
-    Alphavantage.api()
+    AlphaVantage.api()
         .crypto()
         .daily()
         .forSymbol("BTC")
@@ -63,9 +57,9 @@ dataType: DataType.JSON
 
 ### Weekly
 
-=== "Java"
+=== ":material-language-java: Java"
     ```java
-    Alphavantage.api()
+    AlphaVantage.api()
         .crypto()
         .weekly()
         .forSymbol("BTC")
@@ -73,9 +67,9 @@ dataType: DataType.JSON
         .onSuccess(e -> onData(e.getCryptoUnits()))
         .fetch();
     ```
-=== "Kotlin"
+=== ":material-language-kotlin: Kotlin"
     ```kotlin
-    Alphavantage.api()
+    AlphaVantage.api()
         .crypto()
         .weekly()
         .forSymbol("BTC")
@@ -86,9 +80,9 @@ dataType: DataType.JSON
 
 ### Monthly
 
-=== "Java"
+=== ":material-language-java: Java"
     ```java
-    Alphavantage.api()
+    AlphaVantage.api()
         .crypto()
         .monthly()
         .forSymbol("BTC")
@@ -96,9 +90,9 @@ dataType: DataType.JSON
         .onSuccess(e -> onData(e.getCryptoUnits()))
         .fetch();
     ```
-=== "Kotlin"
+=== ":material-language-kotlin: Kotlin"
     ```kotlin
-    Alphavantage.api()
+    AlphaVantage.api()
         .crypto()
         .monthly()
         .forSymbol("BTC")
@@ -112,7 +106,7 @@ dataType: DataType.JSON
 
 ### Response
 
-=== "Java"
+=== ":material-language-java: Java"
     ```java
     public void onData(List<CryptoUnit> cryptoUnits){
         cryptoUnits.stream().forEach(u -> {
@@ -120,17 +114,11 @@ dataType: DataType.JSON
             System.out.println(u.getLow());
             System.out.println(u.getOpen());
             System.out.println(u.getClose());
-            System.out.println(u.getHighUSD());
-            System.out.println(u.getLowUSD());
-            System.out.println(u.getOpenUSD());
-            System.out.println(u.getCloseUSD());
             System.out.println(u.getVolume());
-            System.out.println(u.getMarketCap());
-            System.out.println(u.getDate());
         });
     }
     ```
-=== "Kotlin"
+=== ":material-language-kotlin: Kotlin"
     ```kotlin
     fun onData(cryptoUnits: List<CryptoUnit>) {
         cryptoUnits.forEach { u ->
@@ -138,31 +126,25 @@ dataType: DataType.JSON
             println(u.low)
             println(u.open)
             println(u.close)
-            println(u.highUSD)
-            println(u.lowUSD)
-            println(u.openUSD)
-            println(u.closeUSD)
             println(u.volume)
-            println(u.marketCap)
-            println(u.date)
         }
     }
     ```
 
 ## Health Index
 
-=== "Java"
+=== ":material-language-java: Java"
     ```java
-    Alphavantage.api()
+    AlphaVantage.api()
         .crypto()
         .rating()
         .forSymbol("BTC")
         .onSuccess(e -> onData(e))
         .fetch();
     ```
-=== "Kotlin"
+=== ":material-language-kotlin: Kotlin"
     ```kotlin
-    Alphavantage.api()
+    AlphaVantage.api()
         .crypto()
         .rating()
         .forSymbol("BTC")
@@ -175,7 +157,7 @@ dataType: DataType.JSON
 
 ### Response
 
-=== "Java"
+=== ":material-language-java: Java"
     ```java
     public void onData(RatingResponse response){
         System.out.println(response.getSymbol());
@@ -189,7 +171,7 @@ dataType: DataType.JSON
         System.out.println(response.getTimeZone());
     }
     ```
-=== "Kotlin"
+=== ":material-language-kotlin: Kotlin"
     ```kotlin
     fun onData(response: RatingResponse) {
         println(response.symbol)

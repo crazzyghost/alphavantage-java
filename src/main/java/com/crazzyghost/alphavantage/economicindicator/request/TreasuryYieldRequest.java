@@ -29,6 +29,13 @@ import com.crazzyghost.alphavantage.parameters.Maturity;
 
 import java.util.Arrays;
 
+/**
+ * A request to {@code TREASURY_YIELD}, which returns the daily, weekly, and
+ * monthly US Treasury yield for a given {@link Maturity}.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class TreasuryYieldRequest extends EconomicIndicatorRequest {
     private Interval interval;
     private Maturity maturity;
@@ -39,15 +46,33 @@ public class TreasuryYieldRequest extends EconomicIndicatorRequest {
         this.maturity = builder.maturity;
     }
 
+    /**
+     * Assembles a request for the Treasury yield series, adding the reporting
+     * interval and bond maturity to the parameters inherited from
+     * {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
         Interval interval;
         Maturity maturity;
 
+        /**
+         * Creates a builder for the {@code TREASURY_YIELD} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.TREASURY_YIELD);
         }
 
+        /**
+         * Sets the reporting interval for the series.
+         *
+         * @param interval the reporting interval; must be {@link Interval#DAILY},
+         *                 {@link Interval#WEEKLY}, or {@link Interval#MONTHLY}
+         * @return this builder, for method chaining
+         * @throws AlphaVantageException if {@code interval} is not
+         *                                {@link Interval#DAILY}, {@link Interval#WEEKLY},
+         *                                or {@link Interval#MONTHLY}
+         */
         public Builder interval(Interval interval) {
             if (!Arrays.asList(Interval.DAILY, Interval.WEEKLY, Interval.MONTHLY).contains(interval)) {
                 throw new AlphaVantageException("accepted interval values for TREASURY_YIELD are Interval.DAILY, Interval.WEEKLY, Interval.MONTHLY");
@@ -56,11 +81,22 @@ public class TreasuryYieldRequest extends EconomicIndicatorRequest {
             return this;
         }
 
+        /**
+         * Sets the bond maturity the yield is reported for.
+         *
+         * @param maturity the Treasury bond maturity
+         * @return this builder, for method chaining
+         */
         public Builder maturity(Maturity maturity) {
             this.maturity = maturity;
             return this;
         }
 
+        /**
+         * Assembles the parameters set so far into a Treasury yield request.
+         *
+         * @return a request for the Treasury yield series
+         */
         @Override
         public TreasuryYieldRequest build() {
             return new TreasuryYieldRequest(this);

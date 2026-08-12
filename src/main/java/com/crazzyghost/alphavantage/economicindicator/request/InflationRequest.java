@@ -24,19 +24,38 @@ package com.crazzyghost.alphavantage.economicindicator.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
+/**
+ * A request to {@code INFLATION}, which returns the annual inflation rate of the
+ * United States, as measured by the consumer price index.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class InflationRequest extends EconomicIndicatorRequest {
 
     private InflationRequest(Builder builder) {
         super(builder);
     }
 
+    /**
+     * Assembles a request for the inflation series. Carries no parameters beyond
+     * those inherited from {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
 
+        /**
+         * Creates a builder for the {@code INFLATION} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.INFLATION);
         }
 
+        /**
+         * Assembles the parameters set so far into an inflation request.
+         *
+         * @return a request for the inflation series
+         */
         @Override
         public InflationRequest build() {
             return new InflationRequest(this);

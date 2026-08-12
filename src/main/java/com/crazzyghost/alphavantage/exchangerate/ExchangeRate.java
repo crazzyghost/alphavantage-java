@@ -35,7 +35,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * Access to Exchange Rate Data
+ * Access to Exchange Rate Data.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0
@@ -66,7 +66,7 @@ public final class ExchangeRate implements Fetcher {
      * Handles request success
      *
      * @param callback successful fetch handler
-     * @return current instance of {@link ExchangeRateResponse}
+     * @return this instance, for method chaining
      */
     public ExchangeRate onSuccess(SuccessCallback<ExchangeRateResponse> callback){
         this.successCallback = callback;
@@ -77,7 +77,7 @@ public final class ExchangeRate implements Fetcher {
      * Handles request failure
      *
      * @param callback failed fetch handler
-     * @return current instance of {@link ExchangeRateResponse}
+     * @return this instance, for method chaining
      */
     public ExchangeRate onFailure(FailureCallback callback){
         this.failureCallback = callback;
@@ -86,12 +86,13 @@ public final class ExchangeRate implements Fetcher {
 
 
     /**
-     * Make a blocking synchronous http request to fetch the data.
-     * 
-     * Using this method will overwrite any async callback
+     * Makes a blocking synchronous http request to fetch the data.
+     * <p>
+     * Using this method will overwrite any async callback.
      *
+     * @return the exchange rate data returned by the API
+     * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.5.0
-     * @throws AlphaVantageException exception thrown
      */
     public ExchangeRateResponse fetchSync() throws AlphaVantageException {
         

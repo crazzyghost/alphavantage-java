@@ -24,19 +24,39 @@ package com.crazzyghost.alphavantage.economicindicator.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
+/**
+ * A request to {@code INFLATION_EXPECTATION}, which returns the monthly median
+ * expected inflation rate over the next 12 months, as measured by the University
+ * of Michigan's Surveys of Consumers.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class InflationExpectationRequest extends EconomicIndicatorRequest {
 
     private InflationExpectationRequest(Builder builder) {
         super(builder);
     }
 
+    /**
+     * Assembles a request for the inflation expectation series. Carries no
+     * parameters beyond those inherited from {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
 
+        /**
+         * Creates a builder for the {@code INFLATION_EXPECTATION} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.INFLATION_EXPECTATION);
         }
 
+        /**
+         * Assembles the parameters set so far into an inflation expectation request.
+         *
+         * @return a request for the inflation expectation series
+         */
         @Override
         public InflationExpectationRequest build() {
             return new InflationExpectationRequest(this);

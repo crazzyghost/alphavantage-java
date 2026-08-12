@@ -25,19 +25,34 @@ package com.crazzyghost.alphavantage.fundamentaldata.request;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
- * Income Statement Request
+ * A request for the {@code INCOME_STATEMENT} endpoint, which returns a company's
+ * annual and quarterly income statements — revenue through to net income as
+ * reported to the SEC.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.6.0
  */
 public class IncomeStatementRequest extends FundamentalDataRequest {
 
+    /**
+     * Creates a request from the given builder's current state.
+     *
+     * @param builder the builder to copy the symbol from
+     */
     protected IncomeStatementRequest(Builder builder) { super(builder); }
 
+    /** Builds an {@link IncomeStatementRequest}. */
     public static class Builder extends FundamentalDataRequest.Builder<Builder> {
 
+        /** Creates a builder preset to the {@code INCOME_STATEMENT} function. */
         public Builder() { this.function(Function.INCOME_STATEMENT); }
 
+        /**
+         * Builds the income statement request from this builder's current
+         * state.
+         *
+         * @return the built income statement request
+         */
         @Override
         public IncomeStatementRequest build() {
             return new IncomeStatementRequest(this);

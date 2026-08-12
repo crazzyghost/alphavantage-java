@@ -1,895 +1,1577 @@
+!!! warning "Deprecated"
+    `.indicator()` is deprecated. Use [`.technicalIndicator()`](technicalindicator.md) instead — see the [Technical Indicators](technicalindicator.md) recipe.
+
 !!! note
     All Indicator Response provide a `getIndicatorUnits()` method to acess technical indicator data and `getMetaData()` to access metadata information
 
 ## SMA
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .sma()
-            .forSymbol("AAPL")
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .sma()
+        .forSymbol("AAPL")
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .sma()
+        .forSymbol("AAPL")
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`SMAResponse`
 
 ## EMA
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .ema()
-            .forSymbol("AAPL")
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .ema()
+        .forSymbol("AAPL")
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .ema()
+        .forSymbol("AAPL")
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`EMAResponse`
 
 ## WMA
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .wma()
-            .forSymbol("AAPL")
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .wma()
+        .forSymbol("AAPL")
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .wma()
+        .forSymbol("AAPL")
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`WMAResponse`
 
 ## DEMA
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .dema()
-            .forSymbol("AAPL")
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .dema()
+        .forSymbol("AAPL")
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .dema()
+        .forSymbol("AAPL")
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`DEMAResponse`
 
 ## TEMA
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .tema()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .tema()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .tema()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`TEMAResponse`
 
 ## TRIMA
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .trima()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .trima()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .trima()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`TRIMAResponse`
 
 ## KAMA
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .kama()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .kama()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .kama()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`KAMAResponse`
 
 ## MAMA
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .mama()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .fastLimit(0.1)
-            .slowLimit(0.5)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .mama()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .fastLimit(0.1)
+        .slowLimit(0.5)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .mama()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .fastLimit(0.1)
+        .slowLimit(0.5)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `MAMAResponse`
 
 ## VWAP
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .vwap()
-            .interval(Interval.WEEKLY)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .vwap()
+        .interval(Interval.WEEKLY)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .vwap()
+        .interval(Interval.WEEKLY)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`SimpleIndicatorResponse`
+`VWAPResponse`
 
 ## T3
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .t3()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .t3()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .t3()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`T3Response`
 
 ## MACD
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .macd()
-            .interval(Interval.DAILY)
-            .seriesType(SeriesType.OPEN)
-            .fastPeriod(12)
-            .slowPeriod(26)
-            .signalPeriod(9)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .macd()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .fastPeriod(12)
+        .slowPeriod(26)
+        .signalPeriod(9)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .macd()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .fastPeriod(12)
+        .slowPeriod(26)
+        .signalPeriod(9)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `MACDResponse`
 
 ## MACDEXT
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .macdext()
-            .interval(Interval.DAILY)
-            .seriesType(SeriesType.OPEN)
-            .fastPeriod(12)
-            .slowPeriod(26)
-            .signalPeriod(9)
-            .slowMaType(MAType.SMA)
-            .fastMaType(MAType.MAMA)
-            .signalMaType(MAType.SMA)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .macdext()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .fastPeriod(12)
+        .slowPeriod(26)
+        .signalPeriod(9)
+        .slowMaType(MAType.SMA)
+        .fastMaType(MAType.MAMA)
+        .signalMaType(MAType.SMA)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .macdext()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .fastPeriod(12)
+        .slowPeriod(26)
+        .signalPeriod(9)
+        .slowMaType(MAType.SMA)
+        .fastMaType(MAType.MAMA)
+        .signalMaType(MAType.SMA)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `MACDEXTResponse`
 
 ## STOCH
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .stoch()
-            .interval(Interval.SIXTY_MIN)
-            .fastKPeriod(5)
-            .slowKPeriod(3)
-            .slowDPeriod(3)
-            .slowKMaType(MAType.SMA)
-            .slowDMaType(MAType.SMA)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .stoch()
+        .interval(Interval.SIXTY_MIN)
+        .fastKPeriod(5)
+        .slowKPeriod(3)
+        .slowDPeriod(3)
+        .slowKMaType(MAType.SMA)
+        .slowDMaType(MAType.SMA)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .stoch()
+        .interval(Interval.SIXTY_MIN)
+        .fastKPeriod(5)
+        .slowKPeriod(3)
+        .slowDPeriod(3)
+        .slowKMaType(MAType.SMA)
+        .slowDMaType(MAType.SMA)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `STOCHResponse`
 
 ## STOCHF
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .stochf()
-            .interval(Interval.SIXTY_MIN)
-            .fastKPeriod(5)
-            .fastDPeriod(3)
-            .fastDMaType(MAType.MAMA)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .stochf()
+        .interval(Interval.SIXTY_MIN)
+        .fastKPeriod(5)
+        .fastDPeriod(3)
+        .fastDMaType(MAType.MAMA)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .stochf()
+        .interval(Interval.SIXTY_MIN)
+        .fastKPeriod(5)
+        .fastDPeriod(3)
+        .fastDMaType(MAType.MAMA)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `STOCHFResponse`
 
 ## RSI
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .rsi()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .rsi()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .rsi()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`RSIResponse`
 
 ## STOCHRSI
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .stochrsi()
-            .interval(Interval.SIXTY_MIN)
-            .fastKPeriod(5)
-            .fastDPeriod(3)
-            .fastDMaType(MAType.MAMA)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .stochrsi()
+        .interval(Interval.SIXTY_MIN)
+        .fastKPeriod(5)
+        .fastDPeriod(3)
+        .fastDMaType(MAType.MAMA)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .stochrsi()
+        .interval(Interval.SIXTY_MIN)
+        .fastKPeriod(5)
+        .fastDPeriod(3)
+        .fastDMaType(MAType.MAMA)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `STOCHRSIResponse`
 
 ## WILLR
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .willr()
-            .interval(Interval.DAILY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .willr()
+        .interval(Interval.DAILY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .willr()
+        .interval(Interval.DAILY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`WILLRResponse`
 
 ## ADX
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .adx()
-            .interval(Interval.DAILY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .adx()
+        .interval(Interval.DAILY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .adx()
+        .interval(Interval.DAILY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`ADXResponse`
 
 ## ADXR
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .adxr()
-            .interval(Interval.DAILY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .adxr()
+        .interval(Interval.DAILY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .adxr()
+        .interval(Interval.DAILY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`ADXRResponse`
 
 ## PPO
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .ppo()
-            .interval(Interval.DAILY)
-            .seriesType(SeriesType.OPEN)
-            .maType(MAType.MAMA)
-            .fastPeriod(10)
-            .slowPeriod(26)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .ppo()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .maType(MAType.MAMA)
+        .fastPeriod(10)
+        .slowPeriod(26)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .ppo()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .maType(MAType.MAMA)
+        .fastPeriod(10)
+        .slowPeriod(26)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PriceOscillatorResponse`
+`PPOResponse`
 
 ## APO
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .apo()
-            .interval(Interval.DAILY)
-            .seriesType(SeriesType.OPEN)
-            .maType(MAType.MAMA)
-            .fastPeriod(10)
-            .slowPeriod(26)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .apo()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .maType(MAType.MAMA)
+        .fastPeriod(10)
+        .slowPeriod(26)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .apo()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .maType(MAType.MAMA)
+        .fastPeriod(10)
+        .slowPeriod(26)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PriceOscillatorResponse`
+`APOResponse`
 
 ## MOM
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .mom()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .mom()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .mom()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`MOMResponse`
 
 ## BOP
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .bop()
-            .interval(Interval.WEEKLY)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .bop()
+        .interval(Interval.WEEKLY)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .bop()
+        .interval(Interval.WEEKLY)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`SimpleIndicatorResponse`
+`BOPResponse`
 
 ## CCI
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .cci()
-            .interval(Interval.DAILY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .cci()
+        .interval(Interval.DAILY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .cci()
+        .interval(Interval.DAILY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`CCIResponse`
 
 ## CMO
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .cmo()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .cmo()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .cmo()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`CMOResponse`
 
 ## ROC
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .roc()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .roc()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .roc()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`ROCResponse`
 
 ## ROCR
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .rocr()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .rocr()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .rocr()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`ROCRResponse`
 
 ## AROON
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .aroon()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .aroon()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .aroon()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `AROONResponse`
 
 ## AROONOSC
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .aroonosc()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .aroonosc()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .aroonosc()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`AROONOSCResponse`
 
 ## MFI
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .mfi()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .mfi()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .mfi()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`MFIResponse`
 
 ## TRIX
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .trix()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .trix()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .trix()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`TRIXResponse`
 
 ## ULTOSC
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .ultosc()
-            .interval(Interval.SIXTY_MIN)
-            .timePeriod1(7)
-            .timePeriod2(14)
-            .timePeriod3(28)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .ultosc()
+        .interval(Interval.SIXTY_MIN)
+        .timePeriod1(7)
+        .timePeriod2(14)
+        .timePeriod3(28)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .ultosc()
+        .interval(Interval.SIXTY_MIN)
+        .timePeriod1(7)
+        .timePeriod2(14)
+        .timePeriod3(28)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `ULTOSCResponse`
 
 ## DX
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .dx()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .dx()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .dx()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`DXResponse`
 
 ## MINUS_DI
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .minusdi()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .minusdi()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .minusdi()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`MINUSDIResponse`
 
 ## PLUS_DI
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .plusdi()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .plusdi()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .plusdi()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`PLUSDIResponse`
 
 ## MINUS_DM
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .minusdm()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .minusdm()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .minusdm()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`MINUSDMResponse`
 
 ## PLUS_DM
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .plusdm()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .plusdm()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .plusdm()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`PLUSDMResponse`
 
 ## BBANDS
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .bbands()
-            .interval(Interval.DAILY)
-            .timePeriod(60)
-            .seriesType(SeriesType.OPEN)
-            .nbdevdn(4)
-            .nbdevup(4)
-            .maType(MAType.SMA)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .bbands()
+        .interval(Interval.DAILY)
+        .timePeriod(60)
+        .seriesType(SeriesType.OPEN)
+        .nbdevdn(4)
+        .nbdevup(4)
+        .maType(MAType.SMA)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .bbands()
+        .interval(Interval.DAILY)
+        .timePeriod(60)
+        .seriesType(SeriesType.OPEN)
+        .nbdevdn(4)
+        .nbdevup(4)
+        .maType(MAType.SMA)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `BBANDSResponse`
 
 ## MIDPOINT
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .midpoint()
-            .interval(Interval.WEEKLY)
-            .seriesType(SeriesType.OPEN)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .midpoint()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .midpoint()
+        .interval(Interval.WEEKLY)
+        .seriesType(SeriesType.OPEN)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicSeriesResponse`
+`MIDPOINTResponse`
 
 ## MIDPRICE
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .midprice()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .midprice()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .midprice()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`MIDPRICEResponse`
 
 ## SAR
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .sar()
-            .interval(Interval.DAILY)
-            .acceleration(0.02)
-            .maximum(0.50)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .sar()
+        .interval(Interval.DAILY)
+        .acceleration(0.02)
+        .maximum(0.50)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .sar()
+        .interval(Interval.DAILY)
+        .acceleration(0.02)
+        .maximum(0.50)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `SARResponse`
 
 ## TRANGE
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .trange()
-            .interval(Interval.WEEKLY)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .trange()
+        .interval(Interval.WEEKLY)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .trange()
+        .interval(Interval.WEEKLY)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`SimpleIndicatorResponse`
+`TRANGEResponse`
 
 ## ATR
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .atr()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .atr()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .atr()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`ATRResponse`
 
 ## NATR
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .natr()
-            .interval(Interval.WEEKLY)
-            .timePeriod(60)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .natr()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .natr()
+        .interval(Interval.WEEKLY)
+        .timePeriod(60)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`PeriodicResponse`
+`NATRResponse`
 
 ## AD
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .ad()
-            .interval(Interval.WEEKLY)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .ad()
+        .interval(Interval.WEEKLY)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .ad()
+        .interval(Interval.WEEKLY)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`SimpleIndicatorResponse`
+`ADResponse`
 
 ## ADOSC
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .adosc()
-            .interval(Interval.WEEKLY)
-            .fastPeriod(3)
-            .slowPeriod(10)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .adosc()
+        .interval(Interval.WEEKLY)
+        .fastPeriod(3)
+        .slowPeriod(10)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .adosc()
+        .interval(Interval.WEEKLY)
+        .fastPeriod(3)
+        .slowPeriod(10)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `ADOSCResponse`
 
 ## OBV
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .obv()
-            .interval(Interval.WEEKLY)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .obv()
+        .interval(Interval.WEEKLY)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .obv()
+        .interval(Interval.WEEKLY)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`SimpleIndicatorResponse`
+`OBVResponse`
 
 ## HT_TRENDLINE
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .httrendline()
-            .interval(Interval.DAILY)
-            .seriesType(SeriesType.OPEN)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .httrendline()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .httrendline()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`SeriesResponse`
+`HTTRENDLINEResponse`
 
 ## HT_SINE
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .htsine()
-            .interval(Interval.DAILY)
-            .seriesType(SeriesType.OPEN)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .htsine()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .htsine()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `HTSINEResponse`
 
 ## HT_TRENDMODE
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .httrendmode()
-            .interval(Interval.DAILY)
-            .seriesType(SeriesType.OPEN)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .httrendmode()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .httrendmode()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`SeriesResponse`
+`HTTRENDMODEResponse`
 
 ## HT_DCPERIOD
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .htdcperiod()
-            .interval(Interval.DAILY)
-            .seriesType(SeriesType.OPEN)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .htdcperiod()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .htdcperiod()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`SeriesResponse`
+`HTDCPERIODResponse`
 
 ## HT_DCPHASE
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .htdcphase()
-            .interval(Interval.DAILY)
-            .seriesType(SeriesType.OPEN)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .htdcphase()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .htdcphase()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
-`SeriesResponse`
+`HTDCPHASEResponse`
 
 ## HT_PHASOR
 
-=== "Java"
-        :::java
-        AlphaVantage.api()
-            .indicator()
-            .httrendmode()
-            .interval(Interval.DAILY)
-            .seriesType(SeriesType.OPEN)
-            .forSymbol("AAPL")
-            .onSuccess(e->onData(e))
-            .fetch();
+=== ":material-language-java: Java"
+    ```java
+    AlphaVantage.api()
+        .indicator()
+        .htphasor()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess(e->onData(e))
+        .fetch();
+    ```
+=== ":material-language-kotlin: Kotlin"
+    ```kotlin
+    AlphaVantage.api()
+        .indicator()
+        .htphasor()
+        .interval(Interval.DAILY)
+        .seriesType(SeriesType.OPEN)
+        .forSymbol("AAPL")
+        .onSuccess { e -> onData(e) }
+        .fetch()
+    ```
 
 **Response Type:**
 `HTPHASORResponse`
-

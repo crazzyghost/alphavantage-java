@@ -29,6 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The {@code OVERVIEW} endpoint's response: a company's profile and
+ * headline financial metrics, or the error returned in their place.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class CompanyOverviewResponse {
 
     private final CompanyOverview overview;
@@ -44,19 +51,37 @@ public class CompanyOverviewResponse {
         this.errorMessage = null;
     }
 
+    /**
+     * Parses a raw {@code OVERVIEW} API response into a
+     * {@code CompanyOverviewResponse}.
+     *
+     * @param  objectMap the parsed JSON response body
+     * @return the parsed response, or an error response if parsing fails
+     */
     public static CompanyOverviewResponse of(Map<String, Object> objectMap) {
         Parser<CompanyOverviewResponse> parser = new CompanyOverviewParser();
         return parser.parse(objectMap);
     }
 
+    /**
+     * Returns the error message returned by the API, if the request failed.
+     *
+     * @return the error message, or {@code null} if the request succeeded
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Returns the parsed company overview.
+     *
+     * @return the company overview, or {@code null} if the request failed
+     */
     public CompanyOverview getOverview() {
         return overview;
     }
 
+    /** Parses a raw {@code OVERVIEW} API response into a {@link CompanyOverviewResponse}. */
     public static class CompanyOverviewParser extends Parser<CompanyOverviewResponse> {
 
         @Override

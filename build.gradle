@@ -4,11 +4,12 @@ plugins {
     id 'maven-publish'
     id 'jacoco'
     id "org.sonarqube" version "4.0.0.2929"
+    id "org.jetbrains.dokka" version "2.2.0"
 }
 
 group = 'com.github.crazzyghost'
 
-version '1.7.0'
+version '1.8.0'
 
 
 publishing {
@@ -27,8 +28,11 @@ tasks.jar {
     }
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
-sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -64,4 +68,18 @@ dependencies {
     testImplementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'com.squareup.moshi:moshi:1.9.2'
+    dokkaPlugin "org.jetbrains.dokka:kotlin-as-java-plugin:2.2.0"
+}
+
+dokka {
+    dokkaPublications {
+        html {
+            outputDirectory.set(file("docs/api"))
+        }
+    }
+    pluginsConfiguration {
+        html {
+            homepageLink.set("https://crazzyghost.github.io/alphavantage-java/")
+        }
+    }
 }

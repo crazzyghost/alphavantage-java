@@ -24,19 +24,38 @@ package com.crazzyghost.alphavantage.economicindicator.request;
 
 import com.crazzyghost.alphavantage.parameters.Function;
 
+/**
+ * A request to {@code RETAIL_SALES}, which returns the monthly advance retail
+ * sales of the United States.
+ *
+ * @author Sylvester Sefa-Yeboah
+ * @since 1.7.0
+ */
 public class RetailSalesRequest extends EconomicIndicatorRequest {
 
     private RetailSalesRequest(Builder builder) {
         super(builder);
     }
 
+    /**
+     * Assembles a request for the retail sales series. Carries no parameters
+     * beyond those inherited from {@link EconomicIndicatorRequest.Builder}.
+     */
     public static class Builder extends EconomicIndicatorRequest.Builder<Builder> {
 
+        /**
+         * Creates a builder for the {@code RETAIL_SALES} endpoint.
+         */
         public Builder() {
             super();
             this.function(Function.RETAIL_SALES);
         }
 
+        /**
+         * Assembles the parameters set so far into a retail sales request.
+         *
+         * @return a request for the retail sales series
+         */
         @Override
         public RetailSalesRequest build() {
             return new RetailSalesRequest(this);

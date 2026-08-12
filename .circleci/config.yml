@@ -4,8 +4,8 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/openjdk:8.0.312
-    
+      - image: cimg/openjdk:17.0.6
+
     working_directory: ~/repo
 
     environment:
@@ -17,26 +17,26 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
+            - v1-dependencies-{{ checksum "build.gradle" }}
           # fallback to using the latest cache if no exact match is found
           # - v1-dependencies-
 
       - run:
           name: install-gradle-dependencies
-          command: gradle dependencies
+          command: ./gradlew dependencies
 
       - save_cache:
           paths:
-          - ~/.gradle
+            - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # run tests!
       - run:
           name: Run tests
-          command: gradle test
+          command: ./gradlew test
       - run:
           name: Run Code Coverage
-          command: gradle jacocoTestReport
+          command: ./gradlew jacocoTestReport
 
       - run:
           name: Save test results
@@ -47,15 +47,15 @@ jobs:
       - run:
           name: Save coverage report
           command: |
-              find . -type f -regex ".*/build/reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+            find . -type f -regex ".*/build/reports/.*xml" -exec cp {} ~/test-results/junit/ \;
           when: always
 
       - store_test_results:
           path: ~/test-results
-      
+
       - store_artifacts:
-          path: ~/test-results/junit    
-      
+          path: ~/test-results/junit
+
       - codecov/upload:
           file: ~/test-results/junit/*.xml
 
@@ -65,24 +65,28 @@ jobs:
 
       - persist_to_workspace:
           root: .
-          paths: 
+          paths:
             - build/*
   sonar:
     docker:
-      - image: cimg/openjdk:17.0.6
+      - image: cimg/openjdk:21.0.12
     steps:
       - checkout
+      - run:
+          name: Disable blobless clone and fetch full history
+          command: |
+            git fetch --no-filter --refetch
       - attach_workspace:
           at: .
       - run:
           name: Analyze on SonarCloud
-          command: gradle build sonarqube
+          command: ./gradlew build sonarqube
 
 workflows:
- workflow:
-   jobs:
-   - build
-   - sonar:
-       context: SonarCloud
-       requires:
-         - build
+  workflow:
+    jobs:
+      - build
+      - sonar:
+          context: SonarCloud
+          requires:
+            - build

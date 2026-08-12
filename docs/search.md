@@ -2,7 +2,7 @@
 
 === ":material-language-java: Java"
     ```java
-    Alphavantage.api()
+    AlphaVantage.api()
       .search()
       .keywords("tesla")
       .onSuccess(response -> onData(response.getBestMatches()))
@@ -10,7 +10,7 @@
     ```
 === ":material-language-kotlin: Kotlin"
     ```kotlin
-    Alphavantage.api()
+    AlphaVantage.api()
         .search()
         .keywords("tesla")
         .onSuccess { response -> onData(response.bestMatches) }
@@ -21,14 +21,14 @@
 
 === ":material-language-java: Java"
     ```java
-    SearchResponse response = Alphavantage.api()
+    SearchResponse response = AlphaVantage.api()
       .search()
       .keywords("tesla")
       .fetchSync();
     ```
 === ":material-language-kotlin: Kotlin"
     ```kotlin
-    val response = Alphavantage.api()
+    val response = AlphaVantage.api()
         .search()
         .keywords("tesla")
         .fetchSync()

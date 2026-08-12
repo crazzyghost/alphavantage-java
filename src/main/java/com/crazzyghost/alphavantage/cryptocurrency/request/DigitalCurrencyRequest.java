@@ -22,8 +22,12 @@
  */
 package com.crazzyghost.alphavantage.cryptocurrency.request;
 
+import com.crazzyghost.alphavantage.parameters.Function;
+
 /**
- * Crypto Currency Request
+ * A request for a digital currency time series. The caller picks the cadence by
+ * setting the function on the builder, so the same request type serves the daily,
+ * weekly, monthly and intraday endpoints.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0
@@ -35,11 +39,26 @@ public class DigitalCurrencyRequest extends CryptoRequest {
     }
 
 
+    /**
+     * Collects a caller's digital currency symbol, market and cadence and
+     * assembles them into a {@link DigitalCurrencyRequest}.
+     * <p>
+     * The cadence is set through the inherited {@link #function(Function)},
+     * choosing among {@link Function#DIGITAL_CURRENCY_DAILY},
+     * {@link Function#DIGITAL_CURRENCY_WEEKLY} and
+     * {@link Function#DIGITAL_CURRENCY_MONTHLY}.
+     */
     public static class Builder extends CryptoRequest.Builder<Builder> {
 
+        /** Creates a builder with no function, symbol or market set yet. */
         public Builder() {
         }
 
+        /**
+         * Assembles the parameters set so far into a request.
+         *
+         * @return a new request carrying this builder's parameters
+         */
         @Override
         public CryptoRequest build() {
             return new DigitalCurrencyRequest(this);

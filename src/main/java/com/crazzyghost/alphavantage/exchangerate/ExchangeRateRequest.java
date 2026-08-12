@@ -42,25 +42,54 @@ public class ExchangeRateRequest {
         this.to_currency = builder.toCurrency;
     }
 
+    /**
+     * Collects the currency pair to quote and assembles it into an
+     * {@link ExchangeRateRequest}.
+     * <p>
+     * The function is pinned to {@link Function#CURRENCY_EXCHANGE_RATE} on
+     * construction, so the pair is the only thing a caller supplies. Both physical
+     * and digital currencies are accepted on either side of the pair.
+     */
     public static class Builder{
         private Function function;
         private String fromCurrency;
         private String toCurrency;
 
+        /** Creates a builder for the {@code CURRENCY_EXCHANGE_RATE} endpoint. */
         public Builder(){
             this.function = Function.CURRENCY_EXCHANGE_RATE;
         }
 
+        /**
+         * Sets the base currency, the one being converted from.
+         *
+         * @param fromCurrency the base currency's code, for example {@code USD} or
+         *                     {@code BTC}
+         * @return this builder, for method chaining
+         */
         public Builder fromCurrency(String fromCurrency){
             this.fromCurrency = fromCurrency;
             return this;
         }
 
+        /**
+         * Sets the quote currency, the one being converted to. The rate returned is
+         * how many units of this currency one unit of the base currency buys.
+         *
+         * @param toCurrency the quote currency's code, for example {@code EUR} or
+         *                   {@code BTC}
+         * @return this builder, for method chaining
+         */
         public Builder toCurrency(String toCurrency){
             this.toCurrency = toCurrency;
             return this;
         }
 
+        /**
+         * Assembles the parameters set so far into a request.
+         *
+         * @return a new request carrying this builder's currency pair
+         */
         public ExchangeRateRequest build(){
             return new ExchangeRateRequest(this);
         }
