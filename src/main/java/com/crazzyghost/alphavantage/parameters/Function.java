@@ -424,5 +424,5 @@ public enum Function {
      * overall employment.
      */
     NONFARM_PAYROLL,
-
+    NEWS_SENTIMENT,
 }
