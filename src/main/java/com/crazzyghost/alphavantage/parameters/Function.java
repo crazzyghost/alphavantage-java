@@ -47,12 +47,6 @@ public enum Function {
     TIME_SERIES_INTRADAY,
 
     /**
-     * Full-history intraday time series of an equity, delivered as monthly
-     * CSV slices going back up to 20 years.
-     */
-    TIME_SERIES_INTRADAY_EXTENDED,
-
-    /**
      * Daily time series of an equity's open, high, low, close, and volume,
      * unadjusted for splits or dividends.
      */
@@ -153,9 +147,6 @@ public enum Function {
      * USD.
      */
     DIGITAL_CURRENCY_MONTHLY,
-
-    /** Alpha Vantage's proprietary FCAS rating for a digital currency. */
-    CRYPTO_RATING,
 
     /**
      * Intraday time series of a digital currency traded on a specified
@@ -336,14 +327,6 @@ public enum Function {
 
     /** Hilbert transform, phasor components (HT_PHASOR) values. */
     HT_PHASOR,
-
-    //sector performances
-
-    /**
-     * Realtime and historical performance of the S&amp;P 500's constituent
-     * sectors across various time ranges.
-     */
-    SECTOR,
 
     //Fundamental Data
 

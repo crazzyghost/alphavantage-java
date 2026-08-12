@@ -28,9 +28,7 @@
  * the symbol, market and function every crypto request shares.
  * {@link com.crazzyghost.alphavantage.cryptocurrency.request.DigitalCurrencyRequest}
  * and {@link com.crazzyghost.alphavantage.cryptocurrency.request.IntradayRequest}
- * add the parameters specific to the time-series cadences, and
- * {@link com.crazzyghost.alphavantage.cryptocurrency.request.RatingRequest} builds
- * the crypto health index request. Reached through
+ * add the parameters specific to the time-series cadences. Reached through
  * {@link com.crazzyghost.alphavantage.cryptocurrency.Crypto}.
  */
 package com.crazzyghost.alphavantage.cryptocurrency.request;

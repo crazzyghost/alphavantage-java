@@ -140,6 +140,10 @@ public class CashFlow {
     @NoneableLong
     private Long proceedsFromSaleOfTreasuryStock;
 
+    @Json(name="stockBasedCompensation")
+    @NoneableLong
+    private Long stockBasedCompensation;
+
     @Json(name="changeInCashAndCashEquivalents")
     @NoneableLong
     private Long changeInCashAndCashEquivalents;
@@ -431,6 +435,16 @@ public class CashFlow {
     }
 
     /**
+     * Returns the value of equity compensation expensed during the period.
+     * {@code null} if not reported for the period (see {@link NoneableLong}).
+     *
+     * @return stock-based compensation, in the reporting currency
+     */
+    public Long getStockBasedCompensation() {
+        return stockBasedCompensation;
+    }
+
+    /**
      * Returns the net change in cash and cash equivalents over the period,
      * combining operating, investing and financing activity. {@code null} if
      * not reported for the period (see {@link NoneableLong}).
@@ -491,6 +505,7 @@ public class CashFlow {
                 ", proceedsFromIssuanceOfPreferredStock='" + proceedsFromIssuanceOfPreferredStock + '\'' +
                 ", proceedsFromRepurchaseOfEquity='" + proceedsFromRepurchaseOfEquity + '\'' +
                 ", proceedsFromSaleOfTreasuryStock='" + proceedsFromSaleOfTreasuryStock + '\'' +
+                ", stockBasedCompensation='" + stockBasedCompensation + '\'' +
                 ", changeInCashAndCashEquivalents='" + changeInCashAndCashEquivalents + '\'' +
                 ", changeInExchangeRate='" + changeInExchangeRate + '\'' +
                 ", netIncome='" + netIncome + '\'' +

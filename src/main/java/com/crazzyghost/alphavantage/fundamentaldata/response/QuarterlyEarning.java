@@ -54,6 +54,8 @@ public class QuarterlyEarning {
     @Json(name="surprisePercentage")
     @NoneableDouble
     private Double surprisePercentage;
+    @Json(name="reportTime")
+    private String reportTime;
 
     /**
      * Returns the closing date of the fiscal quarter this record covers.
@@ -117,6 +119,17 @@ public class QuarterlyEarning {
         return surprisePercentage;
     }
 
+    /**
+     * Returns whether this quarter's earnings were reported before market
+     * open or after market close, for example {@code pre-market} or
+     * {@code post-market}. {@code null} if not reported.
+     *
+     * @return the earnings report time token
+     */
+    public String getReportTime() {
+        return reportTime;
+    }
+
     @Override
     public String toString() {
         return "QuarterlyEarning{" +
@@ -126,6 +139,7 @@ public class QuarterlyEarning {
                 ", estimatedEPS='" + estimatedEPS + '\'' +
                 ", surprise='" + surprise + '\'' +
                 ", surprisePercentage='" + surprisePercentage + '\'' +
+                ", reportTime='" + reportTime + '\'' +
                 '}';
     }
 }

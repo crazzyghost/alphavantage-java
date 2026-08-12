@@ -3,7 +3,6 @@ package crypto;
 import java.io.IOException;
 
 import com.crazzyghost.alphavantage.cryptocurrency.response.CryptoResponse;
-import com.crazzyghost.alphavantage.cryptocurrency.response.RatingResponse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,28 +44,6 @@ public class CryptoResponseTest {
         CryptoResponse response = CryptoResponse.of(error());
         assertNotNull(response.getErrorMessage());
         assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
-    }
-
-    @Test
-    public void testHealthIndexResponse() throws IOException {
-        RatingResponse response = RatingResponse.of(json("rating"));
-        assertEquals(response.getSymbol(), "BTC");
-        assertEquals(response.getName(), "Bitcoin");
-        assertEquals(response.getFcasRating(), "Attractive");
-        assertEquals(response.getFcasScore(), "887");
-        assertEquals(response.getDeveloperScore(), "844");
-        assertEquals(response.getMarketMaturityScore(), "838");
-        assertEquals(response.getUtilityScore(), "951");
-        assertEquals(response.getLastRefreshed(), "2020-05-03 00:00:00");
-        assertEquals(response.getTimeZone(), "UTC");
-        assertFalse(response.toString().matches("(.*), errorMessage='null'(.*)"));
-
-    }
-
-    @Test
-    public void testHealthIndexResponseError() throws IOException {
-        RatingResponse response = RatingResponse.of(error());
-        assertNotNull(response.getErrorMessage());
     }
 
     @Test

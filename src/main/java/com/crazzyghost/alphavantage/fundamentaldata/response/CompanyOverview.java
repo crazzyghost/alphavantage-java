@@ -68,6 +68,8 @@ public class CompanyOverview {
     private String industry;
     @Json(name="Address")
     private String address;
+    @Json(name="OfficialSite")
+    private String officialSite;
     @Json(name="FiscalYearEnd")
     private String fiscalYearEnd;
     @Json(name="LatestQuarter")
@@ -129,6 +131,21 @@ public class CompanyOverview {
     @Json(name="AnalystTargetPrice")
     @NoneableDouble
     private Double analystTargetPrice;
+    @Json(name="AnalystRatingStrongBuy")
+    @NoneableLong
+    private Long analystRatingStrongBuy;
+    @Json(name="AnalystRatingBuy")
+    @NoneableLong
+    private Long analystRatingBuy;
+    @Json(name="AnalystRatingHold")
+    @NoneableLong
+    private Long analystRatingHold;
+    @Json(name="AnalystRatingSell")
+    @NoneableLong
+    private Long analystRatingSell;
+    @Json(name="AnalystRatingStrongSell")
+    @NoneableLong
+    private Long analystRatingStrongSell;
     @Json(name="TrailingPE")
     @NoneableDouble
     private Double trailingPE;
@@ -165,6 +182,15 @@ public class CompanyOverview {
     @Json(name="SharesOutstanding")
     @NoneableLong
     private Long sharesOutstanding;
+    @Json(name="SharesFloat")
+    @NoneableLong
+    private Long sharesFloat;
+    @Json(name="PercentInsiders")
+    @NoneableDouble
+    private Double percentInsiders;
+    @Json(name="PercentInstitutions")
+    @NoneableDouble
+    private Double percentInstitutions;
     @Json(name="DividendDate")
     private String dividendDate;
     @Json(name="ExDividendDate")
@@ -272,6 +298,15 @@ public class CompanyOverview {
      */
     public String getAddress() {
         return address;
+    }
+
+    /**
+     * Returns the company's official website URL.
+     *
+     * @return the official website URL
+     */
+    public String getOfficialSite() {
+        return officialSite;
     }
 
     /**
@@ -496,6 +531,58 @@ public class CompanyOverview {
     }
 
     /**
+     * Returns the number of analysts rating the stock a strong buy.
+     * {@code null} if no analyst coverage is available (see
+     * {@link NoneableLong}).
+     *
+     * @return the strong buy analyst rating count
+     */
+    public Long getAnalystRatingStrongBuy() {
+        return analystRatingStrongBuy;
+    }
+
+    /**
+     * Returns the number of analysts rating the stock a buy. {@code null} if
+     * no analyst coverage is available (see {@link NoneableLong}).
+     *
+     * @return the buy analyst rating count
+     */
+    public Long getAnalystRatingBuy() {
+        return analystRatingBuy;
+    }
+
+    /**
+     * Returns the number of analysts rating the stock a hold. {@code null} if
+     * no analyst coverage is available (see {@link NoneableLong}).
+     *
+     * @return the hold analyst rating count
+     */
+    public Long getAnalystRatingHold() {
+        return analystRatingHold;
+    }
+
+    /**
+     * Returns the number of analysts rating the stock a sell. {@code null} if
+     * no analyst coverage is available (see {@link NoneableLong}).
+     *
+     * @return the sell analyst rating count
+     */
+    public Long getAnalystRatingSell() {
+        return analystRatingSell;
+    }
+
+    /**
+     * Returns the number of analysts rating the stock a strong sell.
+     * {@code null} if no analyst coverage is available (see
+     * {@link NoneableLong}).
+     *
+     * @return the strong sell analyst rating count
+     */
+    public Long getAnalystRatingStrongSell() {
+        return analystRatingStrongSell;
+    }
+
+    /**
      * Returns the trailing price-to-earnings ratio, computed from the last
      * twelve months of reported earnings. {@code null} if not available (see
      * {@link NoneableDouble}).
@@ -622,6 +709,37 @@ public class CompanyOverview {
     }
 
     /**
+     * Returns the number of shares available for public trading, excluding
+     * closely held and restricted shares. {@code null} if not available (see
+     * {@link NoneableLong}).
+     *
+     * @return the floating share count
+     */
+    public Long getSharesFloat() {
+        return sharesFloat;
+    }
+
+    /**
+     * Returns the percentage of outstanding shares held by company insiders.
+     * {@code null} if not available (see {@link NoneableDouble}).
+     *
+     * @return the percentage of shares held by insiders
+     */
+    public Double getPercentInsiders() {
+        return percentInsiders;
+    }
+
+    /**
+     * Returns the percentage of outstanding shares held by institutional
+     * investors. {@code null} if not available (see {@link NoneableDouble}).
+     *
+     * @return the percentage of shares held by institutions
+     */
+    public Double getPercentInstitutions() {
+        return percentInstitutions;
+    }
+
+    /**
      * Returns the date the most recent dividend was (or will be) paid.
      *
      * @return the dividend payment date, in {@code yyyy-MM-dd} form
@@ -655,6 +773,7 @@ public class CompanyOverview {
                 ", sector='" + sector + '\'' +
                 ", industry='" + industry + '\'' +
                 ", address='" + address + '\'' +
+                ", officialSite='" + officialSite + '\'' +
                 ", fiscalYearEnd='" + fiscalYearEnd + '\'' +
                 ", latestQuarter='" + latestQuarter + '\'' +
                 ", marketCapitalization=" + marketCapitalization +
@@ -676,6 +795,11 @@ public class CompanyOverview {
                 ", quarterlyEarningsGrowthYOY=" + quarterlyEarningsGrowthYOY +
                 ", quarterlyRevenueGrowthYOY=" + quarterlyRevenueGrowthYOY +
                 ", analystTargetPrice=" + analystTargetPrice +
+                ", analystRatingStrongBuy=" + analystRatingStrongBuy +
+                ", analystRatingBuy=" + analystRatingBuy +
+                ", analystRatingHold=" + analystRatingHold +
+                ", analystRatingSell=" + analystRatingSell +
+                ", analystRatingStrongSell=" + analystRatingStrongSell +
                 ", trailingPE=" + trailingPE +
                 ", forwardPE=" + forwardPE +
                 ", priceToSaleRatioTTM=" + priceToSaleRatioTTM +
@@ -688,6 +812,9 @@ public class CompanyOverview {
                 ", fiftyDayMovingAverage=" + fiftyDayMovingAverage +
                 ", twoHundredDayMovingAverage=" + twoHundredDayMovingAverage +
                 ", sharesOutstanding=" + sharesOutstanding +
+                ", sharesFloat=" + sharesFloat +
+                ", percentInsiders=" + percentInsiders +
+                ", percentInstitutions=" + percentInstitutions +
                 ", dividendDate='" + dividendDate + '\'' +
                 ", exDividendDate='" + exDividendDate + '\'' +
                 '}';

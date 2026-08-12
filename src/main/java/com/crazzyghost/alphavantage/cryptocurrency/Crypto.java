@@ -29,9 +29,7 @@ import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.cryptocurrency.request.CryptoRequest;
 import com.crazzyghost.alphavantage.cryptocurrency.request.DigitalCurrencyRequest;
 import com.crazzyghost.alphavantage.cryptocurrency.request.IntradayRequest;
-import com.crazzyghost.alphavantage.cryptocurrency.request.RatingRequest;
 import com.crazzyghost.alphavantage.cryptocurrency.response.CryptoResponse;
-import com.crazzyghost.alphavantage.cryptocurrency.response.RatingResponse;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parser.Parser;
 import okhttp3.Call;
@@ -84,15 +82,6 @@ public final class Crypto implements Fetcher {
      */
     public MonthlyRequestProxy monthly(){
         return new MonthlyRequestProxy();
-    }
-
-    /**
-     * Accesses crypto currency health index data.
-     *
-     * @return a {@link RatingRequestProxy} instance
-     */
-    public RatingRequestProxy rating(){
-        return new RatingRequestProxy();
     }
 
     /**
@@ -157,16 +146,13 @@ public final class Crypto implements Fetcher {
 
 
     /**
-     * Parses a JSON response into a {@link CryptoResponse} or a {@link RatingResponse},
-     * depending on the function the request was built for.
+     * Parses a JSON response into a {@link CryptoResponse}, depending on the
+     * function the request was built for.
      *
      * @param data parsed JSON response
      */
     private void parseCryptoResponse(Map<String, Object> data) {
         switch (builder.function) {
-            case CRYPTO_RATING:
-                parseRatingResponse(data);
-                break;
             case CRYPTO_INTRADAY:
             case DIGITAL_CURRENCY_DAILY:
             case DIGITAL_CURRENCY_MONTHLY:
@@ -194,23 +180,6 @@ public final class Crypto implements Fetcher {
             ((Fetcher.SuccessCallback<CryptoResponse>)successCallback).onSuccess(response);
         }
     }
-
-    /**
-     * Parses crypto health index data and dispatches it to the registered callback.
-     *
-     * @param data parsed JSON data
-     */
-    @SuppressWarnings("unchecked")
-    private void parseRatingResponse(Map<String, Object> data){
-        RatingResponse response = RatingResponse.of(data);
-        if(response.getErrorMessage() != null && failureCallback != null) {
-            failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if(successCallback != null) {
-            ((Fetcher.SuccessCallback<RatingResponse>)successCallback).onSuccess(response);
-        }
-    }
-    
 
 
 
@@ -304,13 +273,6 @@ public final class Crypto implements Fetcher {
     public class IntradayRequestProxy extends RequestProxy<IntradayRequestProxy, CryptoResponse> {
         public IntradayRequestProxy() {
             builder = new IntradayRequest.Builder();
-        }
-    }
-
-    /** Proxy for building a {@link RatingRequest}. */
-    public class RatingRequestProxy extends RequestProxy<RatingRequestProxy, RatingResponse> {
-        public  RatingRequestProxy(){
-            builder = new RatingRequest.Builder();
         }
     }
 }

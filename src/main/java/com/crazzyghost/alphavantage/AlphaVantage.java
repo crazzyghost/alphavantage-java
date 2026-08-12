@@ -30,7 +30,6 @@ import com.crazzyghost.alphavantage.fundamentaldata.FundamentalData;
 import com.crazzyghost.alphavantage.indicator.Indicator;
 import com.crazzyghost.alphavantage.marketstatus.MarketStatus;
 import com.crazzyghost.alphavantage.search.Search;
-import com.crazzyghost.alphavantage.sector.Sector;
 import com.crazzyghost.alphavantage.technicalindicator.TechnicalIndicator;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
 
@@ -128,15 +127,6 @@ public class AlphaVantage {
      */
     public TechnicalIndicator technicalIndicator() {
         return new TechnicalIndicator(config);
-    }
-
-    /**
-     * Access to Sector Performances.
-     *
-     * @return A {@link Sector} instance for access to Sector Performance Data
-     */
-    public Sector sector() {
-        return new Sector(config);
     }
 
     /**

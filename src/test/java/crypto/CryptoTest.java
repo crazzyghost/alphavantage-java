@@ -14,7 +14,6 @@ import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.cryptocurrency.Crypto;
 import com.crazzyghost.alphavantage.cryptocurrency.response.CryptoResponse;
-import com.crazzyghost.alphavantage.cryptocurrency.response.RatingResponse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -51,10 +50,7 @@ public class CryptoTest {
         
         AlphaVantage.api().init(config);
 
-        mockInterceptor.addRule().get(cryptoRatingUrl("BSV")).respond(errorMessage).code(400);
-        mockInterceptor.addRule().get(cryptoRatingUrl("BTC")).respond(stream("rating"));
-        mockInterceptor.addRule().get(cryptoRatingUrl("XPR")).respond(errorMessage);
-        mockInterceptor.addRule().get(cryptoRatingUrl("BCH")).respond(errorMessage);
+        mockInterceptor.addRule().get(cryptoUrl("daily", "BSV")).respond(errorMessage).code(400);
         mockInterceptor.addRule().get(cryptoUrl("daily", "BTC")).respond(stream("daily"));
         mockInterceptor.addRule().get(cryptoUrl("daily", "XPR")).respond(errorMessage);
         mockInterceptor.addRule().get(cryptoUrl("daily", "LTC")).respond(errorMessage);
@@ -75,20 +71,21 @@ public class CryptoTest {
     @Test(expected = AlphaVantageException.class)
     public void testConfigKeyNotSet(){
         new Crypto(Config.builder().build())
-            .rating()
+            .daily()
             .forSymbol("BTC")
             .fetch();
-    }   
+    }
 
-    @Test 
+    @Test
     public void testResponseUnsuccessful() throws InterruptedException {
         final CountDownLatch lock = new CountDownLatch(1);
         AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
-        
+
         AlphaVantage.api()
             .crypto()
-            .rating()
+            .daily()
             .forSymbol("BSV")
+            .market("CNY")
             .onFailure(e ->{
                 ref.set(e);
                 lock.countDown();
@@ -99,62 +96,7 @@ public class CryptoTest {
 
     }
 
-
-    @Test 
-    public void testRating() throws InterruptedException {
-        final CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<RatingResponse> ref = new AtomicReference<>();
-        
-        AlphaVantage.api()
-            .crypto()
-            .rating()
-            .forSymbol("BTC")
-            .onSuccess((RatingResponse e)->{
-
-                ref.set(e);
-                lock.countDown();
-            })
-            .fetch();
-        lock.await();
-        assertNotNull(ref.get());
-    }
-
-    @Test 
-    public void testRatingError() throws InterruptedException {
-        final CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
-        
-        AlphaVantage.api()
-            .crypto()
-            .rating()
-            .forSymbol("XPR")
-            .onFailure(e ->{
-                ref.set(e);
-                lock.countDown();
-            })
-            .fetch();
-        lock.await();
-        assertNotNull(ref.get());
-
-    }
-
-    @Test 
-    public void testRatingErrorWithNoFailureCallback() throws InterruptedException {
-        final CountDownLatch lock = new CountDownLatch(1);
-        AtomicReference<AlphaVantageException> ref = new AtomicReference<>();
-        
-        AlphaVantage.api()
-            .crypto()
-            .rating()
-            .forSymbol("BCH")
-            .onSuccess(e->lock.countDown())
-            .fetch();
-        lock.await();
-        assertNull(ref.get());
-
-    }
-
-    @Test 
+    @Test
     public void testDaily() throws InterruptedException {
         final CountDownLatch lock = new CountDownLatch(1);
         AtomicReference<CryptoResponse> ref = new AtomicReference<>();

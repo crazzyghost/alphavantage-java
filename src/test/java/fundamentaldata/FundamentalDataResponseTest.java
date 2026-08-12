@@ -87,6 +87,7 @@ public class FundamentalDataResponseTest {
         assertEquals(overview.getSector(), "TECHNOLOGY");
         assertEquals(overview.getIndustry(), "COMPUTER & OFFICE EQUIPMENT");
         assertEquals(overview.getAddress(), "1 NEW ORCHARD ROAD, ARMONK, NY, US");
+        assertEquals(overview.getOfficialSite(), "https://www.ibm.com");
         assertEquals(overview.getFiscalYearEnd(), "December");
         assertEquals(overview.getLatestQuarter(), "2021-09-30");
         assertEquals(overview.getMarketCapitalization(), 106626228000L, 0.0);
@@ -108,6 +109,11 @@ public class FundamentalDataResponseTest {
         assertEquals(overview.getQuarterlyEarningsGrowthYOY(), -0.338, 0.0);
         assertEquals(overview.getQuarterlyRevenueGrowthYOY(), 0.003, 0.0);
         assertEquals(overview.getAnalystTargetPrice(), 148.48, 0.0);
+        assertEquals(overview.getAnalystRatingStrongBuy(), 3L, 0.0);
+        assertEquals(overview.getAnalystRatingBuy(), 11L, 0.0);
+        assertEquals(overview.getAnalystRatingHold(), 9L, 0.0);
+        assertEquals(overview.getAnalystRatingSell(), 1L, 0.0);
+        assertEquals(overview.getAnalystRatingStrongSell(), 1L, 0.0);
         assertEquals(overview.getTrailingPE(), 22.52, 0.0);
         assertEquals(overview.getForwardPE(), 10.37, 0.0);
         assertEquals(overview.getPriceToSaleRatioTTM(), 1.432, 0.0);
@@ -120,6 +126,9 @@ public class FundamentalDataResponseTest {
         assertEquals(overview.getFiftyDayMovingAverage(), 128.52, 0.0);
         assertEquals(overview.getTwoHundredDayMovingAverage(), 134.22, 0.0);
         assertEquals(overview.getSharesOutstanding(), 896320000L, 0.0);
+        assertEquals(overview.getSharesFloat(), 919542000L, 0.0);
+        assertEquals(overview.getPercentInsiders(), 0.107, 0.0);
+        assertEquals(overview.getPercentInstitutions(), 65.971, 0.0);
         assertEquals(overview.getDividendDate(), "2021-12-10");
         assertEquals(overview.getExDividendDate(), "2021-11-09");
 
@@ -167,18 +176,26 @@ public class FundamentalDataResponseTest {
     @Test
     public void testEarningsResponse() throws IOException {
         EarningsResponse response = EarningsResponse.of(json("earnings"));
-        assertEquals(response.getAnnualReports().size(), 2);
-        assertEquals(response.getQuarterlyReports().size(), 3);
+        assertEquals(response.getAnnualReports().size(), 3);
+        assertEquals(response.getQuarterlyReports().size(), 4);
         assertNull(response.getErrorMessage());
         assertEquals(response.getSymbol(), "IBM");
 
-        AnnualEarning annualEarning = response.getAnnualReports().get(0);
+        AnnualEarning latestAnnualEarning = response.getAnnualReports().get(0);
+        assertEquals(latestAnnualEarning.getFiscalDateEnding(), "2026-06-30");
+        assertEquals(latestAnnualEarning.getReportedEPS(), 4.84, 0.0);
+
+        AnnualEarning annualEarning = response.getAnnualReports().get(1);
         assertNotNull(annualEarning.toString());
         assertEquals(annualEarning.getFiscalDateEnding(), "2020-12-31");
         assertEquals(annualEarning.getReportedEPS(), 8.67, 0.0);
-        assertNull(response.getAnnualReports().get(1).getReportedEPS());
+        assertNull(response.getAnnualReports().get(2).getReportedEPS());
 
-        QuarterlyEarning quarterlyEarning = response.getQuarterlyReports().get(0);
+        QuarterlyEarning latestQuarterlyEarning = response.getQuarterlyReports().get(0);
+        assertEquals(latestQuarterlyEarning.getFiscalDateEnding(), "2026-06-30");
+        assertEquals(latestQuarterlyEarning.getReportTime(), "post-market");
+
+        QuarterlyEarning quarterlyEarning = response.getQuarterlyReports().get(1);
         assertNotNull(quarterlyEarning.toString());
         assertEquals(quarterlyEarning.getFiscalDateEnding(), "2020-09-30");
         assertEquals(quarterlyEarning.getReportedDate(), "2020-10-19");
@@ -186,19 +203,29 @@ public class FundamentalDataResponseTest {
         assertEquals(quarterlyEarning.getEstimatedEPS(), 2.579, 0.0);
         assertEquals(quarterlyEarning.getSurprise(), 0.001, 0.0);
         assertEquals(quarterlyEarning.getSurprisePercentage(), 0.0388, 0.0);
+        assertNull(quarterlyEarning.getReportTime());
 
     }
 
     @Test
     public void testCashFlowResponse() throws IOException {
         CashFlowResponse response = CashFlowResponse.of(json("cashflow"));
-        assertEquals(response.getAnnualReports().size(), 2);
-        assertEquals(response.getQuarterlyReports().size(), 3);
+        assertEquals(response.getAnnualReports().size(), 3);
+        assertEquals(response.getQuarterlyReports().size(), 4);
         assertNull(response.getErrorMessage());
         assertEquals(response.getSymbol(), "IBM");
 
-        CashFlow cashFlow = response.getAnnualReports().get(0);
+        CashFlow latestCashFlow = response.getAnnualReports().get(0);
+        assertEquals(latestCashFlow.getFiscalDateEnding(), "2025-12-31");
+        assertEquals(latestCashFlow.getStockBasedCompensation(), 1715000000L, 0.0);
+
+        CashFlow latestQuarterlyCashFlow = response.getQuarterlyReports().get(0);
+        assertEquals(latestQuarterlyCashFlow.getFiscalDateEnding(), "2026-06-30");
+        assertEquals(latestQuarterlyCashFlow.getStockBasedCompensation(), 498000000L, 0.0);
+
+        CashFlow cashFlow = response.getAnnualReports().get(1);
         assertNotNull(cashFlow.toString());
+        assertNull(cashFlow.getStockBasedCompensation());
 
         assertEquals(cashFlow.getFiscalDateEnding(), "2020-12-31");
         assertEquals(cashFlow.getReportedCurrency(), "USD");

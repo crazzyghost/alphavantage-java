@@ -1,6 +1,7 @@
 package technicalindicator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.technicalindicator.request.ADOSCRequest;
@@ -254,7 +255,7 @@ public class TechnicalIndicatorRequestTest {
     @Test
     public void testADOSCRequest(){
         String expected = "fastperiod=3&slowperiod=10&function=ADOSC&symbol=IBM&interval=daily&datatype=json&apikey=demo";
-        
+
         TechnicalIndicatorRequest request = new ADOSCRequest
             .Builder()
             .interval(Interval.DAILY)
@@ -263,6 +264,36 @@ public class TechnicalIndicatorRequestTest {
             .forSymbol("IBM")
             .build();
         assertEquals(expected, UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testPeriodicSeriesRequestWithMonth(){
+        String expected = "series_type=open&time_period=60&function=SMA&symbol=IBM&interval=60min&datatype=json&month=2024-01&apikey=demo";
+
+        TechnicalIndicatorRequest request = new PeriodicSeriesRequest
+            .Builder()
+            .function(Function.SMA)
+            .interval(Interval.SIXTY_MIN)
+            .timePeriod(60)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("IBM")
+            .month("2024-01")
+            .build();
+        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testPeriodicSeriesRequestWithoutMonthOmitsParameter(){
+        TechnicalIndicatorRequest request = new PeriodicSeriesRequest
+            .Builder()
+            .function(Function.SMA)
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("IBM")
+            .build();
+        String url = UrlExtractor.extract(request);
+        assertFalse(url.contains("month="));
     }
 
 }

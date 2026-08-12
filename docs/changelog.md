@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- `CompanyOverview`: `officialSite`, the analyst-rating block (`analystRatingStrongBuy`, `analystRatingBuy`, `analystRatingHold`, `analystRatingSell`, `analystRatingStrongSell`), `sharesFloat`, `percentInsiders` and `percentInstitutions`
+- `CashFlow.stockBasedCompensation` and `QuarterlyEarning.reportTime`
+- `month(String)` parameter on `TechnicalIndicator` requests, for historical intraday windows
+
+### Fixed
+- Update `BalanceSheet.getOtherNonCurrentAssets()` to use corrected json field name
+
+### Removed
+- `AlphaVantage.sector()` and the `sector` package. `?function=SECTOR` returns `{}` server-side; the endpoint is retired.
+- `Crypto.rating()`, `RatingRequest` and `RatingResponse`. `?function=CRYPTO_RATING` returns `{}` server-side; the endpoint is retired.
+- `Function.TIME_SERIES_INTRADAY_EXTENDED`. The API reports this function merged into `TIME_SERIES_INTRADAY`; the constant had no request class, proxy or response.
+- There is no replacement for any of the three. Code calling `sector()` or `Crypto.rating()` was already receiving an empty response; this converts a silent runtime failure into a build failure. `Function.valueOf("SECTOR")` or `Function.valueOf("CRYPTO_RATING")` by name will now throw at runtime, uncatchable at build time.
+
 ## [v1.8.0] - 27-08-2025
 ### Added
 - Support for realtime bulk quotes
