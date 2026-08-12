@@ -91,7 +91,7 @@ public class BalanceSheet {
     @Json(name = "otherCurrentAssets")
     @NoneableLong
     private Long otherCurrentAssets;
-    @Json(name = "otherNonCurrrentAssets")
+    @Json(name = "otherNonCurrentAssets")
     @NoneableLong
     private Long otherNonCurrentAssets;
     @Json(name = "totalLiabilities")

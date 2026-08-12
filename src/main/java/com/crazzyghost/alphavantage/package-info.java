@@ -29,7 +29,7 @@
  * and reaches every endpoint through the shared singleton returned by
  * {@link com.crazzyghost.alphavantage.AlphaVantage#api()}. From there, one facade
  * method per domain — {@code timeSeries()}, {@code forex()}, {@code exchangeRate()},
- * {@code crypto()}, {@code technicalIndicator()}, {@code sector()},
+ * {@code crypto()}, {@code technicalIndicator()},
  * {@code fundamentalData()}, {@code economicIndicator()}, {@code marketStatus()} and
  * {@code search()} — hands off to that domain's subpackage, where a request is built
  * fluently and then fetched. {@code indicator()} also exists but is deprecated in

@@ -105,10 +105,6 @@ public class TestUtils {
         return getJsonAdapter().fromJson(emptyMessage);
     }
 
-    public static String sectorUrl(){
-        return Config.BASE_URL + "function=SECTOR&apikey=demo";
-    }
-
     public static String exchangeRateUrl(final String toCurrency){
         String currency = toCurrency == null ? "CNY" : toCurrency;
         return Config.BASE_URL + "function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency="+currency+"&apikey=demo";
@@ -123,11 +119,6 @@ public class TestUtils {
         String sym = symbol == null ? "BTC" : symbol;
         return Config.BASE_URL + "market=CNY&function=CRYPTO_INTRADAY" + "&symbol=" + sym +"&apikey=demo";
     }
-
-    public static String cryptoRatingUrl(final String symbol){
-        String sym = symbol == null ? "BTC" : symbol;
-        return Config.BASE_URL + "function=CRYPTO_RATING&symbol=" + sym + "&apikey=demo";
-    };
 
     public static String getSimpleIndicatorRequestUrl(String function){
         return Config.BASE_URL + "function=" + function + "&symbol=IBM&interval=weekly&datatype=json&apikey=demo";

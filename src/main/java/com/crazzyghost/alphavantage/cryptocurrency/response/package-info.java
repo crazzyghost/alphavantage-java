@@ -29,7 +29,5 @@
  * {@link com.crazzyghost.alphavantage.cryptocurrency.response.CryptoUnit}
  * open-high-low-close-volume bars alongside its
  * {@link com.crazzyghost.alphavantage.cryptocurrency.response.MetaData}.
- * {@link com.crazzyghost.alphavantage.cryptocurrency.response.RatingResponse} holds
- * the crypto health index result instead.
  */
 package com.crazzyghost.alphavantage.cryptocurrency.response;

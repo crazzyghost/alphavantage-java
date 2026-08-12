@@ -53,6 +53,13 @@ public abstract class TechnicalIndicatorRequest {
     protected DataType dataType;
 
     /**
+     * The {@code YYYY-MM} historical intraday window to request. Only
+     * meaningful for intraday {@link Interval} values; {@code null} requests
+     * the most recent window.
+     */
+    protected String month;
+
+    /**
      * Copies the values assembled by {@code builder} into this request.
      *
      * @param builder the builder holding this request's configured values
@@ -62,6 +69,7 @@ public abstract class TechnicalIndicatorRequest {
         this.symbol = builder.symbol;
         this.interval = builder.interval;
         this.dataType = builder.dataType;
+        this.month = builder.month;
     }
 
     /**
@@ -85,6 +93,12 @@ public abstract class TechnicalIndicatorRequest {
 
         /** The response format; defaults to {@link DataType#JSON}. */
         protected DataType dataType = DataType.JSON;
+
+        /**
+         * The {@code YYYY-MM} historical intraday window to request; unset by
+         * default, which requests the most recent window.
+         */
+        protected String month;
 
         /**
          * Sets the indicator function to request.
@@ -127,6 +141,20 @@ public abstract class TechnicalIndicatorRequest {
          */
         public T dataType(DataType dataType) {
             this.dataType = dataType;
+            return (T) this;
+        }
+
+        /**
+         * Sets the historical intraday window to request, in {@code YYYY-MM}
+         * form. Only meaningful for intraday {@link Interval} values; the API
+         * ignores it for {@code daily}, {@code weekly} and {@code monthly}
+         * intervals.
+         *
+         * @param month the historical window, in {@code YYYY-MM} form
+         * @return this builder
+         */
+        public T month(String month) {
+            this.month = month;
             return (T) this;
         }
 

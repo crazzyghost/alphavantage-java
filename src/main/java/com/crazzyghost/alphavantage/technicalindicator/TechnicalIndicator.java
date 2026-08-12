@@ -1250,6 +1250,18 @@ public final class TechnicalIndicator implements Fetcher {
             return (T) this;
         }
 
+        /**
+         * Sets the historical intraday window to request, in {@code YYYY-MM}
+         * form. Only meaningful for intraday {@link Interval} values.
+         *
+         * @param month the historical window, in {@code YYYY-MM} form
+         * @return this proxy
+         */
+        public T month(String month) {
+            builder = builder.month(month);
+            return (T) this;
+        }
+
         public T onSuccess(Fetcher.SuccessCallback<?> callback) {
             TechnicalIndicator.this.successCallback = callback;
             return (T) this;

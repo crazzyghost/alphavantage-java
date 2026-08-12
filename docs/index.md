@@ -108,7 +108,6 @@ Here, we choose which data category/endpoint we want to access
 | Exchange Rate Data       | `.exchangeRate()`       |
 | Digital Currency Data    | `.crypto()`             |
 | Technical Indicator Data | [`.technicalIndicator()`](technicalindicator.md) |
-| Sector Performance Data  | `.sector()`              |
 | Fundamental Data         | `.fundamentalData()`    |
 | Economic Indicators      | `.economicIndicator()`  |
 | Global Market Status     | `.marketStatus()`       |

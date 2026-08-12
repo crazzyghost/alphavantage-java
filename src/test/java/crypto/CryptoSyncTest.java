@@ -10,9 +10,7 @@ import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.cryptocurrency.Crypto;
-import com.crazzyghost.alphavantage.cryptocurrency.Crypto.RatingRequestProxy;
 import com.crazzyghost.alphavantage.cryptocurrency.response.CryptoResponse;
-import com.crazzyghost.alphavantage.cryptocurrency.response.RatingResponse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +47,6 @@ public class CryptoSyncTest {
         
         AlphaVantage.api().init(config);
 
-        mockInterceptor.addRule().get(cryptoRatingUrl("BTC")).respond(stream("rating"));
         mockInterceptor.addRule().get(cryptoUrl("daily", "BTC")).respond(stream("daily"));
         mockInterceptor.addRule().get(cryptoUrl("weekly", "BTC")).respond(stream("weekly"));
         mockInterceptor.addRule().get(cryptoUrl("monthly", "BTC")).respond(stream("monthly"));
@@ -68,24 +65,12 @@ public class CryptoSyncTest {
     @Test(expected = AlphaVantageException.class)
     public void testConfigKeyNotSet(){
         new Crypto(Config.builder().build())
-            .rating()
+            .daily()
             .forSymbol("BTC")
             .fetchSync();
-    }   
-
-
-    @Test 
-    public void testRating() throws InterruptedException {
-
-    
-        Crypto crypto = AlphaVantage.api().crypto();
-        RatingRequestProxy requestProxy = crypto.rating();
-        RatingResponse response = requestProxy.forSymbol("BTC").fetchSync();
-        
-        assertNull(response.getErrorMessage());
     }
 
-    @Test 
+    @Test
     public void testDaily() throws InterruptedException {
         Crypto crypto = AlphaVantage.api().crypto();
         Crypto.DailyRequestProxy requestProxy = crypto.daily();
