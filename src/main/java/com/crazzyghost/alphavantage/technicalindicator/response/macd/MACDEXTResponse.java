@@ -22,35 +22,35 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.response.macd;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * Response for MACD with controllable moving-average type
- * ({@code MACDEXT}), a variant of {@link MACDResponse MACD} that lets the
- * fast, slow, and signal components each use a different moving-average
- * type instead of the fixed EMA the plain {@code MACD} function uses.
- * <p>
- * {@code MACDEXT} does not extend one of the package's shared response
- * bases: like {@code MACD}, its three-value reading needs {@link
- * MACDIndicatorUnit} rather than the single-value
- * {@code SimpleTechnicalIndicatorUnit} the shared bases use. Its extra
- * moving-average-type parameters live only in {@link MACDEXTResponse.MetaData},
- * not in the shared {@link MACDIndicatorUnit}.
+ * Response for MACD with controllable moving-average type ({@code MACDEXT}), a variant of {@link
+ * MACDResponse MACD} that lets the fast, slow, and signal components each use a different
+ * moving-average type instead of the fixed EMA the plain {@code MACD} function uses.
+ *
+ * <p>{@code MACDEXT} does not extend one of the package's shared response bases: like {@code MACD},
+ * its three-value reading needs {@link MACDIndicatorUnit} rather than the single-value {@code
+ * SimpleTechnicalIndicatorUnit} the shared bases use. Its extra moving-average-type parameters live
+ * only in {@link MACDEXTResponse.MetaData}, not in the shared {@link MACDIndicatorUnit}.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
-public class MACDEXTResponse {
+public class MACDEXTResponse implements Response {
 
     /** The response's metadata, echoing the request's parameters. */
     private MetaData metaData;
 
-    /** The indicator's MACD/signal/histogram readings, one unit per date in the requested series. */
+    /**
+     * The indicator's MACD/signal/histogram readings, one unit per date in the requested series.
+     */
     private List<MACDIndicatorUnit> indicatorUnits;
 
     /** The API's error message, or {@code null} if the request succeeded. */
@@ -60,7 +60,7 @@ public class MACDEXTResponse {
      * Creates a successful response.
      *
      * @param indicatorUnits the parsed MACDEXT readings
-     * @param metaData       the parsed response metadata
+     * @param metaData the parsed response metadata
      */
     private MACDEXTResponse(List<MACDIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
@@ -117,44 +117,44 @@ public class MACDEXTResponse {
         return parser.parse(stringObjectMap);
     }
 
-    /**
-     * Parser for {@link MACDEXTResponse}.
-     */
+    /** Parser for {@link MACDEXTResponse}. */
     public static class MACDEXTParser extends DefaultParser<MACDEXTResponse> {
 
         /**
-         * Parses the API's raw metadata and per-date indicator maps into a
-         * successful response.
+         * Parses the API's raw metadata and per-date indicator maps into a successful response.
          *
-         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param metaDataMap the raw {@code "Meta Data"} entries
          * @param indicatorData the raw per-date indicator value entries
          * @return the parsed response
          */
         @Override
-        public MACDEXTResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
-            MetaData metaData = new MetaData(
-                    String.valueOf(metaDataMap.get("1: Symbol")),
-                    String.valueOf(metaDataMap.get("2: Indicator")),
-                    String.valueOf(metaDataMap.get("3: Last Refreshed")),
-                    String.valueOf(metaDataMap.get("4: Interval")),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.1: Fast Period"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.2: Slow Period"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.3: Signal Period"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.4: Fast MA Type"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.5: Slow MA Type"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.6: Signal MA Type"))),
-                    String.valueOf(metaDataMap.get("6: Series Type")),
-                    String.valueOf(metaDataMap.get("7: Time Zone")));
+        public MACDEXTResponse parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+            MetaData metaData =
+                    new MetaData(
+                            String.valueOf(metaDataMap.get("1: Symbol")),
+                            String.valueOf(metaDataMap.get("2: Indicator")),
+                            String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                            String.valueOf(metaDataMap.get("4: Interval")),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.1: Fast Period"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.2: Slow Period"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.3: Signal Period"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.4: Fast MA Type"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.5: Slow MA Type"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.6: Signal MA Type"))),
+                            String.valueOf(metaDataMap.get("6: Series Type")),
+                            String.valueOf(metaDataMap.get("7: Time Zone")));
 
             List<MACDIndicatorUnit> indicatorUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();
-                MACDIndicatorUnit indicatorUnit = new MACDIndicatorUnit(
-                        e.getKey(),
-                        Double.parseDouble(m.get("MACD_Hist")),
-                        Double.parseDouble(m.get("MACD_Signal")),
-                        Double.parseDouble(m.get("MACD")));
+                MACDIndicatorUnit indicatorUnit =
+                        new MACDIndicatorUnit(
+                                e.getKey(),
+                                Double.parseDouble(m.get("MACD_Hist")),
+                                Double.parseDouble(m.get("MACD_Signal")),
+                                Double.parseDouble(m.get("MACD")));
                 indicatorUnits.add(indicatorUnit);
             }
             return new MACDEXTResponse(indicatorUnits, metaData);
@@ -174,17 +174,20 @@ public class MACDEXTResponse {
 
     @Override
     public String toString() {
-        return "MACDResponse{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "MACDResponse{"
+                + "metaData="
+                + metaData
+                + ",indicatorUnits="
+                + indicatorUnits.size()
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 
     /**
-     * Metadata describing the request that produced a {@link
-     * MACDEXTResponse}, echoed back by the API alongside the indicator
-     * values themselves.
+     * Metadata describing the request that produced a {@link MACDEXTResponse}, echoed back by the
+     * API alongside the indicator values themselves.
      */
     public static class MetaData {
 
@@ -227,18 +230,19 @@ public class MACDEXTResponse {
         /**
          * Creates a populated metadata instance.
          *
-         * @param symbol        the requested symbol
-         * @param indicator     the indicator's name, as reported by the API
+         * @param symbol the requested symbol
+         * @param indicator the indicator's name, as reported by the API
          * @param lastRefreshed the timestamp of the most recent data point
-         * @param interval      the requested time interval between data points
-         * @param fastPeriod    the requested number of data points in the fast moving average
-         * @param slowPeriod    the requested number of data points in the slow moving average
-         * @param signalPeriod  the requested number of data points in the signal line's moving average
-         * @param fastMaType    the requested fast component's moving-average type wire value
-         * @param slowMaType    the requested slow component's moving-average type wire value
-         * @param signalMaType  the requested signal line's moving-average type wire value
-         * @param seriesType    the requested price series field MACD is computed from
-         * @param timeZone      the time zone the response's timestamps are expressed in
+         * @param interval the requested time interval between data points
+         * @param fastPeriod the requested number of data points in the fast moving average
+         * @param slowPeriod the requested number of data points in the slow moving average
+         * @param signalPeriod the requested number of data points in the signal line's moving
+         *     average
+         * @param fastMaType the requested fast component's moving-average type wire value
+         * @param slowMaType the requested slow component's moving-average type wire value
+         * @param signalMaType the requested signal line's moving-average type wire value
+         * @param seriesType the requested price series field MACD is computed from
+         * @param timeZone the time zone the response's timestamps are expressed in
          */
         public MetaData(
                 String symbol,
@@ -267,9 +271,7 @@ public class MACDEXTResponse {
             this.timeZone = timeZone;
         }
 
-        /**
-         * Creates an empty metadata instance, used for failed responses.
-         */
+        /** Creates an empty metadata instance, used for failed responses. */
         public MetaData() {
             this("", "", "", "", 12, 26, 9, 0, 0, 0, "", "");
         }
@@ -384,11 +386,31 @@ public class MACDEXTResponse {
 
         @Override
         public String toString() {
-            return "MetaData {fastMaType=" + fastMaType + ", fastPeriod=" + fastPeriod + ", indicator=" + indicator
-                    + ", interval=" + interval + ", lastRefreshed=" + lastRefreshed + ", seriesType=" + seriesType
-                    + ", signalMaType=" + signalMaType + ", signalPeriod=" + signalPeriod + ", slowMaType=" + slowMaType
-                    + ", slowPeriod=" + slowPeriod + ", symbol=" + symbol + ", timeZone=" + timeZone + "}";
+            return "MetaData {fastMaType="
+                    + fastMaType
+                    + ", fastPeriod="
+                    + fastPeriod
+                    + ", indicator="
+                    + indicator
+                    + ", interval="
+                    + interval
+                    + ", lastRefreshed="
+                    + lastRefreshed
+                    + ", seriesType="
+                    + seriesType
+                    + ", signalMaType="
+                    + signalMaType
+                    + ", signalPeriod="
+                    + signalPeriod
+                    + ", slowMaType="
+                    + slowMaType
+                    + ", slowPeriod="
+                    + slowPeriod
+                    + ", symbol="
+                    + symbol
+                    + ", timeZone="
+                    + timeZone
+                    + "}";
         }
-
     }
 }

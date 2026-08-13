@@ -22,27 +22,27 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.response.adosc;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+import com.crazzyghost.alphavantage.technicalindicator.response.SimpleTechnicalIndicatorUnit;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.technicalindicator.response.SimpleTechnicalIndicatorUnit;
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * Response for the Chaikin A/D oscillator ({@code ADOSC}), the MACD of the
- * Chaikin accumulation/distribution line using a fast and slow EMA period.
- * <p>
- * Unlike most single-output indicators, {@code ADOSC} does not extend one of
- * the package's shared response bases: its metadata carries a fast and slow
- * EMA period that none of the shared {@code MetaData} shapes accommodate, so
- * it defines its own {@link MetaData} and parser instead.
+ * Response for the Chaikin A/D oscillator ({@code ADOSC}), the MACD of the Chaikin
+ * accumulation/distribution line using a fast and slow EMA period.
+ *
+ * <p>Unlike most single-output indicators, {@code ADOSC} does not extend one of the package's
+ * shared response bases: its metadata carries a fast and slow EMA period that none of the shared
+ * {@code MetaData} shapes accommodate, so it defines its own {@link MetaData} and parser instead.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
-public class ADOSCResponse {
+public class ADOSCResponse implements Response {
 
     /** The response's metadata, echoing the request's parameters. */
     private MetaData metaData;
@@ -57,7 +57,7 @@ public class ADOSCResponse {
      * Creates a successful response.
      *
      * @param indicatorUnits the parsed ADOSC values
-     * @param metaData       the parsed response metadata
+     * @param metaData the parsed response metadata
      */
     private ADOSCResponse(List<SimpleTechnicalIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
@@ -114,39 +114,39 @@ public class ADOSCResponse {
         return parser.parse(stringObjectMap);
     }
 
-    /**
-     * Parser for {@link ADOSCResponse}.
-     */
+    /** Parser for {@link ADOSCResponse}. */
     public static class ADOSCParser extends DefaultParser<ADOSCResponse> {
 
         /**
-         * Parses the API's raw metadata and per-date indicator maps into a
-         * successful response.
+         * Parses the API's raw metadata and per-date indicator maps into a successful response.
          *
-         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param metaDataMap the raw {@code "Meta Data"} entries
          * @param indicatorData the raw per-date indicator value entries
          * @return the parsed response
          */
         @Override
-        public ADOSCResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+        public ADOSCResponse parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
 
-            MetaData metaData = new MetaData(
-                    metaDataMap.get("1: Symbol").toString(),
-                    metaDataMap.get("2: Indicator").toString(),
-                    metaDataMap.get("3: Last Refreshed").toString(),
-                    metaDataMap.get("4: Interval").toString(),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.1: FastK Period"))).intValue(),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.2: SlowK Period"))).intValue(),
-                    metaDataMap.get("6: Time Zone").toString());
+            MetaData metaData =
+                    new MetaData(
+                            metaDataMap.get("1: Symbol").toString(),
+                            metaDataMap.get("2: Indicator").toString(),
+                            metaDataMap.get("3: Last Refreshed").toString(),
+                            metaDataMap.get("4: Interval").toString(),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.1: FastK Period")))
+                                    .intValue(),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.2: SlowK Period")))
+                                    .intValue(),
+                            metaDataMap.get("6: Time Zone").toString());
 
             List<SimpleTechnicalIndicatorUnit> indicatorUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();
-                SimpleTechnicalIndicatorUnit indicatorUnit = new SimpleTechnicalIndicatorUnit(
-                        e.getKey(),
-                        Double.parseDouble(m.get("ADOSC")),
-                        "ADOSC");
+                SimpleTechnicalIndicatorUnit indicatorUnit =
+                        new SimpleTechnicalIndicatorUnit(
+                                e.getKey(), Double.parseDouble(m.get("ADOSC")), "ADOSC");
                 indicatorUnits.add(indicatorUnit);
             }
             return new ADOSCResponse(indicatorUnits, metaData);
@@ -166,16 +166,20 @@ public class ADOSCResponse {
 
     @Override
     public String toString() {
-        return "ADOSCResponse{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "ADOSCResponse{"
+                + "metaData="
+                + metaData
+                + ",indicatorUnits="
+                + indicatorUnits.size()
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 
     /**
-     * Metadata describing the request that produced an {@link ADOSCResponse},
-     * echoed back by the API alongside the indicator values themselves.
+     * Metadata describing the request that produced an {@link ADOSCResponse}, echoed back by the
+     * API alongside the indicator values themselves.
      */
     public static class MetaData {
 
@@ -200,9 +204,7 @@ public class ADOSCResponse {
         /** The time zone the response's timestamps are expressed in. */
         private String timeZone;
 
-        /**
-         * Creates an empty metadata instance, used for failed responses.
-         */
+        /** Creates an empty metadata instance, used for failed responses. */
         public MetaData() {
             this("", "", "", "", 0, 0, "");
         }
@@ -210,13 +212,13 @@ public class ADOSCResponse {
         /**
          * Creates a populated metadata instance.
          *
-         * @param symbol        the requested symbol
-         * @param indicator     the indicator's name, as reported by the API
+         * @param symbol the requested symbol
+         * @param indicator the indicator's name, as reported by the API
          * @param lastRefreshed the timestamp of the most recent data point
-         * @param interval      the requested time interval between data points
-         * @param fastPeriod    the requested number of data points in the fast EMA
-         * @param slowPeriod    the requested number of data points in the slow EMA
-         * @param timeZone      the time zone the response's timestamps are expressed in
+         * @param interval the requested time interval between data points
+         * @param fastPeriod the requested number of data points in the fast EMA
+         * @param slowPeriod the requested number of data points in the slow EMA
+         * @param timeZone the time zone the response's timestamps are expressed in
          */
         public MetaData(
                 String symbol,
@@ -300,11 +302,21 @@ public class ADOSCResponse {
 
         @Override
         public String toString() {
-            return "MetaData {fastKPeriod=" + fastKPeriod + ", indicator=" + indicator + ", interval=" + interval
-                    + ", lastRefreshed=" + lastRefreshed
-                    + ", slowKPeriod=" + slowKPeriod + ", symbol=" + symbol + ", timeZone=" + timeZone + "}";
+            return "MetaData {fastKPeriod="
+                    + fastKPeriod
+                    + ", indicator="
+                    + indicator
+                    + ", interval="
+                    + interval
+                    + ", lastRefreshed="
+                    + lastRefreshed
+                    + ", slowKPeriod="
+                    + slowKPeriod
+                    + ", symbol="
+                    + symbol
+                    + ", timeZone="
+                    + timeZone
+                    + "}";
         }
-
     }
-
 }

@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.response;
 
+import com.crazzyghost.alphavantage.Response;
 import com.crazzyghost.alphavantage.parser.DefaultParser;
 
 import java.util.ArrayList;
@@ -30,15 +31,14 @@ import java.util.Map;
 
 /**
  * Base response for indicators driven by {@link
- * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}, a
- * chosen price series with no rolling time-period parameter — the Hilbert
- * transform studies {@code HT_TRENDLINE}, {@code HT_TRENDMODE},
- * {@code HT_DCPERIOD}, and {@code HT_DCPHASE}.
+ * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}, a chosen price series
+ * with no rolling time-period parameter — the Hilbert transform studies {@code HT_TRENDLINE},
+ * {@code HT_TRENDMODE}, {@code HT_DCPERIOD}, and {@code HT_DCPHASE}.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
-public abstract class SeriesResponse {
+public abstract class SeriesResponse implements Response {
 
     /** The response's metadata, echoing the request's parameters. */
     protected MetaData metaData;
@@ -53,7 +53,7 @@ public abstract class SeriesResponse {
      * Creates a successful response.
      *
      * @param indicatorUnits the parsed indicator values
-     * @param metaData       the parsed response metadata
+     * @param metaData the parsed response metadata
      */
     protected SeriesResponse(List<SimpleTechnicalIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
@@ -100,48 +100,45 @@ public abstract class SeriesResponse {
     }
 
     /**
-     * Base parser for {@link SeriesResponse} subclasses, translating the raw
-     * metadata and indicator maps returned by {@link
-     * com.crazzyghost.alphavantage.parser.Parser} into typed {@link
+     * Base parser for {@link SeriesResponse} subclasses, translating the raw metadata and indicator
+     * maps returned by {@link com.crazzyghost.alphavantage.parser.Parser} into typed {@link
      * MetaData} and {@link SimpleTechnicalIndicatorUnit} values.
      *
      * @param <T> the concrete {@link SeriesResponse} subtype this parser produces
      */
-    public static abstract class SeriesParser<T> extends DefaultParser<T> {
+    public abstract static class SeriesParser<T> extends DefaultParser<T> {
+
+        /** Creates a parser. */
+        protected SeriesParser() {}
 
         /**
-         * Creates a parser.
-         */
-        protected SeriesParser() {
-
-        }
-
-        /**
-         * Parses the API's raw metadata and per-date indicator maps into a
-         * successful response.
+         * Parses the API's raw metadata and per-date indicator maps into a successful response.
          *
-         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param metaDataMap the raw {@code "Meta Data"} entries
          * @param indicatorData the raw per-date indicator value entries
          * @return the parsed response
          */
         @Override
-        public T parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
-            MetaData metaData = new MetaData(
-                    String.valueOf(metaDataMap.get("1: Symbol")),
-                    String.valueOf(metaDataMap.get("2: Indicator")),
-                    String.valueOf(metaDataMap.get("3: Last Refreshed")),
-                    String.valueOf(metaDataMap.get("4: Interval")),
-                    String.valueOf(metaDataMap.get("5: Series Type")),
-                    String.valueOf(metaDataMap.get("6: Time Zone")));
+        public T parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+            MetaData metaData =
+                    new MetaData(
+                            String.valueOf(metaDataMap.get("1: Symbol")),
+                            String.valueOf(metaDataMap.get("2: Indicator")),
+                            String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                            String.valueOf(metaDataMap.get("4: Interval")),
+                            String.valueOf(metaDataMap.get("5: Series Type")),
+                            String.valueOf(metaDataMap.get("6: Time Zone")));
 
             List<SimpleTechnicalIndicatorUnit> indicatorUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();
-                SimpleTechnicalIndicatorUnit indicatorUnit = new SimpleTechnicalIndicatorUnit(
-                        e.getKey(),
-                        Double.parseDouble(m.get(getTechnicalIndicatorKey())),
-                        getTechnicalIndicatorKey());
+                SimpleTechnicalIndicatorUnit indicatorUnit =
+                        new SimpleTechnicalIndicatorUnit(
+                                e.getKey(),
+                                Double.parseDouble(m.get(getTechnicalIndicatorKey())),
+                                getTechnicalIndicatorKey());
                 indicatorUnits.add(indicatorUnit);
             }
             return get(indicatorUnits, metaData);
@@ -162,7 +159,7 @@ public abstract class SeriesResponse {
          * Builds a successful response.
          *
          * @param indicatorUnits the parsed indicator values
-         * @param metaData       the parsed response metadata
+         * @param metaData the parsed response metadata
          * @return the built response
          */
         public abstract T get(List<SimpleTechnicalIndicatorUnit> indicatorUnits, MetaData metaData);
@@ -176,8 +173,8 @@ public abstract class SeriesResponse {
         public abstract T get(String error);
 
         /**
-         * Returns the JSON key under which this indicator's value is nested
-         * in the API's per-date response object.
+         * Returns the JSON key under which this indicator's value is nested in the API's per-date
+         * response object.
          *
          * @return the indicator's JSON key
          */
@@ -186,16 +183,20 @@ public abstract class SeriesResponse {
 
     @Override
     public String toString() {
-        return "SeriesResponse{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "SeriesResponse{"
+                + "metaData="
+                + metaData
+                + ",indicatorUnits="
+                + indicatorUnits.size()
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 
     /**
-     * Metadata describing the request that produced a {@link SeriesResponse},
-     * echoed back by the API alongside the indicator values themselves.
+     * Metadata describing the request that produced a {@link SeriesResponse}, echoed back by the
+     * API alongside the indicator values themselves.
      */
     public static class MetaData {
 
@@ -217,9 +218,7 @@ public abstract class SeriesResponse {
         /** The time zone the response's timestamps are expressed in. */
         private String timeZone;
 
-        /**
-         * Creates an empty metadata instance, used for failed responses.
-         */
+        /** Creates an empty metadata instance, used for failed responses. */
         public MetaData() {
             this("", "", "", "", "", "");
         }
@@ -227,12 +226,12 @@ public abstract class SeriesResponse {
         /**
          * Creates a populated metadata instance.
          *
-         * @param symbol        the requested symbol
-         * @param indicator     the indicator's name, as reported by the API
+         * @param symbol the requested symbol
+         * @param indicator the indicator's name, as reported by the API
          * @param lastRefreshed the timestamp of the most recent data point
-         * @param interval      the requested time interval between data points
-         * @param seriesType    the requested price series field the indicator is computed from
-         * @param timeZone      the time zone the response's timestamps are expressed in
+         * @param interval the requested time interval between data points
+         * @param seriesType the requested price series field the indicator is computed from
+         * @param timeZone the time zone the response's timestamps are expressed in
          */
         public MetaData(
                 String symbol,
@@ -305,9 +304,19 @@ public abstract class SeriesResponse {
 
         @Override
         public String toString() {
-            return "MetaData {indicator=" + indicator + ", interval=" + interval + ", lastRefreshed=" + lastRefreshed
-                    + ", seriesType=" + seriesType + ", symbol=" + symbol + ", timeZone=" + timeZone + "}";
+            return "MetaData {indicator="
+                    + indicator
+                    + ", interval="
+                    + interval
+                    + ", lastRefreshed="
+                    + lastRefreshed
+                    + ", seriesType="
+                    + seriesType
+                    + ", symbol="
+                    + symbol
+                    + ", timeZone="
+                    + timeZone
+                    + "}";
         }
-
     }
 }

@@ -25,15 +25,11 @@ package com.crazzyghost.alphavantage.fundamentaldata;
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
-import com.crazzyghost.alphavantage.UrlExtractor;
+import com.crazzyghost.alphavantage.RequestExecutor;
+import com.crazzyghost.alphavantage.ResponseDispatcher;
 import com.crazzyghost.alphavantage.fundamentaldata.request.*;
 import com.crazzyghost.alphavantage.fundamentaldata.response.*;
-import com.crazzyghost.alphavantage.parser.Parser;
-import okhttp3.Call;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -52,11 +48,11 @@ public final class FundamentalData implements Fetcher {
     /**
      * Creates access to Fundamental Data using the given configuration.
      *
-     * @param config the shared library configuration, providing the API key
-     *               and HTTP client
+     * @param config the shared library configuration, providing the API key and HTTP client
      */
-    public FundamentalData(Config config) { this.config = config; }
-
+    public FundamentalData(Config config) {
+        this.config = config;
+    }
 
     /**
      * Starts building a request for the {@code INCOME_STATEMENT} endpoint.
@@ -104,58 +100,33 @@ public final class FundamentalData implements Fetcher {
     }
 
     /**
-     * Makes an asynchronous http request to fetch the data, using the
-     * builder and callbacks most recently set through a
-     * {@link RequestProxy}.
-     * <p>
-     * The {@link SuccessCallback} or {@link FailureCallback} previously
-     * registered on the proxy is invoked once the response arrives.
+     * Makes an asynchronous http request to fetch the data, using the builder and callbacks most
+     * recently set through a {@link RequestProxy}.
+     *
+     * <p>The {@link SuccessCallback} or {@link FailureCallback} previously registered on the proxy
+     * is invoked once the response arrives.
      */
     @Override
     public void fetch() {
-        Config.checkNotNullOrKeyEmpty(config);
-
-        config.getOkHttpClient().newCall(UrlExtractor.extract(builder.build(), config.getKey())).enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
-            }
-
-            @Override
-            public void onResponse(Call call,  Response response) throws IOException {
-                if(!response.isSuccessful()){
-                    if(failureCallback != null) failureCallback.onFailure(new AlphaVantageException());
-                } else {
-                    try(ResponseBody body = response.body()){
-                        parseFundamentalDataResponse(Parser.parseJSON(body.string()));
-                    }
-                }
-            }
-        });
+        RequestExecutor.fetchAsync(
+                config, builder.build(), this::parseFundamentalDataResponse, failureCallback);
     }
 
     /**
-     * Makes a blocking synchronous http request to fetch the data.
-     * This is called by {@link FundamentalData.RequestProxy#fetchSync()}.
-     * <p>
-     * Using this method will overwrite any async callback.
+     * Makes a blocking synchronous http request to fetch the data. This is called by {@link
+     * FundamentalData.RequestProxy#fetchSync()}.
      *
-     * @param successCallback internally used {@link SuccessCallback} that receives the parsed response
+     * <p>Using this method will overwrite any async callback.
+     *
+     * @param successCallback internally used {@link SuccessCallback} that receives the parsed
+     *     response
      * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.6.0
      */
     private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
-
-        Config.checkNotNullOrKeyEmpty(config);
-
         this.successCallback = successCallback;
         this.failureCallback = null;
-        okhttp3.OkHttpClient client = config.getOkHttpClient();
-        try (Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()) {
-            parseFundamentalDataResponse(Parser.parseJSON(response.body().string()));
-        } catch(IOException e) {
-            throw new AlphaVantageException(e.getMessage());
-        }
+        parseFundamentalDataResponse(RequestExecutor.fetchSync(config, builder.build()));
     }
 
     private void parseFundamentalDataResponse(Map<String, Object> data) {
@@ -180,75 +151,43 @@ public final class FundamentalData implements Fetcher {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private void parseCompanyOverviewResponse(Map<String, Object> data/*Object data*/) {
-        CompanyOverviewResponse response = CompanyOverviewResponse.of(data);
-        if(response.getErrorMessage() != null && failureCallback != null) {
-            failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if(successCallback != null){
-            ((Fetcher.SuccessCallback<CompanyOverviewResponse>)successCallback).onSuccess(response);
-        }
+    private void parseCompanyOverviewResponse(Map<String, Object> data) {
+        ResponseDispatcher.dispatch(
+                CompanyOverviewResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseBalanceSheetResponse(Map<String, Object> data) {
-        BalanceSheetResponse response = BalanceSheetResponse.of(data);
-        if(response.getErrorMessage() != null && failureCallback != null) {
-            failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if(successCallback != null){
-            ((Fetcher.SuccessCallback<BalanceSheetResponse>)successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(
+                BalanceSheetResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseIncomeStatementResponse(Map<String, Object> data) {
-        IncomeStatementResponse response = IncomeStatementResponse.of(data);
-        if(response.getErrorMessage() != null && failureCallback != null) {
-            failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if(successCallback != null){
-            ((Fetcher.SuccessCallback<IncomeStatementResponse>)successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(
+                IncomeStatementResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseCashFlowResponse(Map<String, Object> data) {
-        CashFlowResponse response = CashFlowResponse.of(data);
-        if(response.getErrorMessage() != null && failureCallback != null) {
-            failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if(successCallback != null){
-            ((Fetcher.SuccessCallback<CashFlowResponse>)successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(CashFlowResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseEarningsResponse(Map<String, Object> data) {
-        EarningsResponse response = EarningsResponse.of(data);
-        if(response.getErrorMessage() != null && failureCallback != null) {
-            failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if(successCallback != null){
-            ((Fetcher.SuccessCallback<EarningsResponse>)successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(EarningsResponse.of(data), successCallback, failureCallback);
     }
 
     /**
-     * Base class for the fluent, per-endpoint request proxies returned by
-     * {@link FundamentalData}'s accessor methods (for example
-     * {@link #incomeStatement()}), sharing the symbol/callback wiring and
-     * fetch logic common to all of them.
+     * Base class for the fluent, per-endpoint request proxies returned by {@link FundamentalData}'s
+     * accessor methods (for example {@link #incomeStatement()}), sharing the symbol/callback wiring
+     * and fetch logic common to all of them.
      *
-     * @param <Proxy>         the concrete proxy subtype, for fluent method
-     *                        chaining
+     * @param <Proxy> the concrete proxy subtype, for fluent method chaining
      * @param <ProxyResponse> the response type this proxy's endpoint returns
      */
     @SuppressWarnings("unchecked")
-    public abstract class RequestProxy<Proxy extends RequestProxy<?, ProxyResponse>, ProxyResponse> {
+    public abstract class RequestProxy<
+            Proxy extends RequestProxy<?, ProxyResponse>, ProxyResponse> {
         /** The request builder this proxy delegates symbol/parameter changes to. */
         protected FundamentalDataRequest.Builder<?> builder;
+
         /** The response received by the most recent {@link #fetchSync()} call. */
         protected ProxyResponse syncResponse;
 
@@ -257,7 +196,7 @@ public final class FundamentalData implements Fetcher {
         /**
          * Sets the ticker symbol to request data for.
          *
-         * @param  symbol the ticker symbol
+         * @param symbol the ticker symbol
          * @return this proxy, for chaining
          */
         public Proxy forSymbol(String symbol) {
@@ -266,33 +205,32 @@ public final class FundamentalData implements Fetcher {
         }
 
         /**
-         * Registers the callback invoked with the parsed response when an
-         * asynchronous {@link #fetch()} succeeds.
+         * Registers the callback invoked with the parsed response when an asynchronous {@link
+         * #fetch()} succeeds.
          *
-         * @param  callback the success callback
+         * @param callback the success callback
          * @return this proxy, for chaining
          */
         public Proxy onSuccess(SuccessCallback<?> callback) {
             FundamentalData.this.successCallback = callback;
-            return (Proxy)this;
+            return (Proxy) this;
         }
 
         /**
-         * Registers the callback invoked when an asynchronous {@link #fetch()}
-         * fails.
+         * Registers the callback invoked when an asynchronous {@link #fetch()} fails.
          *
-         * @param  callback the failure callback
+         * @param callback the failure callback
          * @return this proxy, for chaining
          */
         public Proxy onFailure(FailureCallback callback) {
             FundamentalData.this.failureCallback = callback;
-            return (Proxy)this;
+            return (Proxy) this;
         }
 
         /**
-         * Makes an asynchronous http request to fetch the data built by this
-         * proxy, invoking whichever of {@link #onSuccess(SuccessCallback)}
-         * and {@link #onFailure(FailureCallback)} was registered.
+         * Makes an asynchronous http request to fetch the data built by this proxy, invoking
+         * whichever of {@link #onSuccess(SuccessCallback)} and {@link #onFailure(FailureCallback)}
+         * was registered.
          */
         public void fetch() {
             FundamentalData.this.builder = this.builder;
@@ -300,8 +238,8 @@ public final class FundamentalData implements Fetcher {
         }
 
         /**
-         * Stores the response received by {@link #fetchSync()}'s internal
-         * callback, so it can be returned to the caller.
+         * Stores the response received by {@link #fetchSync()}'s internal callback, so it can be
+         * returned to the caller.
          *
          * @param response the parsed synchronous response
          */
@@ -309,12 +247,11 @@ public final class FundamentalData implements Fetcher {
             this.syncResponse = response;
         }
 
-
         /**
-         * Sets the right builder and makes a synchronous request using
-         * {@link FundamentalData#fetch()}.
-         * <p>
-         * When calling this method, any async callbacks will be overwritten.
+         * Sets the right builder and makes a synchronous request using {@link
+         * FundamentalData#fetch()}.
+         *
+         * <p>When calling this method, any async callbacks will be overwritten.
          *
          * @return the api response
          * @throws AlphaVantageException if the request fails or the response cannot be read
@@ -325,11 +262,11 @@ public final class FundamentalData implements Fetcher {
             FundamentalData.this.fetchSync(callback);
             return this.syncResponse;
         }
-
     }
 
     /** Proxy class for building an {@link IncomeStatementRequest}. */
-    public class IncomeStatementRequestProxy extends RequestProxy<IncomeStatementRequestProxy, IncomeStatementResponse> {
+    public class IncomeStatementRequestProxy
+            extends RequestProxy<IncomeStatementRequestProxy, IncomeStatementResponse> {
         /** Creates a proxy backed by a new {@link IncomeStatementRequest.Builder}. */
         public IncomeStatementRequestProxy() {
             builder = new IncomeStatementRequest.Builder();
@@ -337,7 +274,8 @@ public final class FundamentalData implements Fetcher {
     }
 
     /** Proxy class for building a {@link BalanceSheetRequest}. */
-    public class BalanceSheetRequestProxy extends RequestProxy<BalanceSheetRequestProxy, BalanceSheetResponse> {
+    public class BalanceSheetRequestProxy
+            extends RequestProxy<BalanceSheetRequestProxy, BalanceSheetResponse> {
         /** Creates a proxy backed by a new {@link BalanceSheetRequest.Builder}. */
         public BalanceSheetRequestProxy() {
             builder = new BalanceSheetRequest.Builder();
@@ -361,7 +299,8 @@ public final class FundamentalData implements Fetcher {
     }
 
     /** Proxy class for building a {@link CompanyOverviewRequest}. */
-    public class CompanyOverViewRequestProxy extends RequestProxy<CompanyOverViewRequestProxy, CompanyOverviewResponse> {
+    public class CompanyOverViewRequestProxy
+            extends RequestProxy<CompanyOverViewRequestProxy, CompanyOverviewResponse> {
         /** Creates a proxy backed by a new {@link CompanyOverviewRequest.Builder}. */
         public CompanyOverViewRequestProxy() {
             builder = new CompanyOverviewRequest.Builder();

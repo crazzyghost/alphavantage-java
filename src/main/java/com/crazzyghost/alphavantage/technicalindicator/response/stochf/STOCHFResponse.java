@@ -22,27 +22,26 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.response.stochf;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * Response for the stochastic fast oscillator ({@code STOCHF}), the
- * unsmoothed counterpart of {@code STOCH} that reports raw %K and a lightly
- * smoothed %D without the slow %K stage.
- * <p>
- * {@code STOCHF} does not extend one of the package's shared response
- * bases: its two-line reading needs {@link STOCHFIndicatorUnit} rather than
- * the single-value {@code SimpleTechnicalIndicatorUnit} the shared bases
- * use.
+ * Response for the stochastic fast oscillator ({@code STOCHF}), the unsmoothed counterpart of
+ * {@code STOCH} that reports raw %K and a lightly smoothed %D without the slow %K stage.
+ *
+ * <p>{@code STOCHF} does not extend one of the package's shared response bases: its two-line
+ * reading needs {@link STOCHFIndicatorUnit} rather than the single-value {@code
+ * SimpleTechnicalIndicatorUnit} the shared bases use.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
-public class STOCHFResponse {
+public class STOCHFResponse implements Response {
 
     /** The response's metadata, echoing the request's parameters. */
     private MetaData metaData;
@@ -57,7 +56,7 @@ public class STOCHFResponse {
      * Creates a successful response.
      *
      * @param indicatorUnits the parsed STOCHF readings
-     * @param metaData       the parsed response metadata
+     * @param metaData the parsed response metadata
      */
     private STOCHFResponse(List<STOCHFIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
@@ -114,37 +113,39 @@ public class STOCHFResponse {
         return parser.parse(stringObjectMap);
     }
 
-    /**
-     * Parser for {@link STOCHFResponse}.
-     */
+    /** Parser for {@link STOCHFResponse}. */
     public static class STOCHFParser extends DefaultParser<STOCHFResponse> {
 
         /**
-         * Parses the API's raw metadata and per-date indicator maps into a
-         * successful response.
+         * Parses the API's raw metadata and per-date indicator maps into a successful response.
          *
-         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param metaDataMap the raw {@code "Meta Data"} entries
          * @param indicatorData the raw per-date indicator value entries
          * @return the parsed response
          */
         @Override
-        public STOCHFResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
-            MetaData metaData = new MetaData(
-                    String.valueOf(metaDataMap.get("1: Symbol")),
-                    String.valueOf(metaDataMap.get("2: Indicator")),
-                    String.valueOf(metaDataMap.get("3: Last Refreshed")),
-                    String.valueOf(metaDataMap.get("4: Interval")),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.1: FastK Period"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.2: FastD Period"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.3: FastD MA Type"))),
-                    String.valueOf(metaDataMap.get("6: Time Zone")));
+        public STOCHFResponse parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+            MetaData metaData =
+                    new MetaData(
+                            String.valueOf(metaDataMap.get("1: Symbol")),
+                            String.valueOf(metaDataMap.get("2: Indicator")),
+                            String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                            String.valueOf(metaDataMap.get("4: Interval")),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.1: FastK Period"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.2: FastD Period"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.3: FastD MA Type"))),
+                            String.valueOf(metaDataMap.get("6: Time Zone")));
 
             List<STOCHFIndicatorUnit> indicatorUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();
-                STOCHFIndicatorUnit indicatorUnit = new STOCHFIndicatorUnit(e.getKey(),
-                        Double.parseDouble(m.get("FastK")), Double.parseDouble(m.get("FastD")));
+                STOCHFIndicatorUnit indicatorUnit =
+                        new STOCHFIndicatorUnit(
+                                e.getKey(),
+                                Double.parseDouble(m.get("FastK")),
+                                Double.parseDouble(m.get("FastD")));
                 indicatorUnits.add(indicatorUnit);
             }
             return new STOCHFResponse(indicatorUnits, metaData);
@@ -164,17 +165,20 @@ public class STOCHFResponse {
 
     @Override
     public String toString() {
-        return "STOCHFResponse{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "STOCHFResponse{"
+                + "metaData="
+                + metaData
+                + ",indicatorUnits="
+                + indicatorUnits.size()
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 
     /**
-     * Metadata describing the request that produced a {@link
-     * STOCHFResponse}, echoed back by the API alongside the indicator
-     * values themselves.
+     * Metadata describing the request that produced a {@link STOCHFResponse}, echoed back by the
+     * API alongside the indicator values themselves.
      */
     public static class MetaData {
 
@@ -205,14 +209,14 @@ public class STOCHFResponse {
         /**
          * Creates a populated metadata instance.
          *
-         * @param symbol        the requested symbol
-         * @param indicator     the indicator's name, as reported by the API
+         * @param symbol the requested symbol
+         * @param indicator the indicator's name, as reported by the API
          * @param lastRefreshed the timestamp of the most recent data point
-         * @param interval      the requested time interval between data points
-         * @param fastKPeriod   the requested raw %K look-back period
-         * @param fastDPeriod   the requested fast %D smoothing period
-         * @param fastDMaType   the requested fast %D moving-average type's wire value
-         * @param timeZone      the time zone the response's timestamps are expressed in
+         * @param interval the requested time interval between data points
+         * @param fastKPeriod the requested raw %K look-back period
+         * @param fastDPeriod the requested fast %D smoothing period
+         * @param fastDMaType the requested fast %D moving-average type's wire value
+         * @param timeZone the time zone the response's timestamps are expressed in
          */
         public MetaData(
                 String symbol,
@@ -233,9 +237,7 @@ public class STOCHFResponse {
             this.timeZone = timeZone;
         }
 
-        /**
-         * Creates an empty metadata instance, used for failed responses.
-         */
+        /** Creates an empty metadata instance, used for failed responses. */
         public MetaData() {
             this("", "", "", "", 5, 3, 0, "");
         }
@@ -314,9 +316,23 @@ public class STOCHFResponse {
 
         @Override
         public String toString() {
-            return "MetaData {fastDMaType=" + fastDMaType + ", fastDPeriod=" + fastDPeriod + ", fastKPeriod="
-                    + fastKPeriod + ", indicator=" + indicator + ", interval=" + interval + ", lastRefreshed="
-                    + lastRefreshed + ", symbol=" + symbol + ", timeZone=" + timeZone + "}";
+            return "MetaData {fastDMaType="
+                    + fastDMaType
+                    + ", fastDPeriod="
+                    + fastDPeriod
+                    + ", fastKPeriod="
+                    + fastKPeriod
+                    + ", indicator="
+                    + indicator
+                    + ", interval="
+                    + interval
+                    + ", lastRefreshed="
+                    + lastRefreshed
+                    + ", symbol="
+                    + symbol
+                    + ", timeZone="
+                    + timeZone
+                    + "}";
         }
     }
 }

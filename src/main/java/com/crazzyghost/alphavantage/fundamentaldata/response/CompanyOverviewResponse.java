@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
+import com.crazzyghost.alphavantage.Response;
 import com.crazzyghost.alphavantage.parser.Parser;
 
 import java.io.IOException;
@@ -30,13 +31,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The {@code OVERVIEW} endpoint's response: a company's profile and
- * headline financial metrics, or the error returned in their place.
+ * The {@code OVERVIEW} endpoint's response: a company's profile and headline financial metrics, or
+ * the error returned in their place.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0
  */
-public class CompanyOverviewResponse {
+public class CompanyOverviewResponse implements Response {
 
     private final CompanyOverview overview;
     private final String errorMessage;
@@ -52,10 +53,9 @@ public class CompanyOverviewResponse {
     }
 
     /**
-     * Parses a raw {@code OVERVIEW} API response into a
-     * {@code CompanyOverviewResponse}.
+     * Parses a raw {@code OVERVIEW} API response into a {@code CompanyOverviewResponse}.
      *
-     * @param  objectMap the parsed JSON response body
+     * @param objectMap the parsed JSON response body
      * @return the parsed response, or an error response if parsing fails
      */
     public static CompanyOverviewResponse of(Map<String, Object> objectMap) {
@@ -94,13 +94,15 @@ public class CompanyOverviewResponse {
         public CompanyOverviewResponse parse(Map<String, Object> data) {
             List<String> keys = new ArrayList<>(data.keySet());
             if (keys.isEmpty()) {
-                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+                return onParseError(
+                        "Empty JSON returned by the API, the symbol might not be supported.");
             }
             try {
-                //data doesn't have a Symbol key meaning an error was returned
+                // data doesn't have a Symbol key meaning an error was returned
                 Object symbol = data.getOrDefault("Symbol", null);
                 if (symbol == null) throw new ClassCastException();
-                CompanyOverview overview = Parser.parseJSON(Parser.toJSON(data), CompanyOverview.class);
+                CompanyOverview overview =
+                        Parser.parseJSON(Parser.toJSON(data), CompanyOverview.class);
                 return new CompanyOverviewResponse(overview);
             } catch (ClassCastException | IOException e) {
                 return onParseError(data.get(keys.get(0)).toString());
@@ -110,9 +112,12 @@ public class CompanyOverviewResponse {
 
     @Override
     public String toString() {
-        return "CompanyOverviewResponse{" +
-                "overview=" + overview +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "CompanyOverviewResponse{"
+                + "overview="
+                + overview
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 }

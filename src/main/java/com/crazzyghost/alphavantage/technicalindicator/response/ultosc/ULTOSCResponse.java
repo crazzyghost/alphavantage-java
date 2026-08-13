@@ -22,28 +22,28 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.response.ultosc;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+import com.crazzyghost.alphavantage.technicalindicator.response.SimpleTechnicalIndicatorUnit;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.technicalindicator.response.SimpleTechnicalIndicatorUnit;
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * Response for the ultimate oscillator ({@code ULTOSC}), a momentum
- * oscillator that combines buying pressure across three time periods to
- * reduce the false-divergence signals a single-period oscillator produces.
- * <p>
- * Unlike most single-output indicators, {@code ULTOSC} does not extend one
- * of the package's shared response bases: its metadata carries three
- * separate time periods that none of the shared {@code MetaData} shapes
- * accommodate, so it defines its own {@link MetaData} and parser instead.
+ * Response for the ultimate oscillator ({@code ULTOSC}), a momentum oscillator that combines buying
+ * pressure across three time periods to reduce the false-divergence signals a single-period
+ * oscillator produces.
+ *
+ * <p>Unlike most single-output indicators, {@code ULTOSC} does not extend one of the package's
+ * shared response bases: its metadata carries three separate time periods that none of the shared
+ * {@code MetaData} shapes accommodate, so it defines its own {@link MetaData} and parser instead.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
-public class ULTOSCResponse {
+public class ULTOSCResponse implements Response {
 
     /** The response's metadata, echoing the request's parameters. */
     private MetaData metaData;
@@ -58,7 +58,7 @@ public class ULTOSCResponse {
      * Creates a successful response.
      *
      * @param indicatorUnits the parsed ULTOSC values
-     * @param metaData       the parsed response metadata
+     * @param metaData the parsed response metadata
      */
     private ULTOSCResponse(List<SimpleTechnicalIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
@@ -115,44 +115,44 @@ public class ULTOSCResponse {
         return parser.parse(stringObjectMap);
     }
 
-    /**
-     * Parser for {@link ULTOSCResponse}.
-     */
+    /** Parser for {@link ULTOSCResponse}. */
     public static class ULTOSCParser extends DefaultParser<ULTOSCResponse> {
 
         /**
-         * Parses the API's raw metadata and per-date indicator maps into a
-         * successful response.
+         * Parses the API's raw metadata and per-date indicator maps into a successful response.
          *
-         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param metaDataMap the raw {@code "Meta Data"} entries
          * @param indicatorData the raw per-date indicator value entries
          * @return the parsed response
          */
         @Override
-        public ULTOSCResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+        public ULTOSCResponse parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
 
-            MetaData metaData = new MetaData(
-                    metaDataMap.get("1: Symbol").toString(),
-                    metaDataMap.get("2: Indicator").toString(),
-                    metaDataMap.get("3: Last Refreshed").toString(),
-                    metaDataMap.get("4: Interval").toString(),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.1: Time Period 1"))).intValue(),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.2: Time Period 2"))).intValue(),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.3: Time Period 3"))).intValue(),
-                    metaDataMap.get("6: Time Zone").toString());
+            MetaData metaData =
+                    new MetaData(
+                            metaDataMap.get("1: Symbol").toString(),
+                            metaDataMap.get("2: Indicator").toString(),
+                            metaDataMap.get("3: Last Refreshed").toString(),
+                            metaDataMap.get("4: Interval").toString(),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.1: Time Period 1")))
+                                    .intValue(),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.2: Time Period 2")))
+                                    .intValue(),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.3: Time Period 3")))
+                                    .intValue(),
+                            metaDataMap.get("6: Time Zone").toString());
 
             List<SimpleTechnicalIndicatorUnit> indicatorUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();
-                SimpleTechnicalIndicatorUnit indicatorUnit = new SimpleTechnicalIndicatorUnit(
-                        e.getKey(),
-                        Double.parseDouble(m.get("ULTOSC")),
-                        "ULTOSC");
+                SimpleTechnicalIndicatorUnit indicatorUnit =
+                        new SimpleTechnicalIndicatorUnit(
+                                e.getKey(), Double.parseDouble(m.get("ULTOSC")), "ULTOSC");
                 indicatorUnits.add(indicatorUnit);
             }
             return new ULTOSCResponse(indicatorUnits, metaData);
-
         }
 
         /**
@@ -165,21 +165,24 @@ public class ULTOSCResponse {
         public ULTOSCResponse onParseError(String error) {
             return new ULTOSCResponse(error);
         }
-
     }
 
     @Override
     public String toString() {
-        return "ULTOSCResponse{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "ULTOSCResponse{"
+                + "metaData="
+                + metaData
+                + ",indicatorUnits="
+                + indicatorUnits.size()
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 
     /**
-     * Metadata describing the request that produced a {@link ULTOSCResponse},
-     * echoed back by the API alongside the indicator values themselves.
+     * Metadata describing the request that produced a {@link ULTOSCResponse}, echoed back by the
+     * API alongside the indicator values themselves.
      */
     public static class MetaData {
 
@@ -207,9 +210,7 @@ public class ULTOSCResponse {
         /** The time zone the response's timestamps are expressed in. */
         private String timeZone;
 
-        /**
-         * Creates an empty metadata instance, used for failed responses.
-         */
+        /** Creates an empty metadata instance, used for failed responses. */
         public MetaData() {
             this("", "", "", "", 0, 0, 0, "");
         }
@@ -217,14 +218,14 @@ public class ULTOSCResponse {
         /**
          * Creates a populated metadata instance.
          *
-         * @param symbol        the requested symbol
-         * @param indicator     the indicator's name, as reported by the API
+         * @param symbol the requested symbol
+         * @param indicator the indicator's name, as reported by the API
          * @param lastRefreshed the timestamp of the most recent data point
-         * @param interval      the requested time interval between data points
-         * @param timePeriod1   the requested first, shortest look-back period
-         * @param timePeriod2   the requested second, medium look-back period
-         * @param timePeriod3   the requested third, longest look-back period
-         * @param timeZone      the time zone the response's timestamps are expressed in
+         * @param interval the requested time interval between data points
+         * @param timePeriod1 the requested first, shortest look-back period
+         * @param timePeriod2 the requested second, medium look-back period
+         * @param timePeriod3 the requested third, longest look-back period
+         * @param timeZone the time zone the response's timestamps are expressed in
          */
         public MetaData(
                 String symbol,
@@ -319,11 +320,23 @@ public class ULTOSCResponse {
 
         @Override
         public String toString() {
-            return "MetaData {indicator=" + indicator + ", interval=" + interval + ", lastRefreshed=" + lastRefreshed
-                    + ", symbol=" + symbol + ", timePeriod1=" + timePeriod1 + ", timePeriod2=" + timePeriod2
-                    + ", timePeriod3=" + timePeriod3 + ", timeZone=" + timeZone + "}";
+            return "MetaData {indicator="
+                    + indicator
+                    + ", interval="
+                    + interval
+                    + ", lastRefreshed="
+                    + lastRefreshed
+                    + ", symbol="
+                    + symbol
+                    + ", timePeriod1="
+                    + timePeriod1
+                    + ", timePeriod2="
+                    + timePeriod2
+                    + ", timePeriod3="
+                    + timePeriod3
+                    + ", timeZone="
+                    + timeZone
+                    + "}";
         }
-
     }
-
 }

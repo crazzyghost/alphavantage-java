@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
+import com.crazzyghost.alphavantage.Response;
 import com.crazzyghost.alphavantage.parser.Parser;
 
 import java.util.ArrayList;
@@ -29,13 +30,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The {@code EARNINGS} endpoint's response: a company's annual and quarterly
- * earnings history, or the error returned in their place.
+ * The {@code EARNINGS} endpoint's response: a company's annual and quarterly earnings history, or
+ * the error returned in their place.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0
  */
-public class EarningsResponse {
+public class EarningsResponse implements Response {
 
     private final String symbol;
     private final List<AnnualEarning> annualReports;
@@ -49,7 +50,10 @@ public class EarningsResponse {
         this.symbol = null;
     }
 
-    private EarningsResponse(String symbol, List<AnnualEarning> annualReports, List<QuarterlyEarning> quarterlyReports) {
+    private EarningsResponse(
+            String symbol,
+            List<AnnualEarning> annualReports,
+            List<QuarterlyEarning> quarterlyReports) {
         this.symbol = symbol;
         this.annualReports = annualReports;
         this.quarterlyReports = quarterlyReports;
@@ -57,10 +61,9 @@ public class EarningsResponse {
     }
 
     /**
-     * Parses a raw {@code EARNINGS} API response into an
-     * {@code EarningsResponse}.
+     * Parses a raw {@code EARNINGS} API response into an {@code EarningsResponse}.
      *
-     * @param  objectMap the parsed JSON response body
+     * @param objectMap the parsed JSON response body
      * @return the parsed response, or an error response if parsing fails
      */
     public static EarningsResponse of(Map<String, Object> objectMap) {
@@ -89,8 +92,7 @@ public class EarningsResponse {
     /**
      * Returns the company's annual earnings history, most recent first.
      *
-     * @return the annual earnings reports, or an empty list if the request
-     *         failed
+     * @return the annual earnings reports, or an empty list if the request failed
      */
     public List<AnnualEarning> getAnnualReports() {
         return annualReports;
@@ -99,8 +101,7 @@ public class EarningsResponse {
     /**
      * Returns the company's quarterly earnings history, most recent first.
      *
-     * @return the quarterly earnings reports, or an empty list if the
-     *         request failed
+     * @return the quarterly earnings reports, or an empty list if the request failed
      */
     public List<QuarterlyEarning> getQuarterlyReports() {
         return quarterlyReports;
@@ -119,12 +120,15 @@ public class EarningsResponse {
         public EarningsResponse parse(Map<String, Object> object) {
             List<String> keys = new ArrayList<>(object.keySet());
             if (keys.isEmpty()) {
-                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+                return onParseError(
+                        "Empty JSON returned by the API, the symbol might not be supported.");
             }
             try {
-                String symbol = (String)object.get(keys.get(0));
-                List<AnnualEarning> annualReports = Parser.parseJSONList(object.get(keys.get(1)), AnnualEarning.class);
-                List<QuarterlyEarning> quarterlyReports = Parser.parseJSONList(object.get(keys.get(2)), QuarterlyEarning.class);
+                String symbol = (String) object.get(keys.get(0));
+                List<AnnualEarning> annualReports =
+                        Parser.parseJSONList(object.get(keys.get(1)), AnnualEarning.class);
+                List<QuarterlyEarning> quarterlyReports =
+                        Parser.parseJSONList(object.get(keys.get(2)), QuarterlyEarning.class);
                 return new EarningsResponse(symbol, annualReports, quarterlyReports);
             } catch (ClassCastException | IndexOutOfBoundsException e) {
                 return onParseError(object.get(keys.get(0)).toString());
@@ -134,11 +138,17 @@ public class EarningsResponse {
 
     @Override
     public String toString() {
-        return "EarningResponse{" +
-                "symbol='" + symbol + '\'' +
-                ", annualReports=" + annualReports +
-                ", quarterlyReports=" + quarterlyReports +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "EarningResponse{"
+                + "symbol='"
+                + symbol
+                + '\''
+                + ", annualReports="
+                + annualReports
+                + ", quarterlyReports="
+                + quarterlyReports
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 }

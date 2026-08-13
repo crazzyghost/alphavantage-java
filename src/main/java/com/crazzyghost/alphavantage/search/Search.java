@@ -25,21 +25,16 @@ package com.crazzyghost.alphavantage.search;
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
-import com.crazzyghost.alphavantage.UrlExtractor;
-import com.crazzyghost.alphavantage.parser.Parser;
+import com.crazzyghost.alphavantage.RequestExecutor;
+import com.crazzyghost.alphavantage.ResponseDispatcher;
 import com.crazzyghost.alphavantage.search.request.SearchRequest;
 import com.crazzyghost.alphavantage.search.response.SearchResponse;
-import okhttp3.Call;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
+import java.util.Map;
 
 /**
- * Access to the {@code SYMBOL_SEARCH} endpoint, which matches a free-text keyword
- * against the symbols and names Alpha Vantage covers and returns the best matches
- * ranked by relevance.
+ * Access to the {@code SYMBOL_SEARCH} endpoint, which matches a free-text keyword against the
+ * symbols and names Alpha Vantage covers and returns the best matches ranked by relevance.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.8.0
@@ -56,7 +51,7 @@ public final class Search implements Fetcher {
         this.builder = new SearchRequest.Builder();
     }
 
-    public Search keywords(String keywords){
+    public Search keywords(String keywords) {
         this.builder.keywords(keywords);
         return this;
     }
@@ -83,58 +78,29 @@ public final class Search implements Fetcher {
         return this;
     }
 
-
     /**
      * Makes a blocking synchronous http request to fetch the data.
-     * <p>
-     * Using this method will overwrite any async callback.
+     *
+     * <p>Using this method will overwrite any async callback.
      *
      * @return the keyword matches returned by the API
      * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.8.0
      */
     public SearchResponse fetchSync() throws AlphaVantageException {
-        Config.checkNotNullOrKeyEmpty(config);
-
         this.successCallback = null;
         this.failureCallback = null;
-        okhttp3.OkHttpClient client = config.getOkHttpClient();
-
-        try (Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()) {
-            return SearchResponse.of(Parser.parseJSON(response.body().string()));
-        } catch (IOException exception) {
-            throw new AlphaVantageException(exception.getMessage());
-        }
+        return SearchResponse.of(RequestExecutor.fetchSync(config, builder.build()));
     }
 
     @Override
     public void fetch() {
-        Config.checkNotNullOrKeyEmpty(config);
-
-        config.getOkHttpClient().newCall(UrlExtractor.extract(builder.build(), config.getKey())).enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException exception) {
-                if (failureCallback != null) failureCallback.onFailure(new AlphaVantageException(exception.getMessage()));
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    try (ResponseBody body = response.body()) {
-                        SearchResponse searchResponse = SearchResponse.of(Parser.parseJSON(body.string()));
-                        if (searchResponse.getErrorMessage() != null && failureCallback != null) {
-                            failureCallback.onFailure(new AlphaVantageException(searchResponse.getErrorMessage()));
-                        }
-                        if (successCallback != null) {
-                            successCallback.onSuccess(searchResponse);
-                        }
-                    }
-                } else {
-                    if (failureCallback != null) {
-                        failureCallback.onFailure(new AlphaVantageException());
-                    }
-                }
-            }
-        });
+        RequestExecutor.fetchAsync(
+                config,
+                builder.build(),
+                (Map<String, Object> data) ->
+                        ResponseDispatcher.dispatch(
+                                SearchResponse.of(data), successCallback, failureCallback),
+                failureCallback);
     }
 }

@@ -22,25 +22,23 @@
  */
 package com.crazzyghost.alphavantage.cryptocurrency.response;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.crazzyghost.alphavantage.parameters.Interval;
-import com.crazzyghost.alphavantage.parameters.OutputSize;
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * A digital currency time series response, holding the series as a list of
- * {@link CryptoUnit} bars alongside its {@link MetaData}, or an error message if the
- * API rejected the request.
+ * A digital currency time series response, holding the series as a list of {@link CryptoUnit} bars
+ * alongside its {@link MetaData}, or an error message if the API rejected the request.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0
  */
-public class CryptoResponse {
+public class CryptoResponse implements Response {
 
     private final List<CryptoUnit> cryptoUnits;
     private final MetaData metaData;
@@ -61,8 +59,7 @@ public class CryptoResponse {
     /**
      * Returns the series of OHLCV bars for this response.
      *
-     * @return the bars in the order the API returned them, or an empty list if
-     *         the request failed
+     * @return the bars in the order the API returned them, or an empty list if the request failed
      */
     public List<CryptoUnit> getCryptoUnits() {
         return cryptoUnits;
@@ -71,8 +68,7 @@ public class CryptoResponse {
     /**
      * Returns the header metadata describing this series.
      *
-     * @return the response's metadata, or an empty {@link MetaData} if the
-     *         request failed
+     * @return the response's metadata, or an empty {@link MetaData} if the request failed
      */
     public MetaData getMetaData() {
         return metaData;
@@ -91,8 +87,7 @@ public class CryptoResponse {
      * Parses a raw JSON response from a digital currency time series endpoint.
      *
      * @param stringObjectMap the response body, decoded from JSON
-     * @return the parsed response, or one carrying an error message if parsing
-     *         failed
+     * @return the parsed response, or one carrying an error message if parsing failed
      */
     public static CryptoResponse of(Map<String, Object> stringObjectMap) {
         Parser<CryptoResponse> parser = new CryptoParser();
@@ -100,8 +95,7 @@ public class CryptoResponse {
     }
 
     private static class CryptoParser extends DefaultParser<CryptoResponse> {
-        public CryptoParser() {
-        }
+        public CryptoParser() {}
 
         @Override
         public CryptoResponse onParseError(String error) {
@@ -109,7 +103,8 @@ public class CryptoResponse {
         }
 
         @Override
-        public CryptoResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> units) {
+        public CryptoResponse parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> units) {
 
             String informationKey = "1. Information";
             String digitalCurrencyCodeKey = "2. Digital Currency Code";
@@ -142,17 +137,18 @@ public class CryptoResponse {
                 timeZone = metaDataMap.get(timeZoneKey);
             }
 
-            MetaData metaData = MetaData.builder()
-                    .information(information)
-                    .digitalCurrencyCode(code)
-                    .digitalCurrencyName(name)
-                    .marketCode(marketCode)
-                    .marketName(marketName)
-                    .lastRefreshed(lastRefreshed)
-                    .timeZone(timeZone)
-                    .interval(interval)
-                    .outputSize(outputSize)
-                    .build();
+            MetaData metaData =
+                    MetaData.builder()
+                            .information(information)
+                            .digitalCurrencyCode(code)
+                            .digitalCurrencyName(name)
+                            .marketCode(marketCode)
+                            .marketName(marketName)
+                            .lastRefreshed(lastRefreshed)
+                            .timeZone(timeZone)
+                            .interval(interval)
+                            .outputSize(outputSize)
+                            .build();
 
             List<CryptoUnit> cryptoUnits = new ArrayList<>();
 
@@ -177,13 +173,16 @@ public class CryptoResponse {
         }
     }
 
-
     @Override
     public String toString() {
-        return "CryptoResponse{" +
-                "cryptoUnits=" + cryptoUnits.size() +
-                ", metaData=" + metaData +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "CryptoResponse{"
+                + "cryptoUnits="
+                + cryptoUnits.size()
+                + ", metaData="
+                + metaData
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 }

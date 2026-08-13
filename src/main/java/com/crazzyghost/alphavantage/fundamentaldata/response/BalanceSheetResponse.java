@@ -22,20 +22,21 @@
  */
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * The {@code BALANCE_SHEET} endpoint's response: a company's annual and
- * quarterly balance sheets, or the error returned in their place.
+ * The {@code BALANCE_SHEET} endpoint's response: a company's annual and quarterly balance sheets,
+ * or the error returned in their place.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0
  */
-public class BalanceSheetResponse {
+public class BalanceSheetResponse implements Response {
 
     private final String symbol;
     private final List<BalanceSheet> annualReports;
@@ -49,7 +50,8 @@ public class BalanceSheetResponse {
         this.symbol = null;
     }
 
-    private BalanceSheetResponse(String symbol, List<BalanceSheet> annualReports, List<BalanceSheet> quarterlyReports) {
+    private BalanceSheetResponse(
+            String symbol, List<BalanceSheet> annualReports, List<BalanceSheet> quarterlyReports) {
         this.symbol = symbol;
         this.annualReports = annualReports;
         this.quarterlyReports = quarterlyReports;
@@ -57,10 +59,9 @@ public class BalanceSheetResponse {
     }
 
     /**
-     * Parses a raw {@code BALANCE_SHEET} API response into a
-     * {@code BalanceSheetResponse}.
+     * Parses a raw {@code BALANCE_SHEET} API response into a {@code BalanceSheetResponse}.
      *
-     * @param  objectMap the parsed JSON response body
+     * @param objectMap the parsed JSON response body
      * @return the parsed response, or an error response if parsing fails
      */
     public static BalanceSheetResponse of(Map<String, Object> objectMap) {
@@ -89,8 +90,7 @@ public class BalanceSheetResponse {
     /**
      * Returns the company's annual balance sheets, most recent first.
      *
-     * @return the annual balance sheet reports, or an empty list if the
-     *         request failed
+     * @return the annual balance sheet reports, or an empty list if the request failed
      */
     public List<BalanceSheet> getAnnualReports() {
         return annualReports;
@@ -99,8 +99,7 @@ public class BalanceSheetResponse {
     /**
      * Returns the company's quarterly balance sheets, most recent first.
      *
-     * @return the quarterly balance sheet reports, or an empty list if the
-     *         request failed
+     * @return the quarterly balance sheet reports, or an empty list if the request failed
      */
     public List<BalanceSheet> getQuarterlyReports() {
         return quarterlyReports;
@@ -119,12 +118,15 @@ public class BalanceSheetResponse {
         public BalanceSheetResponse parse(Map<String, Object> object) {
             List<String> keys = new ArrayList<>(object.keySet());
             if (keys.isEmpty()) {
-                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+                return onParseError(
+                        "Empty JSON returned by the API, the symbol might not be supported.");
             }
             try {
-                String symbol = (String)object.get(keys.get(0));
-                List<BalanceSheet> annualReports = Parser.parseJSONList(object.get(keys.get(1)), BalanceSheet.class);
-                List<BalanceSheet> quarterlyReports = Parser.parseJSONList(object.get(keys.get(2)), BalanceSheet.class);
+                String symbol = (String) object.get(keys.get(0));
+                List<BalanceSheet> annualReports =
+                        Parser.parseJSONList(object.get(keys.get(1)), BalanceSheet.class);
+                List<BalanceSheet> quarterlyReports =
+                        Parser.parseJSONList(object.get(keys.get(2)), BalanceSheet.class);
                 return new BalanceSheetResponse(symbol, annualReports, quarterlyReports);
             } catch (ClassCastException | IndexOutOfBoundsException e) {
                 return onParseError(object.get(keys.get(0)).toString());
@@ -134,11 +136,17 @@ public class BalanceSheetResponse {
 
     @Override
     public String toString() {
-        return "BalanceSheetResponse{" +
-                "symbol='" + symbol + '\'' +
-                ", annualReports=" + annualReports +
-                ", quarterlyReports=" + quarterlyReports +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "BalanceSheetResponse{"
+                + "symbol='"
+                + symbol
+                + '\''
+                + ", annualReports="
+                + annualReports
+                + ", quarterlyReports="
+                + quarterlyReports
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 }
