@@ -22,35 +22,35 @@
  */
 package com.crazzyghost.alphavantage.timeseries.response;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
  * A ticker's price series, or the message Alpha Vantage returned in place of one.
- * <p>
- * All four cadences answer with this same type, adjusted or not; what differs is the
- * span each {@link StockUnit} covers, which of its fields carry values, and how much of
- * the {@link MetaData} is filled in. The two snapshot endpoints in this package do not
- * — they answer with {@link QuoteResponse} and {@link RealtimeBulkQuoteResponse}.
- * <p>
- * A response carries results or an error, never both. On success
- * {@link #getErrorMessage()} is {@code null}, {@link #getMetaData()} describes the
- * series and {@link #getStockUnits()} holds its bars. On failure the message is set,
- * the bar list is empty, and the metadata is the {@link MetaData#empty()} placeholder
- * whose fields are all {@code null} — so checking the error message is what tells the
- * two apart, not checking for nulls.
- * <p>
- * The bars come out of the payload in the order its map iterated, which is not
- * guaranteed to be chronological. Sort on {@link StockUnit#getDate()} if order matters.
+ *
+ * <p>All four cadences answer with this same type, adjusted or not; what differs is the span each
+ * {@link StockUnit} covers, which of its fields carry values, and how much of the {@link MetaData}
+ * is filled in. The two snapshot endpoints in this package do not — they answer with {@link
+ * QuoteResponse} and {@link RealtimeBulkQuoteResponse}.
+ *
+ * <p>A response carries results or an error, never both. On success {@link #getErrorMessage()} is
+ * {@code null}, {@link #getMetaData()} describes the series and {@link #getStockUnits()} holds its
+ * bars. On failure the message is set, the bar list is empty, and the metadata is the {@link
+ * MetaData#empty()} placeholder whose fields are all {@code null} — so checking the error message
+ * is what tells the two apart, not checking for nulls.
+ *
+ * <p>The bars come out of the payload in the order its map iterated, which is not guaranteed to be
+ * chronological. Sort on {@link StockUnit#getDate()} if order matters.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.1
  */
-public class TimeSeriesResponse {
+public class TimeSeriesResponse implements Response {
 
     private final MetaData metaData;
     private final List<StockUnit> stockUnits;
@@ -62,38 +62,36 @@ public class TimeSeriesResponse {
         this.errorMessage = null;
     }
 
-    private TimeSeriesResponse(String errorMessage){
+    private TimeSeriesResponse(String errorMessage) {
         this.errorMessage = errorMessage;
         this.stockUnits = new ArrayList<>();
         this.metaData = MetaData.empty();
     }
 
     /**
-     * Builds a response from a decoded stock time series payload, whichever cadence
-     * produced it.
-     * <p>
-     * The adjusted flag has to be passed in rather than inferred, because the adjusted
-     * and unadjusted payloads number their per-bar keys differently and nothing in the
-     * payload itself says which numbering is in use. Passing {@code false} for an
-     * adjusted payload reads its adjusted close as a volume; passing {@code true} for
-     * an unadjusted one fails to find keys that are not there.
+     * Builds a response from a decoded stock time series payload, whichever cadence produced it.
+     *
+     * <p>The adjusted flag has to be passed in rather than inferred, because the adjusted and
+     * unadjusted payloads number their per-bar keys differently and nothing in the payload itself
+     * says which numbering is in use. Passing {@code false} for an adjusted payload reads its
+     * adjusted close as a volume; passing {@code true} for an unadjusted one fails to find keys
+     * that are not there.
      *
      * @param stringObjectMap the response body, already decoded from JSON into a map
-     * @param adjusted        whether the payload came from an adjusted cadence, and so
-     *                        carries an adjusted close, a dividend and possibly a split
-     *                        coefficient on each bar
-     * @return a response holding the parsed series, or one holding an error message if
-     *         the payload was empty or was not a stock time series
+     * @param adjusted whether the payload came from an adjusted cadence, and so carries an adjusted
+     *     close, a dividend and possibly a split coefficient on each bar
+     * @return a response holding the parsed series, or one holding an error message if the payload
+     *     was empty or was not a stock time series
      */
-    public static TimeSeriesResponse of(Map<String, Object> stringObjectMap, boolean adjusted){
+    public static TimeSeriesResponse of(Map<String, Object> stringObjectMap, boolean adjusted) {
         Parser<TimeSeriesResponse> parser = new TimeSeriesParser(adjusted);
         return parser.parse(stringObjectMap);
     }
 
     /**
-     * Gets the reason no series was returned, as reported by the API. Covers both
-     * API-level rejections, such as an unknown ticker or an exhausted rate limit, and a
-     * response body this library could not read as a stock time series.
+     * Gets the reason no series was returned, as reported by the API. Covers both API-level
+     * rejections, such as an unknown ticker or an exhausted rate limit, and a response body this
+     * library could not read as a stock time series.
      *
      * @return the error message, or {@code null} if the request succeeded
      */
@@ -104,19 +102,18 @@ public class TimeSeriesResponse {
     /**
      * Gets the header describing the series: its ticker, freshness and sampling.
      *
-     * @return the series metadata; on an error response, a {@link MetaData#empty()}
-     *         placeholder rather than {@code null}
+     * @return the series metadata; on an error response, a {@link MetaData#empty()} placeholder
+     *     rather than {@code null}
      */
     public MetaData getMetaData() {
         return metaData;
     }
 
     /**
-     * Gets the price bars making up the series, each carrying its own timestamp in
-     * {@link StockUnit#getDate()}.
+     * Gets the price bars making up the series, each carrying its own timestamp in {@link
+     * StockUnit#getDate()}.
      *
-     * @return the bars, in the payload's own order; empty, never {@code null}, on an
-     *         error response
+     * @return the bars, in the payload's own order; empty, never {@code null}, on an error response
      */
     public List<StockUnit> getStockUnits() {
         return stockUnits;
@@ -124,15 +121,14 @@ public class TimeSeriesResponse {
 
     /**
      * Turns a decoded stock time series payload into a {@link TimeSeriesResponse}.
-     * <p>
-     * The cadences number their metadata keys differently — only intraday reports an
-     * interval, and the weekly and monthly headers are shorter — so the parser reads
-     * the header positionally, deciding which numbering is in use by which of the
-     * fourth-position keys is present.
-     * <p>
-     * Per-bar keys are numbered by cadence too, which is what the adjusted flag
-     * resolves: in an unadjusted payload the fifth key is the volume, while in an
-     * adjusted one it is the adjusted close and the volume moves to sixth.
+     *
+     * <p>The cadences number their metadata keys differently — only intraday reports an interval,
+     * and the weekly and monthly headers are shorter — so the parser reads the header positionally,
+     * deciding which numbering is in use by which of the fourth-position keys is present.
+     *
+     * <p>Per-bar keys are numbered by cadence too, which is what the adjusted flag resolves: in an
+     * unadjusted payload the fifth key is the volume, while in an adjusted one it is the adjusted
+     * close and the volume moves to sixth.
      */
     public static class TimeSeriesParser extends DefaultParser<TimeSeriesResponse> {
 
@@ -141,23 +137,22 @@ public class TimeSeriesResponse {
         /**
          * Creates a parser for one numbering of the per-bar keys.
          *
-         * @param adjusted whether the payloads this parser will read come from an
-         *                 adjusted cadence
+         * @param adjusted whether the payloads this parser will read come from an adjusted cadence
          */
-        public TimeSeriesParser(boolean adjusted){
+        public TimeSeriesParser(boolean adjusted) {
             this.adjusted = adjusted;
         }
 
         /**
          * Reads the metadata header and the price bars into a response.
          *
-         * @param metaDataMap the payload's metadata block, keyed by the API's numbered
-         *                    field names
-         * @param dataMap     the payload's time series block, keyed by timestamp
+         * @param metaDataMap the payload's metadata block, keyed by the API's numbered field names
+         * @param dataMap the payload's time series block, keyed by timestamp
          * @return a response holding the parsed metadata and bars
          */
         @Override
-        public TimeSeriesResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> dataMap) {
+        public TimeSeriesResponse parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> dataMap) {
 
             MetaData metaData;
             String information = metaDataMap.get("1. Information");
@@ -167,20 +162,24 @@ public class TimeSeriesResponse {
             String outputSize = null;
             String timeZone;
 
-            if(metaDataMap.get("4. Interval") == null && metaDataMap.get("4. Output Size") == null){
+            if (metaDataMap.get("4. Interval") == null
+                    && metaDataMap.get("4. Output Size") == null) {
                 timeZone = metaDataMap.get("4. timeZone");
-            }else if(metaDataMap.get("4. Interval") == null && metaDataMap.get("4. Output Size") != null){
+            } else if (metaDataMap.get("4. Interval") == null
+                    && metaDataMap.get("4. Output Size") != null) {
                 outputSize = metaDataMap.get("4. Output Size");
                 timeZone = metaDataMap.get("5. Output Size");
-            }else {
+            } else {
                 interval = metaDataMap.get("4. Interval");
                 outputSize = metaDataMap.get("5. Output Size");
                 timeZone = metaDataMap.get("6. Time Zone");
             }
 
-            metaData = new MetaData(information, symbol, lastRefreshed, interval, outputSize, timeZone);
+            metaData =
+                    new MetaData(
+                            information, symbol, lastRefreshed, interval, outputSize, timeZone);
 
-            List<StockUnit> stockUnits =  new ArrayList<>();
+            List<StockUnit> stockUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : dataMap.entrySet()) {
                 Map<String, String> m = e.getValue();
@@ -196,13 +195,14 @@ public class TimeSeriesResponse {
                     stockUnit.adjustedClose(Double.parseDouble(m.get("5. adjusted close")));
                     stockUnit.volume(Long.parseLong(m.get("6. volume")));
                     stockUnit.dividendAmount(Double.parseDouble(m.get("7. dividend amount")));
-                    if (m.get("8. split coefficient") != null){
-                        stockUnit.splitCoefficient(Double.parseDouble(m.get("8. split coefficient")));
+                    if (m.get("8. split coefficient") != null) {
+                        stockUnit.splitCoefficient(
+                                Double.parseDouble(m.get("8. split coefficient")));
                     }
                 }
                 stockUnits.add(stockUnit.build());
             }
-            return  new TimeSeriesResponse(metaData, stockUnits);
+            return new TimeSeriesResponse(metaData, stockUnits);
         }
 
         /**
@@ -215,16 +215,18 @@ public class TimeSeriesResponse {
         public TimeSeriesResponse onParseError(String error) {
             return new TimeSeriesResponse(error);
         }
-
     }
-
 
     @Override
     public String toString() {
-        return "TimeSeriesResponse{" +
-                "metaData=" + metaData +
-                ", stockUnits=" + stockUnits +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "TimeSeriesResponse{"
+                + "metaData="
+                + metaData
+                + ", stockUnits="
+                + stockUnits
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 }

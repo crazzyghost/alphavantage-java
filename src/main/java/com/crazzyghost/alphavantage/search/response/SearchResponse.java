@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.search.response;
 
+import com.crazzyghost.alphavantage.Response;
 import com.crazzyghost.alphavantage.parser.Parser;
 
 import java.util.ArrayList;
@@ -29,20 +30,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The instruments a {@code SYMBOL_SEARCH} keyword matched, or the message the API
- * returned in place of them.
- * <p>
- * A response carries results or an error, never both. On success
- * {@link #getErrorMessage()} is {@code null} and {@link #getBestMatches()} holds the
- * matches; on failure the message is set and the match list is empty. Keywords that
- * match nothing count as a success, not a failure: the list is empty and the error
- * message stays {@code null}, so the list alone does not distinguish "no such symbol"
- * from a rejected request.
+ * The instruments a {@code SYMBOL_SEARCH} keyword matched, or the message the API returned in place
+ * of them.
+ *
+ * <p>A response carries results or an error, never both. On success {@link #getErrorMessage()} is
+ * {@code null} and {@link #getBestMatches()} holds the matches; on failure the message is set and
+ * the match list is empty. Keywords that match nothing count as a success, not a failure: the list
+ * is empty and the error message stays {@code null}, so the list alone does not distinguish "no
+ * such symbol" from a rejected request.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.8.0
  */
-public class SearchResponse {
+public class SearchResponse implements Response {
     private final List<Match> bestMatches;
     private final String errorMessage;
 
@@ -57,20 +57,20 @@ public class SearchResponse {
     }
 
     /**
-     * Gets the matched instruments, most relevant first, as ranked by
-     * {@link Match#getMatchScore()}.
+     * Gets the matched instruments, most relevant first, as ranked by {@link
+     * Match#getMatchScore()}.
      *
-     * @return the matches; empty, never {@code null}, when the keywords matched
-     *         nothing or the request failed
+     * @return the matches; empty, never {@code null}, when the keywords matched nothing or the
+     *     request failed
      */
     public List<Match> getBestMatches() {
         return bestMatches;
     }
 
     /**
-     * Gets the reason the search returned no results, as reported by the API. Covers
-     * both API-level rejections, such as an invalid key or an exhausted rate limit, and
-     * a response body this library could not read as a match list.
+     * Gets the reason the search returned no results, as reported by the API. Covers both API-level
+     * rejections, such as an invalid key or an exhausted rate limit, and a response body this
+     * library could not read as a match list.
      *
      * @return the error message, or {@code null} if the search succeeded
      */
@@ -82,8 +82,8 @@ public class SearchResponse {
      * Builds a response from a decoded {@code SYMBOL_SEARCH} payload.
      *
      * @param data the response body, already decoded from JSON into a map
-     * @return a response holding the parsed matches, or one holding an error message
-     *         if the payload was empty or was not a list of matches
+     * @return a response holding the parsed matches, or one holding an error message if the payload
+     *     was empty or was not a list of matches
      */
     public static SearchResponse of(Map<String, Object> data) {
         MarketStatusParser parser = new MarketStatusParser();
@@ -100,7 +100,8 @@ public class SearchResponse {
         public SearchResponse parse(Map<String, Object> object) {
             List<String> keys = new ArrayList<>(object.keySet());
             if (keys.isEmpty()) {
-                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+                return onParseError(
+                        "Empty JSON returned by the API, the symbol might not be supported.");
             }
             try {
                 int dataIndex = 0;
@@ -119,9 +120,12 @@ public class SearchResponse {
 
     @Override
     public String toString() {
-        return "SearchResponse{" +
-                "bestMatches=" + bestMatches +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "SearchResponse{"
+                + "bestMatches="
+                + bestMatches
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 }

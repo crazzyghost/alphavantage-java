@@ -22,27 +22,27 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.response.mama;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * Response for the MESA adaptive moving average ({@code MAMA}), an adaptive
- * moving average that adjusts its own smoothing speed to price movement
- * using the Hilbert transform, reported alongside its slower-following
- * companion, FAMA.
- * <p>
- * {@code MAMA} does not extend one of the package's shared response bases:
- * its two-value reading needs {@link MAMAIndicatorUnit} rather than the
- * single-value {@code SimpleTechnicalIndicatorUnit} the shared bases use.
+ * Response for the MESA adaptive moving average ({@code MAMA}), an adaptive moving average that
+ * adjusts its own smoothing speed to price movement using the Hilbert transform, reported alongside
+ * its slower-following companion, FAMA.
+ *
+ * <p>{@code MAMA} does not extend one of the package's shared response bases: its two-value reading
+ * needs {@link MAMAIndicatorUnit} rather than the single-value {@code SimpleTechnicalIndicatorUnit}
+ * the shared bases use.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
-public class MAMAResponse {
+public class MAMAResponse implements Response {
 
     /** The response's metadata, echoing the request's parameters. */
     private MetaData metaData;
@@ -57,7 +57,7 @@ public class MAMAResponse {
      * Creates a successful response.
      *
      * @param indicatorUnits the parsed MAMA readings
-     * @param metaData       the parsed response metadata
+     * @param metaData the parsed response metadata
      */
     private MAMAResponse(List<MAMAIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
@@ -114,40 +114,40 @@ public class MAMAResponse {
         return parser.parse(stringObjectMap);
     }
 
-    /**
-     * Parser for {@link MAMAResponse}.
-     */
+    /** Parser for {@link MAMAResponse}. */
     public static class MAMAParser extends DefaultParser<MAMAResponse> {
 
         /**
-         * Parses the API's raw metadata and per-date indicator maps into a
-         * successful response.
+         * Parses the API's raw metadata and per-date indicator maps into a successful response.
          *
-         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param metaDataMap the raw {@code "Meta Data"} entries
          * @param indicatorData the raw per-date indicator value entries
          * @return the parsed response
          */
         @Override
-        public MAMAResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+        public MAMAResponse parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
 
-            MetaData metaData = new MetaData(
-                    String.valueOf(metaDataMap.get("1: Symbol")),
-                    String.valueOf(metaDataMap.get("2: Indicator")),
-                    String.valueOf(metaDataMap.get("3: Last Refreshed")),
-                    String.valueOf(metaDataMap.get("4: Interval")),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.1: Fast Limit"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5.2: Slow Limit"))),
-                    String.valueOf(metaDataMap.get("6: Series Type")),
-                    String.valueOf(metaDataMap.get("7: Time Zone")));
+            MetaData metaData =
+                    new MetaData(
+                            String.valueOf(metaDataMap.get("1: Symbol")),
+                            String.valueOf(metaDataMap.get("2: Indicator")),
+                            String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                            String.valueOf(metaDataMap.get("4: Interval")),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.1: Fast Limit"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5.2: Slow Limit"))),
+                            String.valueOf(metaDataMap.get("6: Series Type")),
+                            String.valueOf(metaDataMap.get("7: Time Zone")));
 
             List<MAMAIndicatorUnit> indicatorUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();
-                MAMAIndicatorUnit indicatorUnit = new MAMAIndicatorUnit(
-                        e.getKey(),
-                        Double.parseDouble(m.get("FAMA")),
-                        Double.parseDouble(m.get("MAMA")));
+                MAMAIndicatorUnit indicatorUnit =
+                        new MAMAIndicatorUnit(
+                                e.getKey(),
+                                Double.parseDouble(m.get("FAMA")),
+                                Double.parseDouble(m.get("MAMA")));
                 indicatorUnits.add(indicatorUnit);
             }
             return new MAMAResponse(indicatorUnits, metaData);
@@ -167,16 +167,20 @@ public class MAMAResponse {
 
     @Override
     public String toString() {
-        return "MAMAResponse{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "MAMAResponse{"
+                + "metaData="
+                + metaData
+                + ",indicatorUnits="
+                + indicatorUnits.size()
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 
     /**
-     * Metadata describing the request that produced a {@link MAMAResponse},
-     * echoed back by the API alongside the indicator values themselves.
+     * Metadata describing the request that produced a {@link MAMAResponse}, echoed back by the API
+     * alongside the indicator values themselves.
      */
     public static class MetaData {
 
@@ -207,14 +211,14 @@ public class MAMAResponse {
         /**
          * Creates a populated metadata instance.
          *
-         * @param symbol        the requested symbol
-         * @param indicator     the indicator's name, as reported by the API
+         * @param symbol the requested symbol
+         * @param indicator the indicator's name, as reported by the API
          * @param lastRefreshed the timestamp of the most recent data point
-         * @param interval      the requested time interval between data points
-         * @param fastLimit     the requested upper adaptation-speed bound
-         * @param slowLimit     the requested lower adaptation-speed bound
-         * @param seriesType    the requested price series field the average is computed from
-         * @param timeZone      the time zone the response's timestamps are expressed in
+         * @param interval the requested time interval between data points
+         * @param fastLimit the requested upper adaptation-speed bound
+         * @param slowLimit the requested lower adaptation-speed bound
+         * @param seriesType the requested price series field the average is computed from
+         * @param timeZone the time zone the response's timestamps are expressed in
          */
         public MetaData(
                 String symbol,
@@ -235,9 +239,7 @@ public class MAMAResponse {
             this.seriesType = seriesType;
         }
 
-        /**
-         * Creates an empty metadata instance, used for failed responses.
-         */
+        /** Creates an empty metadata instance, used for failed responses. */
         public MetaData() {
             this("", "", "", "", 0.1, 0.1, "", "");
         }
@@ -316,10 +318,23 @@ public class MAMAResponse {
 
         @Override
         public String toString() {
-            return "MetaData {fastLimit=" + fastLimit + ", indicator=" + indicator + ", interval=" + interval
-                    + ", lastRefreshed=" + lastRefreshed + ", seriesType=" + seriesType + ", slowLimit=" + slowLimit
-                    + ", symbol=" + symbol + ", timeZone=" + timeZone + "}";
+            return "MetaData {fastLimit="
+                    + fastLimit
+                    + ", indicator="
+                    + indicator
+                    + ", interval="
+                    + interval
+                    + ", lastRefreshed="
+                    + lastRefreshed
+                    + ", seriesType="
+                    + seriesType
+                    + ", slowLimit="
+                    + slowLimit
+                    + ", symbol="
+                    + symbol
+                    + ", timeZone="
+                    + timeZone
+                    + "}";
         }
     }
-
 }

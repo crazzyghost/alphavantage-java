@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.economicindicator.response;
 
+import com.crazzyghost.alphavantage.Response;
 import com.crazzyghost.alphavantage.parser.Parser;
 import com.squareup.moshi.Json;
 
@@ -31,25 +32,29 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * An economic indicator series: the indicator's name, the interval and unit its
- * values are reported in, and the observations themselves as a list of
- * {@link EconomicIndicatorUnit}.
+ * An economic indicator series: the indicator's name, the interval and unit its values are reported
+ * in, and the observations themselves as a list of {@link EconomicIndicatorUnit}.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0
  */
-public class EconomicIndicatorResponse {
+public class EconomicIndicatorResponse implements Response {
     @Json(name = "name")
     private String name;
+
     @Json(name = "interval")
     private String interval;
+
     @Json(name = "unit")
     private String unit;
+
     @Json(name = "data")
     private List<EconomicIndicatorUnit> data;
+
     private final String errorMessage;
 
-    private EconomicIndicatorResponse(String name, String interval, String unit, List<EconomicIndicatorUnit> data) {
+    private EconomicIndicatorResponse(
+            String name, String interval, String unit, List<EconomicIndicatorUnit> data) {
         this.name = name;
         this.interval = interval;
         this.unit = unit;
@@ -113,18 +118,17 @@ public class EconomicIndicatorResponse {
      * @return the parsed response, or an error response if parsing fails
      */
     public static EconomicIndicatorResponse of(Map<String, Object> stringObjectMap) {
-        Parser<EconomicIndicatorResponse> parser = new EconomicIndicatorResponse.EconomicIndicatorParser();
+        Parser<EconomicIndicatorResponse> parser =
+                new EconomicIndicatorResponse.EconomicIndicatorParser();
         return parser.parse(stringObjectMap);
     }
 
-    /**
-     * Reads an {@link EconomicIndicatorResponse} out of a decoded JSON map.
-     */
+    /** Reads an {@link EconomicIndicatorResponse} out of a decoded JSON map. */
     public static class EconomicIndicatorParser extends Parser<EconomicIndicatorResponse> {
 
         /**
-         * Wraps a parse failure in an {@link EconomicIndicatorResponse} carrying the
-         * error message instead of throwing.
+         * Wraps a parse failure in an {@link EconomicIndicatorResponse} carrying the error message
+         * instead of throwing.
          *
          * @param error the error message to carry
          * @return a response whose {@link #getErrorMessage()} returns {@code error}
@@ -135,12 +139,11 @@ public class EconomicIndicatorResponse {
         }
 
         /**
-         * Reads the indicator's name, interval, unit, and observations out of a
-         * decoded JSON map.
+         * Reads the indicator's name, interval, unit, and observations out of a decoded JSON map.
          *
          * @param data the decoded JSON response body
-         * @return the parsed response, or an error response if the map does not
-         *         match the expected shape
+         * @return the parsed response, or an error response if the map does not match the expected
+         *     shape
          */
         @Override
         @SuppressWarnings("unchecked")
@@ -156,12 +159,14 @@ public class EconomicIndicatorResponse {
                 }
 
                 String name = String.valueOf(data.getOrDefault("name", ""));
-                String interval = String.valueOf(data.getOrDefault("interval", ""));;
-                String unit = String.valueOf(data.getOrDefault("unit", ""));;
-                List<EconomicIndicatorUnit> unitList = Parser.parseJSONList(data.get("data"),
-                        EconomicIndicatorUnit.class);
+                String interval = String.valueOf(data.getOrDefault("interval", ""));
+                ;
+                String unit = String.valueOf(data.getOrDefault("unit", ""));
+                ;
+                List<EconomicIndicatorUnit> unitList =
+                        Parser.parseJSONList(data.get("data"), EconomicIndicatorUnit.class);
                 return new EconomicIndicatorResponse(name, interval, unit, unitList);
-            }catch (ClassCastException | IndexOutOfBoundsException e) {
+            } catch (ClassCastException | IndexOutOfBoundsException e) {
                 return onParseError(data.get(keys.get(0)).toString());
             }
         }

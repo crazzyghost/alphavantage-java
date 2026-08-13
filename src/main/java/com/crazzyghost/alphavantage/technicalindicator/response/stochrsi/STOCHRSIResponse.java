@@ -22,28 +22,27 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.response.stochrsi;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * Response for the stochastic relative strength index ({@code STOCHRSI}),
- * which applies the stochastic oscillator's %K/%D calculation to RSI
- * values instead of price, producing a more sensitive overbought/oversold
- * reading than RSI alone.
- * <p>
- * {@code STOCHRSI} does not extend one of the package's shared response
- * bases: its two-line reading needs {@link STOCHRSIIndicatorUnit} rather
- * than the single-value {@code SimpleTechnicalIndicatorUnit} the shared
- * bases use.
+ * Response for the stochastic relative strength index ({@code STOCHRSI}), which applies the
+ * stochastic oscillator's %K/%D calculation to RSI values instead of price, producing a more
+ * sensitive overbought/oversold reading than RSI alone.
+ *
+ * <p>{@code STOCHRSI} does not extend one of the package's shared response bases: its two-line
+ * reading needs {@link STOCHRSIIndicatorUnit} rather than the single-value {@code
+ * SimpleTechnicalIndicatorUnit} the shared bases use.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
-public class STOCHRSIResponse {
+public class STOCHRSIResponse implements Response {
 
     /** The response's metadata, echoing the request's parameters. */
     private MetaData metaData;
@@ -58,7 +57,7 @@ public class STOCHRSIResponse {
      * Creates a successful response.
      *
      * @param indicatorUnits the parsed STOCHRSI readings
-     * @param metaData       the parsed response metadata
+     * @param metaData the parsed response metadata
      */
     private STOCHRSIResponse(List<STOCHRSIIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
@@ -115,45 +114,44 @@ public class STOCHRSIResponse {
         return parser.parse(stringObjectMap);
     }
 
-    /**
-     * Parser for {@link STOCHRSIResponse}.
-     */
+    /** Parser for {@link STOCHRSIResponse}. */
     public static class STOCHRSIParser extends DefaultParser<STOCHRSIResponse> {
 
         /**
-         * Parses the API's raw metadata and per-date indicator maps into a
-         * successful response.
+         * Parses the API's raw metadata and per-date indicator maps into a successful response.
          *
-         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param metaDataMap the raw {@code "Meta Data"} entries
          * @param indicatorData the raw per-date indicator value entries
          * @return the parsed response
          */
         @Override
-        public STOCHRSIResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
-            MetaData metaData = new MetaData(
-                    String.valueOf(metaDataMap.get("1: Symbol")),
-                    String.valueOf(metaDataMap.get("2: Indicator")),
-                    String.valueOf(metaDataMap.get("3: Last Refreshed")),
-                    String.valueOf(metaDataMap.get("4: Interval")),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5: Time Period"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("6.1: FastK Period"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("6.2: FastD Period"))),
-                    Double.valueOf(String.valueOf(metaDataMap.get("6.3: FastD MA Type"))),
-                    String.valueOf(metaDataMap.get("7: Series Type")),
-                    String.valueOf(metaDataMap.get("8: Time Zone")));
+        public STOCHRSIResponse parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+            MetaData metaData =
+                    new MetaData(
+                            String.valueOf(metaDataMap.get("1: Symbol")),
+                            String.valueOf(metaDataMap.get("2: Indicator")),
+                            String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                            String.valueOf(metaDataMap.get("4: Interval")),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5: Time Period"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("6.1: FastK Period"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("6.2: FastD Period"))),
+                            Double.valueOf(String.valueOf(metaDataMap.get("6.3: FastD MA Type"))),
+                            String.valueOf(metaDataMap.get("7: Series Type")),
+                            String.valueOf(metaDataMap.get("8: Time Zone")));
 
             List<STOCHRSIIndicatorUnit> indicatorUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();
-                STOCHRSIIndicatorUnit indicatorUnit = new STOCHRSIIndicatorUnit(
-                        e.getKey(),
-                        Double.parseDouble(m.get("FastK")),
-                        Double.parseDouble(m.get("FastD")));
+                STOCHRSIIndicatorUnit indicatorUnit =
+                        new STOCHRSIIndicatorUnit(
+                                e.getKey(),
+                                Double.parseDouble(m.get("FastK")),
+                                Double.parseDouble(m.get("FastD")));
                 indicatorUnits.add(indicatorUnit);
             }
             return new STOCHRSIResponse(indicatorUnits, metaData);
-
         }
 
         /**
@@ -166,22 +164,24 @@ public class STOCHRSIResponse {
         public STOCHRSIResponse onParseError(String error) {
             return new STOCHRSIResponse(error);
         }
-
     }
 
     @Override
     public String toString() {
-        return "STOCHRSIResponse{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "STOCHRSIResponse{"
+                + "metaData="
+                + metaData
+                + ",indicatorUnits="
+                + indicatorUnits.size()
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 
     /**
-     * Metadata describing the request that produced a {@link
-     * STOCHRSIResponse}, echoed back by the API alongside the indicator
-     * values themselves.
+     * Metadata describing the request that produced a {@link STOCHRSIResponse}, echoed back by the
+     * API alongside the indicator values themselves.
      */
     public static class MetaData {
 
@@ -218,16 +218,17 @@ public class STOCHRSIResponse {
         /**
          * Creates a populated metadata instance.
          *
-         * @param symbol        the requested symbol
-         * @param indicator     the indicator's name, as reported by the API
+         * @param symbol the requested symbol
+         * @param indicator the indicator's name, as reported by the API
          * @param lastRefreshed the timestamp of the most recent data point
-         * @param interval      the requested time interval between data points
-         * @param timePeriod    the requested number of data points used to calculate the underlying RSI
-         * @param fastKPeriod   the requested raw %K look-back period
-         * @param fastDPeriod   the requested fast %D smoothing period
-         * @param fastDMaType   the requested fast %D moving-average type's wire value
-         * @param seriesType    the requested price series field the underlying RSI is computed from
-         * @param timeZone      the time zone the response's timestamps are expressed in
+         * @param interval the requested time interval between data points
+         * @param timePeriod the requested number of data points used to calculate the underlying
+         *     RSI
+         * @param fastKPeriod the requested raw %K look-back period
+         * @param fastDPeriod the requested fast %D smoothing period
+         * @param fastDMaType the requested fast %D moving-average type's wire value
+         * @param seriesType the requested price series field the underlying RSI is computed from
+         * @param timeZone the time zone the response's timestamps are expressed in
          */
         public MetaData(
                 String symbol,
@@ -252,9 +253,7 @@ public class STOCHRSIResponse {
             this.timeZone = timeZone;
         }
 
-        /**
-         * Creates an empty metadata instance, used for failed responses.
-         */
+        /** Creates an empty metadata instance, used for failed responses. */
         public MetaData() {
             this("", "", "", "", 10, 5, 3, 0, "", "");
         }
@@ -351,11 +350,27 @@ public class STOCHRSIResponse {
 
         @Override
         public String toString() {
-            return "MetaData {fastDMaType=" + fastDMaType + ", fastDPeriod=" + fastDPeriod + ", fastKPeriod="
-                    + fastKPeriod + ", indicator=" + indicator + ", interval=" + interval + ", lastRefreshed="
-                    + lastRefreshed + ", seriesType=" + seriesType + ", symbol=" + symbol + ", timePeriod=" + timePeriod
-                    + ", timeZone=" + timeZone + "}";
+            return "MetaData {fastDMaType="
+                    + fastDMaType
+                    + ", fastDPeriod="
+                    + fastDPeriod
+                    + ", fastKPeriod="
+                    + fastKPeriod
+                    + ", indicator="
+                    + indicator
+                    + ", interval="
+                    + interval
+                    + ", lastRefreshed="
+                    + lastRefreshed
+                    + ", seriesType="
+                    + seriesType
+                    + ", symbol="
+                    + symbol
+                    + ", timePeriod="
+                    + timePeriod
+                    + ", timeZone="
+                    + timeZone
+                    + "}";
         }
-
     }
 }

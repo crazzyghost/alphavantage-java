@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.marketstatus.response;
 
+import com.crazzyghost.alphavantage.Response;
 import com.crazzyghost.alphavantage.parser.Parser;
 
 import java.util.ArrayList;
@@ -29,18 +30,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The per-market trading status returned by a {@code MARKET_STATUS} call, or the
- * message the API returned in place of it.
- * <p>
- * A response carries results or an error, never both. On success
- * {@link #getErrorMessage()} is {@code null} and {@link #getMarkets()} holds one
- * entry per market Alpha Vantage tracks; on failure the message is set and the
- * market list is empty.
+ * The per-market trading status returned by a {@code MARKET_STATUS} call, or the message the API
+ * returned in place of it.
+ *
+ * <p>A response carries results or an error, never both. On success {@link #getErrorMessage()} is
+ * {@code null} and {@link #getMarkets()} holds one entry per market Alpha Vantage tracks; on
+ * failure the message is set and the market list is empty.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0
  */
-public class MarketStatusResponse {
+public class MarketStatusResponse implements Response {
     private final List<Market> markets;
     private final String errorMessage;
 
@@ -64,9 +64,9 @@ public class MarketStatusResponse {
     }
 
     /**
-     * Gets the reason the request failed, as reported by the API. Covers both
-     * API-level rejections, such as an invalid key or an exhausted rate limit, and
-     * a response body this library could not read as a market list.
+     * Gets the reason the request failed, as reported by the API. Covers both API-level rejections,
+     * such as an invalid key or an exhausted rate limit, and a response body this library could not
+     * read as a market list.
      *
      * @return the error message, or {@code null} if the request succeeded
      */
@@ -78,8 +78,8 @@ public class MarketStatusResponse {
      * Builds a response from a decoded {@code MARKET_STATUS} payload.
      *
      * @param data the response body, already decoded from JSON into a map
-     * @return a response holding the parsed markets, or one holding an error
-     *         message if the payload was empty or was not a list of markets
+     * @return a response holding the parsed markets, or one holding an error message if the payload
+     *     was empty or was not a list of markets
      */
     public static MarketStatusResponse of(Map<String, Object> data) {
         MarketStatusParser parser = new MarketStatusParser();
@@ -96,7 +96,8 @@ public class MarketStatusResponse {
         public MarketStatusResponse parse(Map<String, Object> object) {
             List<String> keys = new ArrayList<>(object.keySet());
             if (keys.isEmpty()) {
-                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+                return onParseError(
+                        "Empty JSON returned by the API, the symbol might not be supported.");
             }
             try {
                 int dataIndex = 1;
@@ -111,9 +112,12 @@ public class MarketStatusResponse {
 
     @Override
     public String toString() {
-        return "GlobalMarketStatusResponse{" +
-                "markets=" + markets +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "GlobalMarketStatusResponse{"
+                + "markets="
+                + markets
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 }

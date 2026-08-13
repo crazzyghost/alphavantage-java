@@ -22,26 +22,26 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.response.aroon;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * Response for the Aroon indicator ({@code AROON}), which uses two lines,
- * Aroon-Up and Aroon-Down, to identify how strongly and how recently price
- * has trended toward a new high or low.
- * <p>
- * {@code AROON} does not extend one of the package's shared response bases:
- * its two-line reading needs {@link AROONIndicatorUnit} rather than the
- * single-value {@code SimpleTechnicalIndicatorUnit} the shared bases use.
+ * Response for the Aroon indicator ({@code AROON}), which uses two lines, Aroon-Up and Aroon-Down,
+ * to identify how strongly and how recently price has trended toward a new high or low.
+ *
+ * <p>{@code AROON} does not extend one of the package's shared response bases: its two-line reading
+ * needs {@link AROONIndicatorUnit} rather than the single-value {@code
+ * SimpleTechnicalIndicatorUnit} the shared bases use.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
-public class AROONResponse {
+public class AROONResponse implements Response {
 
     /** The response's metadata, echoing the request's parameters. */
     private MetaData metaData;
@@ -56,7 +56,7 @@ public class AROONResponse {
      * Creates a successful response.
      *
      * @param indicatorUnits the parsed AROON readings
-     * @param metaData       the parsed response metadata
+     * @param metaData the parsed response metadata
      */
     private AROONResponse(List<AROONIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
@@ -113,38 +113,39 @@ public class AROONResponse {
         return parser.parse(stringObjectMap);
     }
 
-    /**
-     * Parser for {@link AROONResponse}.
-     */
+    /** Parser for {@link AROONResponse}. */
     public static class AROONParser extends DefaultParser<AROONResponse> {
 
         /**
-         * Parses the API's raw metadata and per-date indicator maps into a
-         * successful response.
+         * Parses the API's raw metadata and per-date indicator maps into a successful response.
          *
-         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param metaDataMap the raw {@code "Meta Data"} entries
          * @param indicatorData the raw per-date indicator value entries
          * @return the parsed response
          */
         @Override
-        public AROONResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+        public AROONResponse parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
 
-            MetaData metaData = new MetaData(
-                    String.valueOf(metaDataMap.get("1: Symbol")),
-                    String.valueOf(metaDataMap.get("2: Indicator")),
-                    String.valueOf(metaDataMap.get("3: Last Refreshed")),
-                    String.valueOf(metaDataMap.get("4: Interval")),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5: Time Period"))).intValue(),
-                    String.valueOf(metaDataMap.get("6: Time Zone")));
+            MetaData metaData =
+                    new MetaData(
+                            String.valueOf(metaDataMap.get("1: Symbol")),
+                            String.valueOf(metaDataMap.get("2: Indicator")),
+                            String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                            String.valueOf(metaDataMap.get("4: Interval")),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5: Time Period")))
+                                    .intValue(),
+                            String.valueOf(metaDataMap.get("6: Time Zone")));
 
             List<AROONIndicatorUnit> indicatorUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();
-                AROONIndicatorUnit indicatorUnit = new AROONIndicatorUnit(
-                        e.getKey(),
-                        Double.parseDouble(m.get("Aroon Up")),
-                        Double.parseDouble(m.get("Aroon Down")));
+                AROONIndicatorUnit indicatorUnit =
+                        new AROONIndicatorUnit(
+                                e.getKey(),
+                                Double.parseDouble(m.get("Aroon Up")),
+                                Double.parseDouble(m.get("Aroon Down")));
                 indicatorUnits.add(indicatorUnit);
             }
             return new AROONResponse(indicatorUnits, metaData);
@@ -160,21 +161,25 @@ public class AROONResponse {
         public AROONResponse onParseError(String error) {
             return new AROONResponse(error);
         }
-
     }
 
     @Override
     public String toString() {
-        return metaData.indicator.replaceAll("\\s+", "") + "Response{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return metaData.indicator.replaceAll("\\s+", "")
+                + "Response{"
+                + "metaData="
+                + metaData
+                + ",indicatorUnits="
+                + indicatorUnits.size()
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 
     /**
-     * Metadata describing the request that produced an {@link AROONResponse},
-     * echoed back by the API alongside the indicator values themselves.
+     * Metadata describing the request that produced an {@link AROONResponse}, echoed back by the
+     * API alongside the indicator values themselves.
      */
     public static class MetaData {
 
@@ -196,9 +201,7 @@ public class AROONResponse {
         /** The time zone the response's timestamps are expressed in. */
         private String timeZone;
 
-        /**
-         * Creates an empty metadata instance, used for failed responses.
-         */
+        /** Creates an empty metadata instance, used for failed responses. */
         public MetaData() {
             this("", "", "", "", 0, "");
         }
@@ -206,12 +209,12 @@ public class AROONResponse {
         /**
          * Creates a populated metadata instance.
          *
-         * @param symbol        the requested symbol
-         * @param indicator     the indicator's name, as reported by the API
+         * @param symbol the requested symbol
+         * @param indicator the indicator's name, as reported by the API
          * @param lastRefreshed the timestamp of the most recent data point
-         * @param interval      the requested time interval between data points
-         * @param timePeriod    the requested number of data points per indicator value
-         * @param timeZone      the time zone the response's timestamps are expressed in
+         * @param interval the requested time interval between data points
+         * @param timePeriod the requested number of data points per indicator value
+         * @param timeZone the time zone the response's timestamps are expressed in
          */
         public MetaData(
                 String symbol,
@@ -284,15 +287,19 @@ public class AROONResponse {
 
         @Override
         public String toString() {
-            return "MetaData {indicator=" + indicator +
-                    ", interval=" + interval +
-                    ", lastRefreshed=" + lastRefreshed +
-                    ", symbol=" + symbol +
-                    ", timePeriod=" + timePeriod +
-                    ", timeZone=" + timeZone +
-                    "}";
+            return "MetaData {indicator="
+                    + indicator
+                    + ", interval="
+                    + interval
+                    + ", lastRefreshed="
+                    + lastRefreshed
+                    + ", symbol="
+                    + symbol
+                    + ", timePeriod="
+                    + timePeriod
+                    + ", timeZone="
+                    + timeZone
+                    + "}";
         }
-
     }
-
 }

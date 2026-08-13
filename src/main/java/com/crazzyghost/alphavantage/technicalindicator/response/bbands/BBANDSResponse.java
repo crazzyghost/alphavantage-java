@@ -22,32 +22,33 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.response.bbands;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.DefaultParser;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.parser.DefaultParser;
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * Response for Bollinger Bands ({@code BBANDS}), an upper and lower
- * volatility band plotted a configurable number of standard deviations
- * above and below a moving average of a price series.
- * <p>
- * {@code BBANDS} does not extend one of the package's shared response
- * bases: its three-band reading needs {@link BBANDSIndicatorUnit} rather
- * than the single-value {@code SimpleTechnicalIndicatorUnit} the shared
- * bases use.
+ * Response for Bollinger Bands ({@code BBANDS}), an upper and lower volatility band plotted a
+ * configurable number of standard deviations above and below a moving average of a price series.
+ *
+ * <p>{@code BBANDS} does not extend one of the package's shared response bases: its three-band
+ * reading needs {@link BBANDSIndicatorUnit} rather than the single-value {@code
+ * SimpleTechnicalIndicatorUnit} the shared bases use.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
-public class BBANDSResponse {
+public class BBANDSResponse implements Response {
 
     /** The response's metadata, echoing the request's parameters. */
     private MetaData metaData;
 
-    /** The indicator's upper/middle/lower band readings, one unit per date in the requested series. */
+    /**
+     * The indicator's upper/middle/lower band readings, one unit per date in the requested series.
+     */
     private List<BBANDSIndicatorUnit> indicatorUnits;
 
     /** The API's error message, or {@code null} if the request succeeded. */
@@ -57,7 +58,7 @@ public class BBANDSResponse {
      * Creates a successful response.
      *
      * @param indicatorUnits the parsed BBANDS readings
-     * @param metaData       the parsed response metadata
+     * @param metaData the parsed response metadata
      */
     private BBANDSResponse(List<BBANDSIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
@@ -114,44 +115,52 @@ public class BBANDSResponse {
         return parser.parse(stringObjectMap);
     }
 
-    /**
-     * Parser for {@link BBANDSResponse}.
-     */
+    /** Parser for {@link BBANDSResponse}. */
     public static class BBANDSParser extends DefaultParser<BBANDSResponse> {
 
         /**
-         * Parses the API's raw metadata and per-date indicator maps into a
-         * successful response.
+         * Parses the API's raw metadata and per-date indicator maps into a successful response.
          *
-         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param metaDataMap the raw {@code "Meta Data"} entries
          * @param indicatorData the raw per-date indicator value entries
          * @return the parsed response
          */
         @Override
-        public BBANDSResponse parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
-            MetaData metaData = new MetaData(
-                    String.valueOf(metaDataMap.get("1: Symbol")),
-                    String.valueOf(metaDataMap.get("2: Indicator")),
-                    String.valueOf(metaDataMap.get("3: Last Refreshed")),
-                    String.valueOf(metaDataMap.get("4: Interval")),
-                    Double.valueOf(String.valueOf(metaDataMap.get("5: Time Period"))).intValue(),
-                    Double.valueOf(String.valueOf(metaDataMap.get("6.1: Deviation multiplier for upper band")))
-                            .intValue(),
-                    Double.valueOf(String.valueOf(metaDataMap.get("6.2: Deviation multiplier for lower band")))
-                            .intValue(),
-                    Double.valueOf(String.valueOf(metaDataMap.get("6.3: MA Type"))).intValue(),
-                    String.valueOf(metaDataMap.get("7: Series Type")),
-                    String.valueOf(metaDataMap.get("8: Time Zone")));
+        public BBANDSResponse parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+            MetaData metaData =
+                    new MetaData(
+                            String.valueOf(metaDataMap.get("1: Symbol")),
+                            String.valueOf(metaDataMap.get("2: Indicator")),
+                            String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                            String.valueOf(metaDataMap.get("4: Interval")),
+                            Double.valueOf(String.valueOf(metaDataMap.get("5: Time Period")))
+                                    .intValue(),
+                            Double.valueOf(
+                                            String.valueOf(
+                                                    metaDataMap.get(
+                                                            "6.1: Deviation multiplier for upper band")))
+                                    .intValue(),
+                            Double.valueOf(
+                                            String.valueOf(
+                                                    metaDataMap.get(
+                                                            "6.2: Deviation multiplier for lower band")))
+                                    .intValue(),
+                            Double.valueOf(String.valueOf(metaDataMap.get("6.3: MA Type")))
+                                    .intValue(),
+                            String.valueOf(metaDataMap.get("7: Series Type")),
+                            String.valueOf(metaDataMap.get("8: Time Zone")));
 
             List<BBANDSIndicatorUnit> indicatorUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();
-                BBANDSIndicatorUnit indicatorUnit = new BBANDSIndicatorUnit(
-                        e.getKey(),
-                        Double.parseDouble(m.get("Real Upper Band").toString()),
-                        Double.parseDouble(m.get("Real Lower Band").toString()),
-                        Double.parseDouble(m.get("Real Middle Band").toString()));
+                BBANDSIndicatorUnit indicatorUnit =
+                        new BBANDSIndicatorUnit(
+                                e.getKey(),
+                                Double.parseDouble(m.get("Real Upper Band").toString()),
+                                Double.parseDouble(m.get("Real Lower Band").toString()),
+                                Double.parseDouble(m.get("Real Middle Band").toString()));
                 indicatorUnits.add(indicatorUnit);
             }
             return new BBANDSResponse(indicatorUnits, metaData);
@@ -171,16 +180,21 @@ public class BBANDSResponse {
 
     @Override
     public String toString() {
-        return metaData.indicator.replaceAll("\\s+", "") + "Response{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return metaData.indicator.replaceAll("\\s+", "")
+                + "Response{"
+                + "metaData="
+                + metaData
+                + ",indicatorUnits="
+                + indicatorUnits.size()
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 
     /**
-     * Metadata describing the request that produced a {@link BBANDSResponse},
-     * echoed back by the API alongside the indicator values themselves.
+     * Metadata describing the request that produced a {@link BBANDSResponse}, echoed back by the
+     * API alongside the indicator values themselves.
      */
     public static class MetaData {
 
@@ -205,7 +219,10 @@ public class BBANDSResponse {
         /** The requested number of standard deviations below the middle band. */
         private int nbdevdn;
 
-        /** The requested moving-average type, as its {@link com.crazzyghost.alphavantage.parameters.MAType} wire value. */
+        /**
+         * The requested moving-average type, as its {@link
+         * com.crazzyghost.alphavantage.parameters.MAType} wire value.
+         */
         private int maType;
 
         /** The requested price series field the bands are computed from. */
@@ -214,9 +231,7 @@ public class BBANDSResponse {
         /** The time zone the response's timestamps are expressed in. */
         private String timeZone;
 
-        /**
-         * Creates an empty metadata instance, used for failed responses.
-         */
+        /** Creates an empty metadata instance, used for failed responses. */
         public MetaData() {
             this("", "", "", "", 0, 0, 0, 0, "", "");
         }
@@ -224,16 +239,16 @@ public class BBANDSResponse {
         /**
          * Creates a populated metadata instance.
          *
-         * @param symbol        the requested symbol
-         * @param indicator     the indicator's name, as reported by the API
+         * @param symbol the requested symbol
+         * @param indicator the indicator's name, as reported by the API
          * @param lastRefreshed the timestamp of the most recent data point
-         * @param interval      the requested time interval between data points
-         * @param timePeriod    the requested number of data points in the middle moving average
-         * @param nbdevup       the requested upper-band standard deviation multiplier
-         * @param nbdevdn       the requested lower-band standard deviation multiplier
-         * @param maType        the requested moving-average type's wire value
-         * @param seriesType    the requested price series field the bands are computed from
-         * @param timeZone      the time zone the response's timestamps are expressed in
+         * @param interval the requested time interval between data points
+         * @param timePeriod the requested number of data points in the middle moving average
+         * @param nbdevup the requested upper-band standard deviation multiplier
+         * @param nbdevdn the requested lower-band standard deviation multiplier
+         * @param maType the requested moving-average type's wire value
+         * @param seriesType the requested price series field the bands are computed from
+         * @param timeZone the time zone the response's timestamps are expressed in
          */
         public MetaData(
                 String symbol,
@@ -350,11 +365,27 @@ public class BBANDSResponse {
 
         @Override
         public String toString() {
-            return "MetaData {indicator=" + indicator + ", interval=" + interval + ", lastRefreshed=" + lastRefreshed
-                    + ", maType=" + maType + ", nbdevdn=" + nbdevdn + ", nbdevup=" + nbdevup + ", seriesType="
-                    + seriesType + ", symbol=" + symbol + ", timePeriod=" + timePeriod + ", timeZone=" + timeZone + "}";
+            return "MetaData {indicator="
+                    + indicator
+                    + ", interval="
+                    + interval
+                    + ", lastRefreshed="
+                    + lastRefreshed
+                    + ", maType="
+                    + maType
+                    + ", nbdevdn="
+                    + nbdevdn
+                    + ", nbdevup="
+                    + nbdevup
+                    + ", seriesType="
+                    + seriesType
+                    + ", symbol="
+                    + symbol
+                    + ", timePeriod="
+                    + timePeriod
+                    + ", timeZone="
+                    + timeZone
+                    + "}";
         }
-
     }
-
 }

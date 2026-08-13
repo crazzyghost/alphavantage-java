@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.response;
 
+import com.crazzyghost.alphavantage.Response;
 import com.crazzyghost.alphavantage.parser.DefaultParser;
 
 import java.util.ArrayList;
@@ -30,16 +31,15 @@ import java.util.Map;
 
 /**
  * Base response for indicators driven by {@link
- * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest},
- * a rolling time period with no chosen price series — {@code WILLR},
- * {@code ADX}, {@code ADXR}, {@code CCI}, {@code AROONOSC}, {@code MFI},
- * {@code DX}, {@code MINUS_DI}, {@code PLUS_DI}, {@code MINUS_DM},
- * {@code PLUS_DM}, {@code MIDPRICE}, {@code ATR}, and {@code NATR}.
+ * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}, a rolling time period
+ * with no chosen price series — {@code WILLR}, {@code ADX}, {@code ADXR}, {@code CCI}, {@code
+ * AROONOSC}, {@code MFI}, {@code DX}, {@code MINUS_DI}, {@code PLUS_DI}, {@code MINUS_DM}, {@code
+ * PLUS_DM}, {@code MIDPRICE}, {@code ATR}, and {@code NATR}.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
  */
-public abstract class PeriodicResponse {
+public abstract class PeriodicResponse implements Response {
 
     /** The response's metadata, echoing the request's parameters. */
     protected MetaData metaData;
@@ -54,9 +54,10 @@ public abstract class PeriodicResponse {
      * Creates a successful response.
      *
      * @param indicatorUnits the parsed indicator values
-     * @param metaData       the parsed response metadata
+     * @param metaData the parsed response metadata
      */
-    protected PeriodicResponse(List<SimpleTechnicalIndicatorUnit> indicatorUnits, MetaData metaData) {
+    protected PeriodicResponse(
+            List<SimpleTechnicalIndicatorUnit> indicatorUnits, MetaData metaData) {
         this.metaData = metaData;
         this.indicatorUnits = indicatorUnits;
         this.errorMessage = null;
@@ -101,49 +102,48 @@ public abstract class PeriodicResponse {
     }
 
     /**
-     * Base parser for {@link PeriodicResponse} subclasses, translating the
-     * raw metadata and indicator maps returned by {@link
-     * com.crazzyghost.alphavantage.parser.Parser} into typed {@link MetaData}
-     * and {@link SimpleTechnicalIndicatorUnit} values.
+     * Base parser for {@link PeriodicResponse} subclasses, translating the raw metadata and
+     * indicator maps returned by {@link com.crazzyghost.alphavantage.parser.Parser} into typed
+     * {@link MetaData} and {@link SimpleTechnicalIndicatorUnit} values.
      *
      * @param <T> the concrete {@link PeriodicResponse} subtype this parser produces
      */
-    public static abstract class PeriodicParser<T> extends DefaultParser<T> {
+    public abstract static class PeriodicParser<T> extends DefaultParser<T> {
+
+        /** Creates a parser. */
+        public PeriodicParser() {}
 
         /**
-         * Creates a parser.
-         */
-        public PeriodicParser() {
-
-        }
-
-        /**
-         * Parses the API's raw metadata and per-date indicator maps into a
-         * successful response.
+         * Parses the API's raw metadata and per-date indicator maps into a successful response.
          *
-         * @param metaDataMap   the raw {@code "Meta Data"} entries
+         * @param metaDataMap the raw {@code "Meta Data"} entries
          * @param indicatorData the raw per-date indicator value entries
          * @return the parsed response
          */
         @Override
-        public T parse(Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
+        public T parse(
+                Map<String, String> metaDataMap, Map<String, Map<String, String>> indicatorData) {
 
-            MetaData metaData = new MetaData(
-                    String.valueOf(metaDataMap.get("1: Symbol")),
-                    String.valueOf(metaDataMap.get("2: Indicator")),
-                    String.valueOf(metaDataMap.get("3: Last Refreshed")),
-                    String.valueOf(metaDataMap.get("4: Interval")),
-                    (int) Double.parseDouble(String.valueOf(metaDataMap.get("5: Time Period"))),
-                    String.valueOf(metaDataMap.get("6: Time Zone")));
+            MetaData metaData =
+                    new MetaData(
+                            String.valueOf(metaDataMap.get("1: Symbol")),
+                            String.valueOf(metaDataMap.get("2: Indicator")),
+                            String.valueOf(metaDataMap.get("3: Last Refreshed")),
+                            String.valueOf(metaDataMap.get("4: Interval")),
+                            (int)
+                                    Double.parseDouble(
+                                            String.valueOf(metaDataMap.get("5: Time Period"))),
+                            String.valueOf(metaDataMap.get("6: Time Zone")));
 
             List<SimpleTechnicalIndicatorUnit> indicatorUnits = new ArrayList<>();
 
             for (Map.Entry<String, Map<String, String>> e : indicatorData.entrySet()) {
                 Map<String, String> m = e.getValue();
-                SimpleTechnicalIndicatorUnit indicatorUnit = new SimpleTechnicalIndicatorUnit(
-                        e.getKey(),
-                        Double.parseDouble(m.get(getTechnicalIndicatorKey())),
-                        getTechnicalIndicatorKey());
+                SimpleTechnicalIndicatorUnit indicatorUnit =
+                        new SimpleTechnicalIndicatorUnit(
+                                e.getKey(),
+                                Double.parseDouble(m.get(getTechnicalIndicatorKey())),
+                                getTechnicalIndicatorKey());
                 indicatorUnits.add(indicatorUnit);
             }
             return get(indicatorUnits, metaData);
@@ -164,7 +164,7 @@ public abstract class PeriodicResponse {
          * Builds a successful response.
          *
          * @param indicatorUnits the parsed indicator values
-         * @param metaData       the parsed response metadata
+         * @param metaData the parsed response metadata
          * @return the built response
          */
         public abstract T get(List<SimpleTechnicalIndicatorUnit> indicatorUnits, MetaData metaData);
@@ -178,8 +178,8 @@ public abstract class PeriodicResponse {
         public abstract T get(String error);
 
         /**
-         * Returns the JSON key under which this indicator's value is nested
-         * in the API's per-date response object.
+         * Returns the JSON key under which this indicator's value is nested in the API's per-date
+         * response object.
          *
          * @return the indicator's JSON key
          */
@@ -188,17 +188,21 @@ public abstract class PeriodicResponse {
 
     @Override
     public String toString() {
-        return metaData.indicator.replaceAll("\\s+", "") + "Response{" +
-                "metaData=" + metaData +
-                ",indicatorUnits=" + indicatorUnits.size() +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return metaData.indicator.replaceAll("\\s+", "")
+                + "Response{"
+                + "metaData="
+                + metaData
+                + ",indicatorUnits="
+                + indicatorUnits.size()
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 
     /**
-     * Metadata describing the request that produced a {@link
-     * PeriodicResponse}, echoed back by the API alongside the indicator
-     * values themselves.
+     * Metadata describing the request that produced a {@link PeriodicResponse}, echoed back by the
+     * API alongside the indicator values themselves.
      */
     public static class MetaData {
 
@@ -220,9 +224,7 @@ public abstract class PeriodicResponse {
         /** The time zone the response's timestamps are expressed in. */
         private String timeZone;
 
-        /**
-         * Creates an empty metadata instance, used for failed responses.
-         */
+        /** Creates an empty metadata instance, used for failed responses. */
         public MetaData() {
             this("", "", "", "", 0, "");
         }
@@ -230,12 +232,12 @@ public abstract class PeriodicResponse {
         /**
          * Creates a populated metadata instance.
          *
-         * @param symbol        the requested symbol
-         * @param indicator     the indicator's name, as reported by the API
+         * @param symbol the requested symbol
+         * @param indicator the indicator's name, as reported by the API
          * @param lastRefreshed the timestamp of the most recent data point
-         * @param interval      the requested time interval between data points
-         * @param timePeriod    the requested number of data points per indicator value
-         * @param timeZone      the time zone the response's timestamps are expressed in
+         * @param interval the requested time interval between data points
+         * @param timePeriod the requested number of data points per indicator value
+         * @param timeZone the time zone the response's timestamps are expressed in
          */
         public MetaData(
                 String symbol,
@@ -308,15 +310,19 @@ public abstract class PeriodicResponse {
 
         @Override
         public String toString() {
-            return "MetaData {indicator=" + indicator +
-                    ", interval=" + interval +
-                    ", lastRefreshed=" + lastRefreshed +
-                    ", symbol=" + symbol +
-                    ", timePeriod=" + timePeriod +
-                    ", timeZone=" + timeZone +
-                    "}";
+            return "MetaData {indicator="
+                    + indicator
+                    + ", interval="
+                    + interval
+                    + ", lastRefreshed="
+                    + lastRefreshed
+                    + ", symbol="
+                    + symbol
+                    + ", timePeriod="
+                    + timePeriod
+                    + ", timeZone="
+                    + timeZone
+                    + "}";
         }
-
     }
-
 }

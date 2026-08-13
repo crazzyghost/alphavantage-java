@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.fundamentaldata.response;
 
+import com.crazzyghost.alphavantage.Response;
 import com.crazzyghost.alphavantage.parser.Parser;
 
 import java.util.ArrayList;
@@ -29,13 +30,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The {@code INCOME_STATEMENT} endpoint's response: a company's annual and
- * quarterly income statements, or the error returned in their place.
+ * The {@code INCOME_STATEMENT} endpoint's response: a company's annual and quarterly income
+ * statements, or the error returned in their place.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.7.0
  */
-public class IncomeStatementResponse {
+public class IncomeStatementResponse implements Response {
 
     private final String symbol;
     private final List<IncomeStatement> annualReports;
@@ -49,7 +50,10 @@ public class IncomeStatementResponse {
         this.symbol = null;
     }
 
-    private IncomeStatementResponse(String symbol, List<IncomeStatement> annualReports, List<IncomeStatement> quarterlyReports) {
+    private IncomeStatementResponse(
+            String symbol,
+            List<IncomeStatement> annualReports,
+            List<IncomeStatement> quarterlyReports) {
         this.symbol = symbol;
         this.annualReports = annualReports;
         this.quarterlyReports = quarterlyReports;
@@ -57,10 +61,9 @@ public class IncomeStatementResponse {
     }
 
     /**
-     * Parses a raw {@code INCOME_STATEMENT} API response into an
-     * {@code IncomeStatementResponse}.
+     * Parses a raw {@code INCOME_STATEMENT} API response into an {@code IncomeStatementResponse}.
      *
-     * @param  objectMap the parsed JSON response body
+     * @param objectMap the parsed JSON response body
      * @return the parsed response, or an error response if parsing fails
      */
     public static IncomeStatementResponse of(Map<String, Object> objectMap) {
@@ -89,8 +92,7 @@ public class IncomeStatementResponse {
     /**
      * Returns the company's annual income statements, most recent first.
      *
-     * @return the annual income statement reports, or an empty list if the
-     *         request failed
+     * @return the annual income statement reports, or an empty list if the request failed
      */
     public List<IncomeStatement> getAnnualReports() {
         return annualReports;
@@ -99,14 +101,15 @@ public class IncomeStatementResponse {
     /**
      * Returns the company's quarterly income statements, most recent first.
      *
-     * @return the quarterly income statement reports, or an empty list if
-     *         the request failed
+     * @return the quarterly income statement reports, or an empty list if the request failed
      */
     public List<IncomeStatement> getQuarterlyReports() {
         return quarterlyReports;
     }
 
-    /** Parses a raw {@code INCOME_STATEMENT} API response into an {@link IncomeStatementResponse}. */
+    /**
+     * Parses a raw {@code INCOME_STATEMENT} API response into an {@link IncomeStatementResponse}.
+     */
     public static class IncomeStatementParser extends Parser<IncomeStatementResponse> {
 
         @Override
@@ -119,12 +122,15 @@ public class IncomeStatementResponse {
         public IncomeStatementResponse parse(Map<String, Object> object) {
             List<String> keys = new ArrayList<>(object.keySet());
             if (keys.isEmpty()) {
-                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+                return onParseError(
+                        "Empty JSON returned by the API, the symbol might not be supported.");
             }
             try {
-                String symbol = (String)object.get(keys.get(0));
-                List<IncomeStatement> annualReports = Parser.parseJSONList(object.get(keys.get(1)), IncomeStatement.class);
-                List<IncomeStatement> quarterlyReports = Parser.parseJSONList(object.get(keys.get(2)), IncomeStatement.class);
+                String symbol = (String) object.get(keys.get(0));
+                List<IncomeStatement> annualReports =
+                        Parser.parseJSONList(object.get(keys.get(1)), IncomeStatement.class);
+                List<IncomeStatement> quarterlyReports =
+                        Parser.parseJSONList(object.get(keys.get(2)), IncomeStatement.class);
                 return new IncomeStatementResponse(symbol, annualReports, quarterlyReports);
             } catch (ClassCastException | IndexOutOfBoundsException e) {
                 return onParseError(object.get(keys.get(0)).toString());
@@ -134,11 +140,17 @@ public class IncomeStatementResponse {
 
     @Override
     public String toString() {
-        return "IncomeStatementResponse{" +
-                "symbol='" + symbol + '\'' +
-                ", annualReports=" + annualReports +
-                ", quarterlyReports=" + quarterlyReports +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "IncomeStatementResponse{"
+                + "symbol='"
+                + symbol
+                + '\''
+                + ", annualReports="
+                + annualReports
+                + ", quarterlyReports="
+                + quarterlyReports
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 }

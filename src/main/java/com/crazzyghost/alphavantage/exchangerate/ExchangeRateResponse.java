@@ -22,11 +22,12 @@
  */
 package com.crazzyghost.alphavantage.exchangerate;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import com.crazzyghost.alphavantage.parser.Parser;
 
 /**
  * ExchangeRate Response
@@ -34,7 +35,7 @@ import com.crazzyghost.alphavantage.parser.Parser;
  * @author Sylvester Sefa-Yeboah
  * @since 1.0.0
  */
-public class ExchangeRateResponse {
+public class ExchangeRateResponse implements Response {
 
     private String fromCurrencyCode;
     private String fromCurrencyName;
@@ -48,16 +49,15 @@ public class ExchangeRateResponse {
     private final String errorMessage;
 
     private ExchangeRateResponse(
-        String fromCurrencyCode,
-        String fromCurrencyName,
-        String toCurrencyCode,
-        String toCurrencyName,
-        Double exchangeRate,
-        String lastRefreshed,
-        String timeZone,
-        Double bidPrice,
-        Double askPrice
-    ) {
+            String fromCurrencyCode,
+            String fromCurrencyName,
+            String toCurrencyCode,
+            String toCurrencyName,
+            Double exchangeRate,
+            String lastRefreshed,
+            String timeZone,
+            Double bidPrice,
+            Double askPrice) {
         this.fromCurrencyCode = fromCurrencyCode;
         this.fromCurrencyName = fromCurrencyName;
         this.toCurrencyCode = toCurrencyCode;
@@ -70,7 +70,7 @@ public class ExchangeRateResponse {
         this.errorMessage = null;
     }
 
-    private ExchangeRateResponse(String errorMessage){
+    private ExchangeRateResponse(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
@@ -78,8 +78,7 @@ public class ExchangeRateResponse {
      * Parses a decoded {@code CURRENCY_EXCHANGE_RATE} payload into a response.
      *
      * @param stringObjectMap the response body, already decoded from JSON into a map
-     * @return the parsed quote, or one carrying an error message if the payload
-     *         could not be read
+     * @return the parsed quote, or one carrying an error message if the payload could not be read
      */
     public static ExchangeRateResponse of(Map<String, Object> stringObjectMap) {
         Parser<ExchangeRateResponse> parser = new ExchangeRateParser();
@@ -87,13 +86,12 @@ public class ExchangeRateResponse {
     }
 
     /**
-     * Turns a decoded {@code CURRENCY_EXCHANGE_RATE} payload into an
-     * {@link ExchangeRateResponse}.
-     * <p>
-     * The quote sits under the payload's single top-level key, which the parser
-     * reaches for by position rather than by name. An error payload carries a plain
-     * message string at that position instead of a nested object, so the failed cast
-     * is itself the signal to read the value as an error message.
+     * Turns a decoded {@code CURRENCY_EXCHANGE_RATE} payload into an {@link ExchangeRateResponse}.
+     *
+     * <p>The quote sits under the payload's single top-level key, which the parser reaches for by
+     * position rather than by name. An error payload carries a plain message string at that
+     * position instead of a nested object, so the failed cast is itself the signal to read the
+     * value as an error message.
      */
     public static class ExchangeRateParser extends Parser<ExchangeRateResponse> {
 
@@ -101,15 +99,16 @@ public class ExchangeRateResponse {
          * Reads the quote fields into a response.
          *
          * @param stringObjectMap the response body, already decoded from JSON into a map
-         * @return a response holding the parsed quote, or one holding an error message
-         *         if the payload was empty or carried a message in place of a quote
+         * @return a response holding the parsed quote, or one holding an error message if the
+         *     payload was empty or carried a message in place of a quote
          */
         @SuppressWarnings("unchecked")
         @Override
         public ExchangeRateResponse parse(Map<String, Object> stringObjectMap) {
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
             if (keys.isEmpty()) {
-                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+                return onParseError(
+                        "Empty JSON returned by the API, the symbol might not be supported.");
             } else {
 
                 Map<String, String> data;
@@ -119,8 +118,14 @@ public class ExchangeRateResponse {
                     return onParseError((String) stringObjectMap.get(keys.get(0)));
                 }
 
-                Double bidPrice = data.get("8. Bid Price").equals("-") ? null : Double.parseDouble(data.get("8. Bid Price"));
-                Double askPrice = data.get("9. Ask Price").equals("-") ? null : Double.parseDouble(data.get("9. Ask Price"));
+                Double bidPrice =
+                        data.get("8. Bid Price").equals("-")
+                                ? null
+                                : Double.parseDouble(data.get("8. Bid Price"));
+                Double askPrice =
+                        data.get("9. Ask Price").equals("-")
+                                ? null
+                                : Double.parseDouble(data.get("9. Ask Price"));
 
                 return new ExchangeRateResponse(
                         data.get("1. From_Currency Code"),
@@ -131,8 +136,7 @@ public class ExchangeRateResponse {
                         data.get("6. Last Refreshed"),
                         data.get("7. Time Zone"),
                         bidPrice,
-                        askPrice
-                );
+                        askPrice);
             }
         }
 
@@ -158,9 +162,9 @@ public class ExchangeRateResponse {
     }
 
     /**
-     * Returns the ask price, the rate at which the market sells the quote currency.
-     * Alpha Vantage reports this only for pairs it has an order book for; where it
-     * sends a placeholder instead, the value parses to {@code null}.
+     * Returns the ask price, the rate at which the market sells the quote currency. Alpha Vantage
+     * reports this only for pairs it has an order book for; where it sends a placeholder instead,
+     * the value parses to {@code null}.
      *
      * @return the ask price, or {@code null} if the API did not quote one
      */
@@ -169,9 +173,9 @@ public class ExchangeRateResponse {
     }
 
     /**
-     * Returns the bid price, the rate at which the market buys the quote currency.
-     * Alpha Vantage reports this only for pairs it has an order book for; where it
-     * sends a placeholder instead, the value parses to {@code null}.
+     * Returns the bid price, the rate at which the market buys the quote currency. Alpha Vantage
+     * reports this only for pairs it has an order book for; where it sends a placeholder instead,
+     * the value parses to {@code null}.
      *
      * @return the bid price, or {@code null} if the API did not quote one
      */
@@ -180,9 +184,8 @@ public class ExchangeRateResponse {
     }
 
     /**
-     * Returns the code of the base currency, the one being converted from, for
-     * example {@code "USD"}. This is the currency the caller passed to
-     * {@link ExchangeRate#fromCurrency(String)}.
+     * Returns the code of the base currency, the one being converted from, for example {@code
+     * "USD"}. This is the currency the caller passed to {@link ExchangeRate#fromCurrency(String)}.
      *
      * @return the base currency's code
      */
@@ -191,10 +194,10 @@ public class ExchangeRateResponse {
     }
 
     /**
-     * Returns the exchange rate between the two currencies: how many units of the
-     * quote currency one unit of the base currency buys. The API sends the rate at
-     * full precision, so a rate against a currency with a small unit value can carry
-     * several more decimal places than the two a price is usually displayed with.
+     * Returns the exchange rate between the two currencies: how many units of the quote currency
+     * one unit of the base currency buys. The API sends the rate at full precision, so a rate
+     * against a currency with a small unit value can carry several more decimal places than the two
+     * a price is usually displayed with.
      *
      * @return the rate, in units of the quote currency per unit of the base currency
      */
@@ -203,8 +206,7 @@ public class ExchangeRateResponse {
     }
 
     /**
-     * Returns the full name of the base currency, for example {@code "United States
-     * Dollar"}.
+     * Returns the full name of the base currency, for example {@code "United States Dollar"}.
      *
      * @return the base currency's name
      */
@@ -213,9 +215,8 @@ public class ExchangeRateResponse {
     }
 
     /**
-     * Returns the code of the quote currency, the one being converted to, for
-     * example {@code "EUR"}. This is the currency the caller passed to
-     * {@link ExchangeRate#toCurrency(String)}.
+     * Returns the code of the quote currency, the one being converted to, for example {@code
+     * "EUR"}. This is the currency the caller passed to {@link ExchangeRate#toCurrency(String)}.
      *
      * @return the quote currency's code
      */
@@ -233,9 +234,8 @@ public class ExchangeRateResponse {
     }
 
     /**
-     * Returns the timestamp the rate was last refreshed at, formatted as
-     * {@code "yyyy-MM-dd HH:mm:ss"} and expressed in the zone reported by
-     * {@link #getTimeZone()}.
+     * Returns the timestamp the rate was last refreshed at, formatted as {@code "yyyy-MM-dd
+     * HH:mm:ss"} and expressed in the zone reported by {@link #getTimeZone()}.
      *
      * @return the time the rate was last refreshed
      */
@@ -244,8 +244,7 @@ public class ExchangeRateResponse {
     }
 
     /**
-     * Returns the time zone {@link #getLastRefreshed()} is expressed in, for example
-     * {@code "UTC"}.
+     * Returns the time zone {@link #getLastRefreshed()} is expressed in, for example {@code "UTC"}.
      *
      * @return the time zone of the refresh timestamp
      */
@@ -255,17 +254,36 @@ public class ExchangeRateResponse {
 
     @Override
     public String toString() {
-        return "ExchangeRateResponse{" +
-            "fromCurrencyCode='" + fromCurrencyCode + '\'' +
-            ", fromCurrencyName='" + fromCurrencyName + '\'' +
-            ", toCurrencyCode='" + toCurrencyCode + '\'' +
-            ", toCurrencyName='" + toCurrencyName + '\'' +
-            ", exchangeRate=" + exchangeRate +
-            ", lastRefreshed='" + lastRefreshed + '\'' +
-            ", timeZone='" + timeZone + '\'' +
-            ", bidPrice='" + bidPrice + '\'' +
-            ", askPrice='" + askPrice+ '\'' +
-            ", errorMessage='" + errorMessage + '\'' +
-        '}';
+        return "ExchangeRateResponse{"
+                + "fromCurrencyCode='"
+                + fromCurrencyCode
+                + '\''
+                + ", fromCurrencyName='"
+                + fromCurrencyName
+                + '\''
+                + ", toCurrencyCode='"
+                + toCurrencyCode
+                + '\''
+                + ", toCurrencyName='"
+                + toCurrencyName
+                + '\''
+                + ", exchangeRate="
+                + exchangeRate
+                + ", lastRefreshed='"
+                + lastRefreshed
+                + '\''
+                + ", timeZone='"
+                + timeZone
+                + '\''
+                + ", bidPrice='"
+                + bidPrice
+                + '\''
+                + ", askPrice='"
+                + askPrice
+                + '\''
+                + ", errorMessage='"
+                + errorMessage
+                + '\''
+                + '}';
     }
 }

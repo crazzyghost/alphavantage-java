@@ -25,9 +25,9 @@ package com.crazzyghost.alphavantage.technicalindicator;
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.Fetcher;
-import com.crazzyghost.alphavantage.UrlExtractor;
+import com.crazzyghost.alphavantage.RequestExecutor;
+import com.crazzyghost.alphavantage.ResponseDispatcher;
 import com.crazzyghost.alphavantage.parameters.*;
-import com.crazzyghost.alphavantage.parser.Parser;
 import com.crazzyghost.alphavantage.technicalindicator.request.*;
 import com.crazzyghost.alphavantage.technicalindicator.response.*;
 import com.crazzyghost.alphavantage.technicalindicator.response.ad.ADResponse;
@@ -83,23 +83,17 @@ import com.crazzyghost.alphavantage.technicalindicator.response.ultosc.ULTOSCRes
 import com.crazzyghost.alphavantage.technicalindicator.response.vwap.VWAPResponse;
 import com.crazzyghost.alphavantage.technicalindicator.response.willr.WILLRResponse;
 import com.crazzyghost.alphavantage.technicalindicator.response.wma.WMAResponse;
-import okhttp3.Call;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
-import java.io.IOException;
 import java.util.Map;
-import java.util.Objects;
 
 /**
- * Access to the technical indicator endpoints — moving averages, oscillators,
- * momentum, volatility, cycle and Hilbert transform studies — each exposed as a
- * request proxy that is built up fluently and then fetched.
- * <p>
- * This facade supersedes the older
- * {@link com.crazzyghost.alphavantage.indicator.Indicator}, whose accessor
- * {@code AlphaVantage.indicator()} is deprecated in favour of
- * {@code AlphaVantage.technicalIndicator()}.
+ * Access to the technical indicator endpoints — moving averages, oscillators, momentum, volatility,
+ * cycle and Hilbert transform studies — each exposed as a request proxy that is built up fluently
+ * and then fetched.
+ *
+ * <p>This facade supersedes the older {@link com.crazzyghost.alphavantage.indicator.Indicator},
+ * whose accessor {@code AlphaVantage.indicator()} is deprecated in favour of {@code
+ * AlphaVantage.technicalIndicator()}.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.1.0
@@ -116,64 +110,35 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Fetches technical indicator data asynchronously, dispatching the parsed
-     * response to the callback registered on the request proxy.
+     * Fetches technical indicator data asynchronously, dispatching the parsed response to the
+     * callback registered on the request proxy.
      */
     @Override
     public void fetch() {
-
-        Config.checkNotNullOrKeyEmpty(config);
-
-        config.getOkHttpClient().newCall(UrlExtractor.extract(builder.build(), config.getKey()))
-                .enqueue(new okhttp3.Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        if (failureCallback != null)
-                            failureCallback.onFailure(new AlphaVantageException());
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        if (!response.isSuccessful()) {
-                            if (failureCallback != null)
-                                failureCallback.onFailure(new AlphaVantageException());
-                        } else {
-                            try (ResponseBody body = response.body()) {
-                                parseTechnicalIndicatorResponse(Parser.parseJSON(body.string()));
-                            }
-                        }
-                    }
-                });
+        RequestExecutor.fetchAsync(
+                config, builder.build(), this::parseTechnicalIndicatorResponse, failureCallback);
     }
 
     /**
-     * Makes a blocking synchronous http request to fetch the data.
-     * This is called by {@link SimpleTechnicalIndicatorRequestProxy#fetchSync()}.
-     * <p>
-     * On Android this will throw {@code NetworkOnMainThreadException}. In that case
-     * the call should be made on another thread.
-     * <p>
-     * Using this method will overwrite any async callback.
+     * Makes a blocking synchronous http request to fetch the data. This is called by {@link
+     * SimpleTechnicalIndicatorRequestProxy#fetchSync()}.
      *
-     * @param successCallback internally used {@link SuccessCallback} that receives the parsed response
+     * <p>On Android this will throw {@code NetworkOnMainThreadException}. In that case the call
+     * should be made on another thread.
+     *
+     * <p>Using this method will overwrite any async callback.
+     *
+     * @param successCallback internally used {@link SuccessCallback} that receives the parsed
+     *     response
      * @throws AlphaVantageException if the request fails or the response cannot be read
      * @since 1.4.1
      */
     private void fetchSync(SuccessCallback<?> successCallback) throws AlphaVantageException {
-
-        Config.checkNotNullOrKeyEmpty(config);
-
         this.successCallback = successCallback;
         this.failureCallback = null;
-        okhttp3.OkHttpClient client = config.getOkHttpClient();
-        try (Response response = client.newCall(UrlExtractor.extract(builder.build(), config.getKey())).execute()) {
-            parseTechnicalIndicatorResponse(Parser.parseJSON(response.body().string()));
-        } catch (IOException e) {
-            throw new AlphaVantageException(e.getMessage());
-        }
+        parseTechnicalIndicatorResponse(RequestExecutor.fetchSync(config, builder.build()));
     }
 
-    @SuppressWarnings("unchecked")
     private void parsePeriodicSeriesResponse(Map<String, Object> data) {
         PeriodicSeriesResponse response = null;
         switch (builder.function) {
@@ -225,28 +190,13 @@ public final class TechnicalIndicator implements Fetcher {
                 break;
         }
 
-        if (Objects.nonNull(response) && Objects.nonNull(response.getErrorMessage())) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((SuccessCallback<PeriodicSeriesResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(response, successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseMAMAResponse(Map<String, Object> data) {
-        MAMAResponse response = MAMAResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<MAMAResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(MAMAResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseSimpleTechnicalIndicatorResponse(Map<String, Object> data) {
 
         SimpleTechnicalIndicatorResponse response = null;
@@ -269,76 +219,29 @@ public final class TechnicalIndicator implements Fetcher {
                 break;
         }
 
-        if (Objects.nonNull(response) && Objects.nonNull(response.getErrorMessage())) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((SuccessCallback<SimpleTechnicalIndicatorResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(response, successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseMACDResponse(Map<String, Object> data) {
-        MACDResponse response = MACDResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<MACDResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(MACDResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseMACDEXTResponse(Map<String, Object> data) {
-        MACDEXTResponse response = MACDEXTResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<MACDEXTResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(MACDEXTResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseSTOCHResponse(Map<String, Object> data) {
-        STOCHResponse response = STOCHResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<STOCHResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(STOCHResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseSTOCHFResponse(Map<String, Object> data) {
-        STOCHFResponse response = STOCHFResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<STOCHFResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(STOCHFResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseSTOCHRSIResponse(Map<String, Object> data) {
-        STOCHRSIResponse response = STOCHRSIResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<STOCHRSIResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(STOCHRSIResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parsePriceOscillatorResponse(Map<String, Object> data) {
         PriceOscillatorResponse response = null;
         switch (builder.function) {
@@ -350,16 +253,9 @@ public final class TechnicalIndicator implements Fetcher {
             default:
                 break;
         }
-        if (Objects.nonNull(response) && Objects.nonNull(response.getErrorMessage())) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<PriceOscillatorResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(response, successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parsePeriodicResponse(Map<String, Object> data) {
         PeriodicResponse response = null;
         switch (builder.function) {
@@ -407,76 +303,29 @@ public final class TechnicalIndicator implements Fetcher {
             default:
                 break;
         }
-        if (Objects.nonNull(response) && Objects.nonNull(response.getErrorMessage())) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<PeriodicResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(response, successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseAROONResponse(Map<String, Object> data) {
-        AROONResponse response = AROONResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<AROONResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(AROONResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseULTOSCResponse(Map<String, Object> data) {
-        ULTOSCResponse response = ULTOSCResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<ULTOSCResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(ULTOSCResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseBBANDSResponse(Map<String, Object> data) {
-        BBANDSResponse response = BBANDSResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<BBANDSResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(BBANDSResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseSARResponse(Map<String, Object> data) {
-        SARResponse response = SARResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<SARResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(SARResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseADOSCResponse(Map<String, Object> data) {
-        ADOSCResponse response = ADOSCResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<ADOSCResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(ADOSCResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseSeriesResponse(Map<String, Object> data) {
         SeriesResponse response = null;
         switch (builder.function) {
@@ -494,37 +343,15 @@ public final class TechnicalIndicator implements Fetcher {
             default:
                 break;
         }
-        if (Objects.nonNull(response) && Objects.nonNull(response.getErrorMessage())) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((SuccessCallback<SeriesResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(response, successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseHTSINEResponse(Map<String, Object> data) {
-        HTSINEResponse response = HTSINEResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<HTSINEResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(HTSINEResponse.of(data), successCallback, failureCallback);
     }
 
-    @SuppressWarnings("unchecked")
     private void parseHTPHASORResponse(Map<String, Object> data) {
-        HTPHASORResponse response = HTPHASORResponse.of(data);
-        if (response.getErrorMessage() != null) {
-            if (failureCallback != null)
-                failureCallback.onFailure(new AlphaVantageException(response.getErrorMessage()));
-        }
-        if (successCallback != null) {
-            ((Fetcher.SuccessCallback<HTPHASORResponse>) successCallback).onSuccess(response);
-        }
+        ResponseDispatcher.dispatch(HTPHASORResponse.of(data), successCallback, failureCallback);
     }
 
     private void parseTechnicalIndicatorResponse(Map<String, Object> data) {
@@ -622,13 +449,12 @@ public final class TechnicalIndicator implements Fetcher {
             default:
                 break;
         }
-
     }
 
     /**
      * Exposes the simple moving average ({@code SMA}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code SMA}
      */
@@ -638,8 +464,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the exponential moving average ({@code EMA}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code EMA}
      */
@@ -649,8 +475,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the weighted moving average ({@code WMA}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code WMA}
      */
@@ -659,9 +485,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the double exponential moving average ({@code DEMA}). See
-     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * Exposes the double exponential moving average ({@code DEMA}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code DEMA}
      */
@@ -670,9 +496,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the triple exponential moving average ({@code TEMA}). See
-     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * Exposes the triple exponential moving average ({@code TEMA}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code TEMA}
      */
@@ -682,8 +508,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the triangular moving average ({@code TRIMA}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code TRIMA}
      */
@@ -692,9 +518,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the Kaufman adaptive moving average ({@code KAMA}). See
-     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * Exposes the Kaufman adaptive moving average ({@code KAMA}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code KAMA}
      */
@@ -704,8 +530,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the MESA adaptive moving average ({@code MAMA}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.MAMARequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.MAMARequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code MAMA}
      */
@@ -714,9 +540,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes T3, Tillson's triple exponential moving average ({@code T3}).
-     * See {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * Exposes T3, Tillson's triple exponential moving average ({@code T3}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code T3}
      */
@@ -726,8 +552,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the volume weighted average price ({@code VWAP}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest} for
+     * the parameter contract.
      *
      * @return a request proxy for {@code VWAP}
      */
@@ -736,9 +562,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes moving average convergence / divergence ({@code MACD}). See
-     * {@link com.crazzyghost.alphavantage.technicalindicator.request.MACDRequest}
-     * for the parameter contract.
+     * Exposes moving average convergence / divergence ({@code MACD}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.MACDRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code MACD}
      */
@@ -747,9 +573,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes MACD with controllable moving-average type ({@code MACDEXT}).
-     * See {@link com.crazzyghost.alphavantage.technicalindicator.request.MACDEXTRequest}
-     * for the parameter contract.
+     * Exposes MACD with controllable moving-average type ({@code MACDEXT}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.MACDEXTRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code MACDEXT}
      */
@@ -759,8 +585,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the stochastic oscillator ({@code STOCH}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.STOCHRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.STOCHRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code STOCH}
      */
@@ -770,8 +596,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the stochastic fast oscillator ({@code STOCHF}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.STOCHFRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.STOCHFRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code STOCHF}
      */
@@ -781,8 +607,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the relative strength index ({@code RSI}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code RSI}
      */
@@ -791,9 +617,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the stochastic relative strength index ({@code STOCHRSI}).
-     * See {@link com.crazzyghost.alphavantage.technicalindicator.request.STOCHRSIRequest}
-     * for the parameter contract.
+     * Exposes the stochastic relative strength index ({@code STOCHRSI}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.STOCHRSIRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code STOCHRSI}
      */
@@ -803,8 +629,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes Williams' %R ({@code WILLR}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code WILLR}
      */
@@ -813,9 +639,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the average directional movement index ({@code ADX}). See
-     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * Exposes the average directional movement index ({@code ADX}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code ADX}
      */
@@ -824,9 +650,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the average directional movement index rating ({@code ADXR}).
-     * See {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * Exposes the average directional movement index rating ({@code ADXR}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code ADXR}
      */
@@ -836,8 +662,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the absolute price oscillator ({@code APO}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PriceOscillatorRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PriceOscillatorRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code APO}
      */
@@ -847,8 +673,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the percentage price oscillator ({@code PPO}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PriceOscillatorRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PriceOscillatorRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code PPO}
      */
@@ -858,8 +684,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes momentum ({@code MOM}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code MOM}
      */
@@ -869,8 +695,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the balance of power ({@code BOP}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest} for
+     * the parameter contract.
      *
      * @return a request proxy for {@code BOP}
      */
@@ -880,8 +706,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the commodity channel index ({@code CCI}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code CCI}
      */
@@ -891,8 +717,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the Chande momentum oscillator ({@code CMO}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code CMO}
      */
@@ -902,8 +728,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the rate of change ({@code ROC}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code ROC}
      */
@@ -913,8 +739,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the rate of change ratio ({@code ROCR}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code ROCR}
      */
@@ -924,8 +750,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the Aroon indicator ({@code AROON}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code AROON}
      */
@@ -935,8 +761,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the Aroon oscillator ({@code AROONOSC}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code AROONOSC}
      */
@@ -946,8 +772,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the money flow index ({@code MFI}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code MFI}
      */
@@ -956,10 +782,10 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the 1-day rate of change of a triple exponentially smoothed
-     * moving average ({@code TRIX}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * Exposes the 1-day rate of change of a triple exponentially smoothed moving average ({@code
+     * TRIX}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code TRIX}
      */
@@ -969,8 +795,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the ultimate oscillator ({@code ULTOSC}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.ULTOSCRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.ULTOSCRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code ULTOSC}
      */
@@ -980,8 +806,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the directional movement index ({@code DX}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code DX}
      */
@@ -990,9 +816,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the minus directional indicator ({@code MINUS_DI}). See
-     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * Exposes the minus directional indicator ({@code MINUS_DI}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code MINUS_DI}
      */
@@ -1002,8 +828,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the plus directional indicator ({@code PLUS_DI}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code PLUS_DI}
      */
@@ -1012,9 +838,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the minus directional movement ({@code MINUS_DM}). See
-     * {@link com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * Exposes the minus directional movement ({@code MINUS_DM}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code MINUS_DM}
      */
@@ -1024,8 +850,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the plus directional movement ({@code PLUS_DM}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code PLUS_DM}
      */
@@ -1035,8 +861,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes Bollinger Bands ({@code BBANDS}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.BBANDSRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.BBANDSRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code BBANDS}
      */
@@ -1046,8 +872,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the midpoint ({@code MIDPOINT}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicSeriesRequest} for the
+     * parameter contract.
      *
      * @return a request proxy for {@code MIDPOINT}
      */
@@ -1057,8 +883,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the midprice ({@code MIDPRICE}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code MIDPRICE}
      */
@@ -1068,8 +894,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the parabolic SAR ({@code SAR}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.SARRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.SARRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code SAR}
      */
@@ -1079,8 +905,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the true range ({@code TRANGE}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest} for
+     * the parameter contract.
      *
      * @return a request proxy for {@code TRANGE}
      */
@@ -1090,8 +916,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the average true range ({@code ATR}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code ATR}
      */
@@ -1101,8 +927,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the normalized average true range ({@code NATR}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.PeriodicRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code NATR}
      */
@@ -1112,8 +938,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the Chaikin A/D line ({@code AD}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest} for
+     * the parameter contract.
      *
      * @return a request proxy for {@code AD}
      */
@@ -1123,8 +949,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes the Chaikin A/D oscillator ({@code ADOSC}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.ADOSCRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.ADOSCRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code ADOSC}
      */
@@ -1134,8 +960,8 @@ public final class TechnicalIndicator implements Fetcher {
 
     /**
      * Exposes on balance volume ({@code OBV}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest}
-     * for the parameter contract.
+     * com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest} for
+     * the parameter contract.
      *
      * @return a request proxy for {@code OBV}
      */
@@ -1144,10 +970,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the Hilbert transform instantaneous trendline
-     * ({@code HT_TRENDLINE}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
-     * for the parameter contract.
+     * Exposes the Hilbert transform instantaneous trendline ({@code HT_TRENDLINE}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code HT_TRENDLINE}
      */
@@ -1156,9 +981,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the Hilbert transform sine wave ({@code HT_SINE}). See
-     * {@link com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
-     * for the parameter contract.
+     * Exposes the Hilbert transform sine wave ({@code HT_SINE}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code HT_SINE}
      */
@@ -1167,10 +992,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the Hilbert transform trend vs cycle mode
-     * ({@code HT_TRENDMODE}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
-     * for the parameter contract.
+     * Exposes the Hilbert transform trend vs cycle mode ({@code HT_TRENDMODE}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code HT_TRENDMODE}
      */
@@ -1179,10 +1003,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the Hilbert transform dominant cycle phase
-     * ({@code HT_DCPHASE}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
-     * for the parameter contract.
+     * Exposes the Hilbert transform dominant cycle phase ({@code HT_DCPHASE}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code HT_DCPHASE}
      */
@@ -1191,10 +1014,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the Hilbert transform dominant cycle period
-     * ({@code HT_DCPERIOD}). See {@link
-     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
-     * for the parameter contract.
+     * Exposes the Hilbert transform dominant cycle period ({@code HT_DCPERIOD}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code HT_DCPERIOD}
      */
@@ -1203,9 +1025,9 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * Exposes the Hilbert transform phasor components ({@code HT_PHASOR}).
-     * See {@link com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest}
-     * for the parameter contract.
+     * Exposes the Hilbert transform phasor components ({@code HT_PHASOR}). See {@link
+     * com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest} for the parameter
+     * contract.
      *
      * @return a request proxy for {@code HT_PHASOR}
      */
@@ -1214,21 +1036,20 @@ public final class TechnicalIndicator implements Fetcher {
     }
 
     /**
-     * A base proxy for building requests. Adds the functionality of adding
-     * callbacks and a terminal method for fetching data.
+     * A base proxy for building requests. Adds the functionality of adding callbacks and a terminal
+     * method for fetching data.
      *
      * @param <T> a concrete {@link SimpleTechnicalIndicatorRequestProxy} implementation
      * @param <U> the response type that implementation's terminal fetch returns
      */
     @SuppressWarnings("unchecked")
-    public class SimpleTechnicalIndicatorRequestProxy<T extends SimpleTechnicalIndicatorRequestProxy<?, U>, U> {
+    public class SimpleTechnicalIndicatorRequestProxy<
+            T extends SimpleTechnicalIndicatorRequestProxy<?, U>, U> {
 
         protected TechnicalIndicatorRequest.Builder<?> builder;
         protected U syncResponse;
 
-        public SimpleTechnicalIndicatorRequestProxy() {
-
-        }
+        public SimpleTechnicalIndicatorRequestProxy() {}
 
         public SimpleTechnicalIndicatorRequestProxy(Function function) {
             builder = new SimpleTechnicalIndicatorRequest.Builder();
@@ -1251,8 +1072,8 @@ public final class TechnicalIndicator implements Fetcher {
         }
 
         /**
-         * Sets the historical intraday window to request, in {@code YYYY-MM}
-         * form. Only meaningful for intraday {@link Interval} values.
+         * Sets the historical intraday window to request, in {@code YYYY-MM} form. Only meaningful
+         * for intraday {@link Interval} values.
          *
          * @param month the historical window, in {@code YYYY-MM} form
          * @return this proxy
@@ -1287,10 +1108,10 @@ public final class TechnicalIndicator implements Fetcher {
         }
 
         /**
-         * Sets the right builder and makes a synchronous request using
-         * {@link TechnicalIndicator#fetch()}.
-         * <p>
-         * When calling this method, any async callbacks will be overwritten.
+         * Sets the right builder and makes a synchronous request using {@link
+         * TechnicalIndicator#fetch()}.
+         *
+         * <p>When calling this method, any async callbacks will be overwritten.
          *
          * @return the api response
          * @throws AlphaVantageException if the request fails or the response cannot be read
@@ -1301,7 +1122,6 @@ public final class TechnicalIndicator implements Fetcher {
             TechnicalIndicator.this.fetchSync(callback);
             return this.syncResponse;
         }
-
     }
 
     public class PeriodicSeriesRequestProxy<T>
@@ -1323,7 +1143,8 @@ public final class TechnicalIndicator implements Fetcher {
         }
     }
 
-    public class PeriodicRequestProxy<T> extends SimpleTechnicalIndicatorRequestProxy<PeriodicRequestProxy<T>, T> {
+    public class PeriodicRequestProxy<T>
+            extends SimpleTechnicalIndicatorRequestProxy<PeriodicRequestProxy<T>, T> {
 
         public PeriodicRequestProxy(Function function) {
             builder = new PeriodicRequest.Builder();
@@ -1336,7 +1157,8 @@ public final class TechnicalIndicator implements Fetcher {
         }
     }
 
-    public class SeriesRequestProxy<T> extends SimpleTechnicalIndicatorRequestProxy<SeriesRequestProxy<T>, T> {
+    public class SeriesRequestProxy<T>
+            extends SimpleTechnicalIndicatorRequestProxy<SeriesRequestProxy<T>, T> {
 
         public SeriesRequestProxy(Function function) {
             builder = new SeriesRequest.Builder();
@@ -1349,7 +1171,8 @@ public final class TechnicalIndicator implements Fetcher {
         }
     }
 
-    public class MAMARequestProxy extends SimpleTechnicalIndicatorRequestProxy<MAMARequestProxy, MAMAResponse> {
+    public class MAMARequestProxy
+            extends SimpleTechnicalIndicatorRequestProxy<MAMARequestProxy, MAMAResponse> {
 
         public MAMARequestProxy() {
             builder = new MAMARequest.Builder();
@@ -1371,7 +1194,8 @@ public final class TechnicalIndicator implements Fetcher {
         }
     }
 
-    public class MACDRequestProxy extends SimpleTechnicalIndicatorRequestProxy<MACDRequestProxy, MACDResponse> {
+    public class MACDRequestProxy
+            extends SimpleTechnicalIndicatorRequestProxy<MACDRequestProxy, MACDResponse> {
 
         public MACDRequestProxy() {
             builder = new MACDRequest.Builder();
@@ -1441,7 +1265,8 @@ public final class TechnicalIndicator implements Fetcher {
         }
     }
 
-    public class STOCHRequestProxy extends SimpleTechnicalIndicatorRequestProxy<STOCHRequestProxy, STOCHResponse> {
+    public class STOCHRequestProxy
+            extends SimpleTechnicalIndicatorRequestProxy<STOCHRequestProxy, STOCHResponse> {
 
         public STOCHRequestProxy() {
             builder = new STOCHRequest.Builder();
@@ -1473,7 +1298,8 @@ public final class TechnicalIndicator implements Fetcher {
         }
     }
 
-    public class STOCHFRequestProxy extends SimpleTechnicalIndicatorRequestProxy<STOCHFRequestProxy, STOCHFResponse> {
+    public class STOCHFRequestProxy
+            extends SimpleTechnicalIndicatorRequestProxy<STOCHFRequestProxy, STOCHFResponse> {
 
         public STOCHFRequestProxy() {
             builder = new STOCHFRequest.Builder();
@@ -1557,7 +1383,8 @@ public final class TechnicalIndicator implements Fetcher {
         }
     }
 
-    public class ULTOSCRequestProxy extends SimpleTechnicalIndicatorRequestProxy<ULTOSCRequestProxy, ULTOSCResponse> {
+    public class ULTOSCRequestProxy
+            extends SimpleTechnicalIndicatorRequestProxy<ULTOSCRequestProxy, ULTOSCResponse> {
 
         public ULTOSCRequestProxy() {
             builder = new ULTOSCRequest.Builder();
@@ -1579,7 +1406,8 @@ public final class TechnicalIndicator implements Fetcher {
         }
     }
 
-    public class BBANDSRequestProxy extends SimpleTechnicalIndicatorRequestProxy<BBANDSRequestProxy, BBANDSResponse> {
+    public class BBANDSRequestProxy
+            extends SimpleTechnicalIndicatorRequestProxy<BBANDSRequestProxy, BBANDSResponse> {
 
         public BBANDSRequestProxy() {
             builder = new BBANDSRequest.Builder();
@@ -1611,7 +1439,8 @@ public final class TechnicalIndicator implements Fetcher {
         }
     }
 
-    public class SARRequestProxy extends SimpleTechnicalIndicatorRequestProxy<SARRequestProxy, SARResponse> {
+    public class SARRequestProxy
+            extends SimpleTechnicalIndicatorRequestProxy<SARRequestProxy, SARResponse> {
 
         public SARRequestProxy() {
             builder = new SARRequest.Builder();
@@ -1626,10 +1455,10 @@ public final class TechnicalIndicator implements Fetcher {
             builder = ((SARRequest.Builder) builder).maximum(maximum);
             return this;
         }
-
     }
 
-    public class ADOSCRequestProxy extends SimpleTechnicalIndicatorRequestProxy<ADOSCRequestProxy, ADOSCResponse> {
+    public class ADOSCRequestProxy
+            extends SimpleTechnicalIndicatorRequestProxy<ADOSCRequestProxy, ADOSCResponse> {
 
         public ADOSCRequestProxy() {
             builder = new ADOSCRequest.Builder();
@@ -1644,7 +1473,5 @@ public final class TechnicalIndicator implements Fetcher {
             builder = ((ADOSCRequest.Builder) builder).slowPeriod(period);
             return this;
         }
-
     }
-
 }

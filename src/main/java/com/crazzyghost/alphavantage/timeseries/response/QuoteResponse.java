@@ -22,34 +22,32 @@
  */
 package com.crazzyghost.alphavantage.timeseries.response;
 
+import com.crazzyghost.alphavantage.Response;
+import com.crazzyghost.alphavantage.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.crazzyghost.alphavantage.parser.Parser;
-
 /**
- * A single ticker's latest quote, or the message Alpha Vantage returned in place of
- * one.
- * <p>
- * This is the answer to a {@link com.crazzyghost.alphavantage.timeseries.request.QuoteRequest}
- * — one snapshot rather than a series, so it is a flat set of fields with no metadata
- * header and no unit list. The prices describe the most recent trading day, which is
- * not necessarily today: {@link #getLatestTradingDay()} says which day they belong to,
- * and over a weekend or holiday it lags.
- * <p>
- * A response carries a quote or an error, never both. On failure
- * {@link #getErrorMessage()} is set and every price is left at {@code 0.0}, which is
- * indistinguishable from a genuine zero — so the error message is what tells the two
- * apart.
- * <p>
- * For the same snapshot across many tickers in one call, see
- * {@link RealtimeBulkQuoteResponse}.
+ * A single ticker's latest quote, or the message Alpha Vantage returned in place of one.
+ *
+ * <p>This is the answer to a {@link com.crazzyghost.alphavantage.timeseries.request.QuoteRequest} —
+ * one snapshot rather than a series, so it is a flat set of fields with no metadata header and no
+ * unit list. The prices describe the most recent trading day, which is not necessarily today:
+ * {@link #getLatestTradingDay()} says which day they belong to, and over a weekend or holiday it
+ * lags.
+ *
+ * <p>A response carries a quote or an error, never both. On failure {@link #getErrorMessage()} is
+ * set and every price is left at {@code 0.0}, which is indistinguishable from a genuine zero — so
+ * the error message is what tells the two apart.
+ *
+ * <p>For the same snapshot across many tickers in one call, see {@link RealtimeBulkQuoteResponse}.
  *
  * @author Sylvester Sefa-Yeboah
  * @since 1.3.0
  */
-public class QuoteResponse {
+public class QuoteResponse implements Response {
     private String symbol;
     private double open;
     private double high;
@@ -66,29 +64,28 @@ public class QuoteResponse {
     /**
      * Creates a successful quote from the values a response carried.
      *
-     * @param symbol           the ticker the quote covers
-     * @param open             the latest trading day's opening price
-     * @param high             the latest trading day's highest price
-     * @param low              the latest trading day's lowest price
-     * @param price            the latest traded price
-     * @param volume           the latest trading day's volume, in shares
+     * @param symbol the ticker the quote covers
+     * @param open the latest trading day's opening price
+     * @param high the latest trading day's highest price
+     * @param low the latest trading day's lowest price
+     * @param price the latest traded price
+     * @param volume the latest trading day's volume, in shares
      * @param latestTradingDay the day the quote covers, formatted {@code yyyy-MM-dd}
-     * @param previousClose    the previous trading day's closing price
-     * @param change           the move from the previous close, in the listing currency
-     * @param changePercent    the move from the previous close, in percentage points
+     * @param previousClose the previous trading day's closing price
+     * @param change the move from the previous close, in the listing currency
+     * @param changePercent the move from the previous close, in percentage points
      */
     public QuoteResponse(
-        String symbol,
-        double open,
-        double high,
-        double low,
-        double price,
-        double volume,
-        String latestTradingDay,
-        double previousClose,
-        double change,
-        double changePercent
-    ) {
+            String symbol,
+            double open,
+            double high,
+            double low,
+            double price,
+            double volume,
+            String latestTradingDay,
+            double previousClose,
+            double change,
+            double changePercent) {
         this.symbol = symbol;
         this.open = open;
         this.high = high;
@@ -101,13 +98,11 @@ public class QuoteResponse {
         this.changePercent = changePercent;
     }
 
-
     /**
-     * Gets the ticker this quote covers, echoed back as the API resolved it rather than
-     * as the request spelled it.
+     * Gets the ticker this quote covers, echoed back as the API resolved it rather than as the
+     * request spelled it.
      *
-     * @return the ticker symbol, for example {@code IBM}, or {@code null} on an error
-     *         response
+     * @return the ticker symbol, for example {@code IBM}, or {@code null} on an error response
      */
     public String getSymbol() {
         return this.symbol;
@@ -141,9 +136,8 @@ public class QuoteResponse {
     }
 
     /**
-     * Gets the latest traded price, which is what the quote is normally read for. While
-     * the market is open this is the current price; once it closes, the day's closing
-     * price.
+     * Gets the latest traded price, which is what the quote is normally read for. While the market
+     * is open this is the current price; once it closes, the day's closing price.
      *
      * @return the latest price, in the ticker's listing currency
      */
@@ -152,9 +146,9 @@ public class QuoteResponse {
     }
 
     /**
-     * Gets how many shares changed hands over the latest trading day. The count is a
-     * whole number despite the {@code double} type — unlike
-     * {@link StockUnit#getVolume()}, which types the same quantity as a {@code long}.
+     * Gets how many shares changed hands over the latest trading day. The count is a whole number
+     * despite the {@code double} type — unlike {@link StockUnit#getVolume()}, which types the same
+     * quantity as a {@code long}.
      *
      * @return the traded volume, in shares
      */
@@ -163,20 +157,18 @@ public class QuoteResponse {
     }
 
     /**
-     * Gets the day the quote's prices belong to, which lags the calendar day over
-     * weekends, holidays and before the session opens.
+     * Gets the day the quote's prices belong to, which lags the calendar day over weekends,
+     * holidays and before the session opens.
      *
-     * @return the trading day, formatted {@code yyyy-MM-dd}, or {@code null} on an
-     *         error response
+     * @return the trading day, formatted {@code yyyy-MM-dd}, or {@code null} on an error response
      */
     public String getLatestTradingDay() {
         return this.latestTradingDay;
     }
 
     /**
-     * Gets the price at which the trading day before the latest one closed. It is the
-     * baseline both {@link #getChange()} and {@link #getChangePercent()} are measured
-     * against.
+     * Gets the price at which the trading day before the latest one closed. It is the baseline both
+     * {@link #getChange()} and {@link #getChangePercent()} are measured against.
      *
      * @return the previous closing price, in the ticker's listing currency
      */
@@ -185,8 +177,8 @@ public class QuoteResponse {
     }
 
     /**
-     * Gets how far the latest price has moved from the previous close, signed so that a
-     * negative value is a fall.
+     * Gets how far the latest price has moved from the previous close, signed so that a negative
+     * value is a fall.
      *
      * @return the change, in the ticker's listing currency
      */
@@ -195,10 +187,10 @@ public class QuoteResponse {
     }
 
     /**
-     * Gets the same move as {@link #getChange()} expressed against the previous close,
-     * in percentage points rather than as a fraction: a value of {@code 1.5} means the
-     * price rose 1.5%. The API sends this with a trailing percent sign, which the
-     * parser strips before converting.
+     * Gets the same move as {@link #getChange()} expressed against the previous close, in
+     * percentage points rather than as a fraction: a value of {@code 1.5} means the price rose
+     * 1.5%. The API sends this with a trailing percent sign, which the parser strips before
+     * converting.
      *
      * @return the change, in percentage points
      */
@@ -207,9 +199,9 @@ public class QuoteResponse {
     }
 
     /**
-     * Gets the reason no quote was returned, as reported by the API. Covers both
-     * API-level rejections, such as an unknown ticker or an exhausted rate limit, and a
-     * response body this library could not read as a quote.
+     * Gets the reason no quote was returned, as reported by the API. Covers both API-level
+     * rejections, such as an unknown ticker or an exhausted rate limit, and a response body this
+     * library could not read as a quote.
      *
      * @return the error message, or {@code null} if the request succeeded
      */
@@ -217,14 +209,13 @@ public class QuoteResponse {
         return this.errorMessage;
     }
 
-
     /**
-     * Creates a failed quote carrying only a message, with every price left at
-     * {@code 0.0} and the ticker and trading day left {@code null}.
+     * Creates a failed quote carrying only a message, with every price left at {@code 0.0} and the
+     * ticker and trading day left {@code null}.
      *
      * @param errorMessage the message describing what went wrong
      */
-    public QuoteResponse(String errorMessage){
+    public QuoteResponse(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
@@ -232,39 +223,39 @@ public class QuoteResponse {
      * Builds a response from a decoded {@code GLOBAL_QUOTE} payload.
      *
      * @param stringObjectMap the response body, already decoded from JSON into a map
-     * @return a response holding the parsed quote, or one holding an error message if
-     *         the payload was empty or was not a quote
+     * @return a response holding the parsed quote, or one holding an error message if the payload
+     *     was empty or was not a quote
      */
-    public static QuoteResponse of(Map<String, Object> stringObjectMap){
+    public static QuoteResponse of(Map<String, Object> stringObjectMap) {
         Parser<QuoteResponse> parser = new QuoteParser();
         return parser.parse(stringObjectMap);
     }
 
     /**
      * Turns a decoded {@code GLOBAL_QUOTE} payload into a {@link QuoteResponse}.
-     * <p>
-     * The quote arrives nested one level down, under a single top-level key, and its
-     * own fields are numbered rather than named. The parser reads whatever the first
-     * top-level key holds rather than matching that key by name, so an error payload —
-     * whose one key holds a message string instead of an object — falls out as a
-     * {@code ClassCastException} and is turned into an error response.
+     *
+     * <p>The quote arrives nested one level down, under a single top-level key, and its own fields
+     * are numbered rather than named. The parser reads whatever the first top-level key holds
+     * rather than matching that key by name, so an error payload — whose one key holds a message
+     * string instead of an object — falls out as a {@code ClassCastException} and is turned into an
+     * error response.
      */
-    public static class QuoteParser extends Parser<QuoteResponse>{
+    public static class QuoteParser extends Parser<QuoteResponse> {
 
         /**
          * Reads the nested quote block into a response.
          *
-         * @param stringObjectMap the response body, already decoded from JSON into a
-         *                        map
-         * @return a response holding the parsed quote, or one holding an error message
-         *         if the payload was empty or held a message rather than a quote
+         * @param stringObjectMap the response body, already decoded from JSON into a map
+         * @return a response holding the parsed quote, or one holding an error message if the
+         *     payload was empty or held a message rather than a quote
          */
         @SuppressWarnings("unchecked")
         @Override
-        public QuoteResponse parse(Map<String, Object> stringObjectMap){
+        public QuoteResponse parse(Map<String, Object> stringObjectMap) {
             List<String> keys = new ArrayList<>(stringObjectMap.keySet());
             if (keys.isEmpty()) {
-                return onParseError("Empty JSON returned by the API, the symbol might not be supported.");
+                return onParseError(
+                        "Empty JSON returned by the API, the symbol might not be supported.");
             } else {
 
                 Map<String, String> data;
@@ -286,8 +277,7 @@ public class QuoteResponse {
                         data.get("07. latest trading day"),
                         Double.parseDouble(data.get("08. previous close")),
                         Double.parseDouble(data.get("09. change")),
-                        Double.parseDouble(changePercentage)
-                );
+                        Double.parseDouble(changePercentage));
             }
         }
 
