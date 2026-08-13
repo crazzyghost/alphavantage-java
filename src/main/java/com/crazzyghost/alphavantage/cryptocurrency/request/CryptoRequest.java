@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.cryptocurrency.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
@@ -33,12 +34,15 @@ import com.crazzyghost.alphavantage.parameters.Function;
  */
 public abstract class CryptoRequest {
 
+    @UrlParameter("market")
     private final String market;
+    @UrlParameter("function")
     private final Function function;
+    @UrlParameter("symbol")
     private final String symbol;
 
     protected CryptoRequest(Builder<?> builder) {
-        this.function = builder.function;
+        this.function = builder.getFunction();
         this.symbol = builder.symbol;
         this.market = builder.market;
     }
@@ -53,22 +57,35 @@ public abstract class CryptoRequest {
     public abstract static class Builder<T extends Builder<?>> {
 
         /** The Alpha Vantage function this request calls, fixed by each subclass. */
-        public Function function;
+        protected Function function;
+
+        /**
+         * Returns the endpoint this builder currently targets.
+         *
+         * @return the API function, or {@code null} before a subclass pins one
+         */
+        public Function getFunction() {
+            return function;
+        }
+
+        /**
+        /**
+         * Sets the endpoint to call. Each subclass builder already pins the endpoint
+         * matching its own cadence, so calling this directly overrides that choice and
+         * is rarely what a caller wants.
+         *
+         * @param function the endpoint to call
+         * @return this builder, for method chaining
+         */
+        public T function(Function function){
+            this.function = function;
+            return (T) this;
+        }
+
         /** The digital currency symbol to fetch, for example {@code BTC}. */
         protected String symbol;
         /** The market to price {@link #symbol} in, for example {@code USD} or {@code CNY}. */
         protected String market;
-
-        /**
-         * Sets the Alpha Vantage function this request calls.
-         *
-         * @param function the function code
-         * @return this builder, for method chaining
-         */
-        public T function(Function function) {
-            this.function = function;
-            return (T) this;
-        }
 
         /**
          * Sets the digital currency to fetch data for.

@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 /**
  * Request for indicators that operate on a rolling time period but not on a
  * specific price series field, such as {@code WILLR}, {@code ADX}, or
@@ -34,7 +36,8 @@ package com.crazzyghost.alphavantage.technicalindicator.request;
 public class PeriodicRequest extends TechnicalIndicatorRequest {
 
     /** The number of data points used to calculate each indicator value. */
-    private int time_period;
+    @UrlParameter("time_period")
+    private int timePeriod;
 
     /**
      * Copies the values assembled by {@code builder} into this request.
@@ -43,7 +46,7 @@ public class PeriodicRequest extends TechnicalIndicatorRequest {
      */
     private PeriodicRequest(Builder builder) {
         super(builder);
-        this.time_period = builder.timePeriod;
+        this.timePeriod = builder.timePeriod;
     }
 
     /**

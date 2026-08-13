@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
 /**
@@ -35,10 +37,12 @@ import com.crazzyghost.alphavantage.parameters.SeriesType;
 public class PeriodicSeriesRequest extends TechnicalIndicatorRequest {
 
     /** The price series field the indicator is computed from. */
-    private SeriesType series_type;
+    @UrlParameter("series_type")
+    private SeriesType seriesType;
 
     /** The number of data points used to calculate each indicator value. */
-    private int time_period;
+    @UrlParameter("time_period")
+    private int timePeriod;
 
     /**
      * Copies the values assembled by {@code builder} into this request.
@@ -47,8 +51,8 @@ public class PeriodicSeriesRequest extends TechnicalIndicatorRequest {
      */
     private PeriodicSeriesRequest(Builder builder) {
         super(builder);
-        this.time_period = builder.timePeriod;
-        this.series_type = builder.seriesType;
+        this.timePeriod = builder.timePeriod;
+        this.seriesType = builder.seriesType;
     }
 
     /**

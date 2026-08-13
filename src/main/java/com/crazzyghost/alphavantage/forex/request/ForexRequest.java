@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.forex.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 
@@ -44,12 +45,15 @@ import com.crazzyghost.alphavantage.parameters.OutputSize;
 public abstract class ForexRequest{
 
     /** The base currency of the pair, sent as the {@code from_symbol} parameter. */
+    @UrlParameter("from_symbol")
     protected String from_symbol;
 
     /** The quote currency of the pair, sent as the {@code to_symbol} parameter. */
+    @UrlParameter("to_symbol")
     protected String to_symbol;
 
     /** The format the API replies in, sent as the {@code datatype} parameter. */
+    @UrlParameter("datatype")
     protected DataType dataType;
 
     /**

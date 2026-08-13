@@ -177,7 +177,7 @@ public final class TimeSeries implements Fetcher {
      * @param data parsed JSON response
      */
     private void parseResponse(Map<String, Object> data) {
-        switch (builder.function) {
+        switch (builder.getFunction()) {
             case TIME_SERIES_DAILY:
             case TIME_SERIES_DAILY_ADJUSTED:
             case TIME_SERIES_MONTHLY:

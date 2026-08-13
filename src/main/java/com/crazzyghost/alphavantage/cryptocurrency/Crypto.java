@@ -122,7 +122,7 @@ public final class Crypto implements Fetcher {
      * @param data parsed JSON response
      */
     private void parseCryptoResponse(Map<String, Object> data) {
-        switch (builder.function) {
+        switch (builder.getFunction()) {
             case CRYPTO_INTRADAY:
             case DIGITAL_CURRENCY_DAILY:
             case DIGITAL_CURRENCY_MONTHLY:

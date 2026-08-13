@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
@@ -36,15 +38,19 @@ import com.crazzyghost.alphavantage.parameters.SeriesType;
 public class MACDRequest extends TechnicalIndicatorRequest {
 
     /** The price series field MACD is computed from. */
-    private SeriesType series_type;
+    @UrlParameter("series_type")
+    private SeriesType seriesType;
 
     /** The number of data points in the fast EMA. */
+    @UrlParameter("fastperiod")
     private int fastPeriod;
 
     /** The number of data points in the slow EMA. */
+    @UrlParameter("slowperiod")
     private int slowPeriod;
 
     /** The number of data points in the signal line's EMA. */
+    @UrlParameter("signalperiod")
     private int signalPeriod;
 
     /**
@@ -57,7 +63,7 @@ public class MACDRequest extends TechnicalIndicatorRequest {
         this.fastPeriod = builder.fastPeriod;
         this.slowPeriod = builder.slowPeriod;
         this.signalPeriod = builder.signalPeriod;
-        this.series_type = builder.seriesType;
+        this.seriesType = builder.seriesType;
     }
 
     /**

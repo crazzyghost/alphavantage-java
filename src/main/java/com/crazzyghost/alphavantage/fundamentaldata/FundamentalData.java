@@ -130,7 +130,7 @@ public final class FundamentalData implements Fetcher {
     }
 
     private void parseFundamentalDataResponse(Map<String, Object> data) {
-        switch (builder.function) {
+        switch (builder.getFunction()) {
             case OVERVIEW:
                 parseCompanyOverviewResponse(data);
                 break;

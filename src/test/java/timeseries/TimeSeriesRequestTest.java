@@ -1,6 +1,7 @@
 package timeseries;
 
 import static org.junit.Assert.assertEquals;
+import static util.TestUtils.assertUrlEquals;
 
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.UrlExtractor;
@@ -21,7 +22,7 @@ public class TimeSeriesRequestTest {
             .dataType(DataType.JSON)
             .outputSize(OutputSize.FULL)
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
 
@@ -32,7 +33,7 @@ public class TimeSeriesRequestTest {
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -42,7 +43,7 @@ public class TimeSeriesRequestTest {
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");           
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");           
     }
 
 
@@ -55,7 +56,7 @@ public class TimeSeriesRequestTest {
             .outputSize(OutputSize.FULL)
             .adjusted()
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
 
@@ -67,7 +68,7 @@ public class TimeSeriesRequestTest {
             .dataType(DataType.JSON)
             .adjusted()
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -78,7 +79,7 @@ public class TimeSeriesRequestTest {
             .adjusted()
             .dataType(DataType.JSON)
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");           
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");           
     }
 
     
@@ -91,7 +92,7 @@ public class TimeSeriesRequestTest {
             .interval(Interval.FIVE_MIN) 
             .outputSize(OutputSize.FULL)   
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -104,7 +105,7 @@ public class TimeSeriesRequestTest {
             .outputSize(OutputSize.FULL)
             .adjusted()
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -117,7 +118,7 @@ public class TimeSeriesRequestTest {
             .outputSize(OutputSize.FULL)
             .extendedHours()
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -130,7 +131,7 @@ public class TimeSeriesRequestTest {
                 .outputSize(OutputSize.FULL)
                 .month("2023-11")
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -140,7 +141,7 @@ public class TimeSeriesRequestTest {
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");   
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");   
     }
 
     @Test
@@ -151,7 +152,7 @@ public class TimeSeriesRequestTest {
                 .forSymbol("MSFT")
                 .dataType(DataType.JSON)
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
 

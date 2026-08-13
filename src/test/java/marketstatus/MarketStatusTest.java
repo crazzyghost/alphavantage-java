@@ -55,10 +55,10 @@ public class MarketStatusTest {
 
     @Test
     public void testRequest() {
-        String expected = "function=MARKET_STATUS&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?function=MARKET_STATUS&apikey=demo";
         MarketStatusRequest request = new MarketStatusRequest.Builder()
                 .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test

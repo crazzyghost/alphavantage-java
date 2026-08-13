@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
@@ -37,12 +39,15 @@ import com.crazzyghost.alphavantage.parameters.SeriesType;
 public class MAMARequest extends TechnicalIndicatorRequest {
 
     /** The price series field the average is computed from. */
-    private SeriesType series_type;
+    @UrlParameter("series_type")
+    private SeriesType seriesType;
 
     /** The upper bound on how fast MAMA can adapt during strongly trending price movement. */
+    @UrlParameter("fastlimit")
     private double fastLimit;
 
     /** The lower bound on how fast MAMA can adapt during sideways price movement. */
+    @UrlParameter("slowlimit")
     private double slowLimit;
 
     /**
@@ -54,7 +59,7 @@ public class MAMARequest extends TechnicalIndicatorRequest {
         super(builder);
         this.fastLimit = builder.fastLimit;
         this.slowLimit = builder.slowLimit;
-        this.series_type = builder.seriesType;
+        this.seriesType = builder.seriesType;
     }
 
     /**

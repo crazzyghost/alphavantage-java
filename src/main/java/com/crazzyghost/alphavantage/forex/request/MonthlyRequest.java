@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.forex.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
@@ -42,6 +44,7 @@ import com.crazzyghost.alphavantage.parameters.Function;
  */
 public class MonthlyRequest extends ForexRequest{
 
+    @UrlParameter("function")
     private Function function;
 
     private MonthlyRequest(Builder builder){

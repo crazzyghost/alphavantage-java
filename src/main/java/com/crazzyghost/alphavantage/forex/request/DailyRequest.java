@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.forex.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 
@@ -39,7 +41,9 @@ import com.crazzyghost.alphavantage.parameters.OutputSize;
  */
 public class DailyRequest extends ForexRequest {
 
+    @UrlParameter("function")
     private Function function;
+    @UrlParameter("outputsize")
     private OutputSize outputSize;
 
     private DailyRequest(Builder builder){

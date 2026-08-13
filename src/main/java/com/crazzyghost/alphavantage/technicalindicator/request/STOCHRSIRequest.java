@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
@@ -38,18 +40,23 @@ import com.crazzyghost.alphavantage.parameters.SeriesType;
 public class STOCHRSIRequest extends TechnicalIndicatorRequest {
 
     /** The number of data points used to calculate the underlying RSI. */
-    private int time_period;
+    @UrlParameter("time_period")
+    private int timePeriod;
 
     /** The price series field the underlying RSI is computed from. */
-    private SeriesType series_type;
+    @UrlParameter("series_type")
+    private SeriesType seriesType;
 
     /** The look-back period used for the raw (fast) %K calculation over RSI. */
+    @UrlParameter("fastkperiod")
     private int fastKPeriod;
 
     /** The smoothing period applied to fast %K to produce fast %D. */
+    @UrlParameter("fastdperiod")
     private int fastDPeriod;
 
     /** The moving-average type used to smooth fast %D. */
+    @UrlParameter("fastdmatype")
     private MAType fastDMaType;
 
     /**
@@ -62,8 +69,8 @@ public class STOCHRSIRequest extends TechnicalIndicatorRequest {
         this.fastKPeriod = builder.fastKPeriod;
         this.fastDPeriod = builder.fastDPeriod;
         this.fastDMaType = builder.fastDMaType;
-        this.time_period = builder.timePeriod;
-        this.series_type = builder.seriesType;
+        this.timePeriod = builder.timePeriod;
+        this.seriesType = builder.seriesType;
     }
 
     /**

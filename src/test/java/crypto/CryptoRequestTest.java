@@ -1,6 +1,7 @@
 package crypto;
 
 import static org.junit.Assert.assertEquals;
+import static util.TestUtils.assertUrlEquals;
 
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.UrlExtractor;
@@ -21,7 +22,7 @@ public class CryptoRequestTest {
             .market("CNY")
             .build();
         
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
             
     }
 
@@ -34,7 +35,7 @@ public class CryptoRequestTest {
             .market("CNY")
             .build();
         
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
             
     }
 
@@ -47,7 +48,7 @@ public class CryptoRequestTest {
             .market("CNY")
             .build();
         
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
             
     }
 

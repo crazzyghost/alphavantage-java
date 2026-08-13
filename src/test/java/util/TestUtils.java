@@ -13,8 +13,14 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 
+import okhttp3.HttpUrl;
 import okio.BufferedSource;
 import okio.Okio;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestUtils {
 
@@ -235,6 +241,35 @@ public class TestUtils {
         }
         builder.append("&apikey=demo");
         return builder.toString();
+    }
+
+    /**
+     * Asserts that two URLs have the same query parameters, ignoring order.
+     * @param expected the expected URL with query parameters
+     * @param actual the actual URL with query parameters
+     */
+    public static void assertUrlEquals(String expected, String actual) {
+        assertEquals(queryParams(expected), queryParams(actual));
+    }
+
+    /**
+     * Parses a URL and extracts its query parameters as a map.
+     * Detects duplicate parameters and throws an assertion error if found.
+     * @param url the URL to parse
+     * @return map of query parameter names to values
+     */
+    private static Map<String, String> queryParams(String url) {
+        HttpUrl parsed = HttpUrl.parse(url);
+        if (parsed == null) {
+            throw new AssertionError("Invalid URL: " + url);
+        }
+        Map<String, String> params = new LinkedHashMap<>();
+        for (String name : parsed.queryParameterNames()) {
+            List<String> values = parsed.queryParameterValues(name);
+            assertEquals("duplicate query parameter: " + name, 1, values.size());
+            params.put(name, values.get(0));
+        }
+        return params;
     }
 
 
