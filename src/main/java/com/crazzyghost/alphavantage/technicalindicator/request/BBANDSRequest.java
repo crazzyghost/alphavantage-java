@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
@@ -37,18 +39,23 @@ import com.crazzyghost.alphavantage.parameters.SeriesType;
 public class BBANDSRequest extends TechnicalIndicatorRequest {
 
     /** The price series field the bands are computed from. */
-    private SeriesType series_type;
+    @UrlParameter("series_type")
+    private SeriesType seriesType;
 
     /** The number of data points in the middle moving average. */
-    private int time_period;
+    @UrlParameter("time_period")
+    private int timePeriod;
 
     /** The number of standard deviations above the middle band for the upper band. */
+    @UrlParameter("nbdevup")
     private int nbdevup;
 
     /** The number of standard deviations below the middle band for the lower band. */
+    @UrlParameter("nbdevdn")
     private int nbdevdn;
 
     /** The moving-average type used for the middle band. */
+    @UrlParameter("matype")
     private MAType maType;
 
     /**
@@ -58,8 +65,8 @@ public class BBANDSRequest extends TechnicalIndicatorRequest {
      */
     private BBANDSRequest(Builder builder) {
         super(builder);
-        this.time_period = builder.timePeriod;
-        this.series_type = builder.seriesType;
+        this.timePeriod = builder.timePeriod;
+        this.seriesType = builder.seriesType;
         this.nbdevdn = builder.nbdevdn;
         this.nbdevup = builder.nbdevup;
         this.maType = builder.maType;

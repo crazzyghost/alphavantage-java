@@ -10,6 +10,7 @@ import com.crazzyghost.alphavantage.parameters.Maturity;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static util.TestUtils.assertUrlEquals;
 
 public class EconomicIndicatorRequestTest {
     @Test
@@ -19,7 +20,7 @@ public class EconomicIndicatorRequestTest {
                 .dataType(DataType.JSON)
                 .interval(Interval.QUARTERLY)
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test(expected = AlphaVantageException.class)
@@ -28,7 +29,7 @@ public class EconomicIndicatorRequestTest {
         RealGdpRequest request = new RealGdpRequest.Builder()
                 .interval(Interval.MONTHLY)
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -36,7 +37,7 @@ public class EconomicIndicatorRequestTest {
         String expected = "https://www.alphavantage.co/query?function=REAL_GDP_PER_CAPITA&datatype=json&apikey=demo";
         RealGdpPerCapitaRequest request = new RealGdpPerCapitaRequest.Builder()
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -44,7 +45,7 @@ public class EconomicIndicatorRequestTest {
         String expected = "https://www.alphavantage.co/query?function=CONSUMER_SENTIMENT&datatype=json&apikey=demo";
         ConsumerSentimentRequest request = new ConsumerSentimentRequest.Builder()
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -53,7 +54,7 @@ public class EconomicIndicatorRequestTest {
         CpiRequest request = new CpiRequest.Builder()
                 .interval(Interval.MONTHLY)
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test(expected = AlphaVantageException.class)
@@ -62,7 +63,7 @@ public class EconomicIndicatorRequestTest {
         CpiRequest request = new CpiRequest.Builder()
                 .interval(Interval.ANNUAL)
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -70,7 +71,7 @@ public class EconomicIndicatorRequestTest {
         String expected = "https://www.alphavantage.co/query?function=DURABLES&datatype=json&apikey=demo";
         DurableGoodsOrdersRequest request = new DurableGoodsOrdersRequest.Builder()
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -79,7 +80,7 @@ public class EconomicIndicatorRequestTest {
         FederalFundsRateRequest request = new FederalFundsRateRequest.Builder()
                 .interval(Interval.DAILY)
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test(expected = AlphaVantageException.class)
@@ -88,7 +89,7 @@ public class EconomicIndicatorRequestTest {
         FederalFundsRateRequest request = new FederalFundsRateRequest.Builder()
                 .interval(Interval.FIFTEEN_MIN)
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -96,7 +97,7 @@ public class EconomicIndicatorRequestTest {
         String expected = "https://www.alphavantage.co/query?function=INFLATION&datatype=json&apikey=demo";
         InflationRequest request = new InflationRequest.Builder()
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -104,7 +105,7 @@ public class EconomicIndicatorRequestTest {
         String expected = "https://www.alphavantage.co/query?function=INFLATION_EXPECTATION&datatype=json&apikey=demo";
         InflationExpectationRequest request = new InflationExpectationRequest.Builder()
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -112,7 +113,7 @@ public class EconomicIndicatorRequestTest {
         String expected = "https://www.alphavantage.co/query?function=NONFARM_PAYROLL&datatype=json&apikey=demo";
         NonFarmPayrollRequest request = new NonFarmPayrollRequest.Builder()
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -120,7 +121,7 @@ public class EconomicIndicatorRequestTest {
         String expected = "https://www.alphavantage.co/query?function=RETAIL_SALES&datatype=json&apikey=demo";
         RetailSalesRequest request = new RetailSalesRequest.Builder()
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -128,7 +129,7 @@ public class EconomicIndicatorRequestTest {
         String expected = "https://www.alphavantage.co/query?function=UNEMPLOYMENT&datatype=json&apikey=demo";
         UnemploymentRateRequest request = new UnemploymentRateRequest.Builder()
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -138,7 +139,7 @@ public class EconomicIndicatorRequestTest {
                 .interval(Interval.DAILY)
                 .maturity(Maturity.FIVE_YEAR)
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test(expected = AlphaVantageException.class)
@@ -147,7 +148,7 @@ public class EconomicIndicatorRequestTest {
         TreasuryYieldRequest request = new TreasuryYieldRequest.Builder()
                 .interval(Interval.FIFTEEN_MIN)
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
 }

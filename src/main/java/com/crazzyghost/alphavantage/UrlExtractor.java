@@ -41,6 +41,9 @@ public class UrlExtractor{
     /**
      * Gets the query-string portion of an API url from a request object, by reading
      * the object's non-null fields as endpoint parameters.
+     * <p>
+     * Fields annotated with {@link UrlParameter} serialize using the annotation's value
+     * as the parameter name. Unannotated fields use the lowercased field name.
      *
      * @param object a request object with the valid API parameters
      * @return the query-string portion of an API url, ready for the api key to be appended
@@ -59,7 +62,9 @@ public class UrlExtractor{
                 try {
                     //extract non-null and non-synthetic fields
                     if (!field.isSynthetic() && field.get(object) != null){
-                        stringBuilder.append(field.getName().toLowerCase())
+                        UrlParameter annotation = field.getAnnotation(UrlParameter.class);
+                        String name = annotation != null ? annotation.value() : field.getName().toLowerCase();
+                        stringBuilder.append(name)
                                 .append("=");
                         String value = (field.get(object)).toString();
                         stringBuilder.append(value).append("&");

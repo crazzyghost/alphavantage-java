@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
@@ -38,24 +40,31 @@ import com.crazzyghost.alphavantage.parameters.SeriesType;
 public class MACDEXTRequest extends TechnicalIndicatorRequest {
 
     /** The price series field MACD is computed from. */
-    private SeriesType series_type;
+    @UrlParameter("series_type")
+    private SeriesType seriesType;
 
     /** The number of data points in the fast moving average. */
+    @UrlParameter("fastperiod")
     private int fastPeriod;
 
     /** The number of data points in the slow moving average. */
+    @UrlParameter("slowperiod")
     private int slowPeriod;
 
     /** The number of data points in the signal line's moving average. */
+    @UrlParameter("signalperiod")
     private int signalPeriod;
 
     /** The moving-average type used for the fast component. */
+    @UrlParameter("fastmatype")
     private MAType fastMaType;
 
     /** The moving-average type used for the slow component. */
+    @UrlParameter("slowmatype")
     private MAType slowMaType;
 
     /** The moving-average type used for the signal line. */
+    @UrlParameter("signalmatype")
     private MAType signalMaType;
 
     /**
@@ -71,7 +80,7 @@ public class MACDEXTRequest extends TechnicalIndicatorRequest {
         this.fastMaType = builder.fastMaType;
         this.slowMaType = builder.slowMaType;
         this.signalMaType = builder.signalMaType;
-        this.series_type = builder.seriesType;
+        this.seriesType = builder.seriesType;
     }
 
     /**

@@ -54,11 +54,11 @@ public class SearchTest {
 
     @Test
     public void testRequest() {
-        String expected = "function=SYMBOL_SEARCH&keywords=microsft&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=microsft&apikey=demo";
         SearchRequest request = new SearchRequest.Builder()
                 .keywords("microsft")
                 .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test

@@ -63,12 +63,12 @@ public class ExchangeRateTest {
     @Test
     public void testRequest(){
 
-        String expected = "function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo";
         ExchangeRateRequest  request = new ExchangeRateRequest.Builder()
             .fromCurrency("BTC")
             .toCurrency("CNY")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test

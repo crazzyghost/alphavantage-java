@@ -1,6 +1,7 @@
 package forex;
 
 import static org.junit.Assert.assertEquals;
+import static util.TestUtils.assertUrlEquals;
 
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.UrlExtractor;
@@ -26,7 +27,7 @@ public class ForexRequestTest {
             .dataType(DataType.JSON)
             .outputSize(OutputSize.FULL)
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -39,7 +40,7 @@ public class ForexRequestTest {
             .interval(Interval.FIVE_MIN) 
             .outputSize(OutputSize.FULL)   
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");   
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");   
     }
 
 
@@ -51,7 +52,7 @@ public class ForexRequestTest {
             .fromSymbol("EUR")
             .dataType(DataType.JSON)
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -62,7 +63,7 @@ public class ForexRequestTest {
             .fromSymbol("EUR")
             .dataType(DataType.JSON)
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");           
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");           
     }
 
     

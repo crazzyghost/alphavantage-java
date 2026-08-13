@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
@@ -34,9 +36,11 @@ import com.crazzyghost.alphavantage.parameters.Function;
 public class ADOSCRequest extends TechnicalIndicatorRequest {
 
     /** The number of data points in the fast EMA. */
+    @UrlParameter("fastperiod")
     private int fastPeriod;
 
     /** The number of data points in the slow EMA. */
+    @UrlParameter("slowperiod")
     private int slowPeriod;
 
     /**

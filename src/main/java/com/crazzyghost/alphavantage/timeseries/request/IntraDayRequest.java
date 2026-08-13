@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.timeseries.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
@@ -48,10 +50,15 @@ import com.crazzyghost.alphavantage.parameters.OutputSize;
  */
 public class IntraDayRequest extends TimeSeriesRequest {
 
+    @UrlParameter("interval")
     private Interval interval;
+    @UrlParameter("outputsize")
     private OutputSize outputSize;
+    @UrlParameter("adjusted")
     private boolean adjusted;
-    private boolean extended_hours;
+    @UrlParameter("extended_hours")
+    private boolean extendedHours;
+    @UrlParameter("month")
     private String month;
 
     private IntraDayRequest(Builder builder){
@@ -59,7 +66,7 @@ public class IntraDayRequest extends TimeSeriesRequest {
         this.interval = builder.interval;
         this.outputSize = builder.outputSize;
         this.adjusted = builder.adjusted;
-        this.extended_hours = builder.extendedHours;
+        this.extendedHours = builder.extendedHours;
         this.month = builder.month;
     }
 

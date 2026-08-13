@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
@@ -34,9 +36,11 @@ import com.crazzyghost.alphavantage.parameters.Function;
 public class SARRequest extends TechnicalIndicatorRequest {
 
     /** The acceleration factor step applied on each new extreme point. */
+    @UrlParameter("acceleration")
     private double acceleration;
 
     /** The acceleration factor's upper bound. */
+    @UrlParameter("maximum")
     private double maximum;
 
     /**

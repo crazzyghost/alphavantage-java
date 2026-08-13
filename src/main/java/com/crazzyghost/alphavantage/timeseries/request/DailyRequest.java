@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.timeseries.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 
@@ -44,6 +46,7 @@ import com.crazzyghost.alphavantage.parameters.OutputSize;
  */
 public class DailyRequest extends TimeSeriesRequest{
 
+    @UrlParameter("outputsize")
     private OutputSize outputSize;
 
     private DailyRequest(Builder builder){

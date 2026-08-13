@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.exchangerate;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
@@ -32,14 +34,17 @@ import com.crazzyghost.alphavantage.parameters.Function;
  */
 public class ExchangeRateRequest {
 
+    @UrlParameter("function")
     private final Function function;
-    private final String from_currency;
-    private final String to_currency;
+    @UrlParameter("from_currency")
+    private final String fromCurrency;
+    @UrlParameter("to_currency")
+    private final String toCurrency;
 
     private ExchangeRateRequest(Builder builder){
         this.function = builder.function;
-        this.from_currency = builder.fromCurrency;
-        this.to_currency = builder.toCurrency;
+        this.fromCurrency = builder.fromCurrency;
+        this.toCurrency = builder.toCurrency;
     }
 
     /**

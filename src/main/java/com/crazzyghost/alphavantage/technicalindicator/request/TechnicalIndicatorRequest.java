@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
@@ -41,15 +42,19 @@ import com.crazzyghost.alphavantage.parameters.Interval;
 public abstract class TechnicalIndicatorRequest {
 
     /** The Alpha Vantage function code identifying which indicator to request. */
+    @UrlParameter("function")
     protected Function function;
 
     /** The equity, forex pair, or digital/crypto currency symbol to query. */
+    @UrlParameter("symbol")
     protected String symbol;
 
     /** The time interval between two consecutive data points in the series. */
+    @UrlParameter("interval")
     protected Interval interval;
 
     /** The response format, JSON or CSV. */
+    @UrlParameter("datatype")
     protected DataType dataType;
 
     /**
@@ -57,6 +62,7 @@ public abstract class TechnicalIndicatorRequest {
      * meaningful for intraday {@link Interval} values; {@code null} requests
      * the most recent window.
      */
+    @UrlParameter("month")
     protected String month;
 
     /**
@@ -65,7 +71,7 @@ public abstract class TechnicalIndicatorRequest {
      * @param builder the builder holding this request's configured values
      */
     protected TechnicalIndicatorRequest(Builder<?> builder) {
-        this.function = builder.function;
+        this.function = builder.getFunction();
         this.symbol = builder.symbol;
         this.interval = builder.interval;
         this.dataType = builder.dataType;
@@ -83,7 +89,29 @@ public abstract class TechnicalIndicatorRequest {
     public abstract static class Builder<T extends Builder<?>> {
 
         /** The Alpha Vantage function code identifying which indicator to request. */
-        public Function function;
+        protected Function function;
+
+        /**
+         * Returns the endpoint this builder currently targets.
+         *
+         * @return the API function, or {@code null} before a subclass pins one
+         */
+        public Function getFunction() {
+            return function;
+        }
+
+        /**
+         * Sets the endpoint to call. Each subclass builder already pins the endpoint
+         * matching its own cadence, so calling this directly overrides that choice and
+         * is rarely what a caller wants.
+         *
+         * @param function the endpoint to call
+         * @return this builder, for method chaining
+         */
+        public T function(Function function){
+            this.function = function;
+            return (T) this;
+        }
 
         /** The equity, forex pair, or digital/crypto currency symbol to query. */
         protected String symbol;
@@ -99,17 +127,6 @@ public abstract class TechnicalIndicatorRequest {
          * default, which requests the most recent window.
          */
         protected String month;
-
-        /**
-         * Sets the indicator function to request.
-         *
-         * @param function the Alpha Vantage function code
-         * @return this builder
-         */
-        public T function(Function function) {
-            this.function = function;
-            return (T) this;
-        }
 
         /**
          * Sets the symbol to query.

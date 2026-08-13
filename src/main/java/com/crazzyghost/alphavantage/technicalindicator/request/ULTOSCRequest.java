@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
@@ -35,12 +37,15 @@ import com.crazzyghost.alphavantage.parameters.Function;
 public class ULTOSCRequest extends TechnicalIndicatorRequest {
 
     /** The first, shortest look-back period. */
+    @UrlParameter("timeperiod1")
     private int timePeriod1;
 
     /** The second, medium look-back period. */
+    @UrlParameter("timeperiod2")
     private int timePeriod2;
 
     /** The third, longest look-back period. */
+    @UrlParameter("timeperiod3")
     private int timePeriod3;
 
     /**

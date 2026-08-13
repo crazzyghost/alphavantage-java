@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.timeseries.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 
@@ -47,8 +49,11 @@ import com.crazzyghost.alphavantage.parameters.Function;
  */
 public abstract class TimeSeriesRequest {
 
+    @UrlParameter("function")
     private Function function;
+    @UrlParameter("symbol")
     private String symbol;
+    @UrlParameter("datatype")
     private DataType dataType;
 
 
@@ -60,35 +65,50 @@ public abstract class TimeSeriesRequest {
     protected TimeSeriesRequest(Builder<?> builder){
         this.symbol = builder.symbol;
         this.dataType = builder.dataType;
-        this.function  = builder.function;
+        this.function  = builder.getFunction();
     }
 
     /**
      * Collects the parameters shared by every stock time series endpoint.
-     * <p>
-     * Each setter returns the concrete subclass builder rather than this base type, so
-     * that setting a shared parameter part-way through a chain does not cut off access
-     * to the endpoint-specific setters that follow it.
+     *
+     * <p>Each setter returns the concrete subclass builder rather than this base type, so that
+     * setting a shared parameter part-way through a chain does not cut off access to the
+     * endpoint-specific setters that follow it.
      *
      * @param <T> the concrete builder type the shared setters return
      */
-    public static abstract class Builder<T extends Builder<T>>{
+    public abstract static class Builder<T extends Builder<T>> {
 
         /** The format the API replies in, sent as the {@code datatype} parameter. */
         protected DataType dataType = DataType.JSON;
 
         /** The ticker being requested, sent as the {@code symbol} parameter. */
         protected String symbol;
+        
+        /** The Alpha Vantage function this request calls, fixed by each subclass. */
+        protected Function function;
 
         /**
-         * The endpoint being called, sent as the {@code function} parameter.
-         * <p>
-         * Every subclass builder pins this in its own constructor, so callers never
-         * need to set it. It is left writable, and public, because the cadence builders
-         * rewrite it in place when {@code adjusted()} switches a request over to the
-         * adjusted variant of the same cadence.
+         * Returns the endpoint this builder currently targets.
+         *
+         * @return the API function, or {@code null} before a subclass pins one
          */
-        public Function function;
+        public Function getFunction() {
+            return function;
+        }
+
+        /**
+         * Sets the endpoint to call. Each subclass builder already pins the endpoint
+         * matching its own cadence, so calling this directly overrides that choice and
+         * is rarely what a caller wants.
+         *
+         * @param function the endpoint to call
+         * @return this builder, for method chaining
+         */
+        public T function(Function function){
+            this.function = function;
+            return (T) this;
+        }
 
         /**
          * Creates a builder with no ticker set and {@link DataType#JSON} as the reply
@@ -118,19 +138,6 @@ public abstract class TimeSeriesRequest {
          */
         public T forSymbol(String symbol){
             this.symbol = symbol;
-            return (T) this;
-        }
-
-        /**
-         * Sets the endpoint to call. Each subclass builder already pins the endpoint
-         * matching its own cadence, so calling this directly overrides that choice and
-         * is rarely what a caller wants.
-         *
-         * @param function the endpoint to call
-         * @return this builder, for method chaining
-         */
-        public T function(Function function){
-            this.function = function;
             return (T) this;
         }
 

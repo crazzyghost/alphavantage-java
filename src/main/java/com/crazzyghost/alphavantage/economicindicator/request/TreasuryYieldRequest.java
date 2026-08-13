@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.economicindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
@@ -37,7 +39,9 @@ import java.util.Arrays;
  * @since 1.7.0
  */
 public class TreasuryYieldRequest extends EconomicIndicatorRequest {
+    @UrlParameter("interval")
     private Interval interval;
+    @UrlParameter("maturity")
     private Maturity maturity;
 
     private TreasuryYieldRequest(Builder builder) {

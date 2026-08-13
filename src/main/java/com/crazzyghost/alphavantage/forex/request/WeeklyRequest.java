@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.forex.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
@@ -40,6 +42,7 @@ import com.crazzyghost.alphavantage.parameters.Function;
  */
 public class WeeklyRequest extends ForexRequest{
 
+    @UrlParameter("function")
     private Function function;
 
     private WeeklyRequest(Builder builder){

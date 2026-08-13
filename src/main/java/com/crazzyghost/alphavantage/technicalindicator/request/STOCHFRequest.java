@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.MAType;
 
@@ -36,12 +38,15 @@ import com.crazzyghost.alphavantage.parameters.MAType;
 public class STOCHFRequest extends TechnicalIndicatorRequest {
 
     /** The look-back period used for the raw (fast) %K calculation. */
+    @UrlParameter("fastkperiod")
     private int fastKPeriod;
 
     /** The smoothing period applied to fast %K to produce fast %D. */
+    @UrlParameter("fastdperiod")
     private int fastDPeriod;
 
     /** The moving-average type used to smooth fast %D. */
+    @UrlParameter("fastdmatype")
     private MAType fastDMaType;
 
     /**

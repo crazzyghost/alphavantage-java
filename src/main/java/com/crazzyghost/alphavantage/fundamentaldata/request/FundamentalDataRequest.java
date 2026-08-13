@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.fundamentaldata.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
@@ -34,8 +36,10 @@ import com.crazzyghost.alphavantage.parameters.Function;
 public abstract class FundamentalDataRequest {
 
     /** The Alpha Vantage function that selects which report is returned. */
+    @UrlParameter("function")
     protected Function function;
     /** The ticker symbol to request data for. */
+    @UrlParameter("symbol")
     protected String symbol;
 
     /**
@@ -44,7 +48,7 @@ public abstract class FundamentalDataRequest {
      * @param builder the builder to copy the symbol and function from
      */
     protected FundamentalDataRequest(Builder<?> builder) {
-        this.function = builder.function;
+        this.function = builder.getFunction();
         this.symbol = builder.symbol;
     }
 
@@ -59,7 +63,30 @@ public abstract class FundamentalDataRequest {
 
         private String symbol;
         /** The Alpha Vantage function that selects which report is returned. */
-        public Function function;
+        protected Function function;
+
+        /**
+         * Returns the endpoint this builder currently targets.
+         *
+         * @return the API function, or {@code null} before a subclass pins one
+         */
+        public Function getFunction() {
+            return function;
+        }
+
+        /**
+        /**
+         * Sets the endpoint to call. Each subclass builder already pins the endpoint
+         * matching its own cadence, so calling this directly overrides that choice and
+         * is rarely what a caller wants.
+         *
+         * @param function the endpoint to call
+         * @return this builder, for method chaining
+         */
+        public T function(Function function){
+            this.function = function;
+            return (T) this;
+        }
 
         /**
          * Sets the ticker symbol to request data for.
@@ -69,19 +96,6 @@ public abstract class FundamentalDataRequest {
          */
         public T symbol(String symbol){
             this.symbol = symbol;
-            return (T) this;
-        }
-
-        /**
-         * Sets the Alpha Vantage function that selects which report is
-         * returned. Concrete subclasses set this themselves and do not
-         * expose it for further changes.
-         *
-         * @param  function the Alpha Vantage function code
-         * @return this builder, for chaining
-         */
-        public T function(Function function){
-            this.function = function;
             return (T) this;
         }
 

@@ -22,6 +22,7 @@
  */
 package com.crazzyghost.alphavantage.economicindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 
@@ -36,8 +37,10 @@ import com.crazzyghost.alphavantage.parameters.Function;
  */
 public abstract class EconomicIndicatorRequest {
     /** The Alpha Vantage function selecting which economic indicator this request targets. */
+    @UrlParameter("function")
     protected Function function;
     /** The format the API replies in, sent as the {@code datatype} parameter. */
+    @UrlParameter("datatype")
     protected DataType dataType;
 
     /**
@@ -46,7 +49,7 @@ public abstract class EconomicIndicatorRequest {
      * @param builder the builder holding the parameters to copy
      */
     protected EconomicIndicatorRequest(Builder<?> builder) {
-        this.function = builder.function;
+        this.function = builder.getFunction();
         this.dataType = builder.dataType;
     }
 
@@ -61,7 +64,31 @@ public abstract class EconomicIndicatorRequest {
      */
     public abstract static class Builder <T extends Builder<?>> {
         /** The Alpha Vantage function this request calls, set via {@link #function(Function)}. */
-        public Function function;
+        protected Function function;
+
+        /**
+         * Returns the endpoint this builder currently targets.
+         *
+         * @return the API function, or {@code null} before a subclass pins one
+         */
+        public Function getFunction() {
+            return function;
+        }
+
+        /**
+        /**
+         * Sets the endpoint to call. Each subclass builder already pins the endpoint
+         * matching its own cadence, so calling this directly overrides that choice and
+         * is rarely what a caller wants.
+         *
+         * @param function the endpoint to call
+         * @return this builder, for method chaining
+         */
+        public T function(Function function){
+            this.function = function;
+            return (T) this;
+        }
+
         /** The response format, set via {@link #dataType(DataType)}. Defaults to {@link DataType#JSON}. */
         public DataType dataType = DataType.JSON;
 
@@ -74,19 +101,6 @@ public abstract class EconomicIndicatorRequest {
          */
         public T dataType(DataType dataType){
             this.dataType = dataType;
-            return (T) this;
-        }
-
-        /**
-         * Sets the Alpha Vantage function this request calls. Subclasses pin this to
-         * their own indicator's function in their constructor, so callers do not
-         * normally need to call this directly.
-         *
-         * @param function the indicator function to request
-         * @return this builder, for method chaining
-         */
-        public T function(Function function){
-            this.function = function;
             return (T) this;
         }
 

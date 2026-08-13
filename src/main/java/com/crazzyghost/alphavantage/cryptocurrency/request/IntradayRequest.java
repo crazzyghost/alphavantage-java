@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.cryptocurrency.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.DataType;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
@@ -37,8 +39,11 @@ import com.crazzyghost.alphavantage.parameters.OutputSize;
  * @since 1.8.0
  */
 public class IntradayRequest extends CryptoRequest {
+    @UrlParameter("interval")
     private final Interval interval;
+    @UrlParameter("outputsize")
     private final OutputSize outputSize;
+    @UrlParameter("datatype")
     private final DataType dataType;
 
     private IntradayRequest(Builder builder) {
@@ -61,7 +66,7 @@ public class IntradayRequest extends CryptoRequest {
 
         /** Creates a builder for the {@code CRYPTO_INTRADAY} endpoint. */
         public Builder() {
-            this.function = Function.CRYPTO_INTRADAY;
+            this.function(Function.CRYPTO_INTRADAY);
         }
 
         /**

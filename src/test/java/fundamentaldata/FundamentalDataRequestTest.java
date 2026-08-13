@@ -6,6 +6,7 @@ import com.crazzyghost.alphavantage.fundamentaldata.request.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static util.TestUtils.assertUrlEquals;
 
 public class FundamentalDataRequestTest {
 
@@ -15,7 +16,7 @@ public class FundamentalDataRequestTest {
         FundamentalDataRequest request = new BalanceSheetRequest.Builder()
             .symbol("IBM")
             .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -24,7 +25,7 @@ public class FundamentalDataRequestTest {
         FundamentalDataRequest request = new CashFlowRequest.Builder()
                 .symbol("IBM")
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -33,7 +34,7 @@ public class FundamentalDataRequestTest {
         FundamentalDataRequest request = new CompanyOverviewRequest.Builder()
                 .symbol("IBM")
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -42,7 +43,7 @@ public class FundamentalDataRequestTest {
         FundamentalDataRequest request = new EarningsRequest.Builder()
                 .symbol("IBM")
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
@@ -51,6 +52,6 @@ public class FundamentalDataRequestTest {
         FundamentalDataRequest request = new IncomeStatementRequest.Builder()
                 .symbol("IBM")
                 .build();
-        assertEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 }

@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.forex.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
@@ -41,8 +43,11 @@ import com.crazzyghost.alphavantage.parameters.OutputSize;
  */
 public class IntraDayRequest extends ForexRequest {
 
+    @UrlParameter("interval")
     private Interval interval;
+    @UrlParameter("function")
     private Function function;
+    @UrlParameter("outputsize")
     private OutputSize outputsize;
 
     private IntraDayRequest(Builder builder){

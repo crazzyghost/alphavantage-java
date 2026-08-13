@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
 /**
@@ -36,7 +38,8 @@ import com.crazzyghost.alphavantage.parameters.SeriesType;
 public class SeriesRequest extends TechnicalIndicatorRequest {
 
     /** The price series field the indicator is computed from. */
-    private SeriesType series_type;
+    @UrlParameter("series_type")
+    private SeriesType seriesType;
 
     /**
      * Copies the values assembled by {@code builder} into this request.
@@ -45,7 +48,7 @@ public class SeriesRequest extends TechnicalIndicatorRequest {
      */
     private SeriesRequest(Builder builder) {
         super(builder);
-        this.series_type = builder.seriesType;
+        this.seriesType = builder.seriesType;
     }
 
     /**

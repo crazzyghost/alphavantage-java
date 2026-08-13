@@ -22,6 +22,8 @@
  */
 package com.crazzyghost.alphavantage.technicalindicator.request;
 
+import com.crazzyghost.alphavantage.UrlParameter;
+
 import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
 
@@ -36,15 +38,19 @@ import com.crazzyghost.alphavantage.parameters.SeriesType;
 public class PriceOscillatorRequest extends TechnicalIndicatorRequest {
 
     /** The price series field the oscillator is computed from. */
-    private SeriesType series_type;
+    @UrlParameter("series_type")
+    private SeriesType seriesType;
 
     /** The number of data points in the fast moving average. */
+    @UrlParameter("fastperiod")
     private int fastPeriod;
 
     /** The number of data points in the slow moving average. */
+    @UrlParameter("slowperiod")
     private int slowPeriod;
 
     /** The moving-average type used for both the fast and slow averages. */
+    @UrlParameter("matype")
     private MAType maType;
 
     /**
@@ -57,7 +63,7 @@ public class PriceOscillatorRequest extends TechnicalIndicatorRequest {
         this.fastPeriod = builder.fastPeriod;
         this.slowPeriod = builder.slowPeriod;
         this.maType = builder.maType;
-        this.series_type = builder.seriesType;
+        this.seriesType = builder.seriesType;
     }
 
     /**

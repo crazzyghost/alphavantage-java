@@ -1,7 +1,9 @@
 package indicator;
 
 import static org.junit.Assert.assertEquals;
+import static util.TestUtils.assertUrlEquals;
 
+import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.indicator.request.ADOSCRequest;
 import com.crazzyghost.alphavantage.indicator.request.BBANDSRequest;
@@ -31,7 +33,7 @@ public class IndicatorRequestTest {
     
     @Test
     public void testMACDEXTRequest(){
-        String expected = "series_type=open&fastperiod=12&slowperiod=26&signalperiod=9&fastmatype=8&slowmatype=0&signalmatype=0&function=MACDEXT&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?series_type=open&fastperiod=12&slowperiod=26&signalperiod=9&fastmatype=8&slowmatype=0&signalmatype=0&function=MACDEXT&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new MACDEXTRequest
             .Builder()
@@ -46,13 +48,13 @@ public class IndicatorRequestTest {
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
 
     @Test
     public void testMACDRequest(){
-        String expected = "series_type=open&fastperiod=12&slowperiod=26&signalperiod=9&function=MACD&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?series_type=open&fastperiod=12&slowperiod=26&signalperiod=9&function=MACD&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new MACDRequest
             .Builder()
@@ -64,12 +66,12 @@ public class IndicatorRequestTest {
             .forSymbol("IBM")
             .dataType(DataType.JSON)
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testMAMARequest(){
-        String expected = "series_type=open&fastlimit=0.1&slowlimit=0.5&function=MAMA&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?series_type=open&fastlimit=0.1&slowlimit=0.5&function=MAMA&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new MAMARequest
             .Builder()
@@ -79,12 +81,12 @@ public class IndicatorRequestTest {
             .seriesType(SeriesType.OPEN)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testPeriodicRequest(){
-        String expected = "time_period=60&function=DX&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?time_period=60&function=DX&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new PeriodicRequest
             .Builder()
@@ -93,12 +95,12 @@ public class IndicatorRequestTest {
             .timePeriod(60)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testPeriodicSeriesRequest(){
-        String expected = "series_type=open&time_period=60&function=SMA&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?series_type=open&time_period=60&function=SMA&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new PeriodicSeriesRequest
             .Builder()
@@ -108,12 +110,12 @@ public class IndicatorRequestTest {
             .seriesType(SeriesType.OPEN)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testPriceOscillatorRequest(){
-        String expected = "series_type=open&fastperiod=10&slowperiod=26&matype=8&function=PPO&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?series_type=open&fastperiod=10&slowperiod=26&matype=8&function=PPO&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new PriceOscillatorRequest
             .Builder()
@@ -125,12 +127,12 @@ public class IndicatorRequestTest {
             .slowPeriod(26)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testSeriesRequest(){
-        String expected = "series_type=open&function=HT_TRENDLINE&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?series_type=open&function=HT_TRENDLINE&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new SeriesRequest
             .Builder()
@@ -139,12 +141,12 @@ public class IndicatorRequestTest {
             .seriesType(SeriesType.OPEN)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testSimpleIndicatorRequest(){
-        String expected = "function=VWAP&symbol=IBM&interval=60min&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?function=VWAP&symbol=IBM&interval=60min&datatype=json&apikey=demo";
         
         IndicatorRequest request = new SimpleIndicatorRequest
             .Builder()
@@ -153,12 +155,12 @@ public class IndicatorRequestTest {
             .forSymbol("IBM")
             .build();
 
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testSTOCHFRequest(){
-        String expected = "fastkperiod=5&fastdperiod=3&fastdmatype=8&function=STOCHF&symbol=IBM&interval=60min&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?fastkperiod=5&fastdperiod=3&fastdmatype=8&function=STOCHF&symbol=IBM&interval=60min&datatype=json&apikey=demo";
         
         IndicatorRequest request = new STOCHFRequest
             .Builder()
@@ -168,12 +170,12 @@ public class IndicatorRequestTest {
             .fastDMaType(MAType.MAMA)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testSTOCHRequest(){
-        String expected = "fastkperiod=5&slowkperiod=3&slowdperiod=3&slowkmatype=0&slowdmatype=0&function=STOCH&symbol=IBM&interval=60min&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?fastkperiod=5&slowkperiod=3&slowdperiod=3&slowkmatype=0&slowdmatype=0&function=STOCH&symbol=IBM&interval=60min&datatype=json&apikey=demo";
         
         IndicatorRequest request = new STOCHRequest
             .Builder()
@@ -185,12 +187,12 @@ public class IndicatorRequestTest {
             .slowDMaType(MAType.SMA)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testSTOCHRSIRequest(){
-        String expected = "time_period=60&series_type=open&fastkperiod=5&fastdperiod=3&fastdmatype=8&function=STOCHRSI&symbol=IBM&interval=60min&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?time_period=60&series_type=open&fastkperiod=5&fastdperiod=3&fastdmatype=8&function=STOCHRSI&symbol=IBM&interval=60min&datatype=json&apikey=demo";
         
         IndicatorRequest request = new STOCHRSIRequest
             .Builder()
@@ -202,12 +204,12 @@ public class IndicatorRequestTest {
             .timePeriod(60)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testULTOSCRequest(){
-        String expected = "timeperiod1=7&timeperiod2=14&timeperiod3=28&function=ULTOSC&symbol=IBM&interval=60min&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?timeperiod1=7&timeperiod2=14&timeperiod3=28&function=ULTOSC&symbol=IBM&interval=60min&datatype=json&apikey=demo";
         
         IndicatorRequest request = new ULTOSCRequest
             .Builder()
@@ -217,12 +219,12 @@ public class IndicatorRequestTest {
             .timePeriod3(28)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testBBANDSRequest(){
-        String expected = "series_type=open&time_period=60&nbdevup=4&nbdevdn=4&matype=0&function=BBANDS&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?series_type=open&time_period=60&nbdevup=4&nbdevdn=4&matype=0&function=BBANDS&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new BBANDSRequest
             .Builder()
@@ -234,12 +236,12 @@ public class IndicatorRequestTest {
             .nbdevup(4)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testSARRequest(){
-        String expected = "acceleration=0.02&maximum=0.5&function=SAR&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?acceleration=0.02&maximum=0.5&function=SAR&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new SARRequest
             .Builder()
@@ -248,12 +250,12 @@ public class IndicatorRequestTest {
             .maximum(0.50)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
     @Test
     public void testADOSCRequest(){
-        String expected = "fastperiod=3&slowperiod=10&function=ADOSC&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        String expected = "https://www.alphavantage.co/query?fastperiod=3&slowperiod=10&function=ADOSC&symbol=IBM&interval=daily&datatype=json&apikey=demo";
         
         IndicatorRequest request = new ADOSCRequest
             .Builder()
@@ -262,7 +264,7 @@ public class IndicatorRequestTest {
             .slowPeriod(10)
             .forSymbol("IBM")
             .build();
-        assertEquals(expected, UrlExtractor.extract(request) + "demo");
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
 }

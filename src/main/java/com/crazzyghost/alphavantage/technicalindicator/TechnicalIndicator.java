@@ -141,7 +141,7 @@ public final class TechnicalIndicator implements Fetcher {
 
     private void parsePeriodicSeriesResponse(Map<String, Object> data) {
         PeriodicSeriesResponse response = null;
-        switch (builder.function) {
+        switch (builder.getFunction()) {
             case SMA:
                 response = SMAResponse.of(data);
                 break;
@@ -200,7 +200,7 @@ public final class TechnicalIndicator implements Fetcher {
     private void parseSimpleTechnicalIndicatorResponse(Map<String, Object> data) {
 
         SimpleTechnicalIndicatorResponse response = null;
-        switch (builder.function) {
+        switch (builder.getFunction()) {
             case VWAP:
                 response = VWAPResponse.of(data);
                 break;
@@ -244,7 +244,7 @@ public final class TechnicalIndicator implements Fetcher {
 
     private void parsePriceOscillatorResponse(Map<String, Object> data) {
         PriceOscillatorResponse response = null;
-        switch (builder.function) {
+        switch (builder.getFunction()) {
             case APO:
                 response = APOResponse.of(data);
                 break;
@@ -258,7 +258,7 @@ public final class TechnicalIndicator implements Fetcher {
 
     private void parsePeriodicResponse(Map<String, Object> data) {
         PeriodicResponse response = null;
-        switch (builder.function) {
+        switch (builder.getFunction()) {
             case WILLR:
                 response = WILLRResponse.of(data);
                 break;
@@ -328,7 +328,7 @@ public final class TechnicalIndicator implements Fetcher {
 
     private void parseSeriesResponse(Map<String, Object> data) {
         SeriesResponse response = null;
-        switch (builder.function) {
+        switch (builder.getFunction()) {
             case HT_TRENDLINE:
                 response = HTTRENDLINEResponse.of(data);
                 break;
@@ -356,7 +356,7 @@ public final class TechnicalIndicator implements Fetcher {
 
     private void parseTechnicalIndicatorResponse(Map<String, Object> data) {
 
-        switch (builder.function) {
+        switch (builder.getFunction()) {
             case SMA:
             case EMA:
             case WMA:
