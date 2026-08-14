@@ -25,6 +25,7 @@ package com.crazzyghost.alphavantage.timeseries.request;
 import com.crazzyghost.alphavantage.UrlParameter;
 
 import com.crazzyghost.alphavantage.parameters.DataType;
+import com.crazzyghost.alphavantage.parameters.Entitlement;
 import com.crazzyghost.alphavantage.parameters.Function;
 
 /**
@@ -55,6 +56,8 @@ public abstract class TimeSeriesRequest {
     private String symbol;
     @UrlParameter("datatype")
     private DataType dataType;
+    @UrlParameter("entitlement")
+    private Entitlement entitlement;
 
 
     /**
@@ -66,6 +69,7 @@ public abstract class TimeSeriesRequest {
         this.symbol = builder.symbol;
         this.dataType = builder.dataType;
         this.function  = builder.getFunction();
+        this.entitlement = builder.entitlement;
     }
 
     /**
@@ -87,6 +91,9 @@ public abstract class TimeSeriesRequest {
         
         /** The Alpha Vantage function this request calls, fixed by each subclass. */
         protected Function function;
+
+        /** Data freshness tier for premium plans, sent as the {@code entitlement} parameter. */
+        protected Entitlement entitlement;
 
         /**
          * Returns the endpoint this builder currently targets.
@@ -138,6 +145,24 @@ public abstract class TimeSeriesRequest {
          */
         public T forSymbol(String symbol){
             this.symbol = symbol;
+            return (T) this;
+        }
+
+        /**
+         * Sets the data freshness tier. Controls whether a premium Alpha Vantage plan
+         * receives realtime or fifteen-minute-delayed data. When unset, the parameter
+         * is omitted from the request entirely.
+         * <p>
+         * Requires a premium API key to have any effect. Free keys ignore or reject
+         * this parameter.
+         *
+         * @param entitlement the freshness tier, {@link Entitlement#REALTIME} or
+         *     {@link Entitlement#DELAYED}
+         * @return this builder, for method chaining
+         * @since 1.9.0
+         */
+        public T entitlement(Entitlement entitlement){
+            this.entitlement = entitlement;
             return (T) this;
         }
 

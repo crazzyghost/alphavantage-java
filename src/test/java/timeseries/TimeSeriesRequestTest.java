@@ -1,11 +1,13 @@
 package timeseries;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static util.TestUtils.assertUrlEquals;
 
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.UrlExtractor;
 import com.crazzyghost.alphavantage.parameters.DataType;
+import com.crazzyghost.alphavantage.parameters.Entitlement;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 import com.crazzyghost.alphavantage.timeseries.request.*;
@@ -153,6 +155,68 @@ public class TimeSeriesRequestTest {
                 .dataType(DataType.JSON)
                 .build();
         assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testIntraDayRequestWithRealtimeEntitlement() {
+        String expected = "https://www.alphavantage.co/query?interval=5min&outputsize=full&adjusted=false&extended_hours=false&entitlement=realtime&function=TIME_SERIES_INTRADAY&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new IntraDayRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .interval(Interval.FIVE_MIN)
+                .outputSize(OutputSize.FULL)
+                .entitlement(Entitlement.REALTIME)
+                .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testIntraDayRequestWithDelayedEntitlement() {
+        String expected = "https://www.alphavantage.co/query?interval=5min&outputsize=full&adjusted=false&extended_hours=false&entitlement=delayed&function=TIME_SERIES_INTRADAY&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new IntraDayRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .interval(Interval.FIVE_MIN)
+                .outputSize(OutputSize.FULL)
+                .entitlement(Entitlement.DELAYED)
+                .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testDailyAdjustedRequestWithRealtimeEntitlement() {
+        String expected = "https://www.alphavantage.co/query?outputsize=full&entitlement=realtime&function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new DailyRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .outputSize(OutputSize.FULL)
+                .adjusted()
+                .entitlement(Entitlement.REALTIME)
+                .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testGlobalQuoteRequestWithDelayedEntitlement() {
+        String expected = "https://www.alphavantage.co/query?entitlement=delayed&function=GLOBAL_QUOTE&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new QuoteRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .entitlement(Entitlement.DELAYED)
+                .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testIntraDayRequestWithoutEntitlementOmitsParameter() {
+        TimeSeriesRequest request = new IntraDayRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .interval(Interval.FIVE_MIN)
+                .outputSize(OutputSize.FULL)
+                .build();
+        String url = UrlExtractor.extract(request);
+        assertFalse(url.contains("entitlement="));
     }
 
 

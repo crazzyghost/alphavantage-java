@@ -28,6 +28,7 @@ import com.crazzyghost.alphavantage.Fetcher;
 import com.crazzyghost.alphavantage.RequestExecutor;
 import com.crazzyghost.alphavantage.ResponseDispatcher;
 import com.crazzyghost.alphavantage.parameters.DataType;
+import com.crazzyghost.alphavantage.parameters.Entitlement;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 import com.crazzyghost.alphavantage.timeseries.request.*;
@@ -232,6 +233,24 @@ public final class TimeSeries implements Fetcher {
          */
         public T dataType(DataType type) {
             this.builder.dataType(type);
+            return (T) this;
+        }
+
+        /**
+         * Sets the data freshness tier for premium Alpha Vantage plans. Controls
+         * whether the request fetches realtime or fifteen-minute-delayed data.
+         * <p>
+         * Requires a premium API key to have any effect. Free keys ignore or reject
+         * this parameter. When unset, the parameter is omitted from the request
+         * entirely.
+         *
+         * @param entitlement the freshness tier, {@link Entitlement#REALTIME} or
+         *     {@link Entitlement#DELAYED}
+         * @return this proxy, for method chaining
+         * @since 1.9.0
+         */
+        public T entitlement(Entitlement entitlement) {
+            this.builder.entitlement(entitlement);
             return (T) this;
         }
 

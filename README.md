@@ -177,5 +177,34 @@ TimeSeriesResponse response = AlphaVantage.api()
     .fetchSync();
 ```
 
+#### Premium Features
+
+If you have a premium AlphaVantage plan, you can access realtime or delayed data using the `entitlement()` parameter:
+
+```java
+import com.crazzyghost.alphavantage.parameters.Entitlement;
+
+// Request realtime data
+AlphaVantage.api()
+    .timeSeries()
+    .intraday()
+    .forSymbol("IBM")
+    .interval(Interval.FIVE_MIN)
+    .entitlement(Entitlement.REALTIME)
+    .fetchSync();
+
+// Or request fifteen-minute-delayed data
+AlphaVantage.api()
+    .technicalIndicator()
+    .sma()
+    .forSymbol("MSFT")
+    .interval(Interval.DAILY)
+    .timePeriod(20)
+    .entitlement(Entitlement.DELAYED)
+    .fetchSync();
+```
+
+The `entitlement()` parameter is available on stock time series requests (`intraday()`, `daily().adjusted()`, `quote()`) and all technical indicator requests. When unset, the parameter is omitted from the request, preserving full backward compatibility with free API keys.
+
 
 That's it! :tada: See [site](https://crazzyghost.github.io/alphavantage-java/) and [demo project](https://github.com/crazzyghost/stockmonitor) for more examples & documentation

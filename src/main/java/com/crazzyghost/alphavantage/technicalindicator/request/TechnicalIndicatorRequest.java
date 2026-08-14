@@ -24,6 +24,7 @@ package com.crazzyghost.alphavantage.technicalindicator.request;
 
 import com.crazzyghost.alphavantage.UrlParameter;
 import com.crazzyghost.alphavantage.parameters.DataType;
+import com.crazzyghost.alphavantage.parameters.Entitlement;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
 
@@ -57,6 +58,10 @@ public abstract class TechnicalIndicatorRequest {
     @UrlParameter("datatype")
     protected DataType dataType;
 
+    /** Data freshness tier for premium plans, realtime or delayed. */
+    @UrlParameter("entitlement")
+    protected Entitlement entitlement;
+
     /**
      * The {@code YYYY-MM} historical intraday window to request. Only
      * meaningful for intraday {@link Interval} values; {@code null} requests
@@ -76,6 +81,7 @@ public abstract class TechnicalIndicatorRequest {
         this.interval = builder.interval;
         this.dataType = builder.dataType;
         this.month = builder.month;
+        this.entitlement = builder.entitlement;
     }
 
     /**
@@ -128,6 +134,9 @@ public abstract class TechnicalIndicatorRequest {
          */
         protected String month;
 
+        /** Data freshness tier for premium plans, realtime or delayed. */
+        protected Entitlement entitlement;
+
         /**
          * Sets the symbol to query.
          *
@@ -172,6 +181,24 @@ public abstract class TechnicalIndicatorRequest {
          */
         public T month(String month) {
             this.month = month;
+            return (T) this;
+        }
+
+        /**
+         * Sets the data freshness tier for premium Alpha Vantage plans. Controls
+         * whether the request fetches realtime or fifteen-minute-delayed data.
+         * <p>
+         * Requires a premium API key to have any effect. Free keys ignore or reject
+         * this parameter. When unset, the parameter is omitted from the request
+         * entirely.
+         *
+         * @param entitlement the freshness tier, {@link Entitlement#REALTIME} or
+         *     {@link Entitlement#DELAYED}
+         * @return this builder
+         * @since 1.9.0
+         */
+        public T entitlement(Entitlement entitlement) {
+            this.entitlement = entitlement;
             return (T) this;
         }
 
