@@ -62,6 +62,7 @@ import com.crazzyghost.alphavantage.technicalindicator.response.vwap.VWAPRespons
 import com.crazzyghost.alphavantage.technicalindicator.response.willr.WILLRResponse;
 import com.crazzyghost.alphavantage.technicalindicator.response.wma.WMAResponse;
 import com.crazzyghost.alphavantage.parameters.DataType;
+import com.crazzyghost.alphavantage.parameters.Entitlement;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.MAType;
 import com.crazzyghost.alphavantage.parameters.SeriesType;
@@ -214,6 +215,24 @@ public class TechnicalIndicatorSyncTest {
                 .timePeriod(60)
                 .fetchSync();
         assertTrue(response.toString().matches("(.*),indicatorUnits=2(.*)"));
+        assertEquals(response.getIndicatorUnits().size(), 2);
+    }
+
+    @Test
+    public void testSMAWithEntitlementAndMonth() throws IOException {
+        mockInterceptor.addRule()
+                .get("https://www.alphavantage.co/query?series_type=open&time_period=60&function=SMA&symbol=IBM&interval=weekly&datatype=json&entitlement=realtime&month=2009-01&apikey=demo")
+                .respond(stream("sma"));
+
+        PeriodicSeriesResponse response = AlphaVantage.api().technicalIndicator().sma()
+                .forSymbol("IBM")
+                .interval(Interval.WEEKLY)
+                .seriesType(SeriesType.OPEN)
+                .timePeriod(60)
+                .entitlement(Entitlement.REALTIME)
+                .month("2009-01")
+                .fetchSync();
+        assertNull(response.getErrorMessage());
         assertEquals(response.getIndicatorUnits().size(), 2);
     }
 
