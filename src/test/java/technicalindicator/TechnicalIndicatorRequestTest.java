@@ -23,6 +23,7 @@ import com.crazzyghost.alphavantage.technicalindicator.request.SeriesRequest;
 import com.crazzyghost.alphavantage.technicalindicator.request.SimpleTechnicalIndicatorRequest;
 import com.crazzyghost.alphavantage.technicalindicator.request.ULTOSCRequest;
 import com.crazzyghost.alphavantage.parameters.DataType;
+import com.crazzyghost.alphavantage.parameters.Entitlement;
 import com.crazzyghost.alphavantage.parameters.Function;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.MAType;
@@ -296,6 +297,168 @@ public class TechnicalIndicatorRequestTest {
             .build();
         String url = UrlExtractor.extract(request);
         assertFalse(url.contains("month="));
+    }
+
+    @Test
+    public void testPeriodicSeriesRequestWithRealtimeEntitlement(){
+        String expected = "https://www.alphavantage.co/query?series_type=open&time_period=60&entitlement=realtime&function=SMA&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+
+        TechnicalIndicatorRequest request = new PeriodicSeriesRequest
+            .Builder()
+            .function(Function.SMA)
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("IBM")
+            .entitlement(Entitlement.REALTIME)
+            .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testPeriodicSeriesRequestWithDelayedEntitlement(){
+        String expected = "https://www.alphavantage.co/query?series_type=open&time_period=60&entitlement=delayed&function=EMA&symbol=MSFT&interval=weekly&datatype=json&apikey=demo";
+
+        TechnicalIndicatorRequest request = new PeriodicSeriesRequest
+            .Builder()
+            .function(Function.EMA)
+            .interval(Interval.WEEKLY)
+            .timePeriod(60)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("MSFT")
+            .entitlement(Entitlement.DELAYED)
+            .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testMACDRequestWithRealtimeEntitlement(){
+        String expected = "https://www.alphavantage.co/query?series_type=open&fastperiod=12&slowperiod=26&signalperiod=9&entitlement=realtime&function=MACD&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+        
+        TechnicalIndicatorRequest request = new MACDRequest
+            .Builder()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .fastPeriod(12)
+            .slowPeriod(26)
+            .signalPeriod(9)
+            .forSymbol("IBM")
+            .dataType(DataType.JSON)
+            .entitlement(Entitlement.REALTIME)
+            .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testSimpleTechnicalIndicatorRequestWithoutEntitlementOmitsParameter(){
+        TechnicalIndicatorRequest request = new SimpleTechnicalIndicatorRequest
+            .Builder()
+            .function(Function.AD)
+            .interval(Interval.DAILY)
+            .forSymbol("IBM")
+            .build();
+        String url = UrlExtractor.extract(request);
+        assertFalse(url.contains("entitlement="));
+    }
+
+    @Test
+    public void testMACDRequestWithDelayedEntitlement(){
+        String expected = "https://www.alphavantage.co/query?series_type=open&fastperiod=12&slowperiod=26&signalperiod=9&entitlement=delayed&function=MACD&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+
+        TechnicalIndicatorRequest request = new MACDRequest
+            .Builder()
+            .interval(Interval.DAILY)
+            .seriesType(SeriesType.OPEN)
+            .fastPeriod(12)
+            .slowPeriod(26)
+            .signalPeriod(9)
+            .forSymbol("IBM")
+            .dataType(DataType.JSON)
+            .entitlement(Entitlement.DELAYED)
+            .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testBBANDSRequestWithRealtimeEntitlement(){
+        String expected = "https://www.alphavantage.co/query?series_type=open&time_period=60&nbdevup=4&nbdevdn=4&matype=0&entitlement=realtime&function=BBANDS&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+
+        TechnicalIndicatorRequest request = new BBANDSRequest
+            .Builder()
+            .function(Function.BBANDS)
+            .interval(Interval.DAILY)
+            .timePeriod(60)
+            .seriesType(SeriesType.OPEN)
+            .nbdevdn(4)
+            .nbdevup(4)
+            .forSymbol("IBM")
+            .entitlement(Entitlement.REALTIME)
+            .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testSARRequestWithDelayedEntitlement(){
+        String expected = "https://www.alphavantage.co/query?acceleration=0.02&maximum=0.5&entitlement=delayed&function=SAR&symbol=IBM&interval=daily&datatype=json&apikey=demo";
+
+        TechnicalIndicatorRequest request = new SARRequest
+            .Builder()
+            .interval(Interval.DAILY)
+            .acceleration(0.02)
+            .maximum(0.50)
+            .forSymbol("IBM")
+            .entitlement(Entitlement.DELAYED)
+            .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testSTOCHRequestWithRealtimeEntitlement(){
+        String expected = "https://www.alphavantage.co/query?fastkperiod=5&slowkperiod=3&slowdperiod=3&slowkmatype=0&slowdmatype=0&entitlement=realtime&function=STOCH&symbol=IBM&interval=60min&datatype=json&apikey=demo";
+
+        TechnicalIndicatorRequest request = new STOCHRequest
+            .Builder()
+            .interval(Interval.SIXTY_MIN)
+            .fastKPeriod(5)
+            .slowKPeriod(3)
+            .slowDPeriod(3)
+            .slowKMaType(MAType.SMA)
+            .slowDMaType(MAType.SMA)
+            .forSymbol("IBM")
+            .entitlement(Entitlement.REALTIME)
+            .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testSimpleTechnicalIndicatorRequestWithDelayedEntitlement(){
+        String expected = "https://www.alphavantage.co/query?entitlement=delayed&function=VWAP&symbol=IBM&interval=60min&datatype=json&apikey=demo";
+
+        TechnicalIndicatorRequest request = new SimpleTechnicalIndicatorRequest
+            .Builder()
+            .function(Function.VWAP)
+            .interval(Interval.SIXTY_MIN)
+            .forSymbol("IBM")
+            .entitlement(Entitlement.DELAYED)
+            .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testPeriodicSeriesRequestWithRealtimeEntitlementAndMonth(){
+        String expected = "https://www.alphavantage.co/query?series_type=open&time_period=60&entitlement=realtime&function=SMA&symbol=IBM&interval=60min&datatype=json&month=2024-01&apikey=demo";
+
+        TechnicalIndicatorRequest request = new PeriodicSeriesRequest
+            .Builder()
+            .function(Function.SMA)
+            .interval(Interval.SIXTY_MIN)
+            .timePeriod(60)
+            .seriesType(SeriesType.OPEN)
+            .forSymbol("IBM")
+            .month("2024-01")
+            .entitlement(Entitlement.REALTIME)
+            .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
     }
 
 }

@@ -24,7 +24,8 @@
 /**
  * Enum vocabulary for the query parameters shared across this library's request
  * builders: response format, sampling interval, output size, price-series field,
- * moving-average type, Alpha Vantage function code, and treasury maturity.
+ * moving-average type, Alpha Vantage function code, treasury maturity, and data
+ * freshness entitlement.
  * <p>
  * Most constants serialize to their own Java name, but not all —
  * {@link com.crazzyghost.alphavantage.parameters.MAType}, for example, serializes to

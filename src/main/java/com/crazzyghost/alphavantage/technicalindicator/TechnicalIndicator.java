@@ -1083,6 +1083,24 @@ public final class TechnicalIndicator implements Fetcher {
             return (T) this;
         }
 
+        /**
+         * Sets the data freshness tier for premium Alpha Vantage plans. Controls
+         * whether the request fetches realtime or fifteen-minute-delayed data.
+         * <p>
+         * Requires a premium API key to have any effect. Free keys ignore or reject
+         * this parameter. When unset, the parameter is omitted from the request
+         * entirely.
+         *
+         * @param entitlement the freshness tier, {@link Entitlement#REALTIME} or
+         *     {@link Entitlement#DELAYED}
+         * @return this proxy
+         * @since 1.9.0
+         */
+        public T entitlement(Entitlement entitlement) {
+            builder = builder.entitlement(entitlement);
+            return (T) this;
+        }
+
         public T onSuccess(Fetcher.SuccessCallback<?> callback) {
             TechnicalIndicator.this.successCallback = callback;
             return (T) this;

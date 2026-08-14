@@ -11,6 +11,7 @@ import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.AlphaVantageException;
 import com.crazzyghost.alphavantage.Config;
 import com.crazzyghost.alphavantage.parameters.DataType;
+import com.crazzyghost.alphavantage.parameters.Entitlement;
 import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 import com.crazzyghost.alphavantage.timeseries.TimeSeries;
@@ -146,6 +147,25 @@ public class TimeSeriesSyncTest {
             .dataType(DataType.JSON)
             .fetchSync();
             
+        assertNull(response.getErrorMessage());
+    }
+
+    @Test
+    public void testDailyWithEntitlementSync() throws IOException{
+        mockInterceptor.addRule()
+            .get("https://www.alphavantage.co/query?outputsize=full&function=TIME_SERIES_DAILY&symbol=IBM&datatype=json&entitlement=realtime&apikey=demo")
+            .respond(stream("daily"));
+
+        TimeSeriesResponse response = AlphaVantage.api()
+            .timeSeries()
+            .daily()
+            .forSymbol("IBM")
+            .outputSize(OutputSize.FULL)
+            .dataType(DataType.JSON)
+            .entitlement(Entitlement.REALTIME)
+            .fetchSync();
+
+        assertNotNull(response);
         assertNull(response.getErrorMessage());
     }
 

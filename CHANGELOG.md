@@ -5,6 +5,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- **Premium entitlement support**: `entitlement(Entitlement.REALTIME)` and `entitlement(Entitlement.DELAYED)` setters on stock time series and technical indicator requests, gating realtime versus fifteen-minute-delayed data for premium Alpha Vantage plans. Applies to `TIME_SERIES_INTRADAY`, `TIME_SERIES_DAILY_ADJUSTED`, `GLOBAL_QUOTE`, and all 53 technical indicators. When unset, the parameter is omitted entirely, preserving full backward compatibility.
 - `CompanyOverview`: `officialSite`, the analyst-rating block (`analystRatingStrongBuy`, `analystRatingBuy`, `analystRatingHold`, `analystRatingSell`, `analystRatingStrongSell`), `sharesFloat`, `percentInsiders` and `percentInstitutions`
 - `CashFlow.stockBasedCompensation` and `QuarterlyEarning.reportTime`
 - `month(String)` parameter on `TechnicalIndicator` requests, for historical intraday windows
