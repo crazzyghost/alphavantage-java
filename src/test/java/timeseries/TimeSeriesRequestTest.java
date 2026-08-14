@@ -219,6 +219,97 @@ public class TimeSeriesRequestTest {
         assertFalse(url.contains("entitlement="));
     }
 
+    @Test
+    public void testIntraDayRequestWithDelayedEntitlementRepeatsNoParameter() {
+        TimeSeriesRequest request = new IntraDayRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .interval(Interval.FIVE_MIN)
+                .outputSize(OutputSize.FULL)
+                .entitlement(Entitlement.DELAYED)
+                .build();
+        String url = UrlExtractor.extract(request);
+        assertEquals(1, url.split("entitlement=", -1).length - 1);
+    }
 
+    @Test
+    public void testDailyRequestWithRealtimeEntitlement() {
+        String expected = "https://www.alphavantage.co/query?outputsize=full&entitlement=realtime&function=TIME_SERIES_DAILY&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new DailyRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .outputSize(OutputSize.FULL)
+                .entitlement(Entitlement.REALTIME)
+                .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testDailyAdjustedRequestWithDelayedEntitlement() {
+        String expected = "https://www.alphavantage.co/query?outputsize=full&entitlement=delayed&function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new DailyRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .outputSize(OutputSize.FULL)
+                .adjusted()
+                .entitlement(Entitlement.DELAYED)
+                .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testWeeklyRequestWithRealtimeEntitlement() {
+        String expected = "https://www.alphavantage.co/query?entitlement=realtime&function=TIME_SERIES_WEEKLY&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new WeeklyRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .entitlement(Entitlement.REALTIME)
+                .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testMonthlyRequestWithDelayedEntitlement() {
+        String expected = "https://www.alphavantage.co/query?entitlement=delayed&function=TIME_SERIES_MONTHLY&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new MonthlyRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .entitlement(Entitlement.DELAYED)
+                .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testGlobalQuoteRequestWithRealtimeEntitlement() {
+        String expected = "https://www.alphavantage.co/query?entitlement=realtime&function=GLOBAL_QUOTE&symbol=IBM&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new QuoteRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .entitlement(Entitlement.REALTIME)
+                .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testRealtimeBulkQuoteRequestWithRealtimeEntitlement() {
+        String expected = "https://www.alphavantage.co/query?entitlement=realtime&function=REALTIME_BULK_QUOTES&symbol=IBM,MSFT&datatype=json&apikey=demo";
+        TimeSeriesRequest request = new RealtimeBulkQuoteRequest.Builder()
+                .forSymbol("IBM")
+                .forSymbol("MSFT")
+                .dataType(DataType.JSON)
+                .entitlement(Entitlement.REALTIME)
+                .build();
+        assertUrlEquals(expected, Config.BASE_URL + UrlExtractor.extract(request) + "demo");
+    }
+
+    @Test
+    public void testWeeklyRequestWithoutEntitlementOmitsParameter() {
+        TimeSeriesRequest request = new WeeklyRequest.Builder()
+                .forSymbol("IBM")
+                .dataType(DataType.JSON)
+                .build();
+        String url = UrlExtractor.extract(request);
+        assertFalse(url.contains("entitlement="));
+    }
 
 }
